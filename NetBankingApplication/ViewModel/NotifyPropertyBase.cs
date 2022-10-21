@@ -11,25 +11,21 @@ namespace NetBankingApplication.ViewModel
     public abstract class NotifyPropertyBase:INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
+        //protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
+        //{
+        //    if (Equals(storage, value)) return false;
+        //    storage = value;
+        //    OnPropertyChangedAsync(propertyName);
+        //    return true;
+        //}
+        protected async Task OnPropertyChangedAsync(string propertyName)
         {
-            if (Equals(storage, value)) return false;
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-        protected void OnPropertyChanged(string propertyName)
-        {
-             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            //if (PropertyChanged != null)
-            //{
-            //    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            //}
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-            //var handler = this.PropertyChanged;
-            //if (handler != null)
-            //    handler(this, new PropertyChangedEventArgs(propertyName));
-
+                });
         }
     }
 }
