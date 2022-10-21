@@ -132,6 +132,7 @@
     <Compile Include="Domain\UseCase\Login.cs" />
     <Compile Include="Domain\UseCaseBase.cs" />
     <Compile Include="Model\Account.cs" />
+    <Compile Include="Model\Admin.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\Enum\AccountType.cs" />

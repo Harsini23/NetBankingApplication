@@ -24,8 +24,7 @@ namespace NetBankingApplication.ViewModel
                 //SetProperty(ref _response, value);
             }
         }
-
-
+        public abstract void ValidateUserInput(string userId, string password);
         public abstract void CallUseCase();
         public abstract void PopulateData();
     }

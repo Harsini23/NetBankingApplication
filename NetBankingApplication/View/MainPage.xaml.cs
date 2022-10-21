@@ -21,26 +21,20 @@ namespace NetBankingApplication
 {
     public sealed partial class MainPage : Page
     {
-        private ILoginViewModel LoginViewModel;
+        private LoginBaseViewModel LoginViewModel;
         public MainPage()
         {
           this.InitializeComponent();
           
           var serviceProviderInstance = PresenterService.GetInstance();
-            LoginViewModel = /*new LoginBaseViewModel();*/serviceProviderInstance.Services.GetService<ILoginViewModel>();
-          //  this.DataContext = new NotifyPropertyBase();
-
-            // this.DataContext = LoginViewModel;
-            // DataContext = ActivatorUtilities.GetServiceOrCreateInstance(serviceProviderInstance.Services, typeof(LoginViewModel));
+          LoginViewModel = serviceProviderInstance.Services.GetService<LoginBaseViewModel>();
         }
         private void Verify_Click(object sender, RoutedEventArgs e)
         {
             LoginViewModel.ValidateUserInput(UserId.Text,Password.Text);
         }
     }
-    public interface ILoginViewModel:INotifyPropertyChanged
-    {
-        void ValidateUserInput(string userId,string password);
-         string LoginResponseValue { get; set; }
-    }
+
+  
+
 }

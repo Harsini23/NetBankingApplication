@@ -17,8 +17,10 @@ namespace Library.Model
         public string PAN { get; set; }
         public long MobileNumber { get; set; }
         public string EmailId { get; set; }
+        public bool IsAdmin { get; set; }
         public bool IsBlocked { get; set; }
-        public User(string userId, string userName, string accountNumber, string Pan, long mobileNumber, string emailId)
+
+        public User(string userId, string userName, string accountNumber, string Pan, long mobileNumber, string emailId,bool isAdmin)
         {
             UserId = userId;
             UserName = userName;
@@ -26,6 +28,7 @@ namespace Library.Model
             PAN = Pan;
             MobileNumber = mobileNumber;
             EmailId = emailId;
+            IsAdmin = isAdmin;
           
         }
         public User() { }

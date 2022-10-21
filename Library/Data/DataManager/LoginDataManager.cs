@@ -15,7 +15,7 @@ namespace Library.Data.DataManager
 {
     internal class LoginDataManager : ILoginDataManager
     {
-        private int AccessDeniedCount = 5;
+       private int AccessDeniedCount = 5;
        CredentialService credentialService;
        UserService userService;
         public LoginDataManager()
@@ -37,18 +37,18 @@ namespace Library.Data.DataManager
         public void ValidateUserLogin(UserLoginRequest request, Login.UserLoginCallback response)
         {
             var password = EncryptPassword(request.Password);
-            // var result = credentialService.CheckUserCredential(request.UserId, request.Password);
-            var result = true;
+            var result = credentialService.CheckUserCredential(request.UserId, request.Password);
+           
             User user=null;
             string responseStatus="";
             LoginResponse loginResponse = new LoginResponse();
             ZResponse<LoginResponse> Response = new ZResponse<LoginResponse>();
             if (result)
             {
-               // user = userService.GetUser(request.UserId);
+                user = userService.GetUser(request.UserId);
                 responseStatus = "Sucessfully Loged in!";
-                //  loginResponse.currentUser = user;
-                loginResponse.currentUser = new User();
+                 loginResponse.currentUser = user;
+               
                 Response.Data=loginResponse;
                 Response.Response = responseStatus;
                 response.OnResponseSuccess(Response);

@@ -12,13 +12,13 @@ namespace Library.Model
         [PrimaryKey]
         public string UserId { get; set; }
         public string Password { get; set; }
-        public bool IsAuthenticated { get; set; }
+        public bool IsFirstUser { get; set; }
 
         public Credentials(string userId, string password, bool isAuthenticated)
         {
             UserId = userId;
             Password = password;
-            IsAuthenticated = isAuthenticated;
+            IsFirstUser = isAuthenticated;
         }
         public Credentials() { }
     }
