@@ -14,12 +14,19 @@ namespace Library.Domain
     public interface IResponseBaseCase<R>
     {
         //contain functions to call presenter callback
-        void OnResponseSuccess(IResponseType<R> response);
-        void OnResponseFailure(IResponseType<R> response);
-        void OnResponseError(IResponseType<R> response);
+        void OnResponseSuccess(ZResponse<R> response);
+        void OnResponseFailure(ZResponse<R> response);
+        void OnResponseError(ZResponse<R> response);
     }
-    public interface IResponseType<R> 
+    public interface IResponseType 
     {
        string Response { get; set; }
+    }
+
+    public class ZResponse<R> : IResponseType
+    {
+       public string Response { get ; set ; }
+
+        public R Data;
     }
 }

@@ -16,31 +16,30 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.View;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
 namespace NetBankingApplication
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         private ILoginViewModel LoginViewModel;
         public MainPage()
         {
-            this.InitializeComponent();
-            var serviceProviderInstance = PresenterService.GetInstance();
-            LoginViewModel = serviceProviderInstance.Services.GetService<ILoginViewModel>();
-            OnUIEventTrigger();
+          this.InitializeComponent();
+          
+          var serviceProviderInstance = PresenterService.GetInstance();
+            LoginViewModel = /*new LoginBaseViewModel();*/serviceProviderInstance.Services.GetService<ILoginViewModel>();
+          //  this.DataContext = new NotifyPropertyBase();
+
+            // this.DataContext = LoginViewModel;
+            // DataContext = ActivatorUtilities.GetServiceOrCreateInstance(serviceProviderInstance.Services, typeof(LoginViewModel));
         }
-        //button click event trigger to call view model
-        public void OnUIEventTrigger()
+        private void Verify_Click(object sender, RoutedEventArgs e)
         {
-            LoginViewModel.ValidateUserInput();
+            LoginViewModel.ValidateUserInput(UserId.Text,Password.Text);
         }
     }
     public interface ILoginViewModel
     {
-        void ValidateUserInput();
+        void ValidateUserInput(string userId,string password);
+         string LoginResponseValue { get; set; }
     }
 }

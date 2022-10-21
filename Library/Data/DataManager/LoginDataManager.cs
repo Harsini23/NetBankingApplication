@@ -34,50 +34,50 @@ namespace Library.Data.DataManager
             return "";
         }
 
-        public void ValidateUserLogin(UserLoginRequest request, Login.UserLoginResponse response)
+        public void ValidateUserLogin(UserLoginRequest request, Login.UserLoginCallback response)
         {
             var password = EncryptPassword(request.Password);
-            var result = credentialService.CheckUserCredential(request.UserId, request.Password);
+            // var result = credentialService.CheckUserCredential(request.UserId, request.Password);
+            var result = true;
             User user=null;
             string responseStatus="";
             LoginResponse loginResponse = new LoginResponse();
-
+            ZResponse<LoginResponse> Response = new ZResponse<LoginResponse>();
             if (result)
             {
-                user = userService.GetUser(request.UserId);
+               // user = userService.GetUser(request.UserId);
                 responseStatus = "Sucessfully Loged in!";
-                loginResponse.currentUser = user;
-                loginResponse.Response = responseStatus;
-                response.OnResponseSuccess(loginResponse);
+                //  loginResponse.currentUser = user;
+                loginResponse.currentUser = new User();
+                Response.Data=loginResponse;
+                Response.Response = responseStatus;
+                response.OnResponseSuccess(Response);
+                AccessDeniedCount = 5;
             }
             else
             {
                 if (AccessDeniedCount <= 0)
                 {
-                    responseStatus = "Too many invalid attempts! Try again after sometime or block account";
-                    loginResponse.Response = responseStatus;
-                    response.OnResponseFailure(loginResponse);
+                    responseStatus = "Too many invalid attempts! Try again after sometime or account is blocked";
+                    Response.Response = responseStatus;
+                    Response.Data = null;
+                    response.OnResponseFailure(Response);
                 }
                 else
                 {
                     responseStatus = "Failed Try Again";
-                    loginResponse.Response = responseStatus;
-                    response.OnResponseFailure(loginResponse);
+                    Response.Response = responseStatus;
+                    Response.Data = null;
+                    response.OnResponseFailure(Response);
                 }
                 AccessDeniedCount--;
             }
-
-            //if the user exists and userid and password matches
-            // user = userService.GetUser(request.UserId);
-           // user = new User("Harsh2002", " Harsini", " 4632GS42S3", "KI4F632G2S", 3456787542, "emailId");
-             //   responseStatus = "Successfully reached datamanager";
         }
     }
 
-    public class LoginResponse : IResponseType<LoginResponse>
+    public class LoginResponse :ZResponse<User>
     {
         public User currentUser;
-        public string Response { get; set; }
 
     }
 }

@@ -5,10 +5,15 @@
     xmlns:local="using:NetBankingApplication"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:NetBankingApplication.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
 
-    </Grid>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBox x:Name="UserId"></TextBox>
+        <TextBox x:Name="Password"></TextBox>
+        <Button x:Name="Verify" Content="Submit" Click="Verify_Click"></Button>
+        <TextBlock Text="{x:Bind LoginViewModel.LoginResponseValue,Mode=OneWay }"></TextBlock>
+    </StackPanel>
 </Page>

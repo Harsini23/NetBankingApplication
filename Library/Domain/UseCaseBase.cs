@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,8 @@ namespace Library.Domain
                 }
                 catch(Exception ex)
                 {
-
+                    Debug.WriteLine("Exception has been caught:");
+                    Debug.WriteLine(ex.ToString()); 
                 }
             });
         }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetBankingApplication.ViewModel
+namespace Library.Data.DataBaseService
 {
-    internal class UserProfileViewModel 
+    internal class TransactionService
     {
-      
     }
 }
