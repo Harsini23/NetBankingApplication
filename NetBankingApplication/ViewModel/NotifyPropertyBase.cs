@@ -15,21 +15,17 @@ namespace NetBankingApplication.ViewModel
         {
             if (Equals(storage, value)) return false;
             storage = value;
-            OnPropertyChanged(propertyName);
+            OnPropertyChangedAsync(propertyName);
             return true;
         }
-        protected void OnPropertyChanged(string propertyName)
+        protected async Task OnPropertyChangedAsync(string propertyName)
         {
-             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            //if (PropertyChanged != null)
-            //{
-            //    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            //}
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                {
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-            //var handler = this.PropertyChanged;
-            //if (handler != null)
-            //    handler(this, new PropertyChangedEventArgs(propertyName));
-
+                });
         }
     }
 }
