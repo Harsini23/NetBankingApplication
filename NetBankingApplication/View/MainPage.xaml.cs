@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.View;
+using System.ComponentModel;
 
 namespace NetBankingApplication
 {
@@ -33,5 +34,7 @@ namespace NetBankingApplication
             LoginViewModel.ValidateUserInput(UserId.Text,Password.Text);
         }
     }
+
   
+
 }
