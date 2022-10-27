@@ -54,19 +54,32 @@ namespace Library.Data.DataBaseService
             return user;
         }
 
-        //public void AddUser()
-        //{
-        //    var user = new User()
-        //    {
-        //        UserId = "Harsh2002",
-        //        UserName="Harsini",
-        //        AccountNumber="129194203812380048",
-        //        PAN="KW329DG912",
-        //        MobileNumber=9026745564,
-        //        EmailId="harsh@gamil.com",
-        //        IsBlocked=false
-        //    };
-        //    connection.Insert(user);
-        //}
+        public void BlockAccount(string userId)
+        {
+            var query = connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault();
+            User user = query;
+            user.IsBlocked = true;
+            connection.Update(user);
+        }
+
+        public void UnBlockAccount(string userId)
+        {
+            var query = connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault();
+            query.IsBlocked = false;
+            connection.Update(query);
+        }
+
+        public void AddUser()
+        {
+            var user = new User()
+            {
+                UserId = "Harsh",
+                UserName = "Harsini",
+                MobileNumber = 9026745564,
+                EmailId = "harsh@gmail.com",
+                IsBlocked = false
+            };
+            connection.Insert(user);
+        }
     }
 }

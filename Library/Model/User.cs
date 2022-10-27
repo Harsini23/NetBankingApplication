@@ -13,23 +13,16 @@ namespace Library.Model
         [PrimaryKey,NotNull]
         public string UserId { get; set; }
         public string UserName { get; set; }
-        public string AccountNumber { get; set; }
-        public string PAN { get; set; }
         public long MobileNumber { get; set; }
         public string EmailId { get; set; }
-        public bool IsAdmin { get; set; }
         public bool IsBlocked { get; set; }
 
-        public User(string userId, string userName, string accountNumber, string Pan, long mobileNumber, string emailId,bool isAdmin)
+        public User(string userId, string userName, long mobileNumber, string emailId)
         {
             UserId = userId;
             UserName = userName;
-            AccountNumber = accountNumber;
-            PAN = Pan;
             MobileNumber = mobileNumber;
             EmailId = emailId;
-            IsAdmin = isAdmin;
-          
         }
         public User() { }
     }

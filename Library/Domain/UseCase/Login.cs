@@ -52,7 +52,6 @@ namespace Library.Domain
         {
             return false;
         }
-
         public class UserLoginCallback : ZResponse<LoginResponse>
         {
             private Login login;

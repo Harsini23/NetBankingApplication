@@ -120,6 +120,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Data\CreateTables.cs" />
     <Compile Include="Data\DatabaseConnection.cs" />
     <Compile Include="Data\DataBasePath.cs" />
     <Compile Include="Data\DataBaseService\CredentialService.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Domain\UseCaseBase.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\Admin.cs" />
+    <Compile Include="Model\Branch.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\Enum\AccountType.cs" />

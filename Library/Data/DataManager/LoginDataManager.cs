@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using SQLite;
 using Library.Data.DataBaseService;
+using System.Security.Cryptography;
+using System.Diagnostics;
 
 namespace Library.Data.DataManager
 {
@@ -18,8 +20,14 @@ namespace Library.Data.DataManager
        private int AccessDeniedCount = 5;
        CredentialService credentialService;
        UserService userService;
+       CreateTables createTableInstance;
         public LoginDataManager()
         {
+            if (createTableInstance==null)
+            {
+                createTableInstance = CreateTables.GetInstance();
+                createTableInstance.InstantiateAllTables();
+            }
            credentialService = CredentialService.GetInstance();
            userService = UserService.GetInstance();
         }
@@ -29,26 +37,70 @@ namespace Library.Data.DataManager
             //call back implementation to view model
         }
 
-        private string EncryptPassword(string password)
+       
+        private byte[] EncryptPassword(string str)
         {
-            return "";
+            SHA256 sha256 = SHA256Managed.Create();
+            byte[] hashValue;
+            UTF8Encoding objUtf8 = new UTF8Encoding();
+            hashValue = sha256.ComputeHash(objUtf8.GetBytes(str));
+            return hashValue;
+        }
+
+        static string BytesToString(byte[] bytes)
+        {
+            using (MemoryStream stream = new MemoryStream(bytes))
+            {
+                using (StreamReader streamReader = new StreamReader(stream))
+                {
+                    return streamReader.ReadToEnd();
+                }
+            }
         }
 
         public void ValidateUserLogin(UserLoginRequest request, Login.UserLoginCallback response)
         {
-            var password = EncryptPassword(request.Password);
-            var result = credentialService.CheckUserCredential(request.UserId, request.Password);
-           
-            User user=null;
-            string responseStatus="";
+            var UserId= request.UserId;
+            User user = null;
+            string responseStatus = "";
             LoginResponse loginResponse = new LoginResponse();
             ZResponse<LoginResponse> Response = new ZResponse<LoginResponse>();
+            var password = BytesToString(EncryptPassword(request.Password));
+          
+
+            if (AccessDeniedCount <= 0 && credentialService.CheckUser(UserId))
+            {
+
+                responseStatus = "Too many invalid attempts! Account is blocked";
+                Response.Response = responseStatus;
+                Response.Data = null;
+                response.OnResponseFailure(Response);
+                userService.BlockAccount(UserId);
+                return;
+            }
+          
+        
+            var result = credentialService.CheckUserCredential(UserId, password);
+
+           
             if (result)
             {
-                user = userService.GetUser(request.UserId);
-                responseStatus = "Sucessfully Loged in!";
-                 loginResponse.currentUser = user;
-               
+                //check if admin
+                var IsAdmin = credentialService.CheckIfAdmin(UserId);
+                if (IsAdmin)
+                {
+                    responseStatus = "Sucessfully Loged in, Welcome Admin!";
+                }
+                else if(credentialService.CheckIfNewUser(UserId))
+                {
+                    responseStatus = "Sucessfully Loged in as new User - reset password!";
+                }
+                else
+                {
+                    responseStatus = "Sucessfully Loged in, Welcome User ";
+                }
+                user = userService.GetUser(UserId);
+                loginResponse.currentUser = user;
                 Response.Data=loginResponse;
                 Response.Response = responseStatus;
                 response.OnResponseSuccess(Response);
@@ -56,21 +108,24 @@ namespace Library.Data.DataManager
             }
             else
             {
-                if (AccessDeniedCount <= 0)
+               
+                if (credentialService.CheckUser(UserId))
                 {
-                    responseStatus = "Too many invalid attempts! Try again after sometime or account is blocked";
+                    AccessDeniedCount--;
+                    responseStatus = "Invalid password";
                     Response.Response = responseStatus;
                     Response.Data = null;
                     response.OnResponseFailure(Response);
+                   
                 }
                 else
                 {
-                    responseStatus = "Failed Try Again";
+                    responseStatus = "Invalid User, Try Again";
                     Response.Response = responseStatus;
                     Response.Data = null;
                     response.OnResponseFailure(Response);
                 }
-                AccessDeniedCount--;
+             
             }
         }
     }
