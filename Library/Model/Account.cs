@@ -13,7 +13,7 @@ namespace Library.Model
         public string AccountNumber { get; set; }
         public string IfscCode { get; set; }
         public AccountType AccountType { get; set; }
-        private double TotalBalance { get; set; }
+        public double TotalBalance { get; set; }
         public Card CardDetails { get; set; }
 
         public Account(string accountNumber, string ifscCode, AccountType accountType, double totalBalance, Card cardDetails)
@@ -24,5 +24,6 @@ namespace Library.Model
             TotalBalance = totalBalance;
             CardDetails = cardDetails;
         }
+        public Account() { }
     }
 }

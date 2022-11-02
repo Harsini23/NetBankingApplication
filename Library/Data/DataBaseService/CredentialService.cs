@@ -31,7 +31,7 @@ namespace Library.Data.DataBaseService
 
         public bool CheckUser(string userId)
         {
-            var query = connection.Table<Credentials>().Where(s => s.UserId == userId ).FirstOrDefault(); ;
+            var query = connection.Table<Credentials>().Where(c => c.UserId == userId ).FirstOrDefault(); ;
             if (query != null) return true;
             return false;
         }
@@ -40,7 +40,7 @@ namespace Library.Data.DataBaseService
         {
             //fetches record from db
             //pass to datamanager
-            var query = connection.Table<Credentials>().Where(s => s.UserId == userId && s.Password==password).FirstOrDefault();
+            var query = connection.Table<Credentials>().Where(c => c.UserId == userId && c.Password==password).FirstOrDefault();
             if(query!=null) return true;
 
             return false;
@@ -48,14 +48,14 @@ namespace Library.Data.DataBaseService
 
         public bool CheckIfAdmin(string userId)
         {
-            var query = connection.Table<Credentials>().Where(s => s.UserId == userId && s.IsAdmin==true).FirstOrDefault(); ;
+            var query = connection.Table<Credentials>().Where(c => c.UserId == userId && c.IsAdmin==true).FirstOrDefault(); ;
             if (query != null) return true;
 
             return false;
         }
         public bool CheckIfNewUser(string userId)
         {
-            var query = connection.Table<Credentials>().Where(s => s.UserId == userId && s.NewUser==true).FirstOrDefault(); ;
+            var query = connection.Table<Credentials>().Where(c => c.UserId == userId && c.NewUser==true).FirstOrDefault(); 
             if (query != null) return true;
 
             return false;
@@ -78,6 +78,25 @@ namespace Library.Data.DataBaseService
             connection.Insert(credentials);
         }
 
+        public bool ResetPassword(string userId, string password)
+        {
+            var query = connection.Query<Credentials>("UPDATE Credentials SET Password=?, NewUser=false WHERE UserID=? ", password,userId);
+            
+            var ReCheckingquery = connection.Table<Credentials>().Where(c => c.UserId == userId && c.Password == password).FirstOrDefault();
+            if (ReCheckingquery != null) return true;
+            return false;
+        }
+        public void AddCredential(string userId,string password)
+        {
+            var newCredential = new Credentials()
+            {
+                UserId = userId,
+                Password = password,
+                NewUser = true,
+                IsAdmin = false
+            };
+            connection.Insert(newCredential);
+        }
         //public void GetData<User>()
         //{
         //   //get data from db and return in type of user

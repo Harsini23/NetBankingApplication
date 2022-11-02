@@ -1,4 +1,5 @@
 ﻿using Library.Data.DataManager;
+using Library.Domain.UseCase;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace Library.Domain
             var services = new ServiceCollection();
             //Services
             services.AddSingleton<ILoginDataManager, LoginDataManager>();
+            services.AddSingleton<IResetPasswordDataManager, ResetPasswordDataManager>(); ;
 
             return services.BuildServiceProvider();
         }

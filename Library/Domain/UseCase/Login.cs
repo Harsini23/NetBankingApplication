@@ -27,7 +27,7 @@ namespace Library.Domain
     }
     public interface IPresenterLoginCallback
     {
-        void VerfiedUser(ZResponse<LoginResponse> response);
+        void VerfiedUserAsync(ZResponse<LoginResponse> response);
         void BlockAccount(ZResponse<LoginResponse> response);
         void LoginFailed(ZResponse<LoginResponse> response);
     }
@@ -72,7 +72,8 @@ namespace Library.Domain
             }
             public void OnResponseSuccess(ZResponse<LoginResponse> response)
             {
-                login.LoginResponse.VerfiedUser(response);
+                login.LoginResponse.VerfiedUserAsync(response);
+               
             }
         }
     }

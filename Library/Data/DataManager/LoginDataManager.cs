@@ -60,17 +60,18 @@ namespace Library.Data.DataManager
 
         public void ValidateUserLogin(UserLoginRequest request, Login.UserLoginCallback response)
         {
+          
             var UserId= request.UserId;
             User user = null;
+            bool IsNewUser = false ;
             string responseStatus = "";
             LoginResponse loginResponse = new LoginResponse();
             ZResponse<LoginResponse> Response = new ZResponse<LoginResponse>();
             var password = BytesToString(EncryptPassword(request.Password));
-          
+         // credentialService.AddRecord(request.UserId, password,false);
 
             if (AccessDeniedCount <= 0 && credentialService.CheckUser(UserId))
             {
-
                 responseStatus = "Too many invalid attempts! Account is blocked";
                 Response.Response = responseStatus;
                 Response.Data = null;
@@ -81,6 +82,7 @@ namespace Library.Data.DataManager
           
         
             var result = credentialService.CheckUserCredential(UserId, password);
+            //var result = credentialService.CheckUserCredential(UserId, request.Password);
 
            
             if (result)
@@ -94,6 +96,8 @@ namespace Library.Data.DataManager
                 else if(credentialService.CheckIfNewUser(UserId))
                 {
                     responseStatus = "Sucessfully Loged in as new User - reset password!";
+                    IsNewUser = true;
+
                 }
                 else
                 {
@@ -101,6 +105,7 @@ namespace Library.Data.DataManager
                 }
                 user = userService.GetUser(UserId);
                 loginResponse.currentUser = user;
+                loginResponse.NewUser = IsNewUser;
                 Response.Data=loginResponse;
                 Response.Response = responseStatus;
                 response.OnResponseSuccess(Response);
@@ -133,6 +138,7 @@ namespace Library.Data.DataManager
     public class LoginResponse :ZResponse<User>
     {
         public User currentUser;
+        public bool NewUser;
 
     }
 }

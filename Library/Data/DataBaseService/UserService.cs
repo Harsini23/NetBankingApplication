@@ -46,9 +46,9 @@ namespace Library.Data.DataBaseService
         {
             var query = connection.Table<User>().Where(i=>i.UserId==userId).FirstOrDefault();
             Debug.WriteLine("------------------------------------");
-            Debug.WriteLine(query.UserName);
+         //   Debug.WriteLine(query.UserName);
             User user=query;
-           Debug.WriteLine(query.UserId);
+          // Debug.WriteLine(query.UserId);
             
             // var users= new User() { UserId=userId,UserName="Harsh" };
             return user;

@@ -10,6 +10,7 @@ namespace Library.Model
     public class Transaction
     {
         public int UserId { get; set; }
+        public string AccountNumber { get; set; }
         public int TransactionId { get; set; }
         public DateTime Time { get; set; }
         public TransactionType TransactionType { get; set; }
@@ -19,7 +20,7 @@ namespace Library.Model
         public string ToAccount { get; set; }
         public bool Status { get; set; }
 
-        public Transaction(int transactionId, DateTime time, TransactionType transactionType, string remark, double transactionAmout, string fromAccount, string toAccount, bool status)
+        public Transaction(int transactionId, DateTime time, TransactionType transactionType, string remark, double transactionAmout, string fromAccount, string toAccount, bool status, string accountNumber)
         {
             TransactionId = transactionId;
             Time = time;
@@ -29,6 +30,7 @@ namespace Library.Model
             FromAccount = fromAccount;
             ToAccount = toAccount;
             Status = status;
+            AccountNumber = accountNumber;
         }
     }
 }

@@ -25,8 +25,30 @@ namespace NetBankingApplication.ViewModel
                 //SetProperty(ref _response, value);
             }
         }
+
+        public string ResetPasswordResponseValue
+        {
+            get { return this._response; }
+            set
+            {
+                _response = value;
+                OnPropertyChangedAsync(nameof(ResetPasswordResponseValue));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+        public ILoginViewModelInterface LoginViewModelCallback { get; set; }
+
         public abstract void ValidateUserInput(string userId, string password);
+        public abstract void ResetPassword(string newPassword);
         public abstract void CallUseCase();
-        public abstract void PopulateData();
+    
     }
+
+    public interface ILoginViewModelInterface
+    {
+        void SwitchToResetPasswordContainer();
+        //set iloginview instance to service provider
+    }
+
 }
