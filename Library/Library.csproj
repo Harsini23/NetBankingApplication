@@ -128,10 +128,12 @@
     <Compile Include="Data\DataBaseService\IService.cs" />
     <Compile Include="Data\DataBaseService\TransactionService.cs" />
     <Compile Include="Data\DataBaseService\UserService.cs" />
+    <Compile Include="Data\DataManager\CreateNewUserDataManager.cs" />
     <Compile Include="Data\DataManager\LoginDataManager.cs" />
     <Compile Include="Data\DataManager\ResetPasswordDataManager.cs" />
     <Compile Include="Domain\BaseCase.cs" />
     <Compile Include="Domain\IServiceProvider.cs" />
+    <Compile Include="Domain\UseCase\CreateNewUser.cs" />
     <Compile Include="Domain\UseCase\ListTransaction.cs" />
     <Compile Include="Domain\UseCase\Login.cs" />
     <Compile Include="Domain\UseCaseBase.cs" />
@@ -176,7 +178,9 @@
       <Version>2.1.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Util\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

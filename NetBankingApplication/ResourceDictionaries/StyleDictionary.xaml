@@ -7,6 +7,7 @@
         <Setter Target="HorizontalAlignment" Value="Center"></Setter>
         <Setter Target="FontSize" Value="30"></Setter>
         <Setter Target="Margin" Value="5"></Setter>
+        <Setter Target="Padding" Value="5"></Setter>
         <Setter Target="LineHeight" Value="3"></Setter>
     </Style>
     <Style TargetType="Grid" x:Name="FormBackground">

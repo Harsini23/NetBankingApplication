@@ -31,8 +31,10 @@ namespace NetBankingApplication
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadContentFrame.Navigate(typeof(LoginPage));
+             LoadContentFrame.Navigate(typeof(LoginPage));
         }
+
+       
     }
 
   

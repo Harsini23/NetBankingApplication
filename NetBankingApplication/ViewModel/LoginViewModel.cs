@@ -49,11 +49,9 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
             public PresenterLoginCallback()
             {
 
-            }            public PresenterLoginCallback(LoginViewModel loginViewModel)            {                this.loginViewModel = loginViewModel;
+            }            public PresenterLoginCallback(LoginViewModel loginViewModel)            {                this.loginViewModel = loginViewModel;
 
             }
-
-
             public void BlockAccount(ZResponse<LoginResponse> response)            {                loginViewModel.LoginResponseValue = response.Response.ToString();            }            public void LoginFailed(ZResponse<LoginResponse> response)            {                loginViewModel.LoginResponseValue = response.Response.ToString();            }
 
             public void ResetPasswordFailure(ZResponse<bool> response)
@@ -75,8 +73,19 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
                     handleCallbackAsync();
                 }
 
-                //then continue with user profile details display
+                //then continue with user profile details display //pass user and id
                 LoginViewModel.user = response.Data.currentUser;
+                //Debug.WriteLine(LoginViewModel.user.EmailId);
+
+
+            }
+            private async Task LoadDashBoard()
+            {
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+            Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                loginViewModel.loginViewCallback.SwitchToResetPasswordContainer();
+            });
 
             }
 

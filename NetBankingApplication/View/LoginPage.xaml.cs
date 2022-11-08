@@ -152,5 +152,7 @@ namespace NetBankingApplication.View
         {
             LoginViewModel.ResetPassword(RePasswordReset.Password);
         }
+
+      
     }
 }

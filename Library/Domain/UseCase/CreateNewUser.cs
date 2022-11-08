@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetBankingApplication.ViewModel
+namespace Library.Domain.UseCase
 {
-    public class UserBaseViewModel
+    internal class CreateNewUser
     {
     }
 }

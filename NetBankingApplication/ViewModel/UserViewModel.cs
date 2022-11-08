@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace NetBankingApplication.ViewModel
 {
-    internal class UserViewModel
+    //set static readonly property userd id in constructor for access
+    public class UserViewModel
     {
     }
 }

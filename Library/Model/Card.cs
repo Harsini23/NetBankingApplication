@@ -12,14 +12,17 @@ namespace Library.Model
         public string CardNumber { get; set; }
         public CardType CardType { get; set; }
         public string PinNumber { get; set; }
+
+        public DateTime ValidFrom { get; set; }
         public DateTime ValidTill { get; set; }
 
-        public Card(string cardNumber, CardType cardType, string pinNumber, DateTime validTill)
+        public Card(string cardNumber, CardType cardType, string pinNumber, DateTime validTill, DateTime validFrom)
         {
             CardNumber = cardNumber;
             CardType = cardType;
             PinNumber = pinNumber;
             ValidTill = validTill;
+            ValidFrom = validFrom;
         }
     }
 }
