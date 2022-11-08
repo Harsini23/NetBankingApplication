@@ -20,13 +20,22 @@ using System.Diagnostics;
 
 namespace NetBankingApplication
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : Page, IMainPageNavigation
     {
-       
+        private LoginBaseViewModel LoginViewModel;
+        PresenterService LoginVMserviceProviderInstance;
         public MainPage()
         {
             Debug.WriteLine(Application.Current.Resources);
             this.InitializeComponent();
+            LoginVMserviceProviderInstance = PresenterService.GetInstance();
+            LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
+            LoginViewModel.MainPageNavigationCallback = this;
+        }
+
+        public void NavigateToDashBoard()
+        {
+            LoadContentFrame.Navigate(typeof(DashBoard));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

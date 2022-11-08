@@ -12,7 +12,8 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
         public string userId, password, resetNewPassword;
         public static User user;
 
-        ILoginViewModelInterface loginViewCallback;
+        ILoginViewModel loginViewCallback;
+        IMainPageNavigation mainPageNavigation;
 
 
         public override void CallUseCase()        {
@@ -27,6 +28,7 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
         private void SetValueForCallback()
         {
             loginViewCallback = LoginViewModelCallback;
+            mainPageNavigation = MainPageNavigationCallback;
         }
 
         public override void ValidateUserInput(string userId, string password)
@@ -43,9 +45,9 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
         }
 
         public class PresenterLoginCallback : IPresenterLoginCallback, IPersenterResetPasswordCallback        {            private LoginViewModel loginViewModel;
-            // private ILoginViewModelInterface loginViewCallback;
+            // private ILoginViewModel loginViewCallback;
 
-            // private ILoginViewModelInterface loginVMCallbackSwitch;
+            // private ILoginViewModel loginVMCallbackSwitch;
             public PresenterLoginCallback()
             {
 
@@ -76,6 +78,7 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
                 //then continue with user profile details display //pass user and id
                 LoginViewModel.user = response.Data.currentUser;
                 //Debug.WriteLine(LoginViewModel.user.EmailId);
+                LoadDashBoard();
 
 
             }
@@ -84,7 +87,7 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
             Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                loginViewModel.loginViewCallback.SwitchToResetPasswordContainer();
+                loginViewModel.mainPageNavigation.NavigateToDashBoard();
             });
 
             }

@@ -37,7 +37,10 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
-        public ILoginViewModelInterface LoginViewModelCallback { get; set; }
+        public ILoginViewModel LoginViewModelCallback { get; set; }
+
+        //
+        public IMainPageNavigation MainPageNavigationCallback { get; set; }
 
         public abstract void ValidateUserInput(string userId, string password);
         public abstract void ResetPassword(string newPassword);
@@ -45,10 +48,14 @@ namespace NetBankingApplication.ViewModel
     
     }
 
-    public interface ILoginViewModelInterface
+    public interface ILoginViewModel
     {
         void SwitchToResetPasswordContainer();
         //set iloginview instance to service provider
     }
-
+    public interface IMainPageNavigation
+    {
+        void NavigateToDashBoard();
+        //future logout change frame
+    }
 }

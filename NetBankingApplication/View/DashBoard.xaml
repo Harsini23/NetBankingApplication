@@ -8,8 +8,39 @@
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+          <!--Bank logo bank name, userID change password,profile, logout button options - top -->
+            <TextBlock x:Name="HeaderTextBox" HorizontalAlignment="Left" Style="{StaticResource HeaderStyle }" Text="ZBank" Grid.Column="0"></TextBlock>
+        </StackPanel>
+
+        
+        <NavigationView Grid.Row="1" x:Name="DashBoardNavigation" Header="Welcome user" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False">
+            <NavigationView.MenuItems>
+                <NavigationViewItem  Content="Overview" x:Name="Overview" />
+                <NavigationViewItem  Content="Bank Account" x:Name="BankAccount"  />
+                <NavigationViewItem  Content="Payments and Transfer" x:Name="PaymentsAndTransfer"  />
+                <NavigationViewItem  Content="Card and Loans" x:Name="CardAndLoans"  />
+                <NavigationViewItem  Content="Investment and Insurance" x:Name="InvestmentAndInsurance"  />
+                <NavigationViewItem  Content="Customer Service" Name="CustomerService" />
+            </NavigationView.MenuItems>
+            <Frame x:Name="SelectedDashboardContentFrame"/>
+        </NavigationView>
+
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -24,19 +55,6 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
-        <NavigationView x:Name="DashBoardNavigation" Header="Welcome user" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False">
-            <NavigationView.MenuItems>
-                <NavigationViewItem  Content="Overview" x:Name="Overview" />
-                <NavigationViewItem  Content="Bank Account" x:Name="BankAccount"  />
-                <NavigationViewItem  Content="Payments and Transfer" x:Name="PaymentsAndTransfer"  />
-                <NavigationViewItem  Content="Card and Loans" x:Name="CardAndLoans"  />
-                <NavigationViewItem  Content="Investment and Insurance" x:Name="InvestmentAndInsurance"  />
-                <NavigationViewItem  Content="Customer Service" Name="CustomerService" />
-            </NavigationView.MenuItems>
-            <Frame x:Name="SelectedDashboardContentFrame"/>
-        </NavigationView>
-
-
+        
     </Grid>
 </Page>
