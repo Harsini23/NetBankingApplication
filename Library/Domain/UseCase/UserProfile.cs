@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.Data.DataBaseService
+namespace Library.Domain.UseCase
 {
-    internal class TransactionService
+    internal class UserProfile
     {
     }
 }

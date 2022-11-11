@@ -15,21 +15,27 @@ using System.Diagnostics;
 
 namespace Library.Data.DataManager
 {
-    internal class LoginDataManager : ILoginDataManager
+    public class LoginDataManager : BankingDataManager,ILoginDataManager
     {
        private int AccessDeniedCount = 5;
-       CredentialService credentialService;
-       UserService userService;
+   
+       BankingDataManager bankingDataManager;
        CreateTables createTableInstance;
-        public LoginDataManager()
+        
+       
+        // BankingDataManager Handler;
+        public LoginDataManager():base(new DbHandler(),new NetHandler())
         {
+           
+            //  Handler = new BankingDataManager(dbHandler, netHandler);
             if (createTableInstance==null)
             {
                 createTableInstance = CreateTables.GetInstance();
                 createTableInstance.InstantiateAllTables();
+              
             }
-           credentialService = CredentialService.GetInstance();
-           userService = UserService.GetInstance();
+
+       
         }
         private void InvalidLogin()
         {
@@ -70,30 +76,30 @@ namespace Library.Data.DataManager
             var password = BytesToString(EncryptPassword(request.Password));
          // credentialService.AddRecord(request.UserId, password,false);
 
-            if (AccessDeniedCount <= 0 && credentialService.CheckUser(UserId))
+            if (AccessDeniedCount <= 0 && DbHandler.CheckUser(UserId))
             {
                 responseStatus = "Too many invalid attempts! Account is blocked";
                 Response.Response = responseStatus;
                 Response.Data = null;
                 response.OnResponseFailure(Response);
-                userService.BlockAccount(UserId);
+                DbHandler.BlockAccount(UserId);
                 return;
             }
           
         
-            var result = credentialService.CheckUserCredential(UserId, password);
+            var result = DbHandler.CheckUserCredential(UserId, password);
             //var result = credentialService.CheckUserCredential(UserId, request.Password);
 
            
             if (result)
             {
                 //check if admin
-                var IsAdmin = credentialService.CheckIfAdmin(UserId);
+                var IsAdmin = DbHandler.CheckIfAdmin(UserId);
                 if (IsAdmin)
                 {
                     responseStatus = "Sucessfully Loged in, Welcome Admin!";
                 }
-                else if(credentialService.CheckIfNewUser(UserId))
+                else if(DbHandler.CheckIfNewUser(UserId))
                 {
                     responseStatus = "Sucessfully Loged in as new User - reset password!";
                     IsNewUser = true;
@@ -103,7 +109,7 @@ namespace Library.Data.DataManager
                 {
                     responseStatus = "Sucessfully Loged in, Welcome User ";
                 }
-                user = userService.GetUser(UserId);
+                user = DbHandler.GetUser(UserId);
                 loginResponse.currentUser = user;
                 loginResponse.NewUser = IsNewUser;
                 Response.Data=loginResponse;
@@ -114,7 +120,7 @@ namespace Library.Data.DataManager
             else
             {
                
-                if (credentialService.CheckUser(UserId))
+                if (DbHandler.CheckUser(UserId))
                 {
                     AccessDeniedCount--;
                     responseStatus = "Invalid password";

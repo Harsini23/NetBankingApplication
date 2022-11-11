@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,11 +27,21 @@ namespace NetBankingApplication.View
         {
             this.InitializeComponent();
         }
+        User Currentuser;
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            Currentuser = (User)e.Parameter;
+            
+
+        }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            SelectedDashboardContentFrame.Navigate(typeof(Overview));
+            SelectedDashboardContentFrame.Navigate(typeof(Overview), Currentuser);
         }
+
+       
 
         private void DashBoardNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {

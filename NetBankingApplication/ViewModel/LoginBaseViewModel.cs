@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Library.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -55,7 +56,7 @@ namespace NetBankingApplication.ViewModel
     }
     public interface IMainPageNavigation
     {
-        void NavigateToDashBoard();
+        void NavigateToDashBoard(User user);
         //future logout change frame
     }
 }

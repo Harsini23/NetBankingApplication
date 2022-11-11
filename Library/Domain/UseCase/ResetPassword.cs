@@ -15,8 +15,8 @@ namespace Library.Domain.UseCase
 
     public interface IPersenterResetPasswordCallback
     {
-        void ResetPasswordSuccess(ZResponse<bool> response);
-        void ResetPasswordFailure(ZResponse<bool> response);
+        void OnSuccess(ZResponse<bool> response);
+        void OnFailure(ZResponse<bool> response);
     }
 
     public class ResetPassword :UseCaseBase
@@ -39,7 +39,6 @@ namespace Library.Domain.UseCase
         }
      
 
-
         public class ResetPasswordCallback:ZResponse<bool>
         {
             private ResetPassword _resetPassword;
@@ -50,11 +49,11 @@ namespace Library.Domain.UseCase
 
             public void OnResponseSuccess(ZResponse<bool> response)
             {
-                _resetPassword.ResetPasswordResponse.ResetPasswordSuccess(response);
+                _resetPassword.ResetPasswordResponse.OnSuccess(response);
             }
-            public void OnFailure(ZResponse<bool> response)
+            public void OnResponseFailure(ZResponse<bool> response)
             {
-                _resetPassword.ResetPasswordResponse.ResetPasswordFailure(response);
+                _resetPassword.ResetPasswordResponse.OnFailure(response);
             }
         }
        

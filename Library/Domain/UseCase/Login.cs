@@ -16,7 +16,7 @@ namespace Library.Domain
     }
     public class UserLoginRequest : IRequest
     {
-        public string UserId { get; set; }
+        public string UserId { get; set; }  
         public string Password { get; set; }
 
         public UserLoginRequest(string userId, string password)
@@ -27,9 +27,9 @@ namespace Library.Domain
     }
     public interface IPresenterLoginCallback
     {
-        void VerfiedUserAsync(ZResponse<LoginResponse> response);
-        void BlockAccount(ZResponse<LoginResponse> response);
-        void LoginFailed(ZResponse<LoginResponse> response);
+        void OnSuccess(ZResponse<LoginResponse> response);
+        void OnError(ZResponse<LoginResponse> response);
+        void OnFailure(ZResponse<LoginResponse> response);
     }
     public class Login : UseCaseBase
     {
@@ -64,15 +64,15 @@ namespace Library.Domain
 
             public void OnResponseError(ZResponse<LoginResponse> response)
             {
-                login.LoginResponse.LoginFailed( response);
+                login.LoginResponse.OnError( response);
             }
             public void OnResponseFailure(ZResponse<LoginResponse> response)
             {
-               login.LoginResponse.LoginFailed(response);
+               login.LoginResponse.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<LoginResponse> response)
             {
-                login.LoginResponse.VerfiedUserAsync(response);
+                login.LoginResponse.OnSuccess(response);
                
             }
         }

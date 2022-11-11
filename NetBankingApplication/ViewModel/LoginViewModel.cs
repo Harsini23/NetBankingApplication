@@ -1,11 +1,24 @@
-﻿using Library.Data.DataManager;using Library.Domain;using Library.Domain.UseCase;
+﻿using Library.Data.DataManager;
+using Library.Domain;
+using Library.Domain.UseCase;
 using Library.Model;
 using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.View;
-using System;using System.Collections.Generic;using System.ComponentModel;using System.Diagnostics;using System.Linq;using System.Runtime.CompilerServices;
-using System.Text;using System.Threading.Tasks;using static Library.Domain.Login;namespace NetBankingApplication.ViewModel{
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using static Library.Domain.Login;
 
-    internal class LoginViewModel : LoginBaseViewModel    {
+namespace NetBankingApplication.ViewModel
+{
+
+    internal class LoginViewModel : LoginBaseViewModel
+    {
 
         Login login;
         ResetPassword resetPassword;
@@ -16,15 +29,19 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
         IMainPageNavigation mainPageNavigation;
 
 
-        public override void CallUseCase()        {
+        public override void CallUseCase()
+        {
             SetValueForCallback();
             login = new Login(new UserLoginRequest(userId, password), new PresenterLoginCallback(this));
-            login.Execute();        }        public void CallResetUseCase()
+            login.Execute();
+        }
+        public void CallResetUseCase()
         {
 
             resetPassword = new ResetPassword(new ResetPasswordRequest(userId, resetNewPassword), new PresenterLoginCallback(this));
             resetPassword.Execute();
-        }
+        }
+
         private void SetValueForCallback()
         {
             loginViewCallback = LoginViewModelCallback;
@@ -33,7 +50,8 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
 
         public override void ValidateUserInput(string userId, string password)
         {
-            this.userId = userId;            this.password = password;
+            this.userId = userId;
+            this.password = password;
             //check password specification and UI logic is correct, or if needed - set binded value proceed to call use case or handle UI error
             CallUseCase();
         }
@@ -44,28 +62,55 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
             CallResetUseCase();
         }
 
-        public class PresenterLoginCallback : IPresenterLoginCallback, IPersenterResetPasswordCallback        {            private LoginViewModel loginViewModel;
+        public class PresenterLoginCallback : IPresenterLoginCallback, IPersenterResetPasswordCallback
+        {
+            private LoginViewModel loginViewModel;
             // private ILoginViewModel loginViewCallback;
 
             // private ILoginViewModel loginVMCallbackSwitch;
             public PresenterLoginCallback()
             {
 
-            }            public PresenterLoginCallback(LoginViewModel loginViewModel)            {                this.loginViewModel = loginViewModel;
+            }
+            public PresenterLoginCallback(LoginViewModel loginViewModel)
+            {
+                this.loginViewModel = loginViewModel;
 
             }
-            public void BlockAccount(ZResponse<LoginResponse> response)            {                loginViewModel.LoginResponseValue = response.Response.ToString();            }            public void LoginFailed(ZResponse<LoginResponse> response)            {                loginViewModel.LoginResponseValue = response.Response.ToString();            }
+   
+    
 
-            public void ResetPasswordFailure(ZResponse<bool> response)
+            public void OnFailure(ZResponse<bool> response)
             {
                 loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
             }
 
-            public void ResetPasswordSuccess(ZResponse<bool> response)
+            public void OnSuccess(ZResponse<bool> response)
             {
                 loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
             }
-            void IPresenterLoginCallback.VerfiedUserAsync(ZResponse<LoginResponse> response)
+        
+            private async Task LoadDashBoard(User user)
+            {
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+            Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                loginViewModel.mainPageNavigation.NavigateToDashBoard(LoginViewModel.user);
+            });
+
+            }
+
+            private async Task handleCallbackAsync()
+            {
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+              {
+                  loginViewModel.loginViewCallback.SwitchToResetPasswordContainer();
+              });
+            }
+
+            //Presenter call back methods
+            public void OnSuccess(ZResponse<LoginResponse> response)
             {
                 loginViewModel.LoginResponseValue = response.Response.ToString();
                 //redirect to next page with user details
@@ -78,27 +123,18 @@ using System.Text;using System.Threading.Tasks;using static Library.Domain.Log
                 //then continue with user profile details display //pass user and id
                 LoginViewModel.user = response.Data.currentUser;
                 //Debug.WriteLine(LoginViewModel.user.EmailId);
-                LoadDashBoard();
-
-
-            }
-            private async Task LoadDashBoard()
-            {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-            Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                loginViewModel.mainPageNavigation.NavigateToDashBoard();
-            });
-
+                LoadDashBoard(LoginViewModel.user);
             }
 
-            private async Task handleCallbackAsync()
+            public void OnError(ZResponse<LoginResponse> response)
             {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-              {
-                  loginViewModel.loginViewCallback.SwitchToResetPasswordContainer();
-              });
+                //Block account
+                loginViewModel.LoginResponseValue = response.Response.ToString();
+            }
+
+            public void OnFailure(ZResponse<LoginResponse> response)
+            {
+                loginViewModel.LoginResponseValue = response.Response.ToString();
             }
         }
     }

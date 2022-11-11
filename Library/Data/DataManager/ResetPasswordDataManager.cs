@@ -9,16 +9,15 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Library.Data.DataManager
 {
-    public class ResetPasswordDataManager : IResetPasswordDataManager
+    public class ResetPasswordDataManager :BankingDataManager, IResetPasswordDataManager
     {   
 
-        CredentialService credentialService;
-
-        public ResetPasswordDataManager()
+        public ResetPasswordDataManager() : base(new DbHandler(), new NetHandler())
         {
-            credentialService = CredentialService.GetInstance();
+          
         }
         public void ResetPassword(ResetPasswordRequest request,ResetPassword.ResetPasswordCallback callback)
         {
@@ -43,8 +42,8 @@ namespace Library.Data.DataManager
                     }
                 }
             }
-
-            var result=credentialService.ResetPassword(request.UserId,BytesToString(EncryptPassword( request.NewPassword)));
+            var IsAdmin = DbHandler.CheckIfAdmin(request.UserId);
+            var result= DbHandler.ResetPassword(request.UserId,BytesToString(EncryptPassword( request.NewPassword)),IsAdmin);
             Response.Data = result;
             if (result)
             {
@@ -56,7 +55,7 @@ namespace Library.Data.DataManager
             {
                 //error in password resetting
                 Response.Response = "Failed to resetPassword";// add error in future if needed
-                callback.OnFailure(Response);
+                callback.OnResponseFailure(Response);
             }
         }
     }

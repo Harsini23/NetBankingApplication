@@ -32,12 +32,14 @@ namespace Library.Data
         public void InstantiateAllTables()
         {
             connection = conn.DbConnection;
+  
             connection.CreateTable<Credentials>();
             connection.CreateTable<User>();
             connection.CreateTable<Admin>();
             connection.CreateTable<Transaction>();
             connection.CreateTable<Branch>();
             connection.CreateTable<Card>();
+            connection.CreateTable<Account>();
         }
 
     }

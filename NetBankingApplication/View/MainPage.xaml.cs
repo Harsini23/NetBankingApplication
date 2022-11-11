@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.View;
 using System.ComponentModel;
 using System.Diagnostics;
+using Library.Model;
 
 namespace NetBankingApplication
 {
@@ -33,9 +34,9 @@ namespace NetBankingApplication
             LoginViewModel.MainPageNavigationCallback = this;
         }
 
-        public void NavigateToDashBoard()
+        public void NavigateToDashBoard(User user)
         {
-            LoadContentFrame.Navigate(typeof(DashBoard));
+            LoadContentFrame.Navigate(typeof(DashBoard),user);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
