@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,10 +16,18 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
+//overview - bank account details, personal details, account summary
 namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class Overview : UserControl
     {
+        private User user;
+        public User CurrentUser
+        {
+            get { return user; }
+            set { this.user = value;
+            }
+        }
         public Overview()
         {
             this.InitializeComponent();

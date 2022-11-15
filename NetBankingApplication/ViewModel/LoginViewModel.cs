@@ -78,8 +78,6 @@ namespace NetBankingApplication.ViewModel
 
             }
    
-    
-
             public void OnFailure(ZResponse<bool> response)
             {
                 loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
@@ -112,7 +110,7 @@ namespace NetBankingApplication.ViewModel
             //Presenter call back methods
             public void OnSuccess(ZResponse<LoginResponse> response)
             {
-                loginViewModel.LoginResponseValue = response.Response.ToString();
+               // loginViewModel.LoginResponseValue = response.Response.ToString();
                 //redirect to next page with user details
                 if (response.Data.NewUser)
                 {

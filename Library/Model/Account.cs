@@ -16,14 +16,15 @@ namespace Library.Model
         public string IfscCode { get; set; }
         public AccountType AccountType { get; set; }
         public string TotalBalance { get; set; }
-       
-
-        public Account(string accountNumber, string ifscCode, AccountType accountType, string totalBalance)
+        public string CardNumber { get; set; }
+            
+        public Account(string accountNumber, string ifscCode, AccountType accountType, string totalBalance,string cardNumber)
         {
             AccountNumber = accountNumber;
             IfscCode = ifscCode;
             AccountType = accountType;
             TotalBalance = totalBalance;
+            CardNumber = cardNumber;
            
         }
         public Account() { }

@@ -3,17 +3,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NetBankingApplication.View"
+    xmlns:componentmodules="using:NetBankingApplication.View.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
+           
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/DataTemplateModules"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+       
     </Page.Resources>
     
     <Grid>
@@ -24,6 +29,7 @@
 
         <StackPanel>
           <!--Bank logo bank name, userID change password,profile, logout button options - top -->
+           
             <TextBlock x:Name="HeaderTextBox" HorizontalAlignment="Left" Style="{StaticResource HeaderStyle }" Text="ZBank" Grid.Column="0"></TextBlock>
         </StackPanel>
 
@@ -37,7 +43,10 @@
                 <NavigationViewItem  Content="Investment and Insurance" x:Name="InvestmentAndInsurance"  />
                 <NavigationViewItem  Content="Customer Service" Name="CustomerService" />
             </NavigationView.MenuItems>
-            <Frame x:Name="SelectedDashboardContentFrame"/>
+            
+            <ContentControl Content="{x:Bind CurrentSelectedModule,Mode=OneWay}" >
+            </ContentControl>
+           
         </NavigationView>
 
 
