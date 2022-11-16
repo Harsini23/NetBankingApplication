@@ -37,7 +37,8 @@ namespace NetBankingApplication.View.UserControls
             OverviewVMserviceProviderInstance = PresenterService.GetInstance();
             _overviewViewModel = OverviewVMserviceProviderInstance.Services.GetService<OverviewBaseViewModel>();
             _overviewViewModel.setUser(user.UserId);
-            
+            _overviewViewModel.getCardComponents();
+
             //_userId = currentUser.UserId;
             //need to get all details from viewmodel
             //to send userid to overviewViewModel

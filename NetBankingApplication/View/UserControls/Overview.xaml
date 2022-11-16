@@ -5,10 +5,15 @@
     xmlns:local="using:NetBankingApplication.View.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:Library.Model"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <StackPanel MinWidth="200">
-        <TextBlock Name="UserId" Text="{x:Bind _overviewViewModel.UserId}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-    </StackPanel>
+    <GridView x:Name="CardHolder" ItemsSource="{x:Bind _overviewViewModel.cardcomponentItems,Mode=OneWay}" Background="LightGray">
+        <GridView.ItemTemplate>
+            <DataTemplate x:DataType="data:CardComponent">
+                <local:CardComponentTemplate />
+            </DataTemplate>
+        </GridView.ItemTemplate>
+    </GridView>
 </UserControl>

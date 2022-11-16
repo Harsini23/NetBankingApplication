@@ -9,7 +9,7 @@ namespace Library.Model
 {
     public class Transaction
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string AccountNumber { get; set; }
         public int TransactionId { get; set; }
         public string Time { get; set; }

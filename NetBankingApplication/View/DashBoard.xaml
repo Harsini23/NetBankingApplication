@@ -18,7 +18,6 @@
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/DataTemplateModules"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-       
     </Page.Resources>
     
     <Grid>
@@ -44,12 +43,10 @@
                 <NavigationViewItem  Content="Customer Service" Name="CustomerService" />
             </NavigationView.MenuItems>
             
-            <ContentControl Content="{x:Bind CurrentSelectedModule,Mode=OneWay}" >
+            <ContentControl Content="{x:Bind CurrentSelectedModule,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="30" >
             </ContentControl>
            
         </NavigationView>
-
-
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -64,6 +61,6 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
     </Grid>
 </Page>

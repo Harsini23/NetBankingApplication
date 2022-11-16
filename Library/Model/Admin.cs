@@ -8,9 +8,9 @@ namespace Library.Model
 {
     public class Admin
     {
-        public int BranchId { get; set; }
+        public string BranchId { get; set; }
         public string EmployeeId { get; set; }
-        public Admin( int branchId, string employeeId)
+        public Admin( string branchId, string employeeId)
         {
             BranchId = branchId;
             EmployeeId = employeeId;

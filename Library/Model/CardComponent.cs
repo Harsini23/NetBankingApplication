@@ -13,12 +13,13 @@ namespace Library.Model
         public string Content { get; set; }
         public string Image { get; set; }
 
-        public CardComponent(string heading, string title, string content, string image)
-        {
-            Heading = heading;
-           Title = title;
-            Content = content;
-            Image = image;
-        }
+        ////public CardComponent(string heading, string title, string content)
+        ////{
+        ////    Heading = heading;
+        ////   Title = title;
+        ////    Content = content;
+        ////}
+
+      
     }
 }
