@@ -12,7 +12,8 @@ namespace Library.Model
         public string CardNumber { get; set; }
         public CardType CardType { get; set; }
         public string PinNumber { get; set; }
-
+        public string TotalCharges { get; set; }
+        public string CardHolder { get; set; }
         public string ValidFrom { get; set; }
         public string ValidTill { get; set; }
 
@@ -24,5 +25,14 @@ namespace Library.Model
             ValidTill = validTill;
             ValidFrom = validFrom;
         }
+    }
+
+    public class CreditCard
+    {
+        public string TotalCreditLimit { get; set; }
+        public string AvailableCreditLimit { get; set; }
+        public string PaymentDueDate { get; set; }
+        public string TotalAmoutDue { get; set; }
+
     }
 }

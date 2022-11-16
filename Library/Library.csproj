@@ -137,6 +137,7 @@
     <Compile Include="Domain\UseCase\ListTransaction.cs" />
     <Compile Include="Domain\UseCase\Login.cs" />
     <Compile Include="Domain\UseCaseBase.cs" />
+    <Compile Include="Domain\UseCase\Overview.cs" />
     <Compile Include="Domain\UseCase\ResetPassword.cs" />
     <Compile Include="Domain\UseCase\TransferAmout.cs" />
     <Compile Include="Domain\UseCase\UserProfile.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\Enum\AccountType.cs" />
     <Compile Include="Model\Enum\CardType.cs" />
+    <Compile Include="Model\Enum\Currency.cs" />
     <Compile Include="Model\Enum\TransactionType.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\User.cs" />

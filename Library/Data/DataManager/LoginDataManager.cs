@@ -19,7 +19,7 @@ namespace Library.Data.DataManager
     {
        private int AccessDeniedCount = 5;
    
-       BankingDataManager bankingDataManager;
+       //BankingDataManager bankingDataManager;
        CreateTables createTableInstance;
         
        
@@ -93,6 +93,7 @@ namespace Library.Data.DataManager
            
             if (result)
             {
+               
                 //check if admin
                 var IsAdmin = DbHandler.CheckIfAdmin(UserId);
                 if (IsAdmin)

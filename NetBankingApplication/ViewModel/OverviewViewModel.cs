@@ -13,8 +13,8 @@ namespace NetBankingApplication.ViewModel
     public class OverviewViewModel : OverviewBaseViewModel
     {
         static int Flag = 0;
-        //set card component only once
-        public  void setCardComponents()
+        // get data from db and set card component - cardcomponentItems only once
+        public void setCardComponents()
         {
             Flag = 1;
             cardcomponentItems.Add(new CardComponent() { Heading = "User", Title = "UserID", Content = "harsh" });

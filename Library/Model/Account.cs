@@ -17,7 +17,11 @@ namespace Library.Model
         public AccountType AccountType { get; set; }
         public string TotalBalance { get; set; }
         public string CardNumber { get; set; }
-            
+        public string AvailableBalanceAsOn { get; set; }
+        public string BId { get; set; }
+
+        public Currency Currency { get; set; }
+
         public Account(string accountNumber, string ifscCode, AccountType accountType, string totalBalance,string cardNumber)
         {
             AccountNumber = accountNumber;

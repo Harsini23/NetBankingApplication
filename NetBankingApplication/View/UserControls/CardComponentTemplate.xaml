@@ -10,7 +10,7 @@
     d:DesignWidth="400">
 
 
-    <Grid x:Name="MainPanel">
+    <Grid x:Name="MainPanel" Margin="20" Background="AliceBlue" CornerRadius="20" BorderThickness="0.4" BorderBrush="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -22,23 +22,23 @@
                         <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="LayoutCardComponent.Width" Value="200"></Setter>
+                        <Setter Target="LayoutCardComponent.Width" Value="150"></Setter>
                         <Setter Target="MainPanel.Height" Value="250"></Setter>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="WideLayout">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="900"></AdaptiveTrigger>
+                        <AdaptiveTrigger MinWindowWidth="800"></AdaptiveTrigger>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="LayoutCardComponent.Width" Value="400"></Setter>
-                        <Setter Target="MainPanel.Height" Value="400"></Setter>
+                        <Setter Target="LayoutCardComponent.Width" Value="200"></Setter>
+                        <Setter Target="MainPanel.Height" Value="250"></Setter>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid Name="LayoutCardComponent">
+        <Grid Name="LayoutCardComponent" >
             <RelativePanel Grid.Row="1" Margin="10">
                 <TextBlock x:Name="HeadLine" Text="{x:Bind CardComponent.Heading}" FontSize="18" TextWrapping="Wrap"></TextBlock>
                 <TextBlock RelativePanel.Below="HeadLine" x:Name="Subhead" TextWrapping="Wrap" Text="{x:Bind CardComponent.Title}"></TextBlock>
