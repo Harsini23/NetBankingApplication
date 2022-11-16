@@ -22,13 +22,13 @@ namespace NetBankingApplication.View.UserControls
     {
 
         private User user;
-        public User CurrentUser
+
+        private readonly string _userId;
+      
+        public BankAccount(User currentUser)
         {
-            get { return user; }
-            set
-            {
-                this.user = value;
-            }
+            this.user = currentUser;
+            this._userId = currentUser.UserId;
         }
       
         public BankAccount()

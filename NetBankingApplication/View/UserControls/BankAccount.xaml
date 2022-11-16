@@ -9,11 +9,5 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <StackPanel>
-        <TextBlock x:Name="UserId" Text="{x:Bind CurrentUser.UserId,Mode=OneWay}" HorizontalAlignment="Center"></TextBlock>
-      
-    </StackPanel>
-
-
 
 </UserControl>

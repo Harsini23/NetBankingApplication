@@ -30,13 +30,11 @@ namespace NetBankingApplication.View
     /// 
     public sealed partial class DashBoard : Page,INotifyPropertyChanged
     {
-        private DashboardNavigationBaseViewModel _dashboardNavigationViewModel;
-        PresenterService DashboardNavigationVMserviceProviderInstance;
+      
         public DashBoard()
         {
             this.InitializeComponent();
-            DashboardNavigationVMserviceProviderInstance = PresenterService.GetInstance();
-            _dashboardNavigationViewModel = DashboardNavigationVMserviceProviderInstance.Services.GetService<DashboardNavigationBaseViewModel>();
+      
         }
         User Currentuser;
 
@@ -48,8 +46,8 @@ namespace NetBankingApplication.View
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Overview overview = new Overview();
-            overview.CurrentUser = Currentuser;
+            Overview overview = new Overview(Currentuser);
+          
             CurrentSelectedModule = overview;
             //_dashboardNavigationViewModel.SetOverview();
             // SelectedDashboardContentFrame.Navigate(typeof(Overview), Currentuser);
@@ -69,9 +67,11 @@ namespace NetBankingApplication.View
 
             if (args.SelectedItem == Overview)
             {
-                Overview overview = new Overview();
-                overview.CurrentUser = Currentuser;
+
+                Overview overview = new Overview(Currentuser);
+
                 CurrentSelectedModule = overview;
+              
 
                 //_dashboardNavigationViewModel.SetOverview();
                 //  pageType = typeof(Overview);
@@ -79,8 +79,8 @@ namespace NetBankingApplication.View
             else if (args.SelectedItem == BankAccount)
             {
                 //_dashboardNavigationViewModel.SetBankAccount();
-                BankAccount bankAccount = new BankAccount();
-                bankAccount.CurrentUser = Currentuser;
+                BankAccount bankAccount = new BankAccount(Currentuser);
+              
                 CurrentSelectedModule = bankAccount;
                 //  pageType = typeof(BankAccount);
             }

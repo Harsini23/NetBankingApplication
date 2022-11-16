@@ -8,9 +8,7 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <StackPanel>
-        <TextBlock x:Name="UserId" Text="{x:Bind CurrentUser.UserId,Mode=OneWay}" HorizontalAlignment="Center"></TextBlock>
-        <TextBlock x:Name="UserName" HorizontalAlignment="Center" Text="{x:Bind CurrentUser.UserName,Mode=OneWay}"></TextBlock>
-        <TextBlock x:Name="EmailId" HorizontalAlignment="Center" Text="{x:Bind CurrentUser.EmailId,Mode=OneWay}"></TextBlock>
+    <StackPanel MinWidth="200">
+        <TextBlock Name="UserId" Text="{x:Bind _overviewViewModel.UserId}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
     </StackPanel>
 </UserControl>

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetBankingApplication.ViewModel
+namespace Library.Data.DataManager
 {
-    public class UserBaseViewModel
+    internal class OverviewDataManager
     {
     }
 }

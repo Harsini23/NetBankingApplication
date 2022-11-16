@@ -129,6 +129,7 @@
     <Compile Include="Data\DataManager\CreateNewUserDataManager.cs" />
     <Compile Include="Data\DataManager\FetchUserProfile.cs" />
     <Compile Include="Data\DataManager\LoginDataManager.cs" />
+    <Compile Include="Data\DataManager\OverviewDataManager.cs" />
     <Compile Include="Data\DataManager\ResetPasswordDataManager.cs" />
     <Compile Include="Domain\BaseCase.cs" />
     <Compile Include="Domain\IServiceProvider.cs" />
@@ -143,7 +144,7 @@
     <Compile Include="Model\Admin.cs" />
     <Compile Include="Model\Branch.cs" />
     <Compile Include="Model\Card.cs" />
-    <Compile Include="Model\ClassDummy.cs" />
+    <Compile Include="Model\CardComponent.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\Enum\AccountType.cs" />
     <Compile Include="Model\Enum\CardType.cs" />

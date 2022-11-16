@@ -13,10 +13,10 @@ namespace Library.Model
         public CardType CardType { get; set; }
         public string PinNumber { get; set; }
 
-        public DateTime ValidFrom { get; set; }
-        public DateTime ValidTill { get; set; }
+        public string ValidFrom { get; set; }
+        public string ValidTill { get; set; }
 
-        public Card(string cardNumber, CardType cardType, string pinNumber, DateTime validTill, DateTime validFrom)
+        public Card(string cardNumber, CardType cardType, string pinNumber, string validTill, string validFrom)
         {
             CardNumber = cardNumber;
             CardType = cardType;

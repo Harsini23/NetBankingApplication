@@ -30,7 +30,8 @@ namespace NetBankingApplication.View
             var services = new ServiceCollection();
             //Services
             services.AddSingleton<LoginBaseViewModel, LoginViewModel>();
-            services.AddSingleton<DashboardNavigationBaseViewModel, DashboadNavigationViewModel>();
+            services.AddSingleton<OverviewBaseViewModel, OverviewViewModel>();
+          
             //services.AddSingleton<IUserProfileViewModel, UserProfileViewModel>();
             return services.BuildServiceProvider();
         }

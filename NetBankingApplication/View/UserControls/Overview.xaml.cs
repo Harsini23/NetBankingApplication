@@ -1,4 +1,6 @@
 ﻿using Library.Model;
+using Microsoft.Extensions.DependencyInjection;
+using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,12 +23,24 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class Overview : UserControl
     {
-        private User user;
-        public User CurrentUser
+        private readonly User user;
+        // private readonly string _userId;
+
+        private OverviewBaseViewModel _overviewViewModel;
+     
+        PresenterService OverviewVMserviceProviderInstance;
+
+        public Overview(User currentUser)
         {
-            get { return user; }
-            set { this.user = value;
-            }
+            user = currentUser;
+            this.InitializeComponent();
+            OverviewVMserviceProviderInstance = PresenterService.GetInstance();
+            _overviewViewModel = OverviewVMserviceProviderInstance.Services.GetService<OverviewBaseViewModel>();
+            _overviewViewModel.setUser(user.UserId);
+            
+            //_userId = currentUser.UserId;
+            //need to get all details from viewmodel
+            //to send userid to overviewViewModel
         }
         public Overview()
         {
