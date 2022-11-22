@@ -35,7 +35,8 @@ namespace Library.Domain
             var services = new ServiceCollection();
             //Services
             services.AddSingleton<ILoginDataManager, LoginDataManager>();
-            services.AddSingleton<IResetPasswordDataManager, ResetPasswordDataManager>(); ;
+            services.AddSingleton<IResetPasswordDataManager, ResetPasswordDataManager>();
+            services.AddSingleton<ITransactionHistoryDataManager, TransactionHistoryDataManager>(); ;
 
             return services.BuildServiceProvider();
         }

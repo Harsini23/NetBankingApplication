@@ -36,8 +36,9 @@ namespace Library.Data.DataManager
         bool ResetPassword(string userId, string password, bool IsAdmin);
         void AddCredential(string userId, string password);
         bool GetAccount(string userId);
-
-
+        void AddTransaction();
+        void AddAccount();
+        List<Transaction> GetAllTransactions(string userId);
     }
     public interface INetHandler
     {

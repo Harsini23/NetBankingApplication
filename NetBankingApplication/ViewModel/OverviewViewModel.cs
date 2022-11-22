@@ -22,6 +22,7 @@ namespace NetBankingApplication.ViewModel
             cardcomponentItems.Add(new CardComponent() { Heading = "Card", Title = "UserID", Content = "harsh" });
             cardcomponentItems.Add(new CardComponent() { Heading = "Total Balance", Title = "UserID", Content = "harsh" });
             cardcomponentItems.Add(new CardComponent() { Heading = "Savings", Title = "UserID", Content = "harsh" });
+            cardcomponentItems.Add(new CardComponent() { Heading = "Savings", Title = "UserID", Content = "harsh" });
         }
 
         public override void getCardComponents()

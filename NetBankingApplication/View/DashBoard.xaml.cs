@@ -49,6 +49,7 @@ namespace NetBankingApplication.View
             Overview overview = new Overview(Currentuser);
           
             CurrentSelectedModule = overview;
+            HeaderTitle = "Overview";
             //_dashboardNavigationViewModel.SetOverview();
             // SelectedDashboardContentFrame.Navigate(typeof(Overview), Currentuser);
         }
@@ -56,12 +57,12 @@ namespace NetBankingApplication.View
 
         private void DashBoardNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            FrameNavigationOptions navOptions = new FrameNavigationOptions();
-            navOptions.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
-            if (sender.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
-            {
-                navOptions.IsNavigationStackEnabled = false;
-            }
+        //    FrameNavigationOptions navOptions = new FrameNavigationOptions();
+        //    navOptions.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
+        //    if (sender.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
+        //    {
+        //        navOptions.IsNavigationStackEnabled = false;
+        //    }
 
             Type pageType;
 
@@ -71,7 +72,7 @@ namespace NetBankingApplication.View
                 Overview overview = new Overview(Currentuser);
 
                 CurrentSelectedModule = overview;
-              
+                HeaderTitle = "Overview";
 
                 //_dashboardNavigationViewModel.SetOverview();
                 //  pageType = typeof(Overview);
@@ -82,26 +83,34 @@ namespace NetBankingApplication.View
                 BankAccount bankAccount = new BankAccount(Currentuser);
               
                 CurrentSelectedModule = bankAccount;
+                HeaderTitle = "Bank Account";
                 //  pageType = typeof(BankAccount);
             }
             else if (args.SelectedItem == PaymentsAndTransfer)
             {
-               // pageType = typeof(PaymentsAndTransfer);
+                PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer();
+                CurrentSelectedModule = paymentsAndTransfer;
+                // pageType = typeof(PaymentsAndTransfer);
+                HeaderTitle = "Payment and Transfer";
             }
             else if (args.SelectedItem == CardAndLoans)
             {
+                HeaderTitle = "Card and Loans";
               //  pageType = typeof(CardAndLoans);
             }
             else if (args.SelectedItem == InvestmentAndInsurance)
             {
+                HeaderTitle = "Investment and Insurance";
                // pageType = typeof(InvestmentAndInsurance);
             }
             else if (args.SelectedItem == CustomerService)
             {
+                HeaderTitle = "Customer Service";
                // pageType = typeof(CustomerService);
             }
             else
             {
+                HeaderTitle = "Overview";
              //   pageType = typeof(Overview);
             }
 
@@ -118,6 +127,16 @@ namespace NetBankingApplication.View
         {
             get { return _currentSelectedModule; }
             set { _currentSelectedModule = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private String _headerTitle="OverView";
+        public String HeaderTitle
+        {
+            get { return _headerTitle; }
+            set
+            {
+                _headerTitle=value;
                 NotifyPropertyChanged();
             }
         }

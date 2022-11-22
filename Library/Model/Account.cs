@@ -13,24 +13,30 @@ namespace Library.Model
         [PrimaryKey]
         public string UserId { get; set; }
         public string AccountNumber { get; set; }
-        public string IfscCode { get; set; }
         public AccountType AccountType { get; set; }
         public string TotalBalance { get; set; }
-        public string CardNumber { get; set; }
         public string AvailableBalanceAsOn { get; set; }
         public string BId { get; set; }
 
         public Currency Currency { get; set; }
 
-        public Account(string accountNumber, string ifscCode, AccountType accountType, string totalBalance,string cardNumber)
+        public Account(string accountNumber, string ifscCode, AccountType accountType, string totalBalance, string cardNumber)
         {
             AccountNumber = accountNumber;
-            IfscCode = ifscCode;
             AccountType = accountType;
             TotalBalance = totalBalance;
-            CardNumber = cardNumber;
-           
+         
         }
         public Account() { }
+
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder
+        //        .Entity<User>()
+        //        .Property(e => e.Type)
+        //        .HasConversion<string>();
+        //}
     }
 }
+

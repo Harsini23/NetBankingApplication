@@ -88,9 +88,11 @@ namespace Library.Data.DataManager
           
         
             var result = DbHandler.CheckUserCredential(UserId, password);
+           //DbHandler.GetAllTransactions("Harsh");
+            //DbHandler.AddAccount();
             //var result = credentialService.CheckUserCredential(UserId, request.Password);
 
-           
+
             if (result)
             {
                

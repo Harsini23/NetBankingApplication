@@ -123,6 +123,7 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NotifyPropertyBase.cs" />
     <Compile Include="ViewModel\OverviewViewModel.cs" />
+    <Compile Include="ViewModel\TransactionHistoryViewModel.cs" />
     <Compile Include="View\DashBoard.xaml.cs">
       <DependentUpon>DashBoard.xaml</DependentUpon>
     </Compile>
@@ -134,14 +135,26 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\PresenterService.cs" />
+    <Compile Include="View\UserControls\AddPayeeView.xaml.cs">
+      <DependentUpon>AddPayeeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\BankAccount.xaml.cs">
       <DependentUpon>BankAccount.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\CardComponentTemplate.xaml.cs">
       <DependentUpon>CardComponentTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\MakePayment.xaml.cs">
+      <DependentUpon>MakePayment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\PaymentsAndTransfer.xaml.cs">
+      <DependentUpon>PaymentsAndTransfer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\TransactionHistory.xaml.cs">
+      <DependentUpon>TransactionHistory.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +197,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControls\AddPayeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControls\BankAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -192,7 +209,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControls\MakePayment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControls\Overview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\PaymentsAndTransfer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\TransactionHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

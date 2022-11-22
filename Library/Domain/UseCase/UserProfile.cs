@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Library.Domain.UseCase
 {
-    internal class UserProfile
+    public class UserProfile
     {
     }
+    
 }

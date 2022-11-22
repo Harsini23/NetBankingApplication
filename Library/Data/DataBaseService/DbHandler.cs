@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Library.Data.DataBaseService
 {
+    //make this and nethandler singleton
     public class DbHandler: IDbHandler
     {
 
@@ -169,6 +170,62 @@ namespace Library.Data.DataBaseService
         }
         #endregion
 
+
+        #region
+        public void AddAccount()
+        {
+            var account = new Account()
+            {
+                AccountNumber= "89036457389231",
+                UserId="Harsh",
+                AccountType=0,
+                AvailableBalanceAsOn="21-11-2022",
+                TotalBalance= "1000000.00",
+                BId="B001",
+                Currency=0
+
+            };
+            connection.Insert(account);
+        }
+
+        #endregion
+
+        #region
+        public void AddTransaction()
+        {
+            for(int i = 2; i < 10; i++)
+            {
+                var transaction = new Transaction()
+                {
+                    UserId = "Harsh",
+                    TransactionId = "T0000"+i,
+                    Date = "21-11-2022",
+                    TransactionType = (Model.Enum.TransactionType)1,
+                    Remark = "Outing",
+                    TransactionAmout = "2000"+i*200,
+                    FromAccount = "89036457389231",
+                    ToAccount = "89036457389234",
+                    Status = true
+
+                };
+                connection.Insert(transaction);
+            }
+         
+        }
+
+        public List<Transaction> GetAllTransactions(string userId)
+        {
+            List<Transaction> allTransactions = new List<Transaction>();
+            var AllTransactions = connection.Table<Transaction>().Where(c => c.UserId == userId);
+            foreach(var i in AllTransactions)
+            {
+                allTransactions.Add(i);
+            }
+            return allTransactions;
+           
+        }
+
+        #endregion
 
     }
 }

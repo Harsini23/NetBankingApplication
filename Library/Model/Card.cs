@@ -9,6 +9,7 @@ namespace Library.Model
 {
     public class Card
     {
+        public string UserID { get; set; }
         public string CardNumber { get; set; }
         public CardType CardType { get; set; }
         public string PinNumber { get; set; }

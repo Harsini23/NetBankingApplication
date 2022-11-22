@@ -131,15 +131,15 @@
     <Compile Include="Data\DataManager\LoginDataManager.cs" />
     <Compile Include="Data\DataManager\OverviewDataManager.cs" />
     <Compile Include="Data\DataManager\ResetPasswordDataManager.cs" />
+    <Compile Include="Data\DataManager\TransactionHistoryDataManager.cs" />
     <Compile Include="Domain\BaseCase.cs" />
     <Compile Include="Domain\IServiceProvider.cs" />
     <Compile Include="Domain\UseCase\CreateNewUser.cs" />
-    <Compile Include="Domain\UseCase\ListTransaction.cs" />
     <Compile Include="Domain\UseCase\Login.cs" />
     <Compile Include="Domain\UseCaseBase.cs" />
     <Compile Include="Domain\UseCase\Overview.cs" />
     <Compile Include="Domain\UseCase\ResetPassword.cs" />
-    <Compile Include="Domain\UseCase\TransferAmout.cs" />
+    <Compile Include="Domain\UseCase\TransactionHistoryUseCase.cs" />
     <Compile Include="Domain\UseCase\UserProfile.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\Admin.cs" />
