@@ -40,6 +40,7 @@ namespace Library.Data
             connection.CreateTable<Branch>();
             connection.CreateTable<Card>();
             connection.CreateTable<Account>();
+            connection.CreateTable<Payee>();
         }
 
     }

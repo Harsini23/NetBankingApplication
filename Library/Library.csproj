@@ -151,6 +151,7 @@
     <Compile Include="Model\Enum\CardType.cs" />
     <Compile Include="Model\Enum\Currency.cs" />
     <Compile Include="Model\Enum\TransactionType.cs" />
+    <Compile Include="Model\Payee.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

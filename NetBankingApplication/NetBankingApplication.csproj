@@ -153,6 +153,9 @@
     <Compile Include="View\UserControls\PaymentsAndTransfer.xaml.cs">
       <DependentUpon>PaymentsAndTransfer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\PaymentTransactionOverview.xaml.cs">
+      <DependentUpon>PaymentTransactionOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\TransactionHistory.xaml.cs">
       <DependentUpon>TransactionHistory.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\PaymentsAndTransfer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\PaymentTransactionOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

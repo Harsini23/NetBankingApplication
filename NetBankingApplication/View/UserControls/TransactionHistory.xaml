@@ -21,7 +21,7 @@
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollMode="Enabled" ItemsSource="{x:Bind TransactionViewModel.AllTransactions,Mode=OneWay}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView" >
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="data:Transaction">
-                    <Grid Margin="10" BorderBrush="Black" BorderThickness="0.3" CornerRadius="30" HorizontalAlignment="Stretch">
+                    <Grid Margin="10" BorderBrush="Gray" BorderThickness="0.3" CornerRadius="20" HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"></ColumnDefinition>
                             <ColumnDefinition Width="200"></ColumnDefinition>
@@ -33,9 +33,9 @@
                             <RowDefinition Height="1*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <PersonPicture Margin="5" Initials="H" Grid.Column="0" Width="50" Height="50" Grid.RowSpan="3"/>
-                        <TextBlock Margin="5" Text="{x:Bind ToAccount}" Grid.Column="1" Grid.Row="0"></TextBlock>
-                        <TextBlock Margin="5" Text="{x:Bind Remark}" Grid.Column="1" Grid.Row="1"></TextBlock>
-                        <TextBlock Margin="5" Text="{x:Bind Date}" Grid.Column="1" Grid.Row="2"></TextBlock>
+                        <TextBlock Margin="2,10,2,2" Text="{x:Bind ToAccount}" Grid.Column="1" Grid.Row="0"></TextBlock>
+                        <TextBlock  Text="{x:Bind Remark}" Grid.Column="1" Grid.Row="1"></TextBlock>
+                        <TextBlock Margin="2,2,2,10" Text="{x:Bind Date}" Grid.Column="1" Grid.Row="2"></TextBlock>
                         <TextBlock Margin="5" Text="{x:Bind TransactionAmout}" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     </Grid>
                 </DataTemplate>

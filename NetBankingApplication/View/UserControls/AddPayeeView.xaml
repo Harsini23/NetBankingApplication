@@ -8,8 +8,23 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
-    <Grid>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="32" Text="Add payee"></TextBlock>
-    </Grid>
+    <ScrollViewer>
+        <Grid Width="300" HorizontalAlignment="Center" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" Header="Enter Payee Name:" PlaceholderText="Payee name" />
+            <TextBox Grid.Row="1" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" Header="Account Holder name:" PlaceholderText="Account holder name" />
+            <TextBox Grid.Row="2" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" Header="Bank Name:" PlaceholderText="Bank name" />
+            <TextBox Grid.Row="3" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" InputScope="Number" Header="Enter account number:" PlaceholderText="Account number" />
+            <TextBox Grid.Row="4" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" Header="IFSC Code:" PlaceholderText="IFSC code" />
+            <Button Grid.Row="5" CornerRadius="10" Content="Add Payee" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="5"></Button>
+        </Grid>
+    </ScrollViewer>
+  
 </UserControl>

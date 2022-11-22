@@ -8,7 +8,37 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <Grid>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="32" Text="Tranfer money"></TextBlock>
-    </Grid>
+    <ScrollViewer>
+        <Grid Width="300" HorizontalAlignment="Center" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Select recipient" Margin="10"></TextBlock>
+                <DropDownButton Content="Select payee" CornerRadius="5" MinWidth="150">
+                    <DropDownButton.Flyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem Text="Joey"/>
+                            <MenuFlyoutItem Text="Rachel"/>
+                            <MenuFlyoutItem Text="Chandler"/>
+                            <MenuFlyoutItem Text="Monica"/>
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+            </StackPanel>
+           
+            <TextBox Grid.Row="3" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" InputScope="Number" Header="Enter account number:" PlaceholderText="Account number" />
+            <TextBox Grid.Row="4" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" Header="Remark:" PlaceholderText="Remark" />
+            <TextBox Grid.Row="5" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" Header="Amount" PlaceholderText="Amount" InputScope="CurrencyAmountAndSymbol"/>
+       
+            <Button Grid.Row="6" CornerRadius="10" Content="Make Payment" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="5"></Button>
+        </Grid>
+    </ScrollViewer>
+
 </UserControl>
