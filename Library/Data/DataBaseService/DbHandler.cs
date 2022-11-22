@@ -227,5 +227,17 @@ namespace Library.Data.DataBaseService
 
         #endregion
 
+        #region
+
+        public bool AddNewPayee(Payee newPayee)
+        {
+            connection.Insert(newPayee);
+            var ReCheckingquery = connection.Table<Payee>().Where(i=> i.UserID==newPayee.UserID && i.AccountNumber==newPayee.AccountNumber).FirstOrDefault();
+            if (ReCheckingquery != null && newPayee!=null) return true;
+            return false;
+           
+        }
+        #endregion
+
     }
 }

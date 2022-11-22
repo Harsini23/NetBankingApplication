@@ -125,6 +125,7 @@
     <Compile Include="Data\DataBasePath.cs" />
     <Compile Include="Data\DataBaseService\DbHandler.cs" />
     <Compile Include="Data\DataBaseService\NetHandler.cs" />
+    <Compile Include="Data\DataManager\AddPayeeDataManager.cs" />
     <Compile Include="Data\DataManager\BankingDataManager.cs" />
     <Compile Include="Data\DataManager\CreateNewUserDataManager.cs" />
     <Compile Include="Data\DataManager\FetchUserProfile.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Data\DataManager\TransactionHistoryDataManager.cs" />
     <Compile Include="Domain\BaseCase.cs" />
     <Compile Include="Domain\IServiceProvider.cs" />
+    <Compile Include="Domain\UseCase\AddPayee.cs" />
     <Compile Include="Domain\UseCase\CreateNewUser.cs" />
     <Compile Include="Domain\UseCase\Login.cs" />
     <Compile Include="Domain\UseCaseBase.cs" />

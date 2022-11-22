@@ -36,7 +36,8 @@ namespace Library.Domain
             //Services
             services.AddSingleton<ILoginDataManager, LoginDataManager>();
             services.AddSingleton<IResetPasswordDataManager, ResetPasswordDataManager>();
-            services.AddSingleton<ITransactionHistoryDataManager, TransactionHistoryDataManager>(); ;
+            services.AddSingleton<ITransactionHistoryDataManager, TransactionHistoryDataManager>();
+            services.AddSingleton<IAddPayeeDataManager, AddPayeeDataManager>();
 
             return services.BuildServiceProvider();
         }

@@ -22,13 +22,13 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class TransactionHistory : UserControl
     {
 
-        private TransactionBaseViewModel TransactionViewModel;
+        private TransactionHistoryBaseViewModel TransactionViewModel;
       
         PresenterService TransactionVMserviceProviderInstance;
         public TransactionHistory()
         {
             TransactionVMserviceProviderInstance = PresenterService.GetInstance();
-            TransactionViewModel = TransactionVMserviceProviderInstance.Services.GetService<TransactionBaseViewModel>();
+            TransactionViewModel = TransactionVMserviceProviderInstance.Services.GetService<TransactionHistoryBaseViewModel>();
             this.InitializeComponent();
         }
 

@@ -39,6 +39,7 @@ namespace Library.Data.DataManager
         void AddTransaction();
         void AddAccount();
         List<Transaction> GetAllTransactions(string userId);
+        bool AddNewPayee(Payee newPayee);
     }
     public interface INetHandler
     {

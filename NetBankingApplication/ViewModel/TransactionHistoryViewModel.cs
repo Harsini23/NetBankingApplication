@@ -13,7 +13,7 @@ namespace NetBankingApplication.ViewModel
 {
 
 
-    public class TransactionHistoryViewModel : TransactionBaseViewModel
+    public class TransactionHistoryViewModel : TransactionHistoryBaseViewModel
     {
         TransactionHistoryUseCase Transaction;
         public override void GetTransactionData()
@@ -36,6 +36,7 @@ namespace NetBankingApplication.ViewModel
             //    });
             //}
 
+            //send userid here XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
             Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest("Harsh"), new PresenterTransactionHistoryCallback(this));
             Transaction.Execute();
             
@@ -88,7 +89,7 @@ namespace NetBankingApplication.ViewModel
     }
 
 
-    public abstract class TransactionBaseViewModel : NotifyPropertyBase
+    public abstract class TransactionHistoryBaseViewModel : NotifyPropertyBase
     {
         public ObservableCollection<Transaction> AllTransactions = new ObservableCollection<Transaction>();
         public abstract void GetTransactionData();
