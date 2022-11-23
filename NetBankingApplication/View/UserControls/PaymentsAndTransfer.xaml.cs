@@ -57,7 +57,7 @@ namespace NetBankingApplication.View.UserControls
 
             if (args.SelectedItem == Transfer)
             {
-                CurrentSelectedItem = new MakePayment();
+                CurrentSelectedItem = new TransferAmount();
             }
             else if(args.SelectedItem == ViewTransactions)
             {
@@ -68,6 +68,11 @@ namespace NetBankingApplication.View.UserControls
                 CurrentSelectedItem = new AddPayeeView();
             }
           
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            CurrentSelectedItem = new TransferAmount();
         }
     }
 }

@@ -9,11 +9,11 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <GridView Background="White" x:Name="CardHolder" ItemsSource="{x:Bind _overviewViewModel.cardcomponentItems,Mode=OneWay}" >
+    <!--<GridView Background="White" x:Name="CardHolder" ItemsSource="{x:Bind _overviewViewModel.cardcomponentItems,Mode=OneWay}" >
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="data:CardComponent">
                 <local:CardComponentTemplate Background="White" />
             </DataTemplate>
         </GridView.ItemTemplate>
-    </GridView>
+    </GridView>-->
 </UserControl>

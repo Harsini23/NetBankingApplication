@@ -36,10 +36,11 @@ namespace Library.Data.DataManager
         bool ResetPassword(string userId, string password, bool IsAdmin);
         void AddCredential(string userId, string password);
         bool GetAccount(string userId);
-        void AddTransaction();
+        Transaction AddTransaction(Transaction transaction);
         void AddAccount();
         List<Transaction> GetAllTransactions(string userId);
         bool AddNewPayee(Payee newPayee);
+        List<Payee> GetAllPayee(string userId);
     }
     public interface INetHandler
     {

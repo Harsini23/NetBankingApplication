@@ -171,7 +171,7 @@ namespace Library.Data.DataBaseService
         #endregion
 
 
-        #region
+        #region "Add account explictly"
         public void AddAccount()
         {
             var account = new Account()
@@ -183,34 +183,35 @@ namespace Library.Data.DataBaseService
                 TotalBalance= "1000000.00",
                 BId="B001",
                 Currency=0
-
             };
             connection.Insert(account);
         }
 
         #endregion
 
-        #region
-        public void AddTransaction()
+        #region "Transactions"
+        public Transaction AddTransaction(Transaction transaction)
         {
-            for(int i = 2; i < 10; i++)
-            {
-                var transaction = new Transaction()
-                {
-                    UserId = "Harsh",
-                    TransactionId = "T0000"+i,
-                    Date = "21-11-2022",
-                    TransactionType = (Model.Enum.TransactionType)1,
-                    Remark = "Outing",
-                    TransactionAmout = "2000"+i*200,
-                    FromAccount = "89036457389231",
-                    ToAccount = "89036457389234",
-                    Status = true
+            connection.Insert(transaction);
+            var ReCheckingquery = connection.Table<Transaction>().Where(i => i.UserId == transaction.UserId && i.TransactionId == transaction.TransactionId).FirstOrDefault();
+            if (ReCheckingquery != null && transaction != null) return ReCheckingquery;
+            return ReCheckingquery;
+            //for(int i = 2; i < 10; i++)
+            //{
+            //    var transaction = new Transaction()
+            //    {
+            //        UserId = "Harsh",
+            //        TransactionId = "T0000"+i,
+            //        Date = "21-11-2022",
+            //        TransactionType = (Model.Enum.TransactionType)1,
+            //        Remark = "Outing",
+            //        TransactionAmout = "2000"+i*200,
+            //        FromAccount = "89036457389231",
+            //        ToAccount = "89036457389234",
+            //        Status = true
 
-                };
-                connection.Insert(transaction);
-            }
-         
+            //    };
+            //}
         }
 
         public List<Transaction> GetAllTransactions(string userId)
@@ -227,7 +228,7 @@ namespace Library.Data.DataBaseService
 
         #endregion
 
-        #region
+        #region "Payee"
 
         public bool AddNewPayee(Payee newPayee)
         {
@@ -235,7 +236,17 @@ namespace Library.Data.DataBaseService
             var ReCheckingquery = connection.Table<Payee>().Where(i=> i.UserID==newPayee.UserID && i.AccountNumber==newPayee.AccountNumber).FirstOrDefault();
             if (ReCheckingquery != null && newPayee!=null) return true;
             return false;
-           
+        }
+
+        public List<Payee> GetAllPayee(string userId)
+        {
+            List<Payee> allPayee = new List<Payee>();
+            var AllCurrentPayee = connection.Table<Payee>().Where(i =>i.UserID==userId);
+            foreach(var i in AllCurrentPayee)
+            {
+                allPayee.Add(i);
+            }
+            return allPayee;
         }
         #endregion
 

@@ -120,11 +120,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddPayeeViewModel.cs" />
+    <Compile Include="ViewModel\GetAllPayeeViewModel.cs" />
     <Compile Include="ViewModel\LoginBaseViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NotifyPropertyBase.cs" />
     <Compile Include="ViewModel\OverviewViewModel.cs" />
     <Compile Include="ViewModel\TransactionHistoryViewModel.cs" />
+    <Compile Include="ViewModel\TransferAmountViewModel.cs" />
     <Compile Include="View\DashBoard.xaml.cs">
       <DependentUpon>DashBoard.xaml</DependentUpon>
     </Compile>
@@ -145,8 +147,8 @@
     <Compile Include="View\UserControls\CardComponentTemplate.xaml.cs">
       <DependentUpon>CardComponentTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\MakePayment.xaml.cs">
-      <DependentUpon>MakePayment.xaml</DependentUpon>
+    <Compile Include="View\UserControls\TransferAmount.xaml.cs">
+      <DependentUpon>TransferAmount.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
@@ -213,7 +215,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserControls\MakePayment.xaml">
+    <Page Include="View\UserControls\TransferAmount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
