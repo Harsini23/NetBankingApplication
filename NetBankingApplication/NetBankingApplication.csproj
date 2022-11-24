@@ -139,6 +139,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\PresenterService.cs" />
+    <Compile Include="View\TransactionReceiptContentDialog.xaml.cs">
+      <DependentUpon>TransactionReceiptContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\AddPayeeView.xaml.cs">
       <DependentUpon>AddPayeeView.xaml</DependentUpon>
     </Compile>
@@ -201,6 +204,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ResourceDictionaries\StyleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TransactionReceiptContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

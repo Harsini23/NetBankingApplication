@@ -66,8 +66,8 @@ namespace NetBankingApplication.ViewModel
                       getAllPayeeViewModel.AllPayeeCollection.Add(i);
                       getAllPayeeViewModel.PayeeNames.Add(i.PayeeName);
                       getAllPayeeViewModel.AllPayee.Add(i);
-                      Debug.WriteLine("/////////////////////////////////////////////////////////////////////////////////////////");
-                      Debug.WriteLine(i.PayeeName);
+                      //Debug.WriteLine("/////////////////////////////////////////////////////////////////////////////////////////");
+                      //Debug.WriteLine(i.PayeeName);
 
                   }
               });

@@ -63,20 +63,21 @@ namespace NetBankingApplication.View.UserControls
 
             GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
             GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
-            TransactionResult.Text = String.Empty;
+          
 
         }
         MenuFlyout selectPayeeList;
         MenuFlyout selectAccountList;
 
-        private void MakeTransaction_Click(object sender, RoutedEventArgs e)
+        private async void MakeTransaction_Click(object sender, RoutedEventArgs e)
         {
             //Grid.SetColumnSpan(TransferAmountDetails,0);
             //Grid.SetRowSpan(TransferAmountDetails,0);
 
 
             //show the current transaction overview receipt
-            TransactionDetails.Visibility = Visibility.Visible;
+            //TransactionDetails.Visibility = Visibility.Visible;
+           
 
             //get transaction fields
             if (NewPayeeName.Text == null && NewPayeeName.Text == String.Empty && NewPayeeName.Text == "")
@@ -101,7 +102,9 @@ namespace NetBankingApplication.View.UserControls
                 TransferAmountViewModel.SendTransaction(amountTranfer,"Harsh");
             }
             ResetUI();
-           // TransferAmountViewModel.SendTransaction(currentTransaction);
+
+            await ContentDialog.ShowAsync();
+            // TransferAmountViewModel.SendTransaction(currentTransaction);
         }
 
         private void ResetUI()
@@ -110,6 +113,7 @@ namespace NetBankingApplication.View.UserControls
             NewPayeeName.Visibility = Visibility.Collapsed;
             AccountNumberTextBox.Text = ""; SelectAccount.Content = "Select From Account";
             RemarkTextBox.Text = "";AmountTextBox.Text = "";
+            TransactionResult.Text = "";
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -126,6 +130,7 @@ namespace NetBankingApplication.View.UserControls
             allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
             allAccounts.Clear();
             allAccounts = GetAllAccountsViewModel.AllAccounts;
+            TransactionResult.Text = String.Empty;
 
         }
 

@@ -1,0 +1,62 @@
+﻿<ContentDialog
+    x:Class="NetBankingApplication.View.TransactionReceiptContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NetBankingApplication.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="TITLE"
+    PrimaryButtonText="Button1"
+    SecondaryButtonText="Button2"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <Grid x:Name="TransactionDetails" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" Margin="10">
+            <TextBlock FontSize="20"  FontWeight="Bold" HorizontalAlignment="Center" Text="Success" Margin="5"  x:Name="Transaction_status"></TextBlock>
+            <TextBlock FontWeight="ExtraLight" FontSize="14"  Text="Please find below the transaction receipt" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+        </StackPanel>
+        <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Transaction Reference Number:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBlock x:Name="TransactionId" Margin="10,0,0,0" Text="hello"  FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+        <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Text="Transaction Date:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock x:Name="TransactionDate" Text="hello"  FontSize="16" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+        <StackPanel Margin="10" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="From Account:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock x:Name="FromAccountNumber" Text="hello"  FontSize="16" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+
+        </StackPanel>
+        <StackPanel Margin="10" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="To Account:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock x:Name="ToAccountNumber" Text="hello"  FontSize="16" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+            <TextBlock x:Name="ToAccountName" Text="hello" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Margin="10" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Text="Amount Transfered:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBlock x:Name="AmountTransfered" Margin="10,0,0,0" Text="hello" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+        <StackPanel Margin="10" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Text="Remark:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock x:Name="Remark" Text="hello" FontSize="16" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+
+    </Grid>
+</ContentDialog>
