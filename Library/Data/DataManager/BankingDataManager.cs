@@ -41,6 +41,8 @@ namespace Library.Data.DataManager
         List<Transaction> GetAllTransactions(string userId);
         bool AddNewPayee(Payee newPayee);
         List<Payee> GetAllPayee(string userId);
+        List<Account> GetAllAccounts(string userId);
+        Account ValidationBeforeTransaction(string accountNumber, string userId);
     }
     public interface INetHandler
     {

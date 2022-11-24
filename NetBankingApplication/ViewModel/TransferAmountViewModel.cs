@@ -5,6 +5,7 @@ using Library.Model;
 using NetBankingApplication.View.UserControls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,9 +16,9 @@ namespace NetBankingApplication.ViewModel
     {
 
         TransferAmountUseCase transfer;
-        public override void SendTransaction(Transaction transaction)
+        public override void SendTransaction(AmountTransfer transaction,string userId)
         {
-            transfer = new TransferAmountUseCase(new TransferAmountRequest(transaction), new PresenterTransferAmountCallback(this));
+            transfer = new TransferAmountUseCase(new TransferAmountRequest(transaction,userId), new PresenterTransferAmountCallback(this));
             transfer.Execute();
         }
     }
@@ -45,7 +46,16 @@ namespace NetBankingApplication.ViewModel
 
         public void OnSuccess(ZResponse<TransferAmountResponse> response)
         {
-            
+            TransferAmountViewModel.ResultText = response.Response.ToString();
+            var currentTransaction = response.Data.transaction;
+            TransferAmountViewModel.AmountTransfered = currentTransaction.TransactionAmout;
+            TransferAmountViewModel.TransactionIdValue = currentTransaction.TransactionId;
+            TransferAmountViewModel.DateTime = currentTransaction.Date;
+            TransferAmountViewModel.FromAccountNumber = currentTransaction.FromAccount;
+            TransferAmountViewModel.ToAccountNumber = currentTransaction.ToAccount;
+            TransferAmountViewModel.ToName = currentTransaction.Name;
+            TransferAmountViewModel.Remark = currentTransaction.Remark;
+            //Debug.WriteLine(response.Data.transaction.Name, response.Data.transaction.ToAccount);
         }
 
 
@@ -54,8 +64,102 @@ namespace NetBankingApplication.ViewModel
 
     public abstract class TransferAmountBaseViewModel : NotifyPropertyBase
     {
-       
-        public abstract void SendTransaction(Transaction transaction);
+        private string _response = String.Empty;
+        public string ResultText
+        {
+            get { return this._response; }
+            set
+            {
+                _response = value;
+                OnPropertyChangedAsync(nameof(ResultText));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+        private string _transactionIdValue = String.Empty;
+        public string TransactionIdValue
+        {
+            get { return this._transactionIdValue; }
+            set
+            {
+                _transactionIdValue = value;
+                OnPropertyChangedAsync(nameof(TransactionIdValue));
+                //SetProperty(ref _response, value);
+            }
+        }  
+        
+        private string _datetime = String.Empty;
+        public string DateTime
+        {
+            get { return this._datetime; }
+            set
+            {
+                _datetime = value;
+                OnPropertyChangedAsync(nameof(DateTime));
+                //SetProperty(ref _response, value);
+            }
+        } 
+        
+        private string _fromAccount = String.Empty;
+        public string FromAccountNumber
+        {
+            get { return this._fromAccount; }
+            set
+            {
+                _fromAccount = value;
+                OnPropertyChangedAsync(nameof(FromAccountNumber));
+                //SetProperty(ref _response, value);
+            }
+        } 
+        private string _toAccountNumber = String.Empty;
+        public string ToAccountNumber
+        {
+            get { return this._toAccountNumber; }
+            set
+            {
+                _toAccountNumber = value;
+                OnPropertyChangedAsync(nameof(ToAccountNumber));
+                //SetProperty(ref _response, value);
+            }
+        }
+        private string _toName = String.Empty;
+        public string ToName
+        {
+            get { return this._toName; }
+            set
+            {
+                _toName = value;
+                OnPropertyChangedAsync(nameof(ToName));
+                //SetProperty(ref _response, value);
+            }
+        }  
+        
+        private string _amountTransfered = String.Empty;
+        public string AmountTransfered
+        {
+            get { return this._amountTransfered; }
+            set
+            {
+                _amountTransfered = value;
+                OnPropertyChangedAsync(nameof(AmountTransfered));
+                //SetProperty(ref _response, value);
+            }
+        } 
+        
+        private string _remark = String.Empty;
+        public string Remark
+        {
+            get { return this._remark; }
+            set
+            {
+                _remark = value;
+                OnPropertyChangedAsync(nameof(Remark));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+
+        public abstract void SendTransaction(AmountTransfer transaction,string userId);
       
     }
 }

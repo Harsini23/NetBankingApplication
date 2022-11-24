@@ -17,12 +17,13 @@ namespace Library.Domain.UseCase
     }
     public class TransferAmountRequest : IRequest
     {
-        public Transaction Transaction { get; set; }
+        public AmountTransfer Transaction { get; set; }
         public string UserId { get; set; }
 
-        public TransferAmountRequest(Transaction transaction)
+        public TransferAmountRequest(AmountTransfer transaction,string userId)
         {
              Transaction= transaction;
+            UserId= userId;
         }
     }
 
@@ -48,10 +49,7 @@ namespace Library.Domain.UseCase
         }
         public override void Action()
         {
-            //use call back 
-            //set transaction instance
             this.TransferAmountDataManager.AddTransaction(TransferAmountRequest, new TransferAmountCallback(this));
-            // this.TransactionHistoryDataManager.ValidateUserLogin(TransactionHistoryRequest, new TransactionHistoryCallback(this));
         }
         public class TransferAmountCallback : ZResponse<TransferAmountResponse>
         {

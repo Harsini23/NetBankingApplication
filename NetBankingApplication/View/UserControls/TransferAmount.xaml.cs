@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,6 +23,14 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class TransferAmount : UserControl
     {
+        private string UserId;
+        private string Name;
+        private string FromAccount;
+        private string ToAccount;
+        private string RemarkDescription;
+        private string Amount;
+        private string NewPayeeEnteredName;
+
 
         private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
 
@@ -31,8 +40,16 @@ namespace NetBankingApplication.View.UserControls
 
         PresenterService TransferAmountVMserviceProviderInstance;
 
+        private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
+
+        PresenterService GetAllAccountsVMserviceProviderInstance;
+
+
         List<String> allRecipientNames = new List<String>();
         List<Payee> allRecipients = new List<Payee>();
+
+        List<Account> allAccounts = new List<Account>();
+        List<String> allAccountNumbers = new List<String>();
 
         public TransferAmount()
         {
@@ -44,29 +61,55 @@ namespace NetBankingApplication.View.UserControls
             TransferAmountVMserviceProviderInstance = PresenterService.GetInstance();
             TransferAmountViewModel = TransferAmountVMserviceProviderInstance.Services.GetService<TransferAmountBaseViewModel>();
 
+            GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
+            GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
+            TransactionResult.Text = String.Empty;
+
         }
         MenuFlyout selectPayeeList;
+        MenuFlyout selectAccountList;
 
         private void MakeTransaction_Click(object sender, RoutedEventArgs e)
         {
             //Grid.SetColumnSpan(TransferAmountDetails,0);
             //Grid.SetRowSpan(TransferAmountDetails,0);
-            TransactionDetails.Visibility = Visibility.Visible;
-            //get transaction fields
 
-            Transaction currentTransaction = new Transaction{
-                TransactionId=" AKFAOJ#$",
-                Date="23-11-2022 9:34",
-                Status=true,
-                FromAccount="78876535412",
-                ToAccount="798490832098",
-                Name="Monica",
-                Remark="Food",
-                TransactionAmout="2000",
-                TransactionType=Library.Model.Enum.TransactionType.Debited,
-                UserId="Harsh",
+
+            //show the current transaction overview receipt
+            TransactionDetails.Visibility = Visibility.Visible;
+
+            //get transaction fields
+            if (NewPayeeName.Text == null && NewPayeeName.Text == String.Empty && NewPayeeName.Text == "")
+            {
+                Name = NewPayeeName.Text;
+            }
+
+            Amount=AmountTextBox.Text;
+            RemarkDescription=RemarkTextBox.Text;
+            //get from account from using user id from datamanager
+            AmountTransfer amountTranfer = new AmountTransfer
+            {
+                UserId = "Harsh",
+                Name = Name,
+                FromAccount = FromAccount,
+                ToAccount = ToAccount,
+                Remark = RemarkDescription,
+                Amount = Amount
             };
-            TransferAmountViewModel.SendTransaction(currentTransaction);
+            if (amountTranfer.ToAccount!=null && amountTranfer.Amount!=null && amountTranfer.Name!=null)
+            {
+                TransferAmountViewModel.SendTransaction(amountTranfer,"Harsh");
+            }
+            ResetUI();
+           // TransferAmountViewModel.SendTransaction(currentTransaction);
+        }
+
+        private void ResetUI()
+        {
+            SelectPayee.Content = "Select payee";
+            NewPayeeName.Visibility = Visibility.Collapsed;
+            AccountNumberTextBox.Text = ""; SelectAccount.Content = "Select From Account";
+            RemarkTextBox.Text = "";AmountTextBox.Text = "";
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -77,6 +120,12 @@ namespace NetBankingApplication.View.UserControls
            allRecipientNames= GetAllPayeeViewModel.PayeeNames;
             allRecipients.Clear();
             allRecipients = GetAllPayeeViewModel.AllPayee;
+
+            GetAllAccountsViewModel.GetAllAccounts("Harsh");
+            allAccountNumbers.Clear();
+            allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
+            allAccounts.Clear();
+            allAccounts = GetAllAccountsViewModel.AllAccounts;
 
         }
 
@@ -104,13 +153,19 @@ namespace NetBankingApplication.View.UserControls
         private void Item_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = sender as MenuFlyoutItem;
+            NewPayeeName.Visibility = Visibility.Collapsed;
             SelectPayee.Content = selectedItem.Text;
+            ToAccount=selectedItem.Text;
             foreach (var i in allRecipients)
             {
                 if (selectedItem.Text == i.PayeeName)
                 {
                     AccountNumberTextBox.Text = i.AccountNumber;
                     AccountNumberTextBox.IsReadOnly = true;
+                    Name = i.PayeeName;
+                    ToAccount = i.AccountNumber;
+                    Name = i.AccountHolderName;
+                    break;
                 }
             }
         
@@ -123,6 +178,37 @@ namespace NetBankingApplication.View.UserControls
             AccountNumberTextBox.IsReadOnly=false;
             var selectedItem = sender as MenuFlyoutItem;
             SelectPayee.Content = selectedItem.Text;
+            ToAccount = selectedItem.Text;
+            NewPayeeName.Visibility = Visibility.Visible;
+        }
+
+        private void AccountDropdown_Opening(object sender, object e)
+        {
+            selectAccountList = sender as MenuFlyout;
+            selectAccountList.Items.Clear();
+            foreach (var i in allAccountNumbers)
+            {
+                var item = new MenuFlyoutItem();
+                item.Text = i;
+                item.Click += Account_Selection; ;
+                item.MinWidth = 150;
+                selectAccountList.Items.Add(item);
+            }
+        }
+
+        private void Account_Selection(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = sender as MenuFlyoutItem;
+            FromAccount = selectedItem.Text;
+            SelectAccount.Content= selectedItem.Text;
+            Debug.WriteLine(ToAccount);
+        }
+
+        private void NewPayeeName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var name = (TextBox)sender;
+            NewPayeeEnteredName = name.Text.ToString();
+           
         }
     }
 }

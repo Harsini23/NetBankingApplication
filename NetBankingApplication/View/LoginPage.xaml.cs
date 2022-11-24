@@ -32,6 +32,8 @@ namespace NetBankingApplication.View
         public LoginPage()
         {
             this.InitializeComponent();
+         
+
             LoginVMserviceProviderInstance = PresenterService.GetInstance();
             LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
             //setting login view value for callback

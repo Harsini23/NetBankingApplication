@@ -128,6 +128,7 @@
     <Compile Include="Data\DataManager\AddPayeeDataManager.cs" />
     <Compile Include="Data\DataManager\BankingDataManager.cs" />
     <Compile Include="Data\DataManager\CreateNewUserDataManager.cs" />
+    <Compile Include="Data\DataManager\GetAllAccountsDataManager.cs" />
     <Compile Include="Data\DataManager\GetAllPayeeDataManager.cs" />
     <Compile Include="Data\DataManager\LoginDataManager.cs" />
     <Compile Include="Data\DataManager\OverviewDataManager.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Domain\IServiceProvider.cs" />
     <Compile Include="Domain\UseCase\AddPayee.cs" />
     <Compile Include="Domain\UseCase\CreateNewUser.cs" />
+    <Compile Include="Domain\UseCase\GetAllAccounts.cs" />
     <Compile Include="Domain\UseCase\GetAllPayee.cs" />
     <Compile Include="Domain\UseCase\Login.cs" />
     <Compile Include="Domain\UseCaseBase.cs" />
@@ -160,6 +162,9 @@
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\CurrentDateTime.cs" />
+    <Compile Include="Util\GenerateUniqueId.cs" />
+    <Compile Include="Util\PasswordEncryption.cs" />
     <EmbeddedResource Include="Properties\Library.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -188,9 +193,7 @@
       <Version>2.1.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Util\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

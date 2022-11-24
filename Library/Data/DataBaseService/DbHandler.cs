@@ -168,6 +168,25 @@ namespace Library.Data.DataBaseService
             if (user.Count() > 0) return true;
             return false;
         }
+
+        public List<Account> GetAllAccounts(string userId)
+        {
+            List<Account> allAccounts = new List<Account>();
+            var AllAccounts = connection.Table<Account>().Where(c => c.UserId == userId);
+            foreach (var i in AllAccounts)
+            {
+                allAccounts.Add(i);
+            }
+            return allAccounts;
+        }
+
+        public Account ValidationBeforeTransaction(string accountNumber,string userId)
+        {
+
+            var account = connection.Table<Account>().Where(i => i.UserId == userId &&i.AccountNumber==accountNumber).FirstOrDefault();
+          return account;
+        }
+
         #endregion
 
 

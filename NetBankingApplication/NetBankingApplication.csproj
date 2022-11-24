@@ -120,6 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddPayeeViewModel.cs" />
+    <Compile Include="ViewModel\GetAllAccountsViewModel.cs" />
     <Compile Include="ViewModel\GetAllPayeeViewModel.cs" />
     <Compile Include="ViewModel\LoginBaseViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
