@@ -151,6 +151,12 @@
     <Compile Include="View\UserControls\CardComponentTemplate.xaml.cs">
       <DependentUpon>CardComponentTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\EditPayee.xaml.cs">
+      <DependentUpon>EditPayee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\PayeeTemplate.xaml.cs">
+      <DependentUpon>PayeeTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\TransferAmount.xaml.cs">
       <DependentUpon>TransferAmount.xaml</DependentUpon>
     </Compile>
@@ -165,6 +171,9 @@
     </Compile>
     <Compile Include="View\UserControls\TransactionHistory.xaml.cs">
       <DependentUpon>TransactionHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\ViewAndEditPayee.xaml.cs">
+      <DependentUpon>ViewAndEditPayee.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +232,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControls\EditPayee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\PayeeTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControls\TransferAmount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -240,6 +257,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\TransactionHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\ViewAndEditPayee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

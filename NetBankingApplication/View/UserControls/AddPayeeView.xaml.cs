@@ -22,20 +22,23 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class AddPayeeView : UserControl
     {
+        private string currentUserId;
         private AddPayeeBaseViewModel AddPayeeViewModel;
      
         PresenterService AddPayeeVMserviceProviderInstance;
       
-        public AddPayeeView()
+        public AddPayeeView(string userId)
         {
             this.InitializeComponent();
             AddPayeeVMserviceProviderInstance = PresenterService.GetInstance();
             AddPayeeViewModel = AddPayeeVMserviceProviderInstance.Services.GetService<AddPayeeBaseViewModel>();
+            currentUserId = userId;
+            Result.Text = "";
         }
 
         private void AddPayee_Click(object sender, RoutedEventArgs e)
         {
-            Payee newRecipent = new Payee { UserID = "Harsh", AccountHolderName = AccountHolderName.Text, AccountNumber = Accountnumber.Text, IfscCode = IfscCode.Text, BankName = BankName.Text, PayeeName = PayeeName.Text };
+            Payee newRecipent = new Payee { UserID = currentUserId, AccountHolderName = AccountHolderName.Text, AccountNumber = Accountnumber.Text, IfscCode = IfscCode.Text, BankName = BankName.Text, PayeeName = PayeeName.Text };
             AddPayeeViewModel.AddPayee(newRecipent);
             PayeeName.Text = String.Empty;
             AccountHolderName.Text=String.Empty;

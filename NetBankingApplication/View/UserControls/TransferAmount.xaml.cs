@@ -23,6 +23,8 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class TransferAmount : UserControl
     {
+        private string currentUserId;
+
         private string UserId;
         private string Name;
         private string FromAccount;
@@ -51,9 +53,10 @@ namespace NetBankingApplication.View.UserControls
         List<Account> allAccounts = new List<Account>();
         List<String> allAccountNumbers = new List<String>();
 
-        public TransferAmount()
+        public TransferAmount(string userId)
         {
             this.InitializeComponent();
+            currentUserId = userId;
 
             GetAllPayeeVMserviceProviderInstance = PresenterService.GetInstance();
             GetAllPayeeViewModel = GetAllPayeeVMserviceProviderInstance.Services.GetService<GetAllPayeeBaseViewModel>();
@@ -74,32 +77,32 @@ namespace NetBankingApplication.View.UserControls
             //Grid.SetColumnSpan(TransferAmountDetails,0);
             //Grid.SetRowSpan(TransferAmountDetails,0);
 
-
             //show the current transaction overview receipt
             //TransactionDetails.Visibility = Visibility.Visible;
            
 
             //get transaction fields
-            if (NewPayeeName.Text == null && NewPayeeName.Text == String.Empty && NewPayeeName.Text == "")
+            if (!String.IsNullOrEmpty(NewPayeeName.Text))
             {
                 Name = NewPayeeName.Text;
+                ToAccount = AccountNumberTextBox.Text;
             }
 
             Amount=AmountTextBox.Text;
             RemarkDescription=RemarkTextBox.Text;
             //get from account from using user id from datamanager
-            AmountTransfer amountTranfer = new AmountTransfer
+            AmountTransfer amountTransfer = new AmountTransfer
             {
-                UserId = "Harsh",
+                UserId = currentUserId,
                 Name = Name,
                 FromAccount = FromAccount,
                 ToAccount = ToAccount,
                 Remark = RemarkDescription,
                 Amount = Amount
             };
-            if (amountTranfer.ToAccount!=null && amountTranfer.Amount!=null && amountTranfer.Name!=null)
+            if (amountTransfer.ToAccount!=null && amountTransfer.Amount!=null && amountTransfer.Name!=null)
             {
-                TransferAmountViewModel.SendTransaction(amountTranfer,"Harsh");
+                TransferAmountViewModel.SendTransaction(amountTransfer,amountTransfer.UserId);
             }
             ResetUI();
 
@@ -119,13 +122,13 @@ namespace NetBankingApplication.View.UserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             //load list of payee with all details as payee object
-            GetAllPayeeViewModel.GetAllPayee("Harsh");
+            GetAllPayeeViewModel.GetAllPayee(currentUserId);
             allRecipientNames.Clear();
            allRecipientNames= GetAllPayeeViewModel.PayeeNames;
             allRecipients.Clear();
             allRecipients = GetAllPayeeViewModel.AllPayee;
 
-            GetAllAccountsViewModel.GetAllAccounts("Harsh");
+            GetAllAccountsViewModel.GetAllAccounts(currentUserId);
             allAccountNumbers.Clear();
             allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
             allAccounts.Clear();

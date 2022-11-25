@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Library.Model
 {
     public class Branch
     {
+        [PrimaryKey]
         public string BId { get; set; }
         public string BName { get; set; }
         public string BCity { get; set; }

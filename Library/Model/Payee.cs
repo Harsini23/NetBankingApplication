@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Library.Model
     {
         public string UserID { get; set; }
         public string AccountHolderName { get; set; }
+        [PrimaryKey]
         public string AccountNumber { get; set; }
         public string IfscCode { get; set; }
         public string BankName { get; set; }

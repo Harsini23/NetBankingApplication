@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -22,9 +23,11 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class PaymentsAndTransfer : UserControl, INotifyPropertyChanged
     {
         //CurrentSelectedItem
-        public PaymentsAndTransfer()
+        User currentUser;
+        public PaymentsAndTransfer(User currentUSer)
         {
             this.InitializeComponent();
+            this.currentUser = currentUSer;
         }
 
 
@@ -57,22 +60,26 @@ namespace NetBankingApplication.View.UserControls
 
             if (args.SelectedItem == Transfer)
             {
-                CurrentSelectedItem = new TransferAmount();
+                CurrentSelectedItem = new TransferAmount(currentUser.UserId);
             }
             else if(args.SelectedItem == ViewTransactions)
             {
-                CurrentSelectedItem = new TransactionHistory();
+                CurrentSelectedItem = new TransactionHistory(currentUser.UserId);
+            }
+            else if(args.SelectedItem == AddPayee)
+            {
+                CurrentSelectedItem = new AddPayeeView(currentUser.UserId);
             }
             else
             {
-                CurrentSelectedItem = new AddPayeeView();
+                CurrentSelectedItem = new ViewAndEditPayee(currentUser.UserId);
             }
           
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            CurrentSelectedItem = new TransferAmount();
+            CurrentSelectedItem = new TransferAmount(currentUser.UserId);
         }
     }
 }

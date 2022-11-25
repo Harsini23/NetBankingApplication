@@ -30,7 +30,7 @@
             <Button Grid.Row="6" x:Name="AddPayee" CornerRadius="5" Content="Add Payee" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="6" Click="AddPayee_Click"></Button>
            
         </Grid>
-        <TextBlock  Text="{x:Bind AddPayeeViewModel.AddPayeeResponseValue,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap"></TextBlock>
+        <TextBlock  Text="{x:Bind AddPayeeViewModel.AddPayeeResponseValue,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" x:Name="Result"></TextBlock>
         </StackPanel>
     </ScrollViewer>
   

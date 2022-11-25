@@ -162,12 +162,12 @@ namespace Library.Data.DataBaseService
         #endregion
 
         #region "Account Table operations"
-        public bool GetAccount(string userId)
-        {
-            var user = connection.Table<Account>().Where(i => i.UserId == userId);
-            if (user.Count() > 0) return true;
-            return false;
-        }
+        //public bool GetAccount(string userId)
+        //{
+        //    var user = connection.Table<Account>().Where(i => i.UserId == userId);
+        //    if (user.Count() > 0) return true;
+        //    return false;
+        //}
 
         public List<Account> GetAllAccounts(string userId)
         {
@@ -180,11 +180,20 @@ namespace Library.Data.DataBaseService
             return allAccounts;
         }
 
-        public Account ValidationBeforeTransaction(string accountNumber,string userId)
+        public Account GetAccount(string accountNumber,string userId)
         {
 
             var account = connection.Table<Account>().Where(i => i.UserId == userId &&i.AccountNumber==accountNumber).FirstOrDefault();
           return account;
+        }
+
+        public bool UpdateBalance(Account account)
+        {
+           
+            connection.InsertOrReplace(account);
+            var ReCheckingquery = connection.Table<Account>().Where(c => c.UserId == account.UserId && c.AccountNumber == account.AccountNumber && c.TotalBalance==account.TotalBalance).FirstOrDefault();
+            if (ReCheckingquery != null) return true;
+            return false;
         }
 
         #endregion
@@ -195,7 +204,7 @@ namespace Library.Data.DataBaseService
         {
             var account = new Account()
             {
-                AccountNumber= "89036457389231",
+                AccountNumber= "678987265323",
                 UserId="Harsh",
                 AccountType=0,
                 AvailableBalanceAsOn="21-11-2022",
@@ -204,6 +213,18 @@ namespace Library.Data.DataBaseService
                 Currency=0
             };
             connection.Insert(account);
+
+            var account2 = new Account()
+            {
+                AccountNumber = "907625243788",
+                UserId = "Harsh",
+                AccountType = 0,
+                AvailableBalanceAsOn = "24-11-2022",
+                TotalBalance = "9000000.00",
+                BId = "B002",
+                Currency = 0
+            };
+            connection.Insert(account2);
         }
 
         #endregion

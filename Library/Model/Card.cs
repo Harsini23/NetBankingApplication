@@ -1,4 +1,5 @@
 ﻿using Library.Model.Enum;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace Library.Model
     public class Card
     {
         public string UserID { get; set; }
+
+        [PrimaryKey]
         public string CardNumber { get; set; }
         public CardType CardType { get; set; }
         public string PinNumber { get; set; }

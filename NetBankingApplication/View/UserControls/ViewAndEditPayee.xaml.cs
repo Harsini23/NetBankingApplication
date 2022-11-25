@@ -20,24 +20,30 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class TransactionHistory : UserControl
+    public sealed partial class ViewAndEditPayee : UserControl
     {
-        private string currentUserId;
+        private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
 
-        private TransactionHistoryBaseViewModel TransactionViewModel;
-      
-        PresenterService TransactionVMserviceProviderInstance;
-        public TransactionHistory(string userId)
+        PresenterService GetAllPayeeVMserviceProviderInstance;
+
+
+       
+        //List<Payee> allRecipients = new List<Payee>();
+
+        private string currentUserId;
+        public ViewAndEditPayee(string userId)
         {
-            TransactionVMserviceProviderInstance = PresenterService.GetInstance();
-            TransactionViewModel = TransactionVMserviceProviderInstance.Services.GetService<TransactionHistoryBaseViewModel>();
             this.InitializeComponent();
             currentUserId = userId;
+            GetAllPayeeVMserviceProviderInstance = PresenterService.GetInstance();
+            GetAllPayeeViewModel = GetAllPayeeVMserviceProviderInstance.Services.GetService<GetAllPayeeBaseViewModel>();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            TransactionViewModel.GetTransactionData(currentUserId);
+            GetAllPayeeViewModel.GetAllPayee(currentUserId);
+            //allRecipients.Clear();
+            //allRecipients = GetAllPayeeViewModel.AllPayee;
         }
     }
 }

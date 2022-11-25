@@ -1,4 +1,5 @@
 ﻿using Library.Model.Enum;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,11 @@ namespace Library.Model
 {
     public class Transaction
     {
+        
         public string UserId { get; set; }
         public string Name { get; set; }
+
+        [PrimaryKey]
         public string TransactionId { get; set; }
         public string Date { get; set; }
         public TransactionType TransactionType { get; set; }

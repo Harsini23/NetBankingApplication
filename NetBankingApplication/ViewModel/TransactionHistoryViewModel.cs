@@ -16,7 +16,7 @@ namespace NetBankingApplication.ViewModel
     public class TransactionHistoryViewModel : TransactionHistoryBaseViewModel
     {
         TransactionHistoryUseCase Transaction;
-        public override void GetTransactionData()
+        public override void GetTransactionData(string userId)
         {
             //load the observable collection frm db
             //for (int i = 2; i < 20; i++)
@@ -37,7 +37,7 @@ namespace NetBankingApplication.ViewModel
             //}
 
             //send userid here XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-            Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest("Harsh"), new PresenterTransactionHistoryCallback(this));
+            Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest(userId), new PresenterTransactionHistoryCallback(this));
             Transaction.Execute();
             
         }
@@ -79,9 +79,11 @@ namespace NetBankingApplication.ViewModel
               Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
               {
                   transactionHistoryViewModel.AllTransactions.Clear();
+                  transactionHistoryViewModel.RecipientNameInitials.Clear();
                   foreach (var i in TransactionList)
                   {
                       transactionHistoryViewModel.AllTransactions.Add(i);
+                      transactionHistoryViewModel.RecipientNameInitials.Add(i.Name.Substring(0, 1));
                   }
               });
                 
@@ -92,7 +94,9 @@ namespace NetBankingApplication.ViewModel
     public abstract class TransactionHistoryBaseViewModel : NotifyPropertyBase
     {
         public ObservableCollection<Transaction> AllTransactions = new ObservableCollection<Transaction>();
-        public abstract void GetTransactionData();
+        public abstract void GetTransactionData(string UserId);
         public List<Transaction> AllTransactionList= new List<Transaction>(){};
+
+        public List<String> RecipientNameInitials = new List<string>();
     }
 }

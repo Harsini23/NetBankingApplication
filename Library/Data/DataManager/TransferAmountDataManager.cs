@@ -5,6 +5,7 @@ using Library.Model;
 using Library.Util;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,16 +18,29 @@ namespace Library.Data.DataManager
         {
         }
 
-        private bool ValidateCurrentAccount(Account currentAccount,string Amount)
+        private bool ValidateCurrentAccountAndDeductBalance(Account currentAccount,string Amount)
         {
             if (currentAccount != null)
             {
-             
                 double AccountBalance = Double.Parse(currentAccount.TotalBalance);
                 double amount = Double.Parse(Amount);
                 if(AccountBalance>=amount)
                 {
-                    return true;
+                    double deductedValue = AccountBalance - amount;
+                    //deduct amount from account
+                    Account account = new Account
+                    {
+                        UserId = currentAccount.UserId,
+                        AccountNumber = currentAccount.AccountNumber,
+                        AccountType = currentAccount.AccountType,
+                        AvailableBalanceAsOn = CurrentDateTime.GetCurrentDate(),
+                        BId = currentAccount.BId,
+                        Currency = currentAccount.Currency,
+                        TotalBalance = deductedValue.ToString()
+                    };
+                    //Debug.WriteLine(deductedValue.ToString());
+                    var res =DbHandler.UpdateBalance(account);
+                    return res;
                 }
             }
             return false;
@@ -38,8 +52,8 @@ namespace Library.Data.DataManager
 
             //conversion of amountTransfer to transaction
             //check for balance  before transaction
-            var account = DbHandler.ValidationBeforeTransaction(request.Transaction.FromAccount, request.UserId);
-            var status= ValidateCurrentAccount(account,request.Transaction.Amount);
+            var account = DbHandler.GetAccount(request.Transaction.FromAccount, request.UserId);
+            var status= ValidateCurrentAccountAndDeductBalance(account,request.Transaction.Amount);
             Transaction currentTransaction = new Transaction
             {
                 UserId = request.UserId,

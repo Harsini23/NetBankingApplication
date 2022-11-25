@@ -88,7 +88,7 @@ namespace NetBankingApplication.View
             }
             else if (args.SelectedItem == PaymentsAndTransfer)
             {
-                PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer();
+                PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer(Currentuser);
                 CurrentSelectedModule = paymentsAndTransfer;
                 // pageType = typeof(PaymentsAndTransfer);
                 HeaderTitle = "Payment and Transfer";

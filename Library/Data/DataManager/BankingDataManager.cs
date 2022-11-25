@@ -35,14 +35,19 @@ namespace Library.Data.DataManager
         void AddRecord(String userId, string password, bool isAdmin);
         bool ResetPassword(string userId, string password, bool IsAdmin);
         void AddCredential(string userId, string password);
-        bool GetAccount(string userId);
+        //bool GetAccount(string userId);
         Transaction AddTransaction(Transaction transaction);
         void AddAccount();
         List<Transaction> GetAllTransactions(string userId);
         bool AddNewPayee(Payee newPayee);
         List<Payee> GetAllPayee(string userId);
         List<Account> GetAllAccounts(string userId);
-        Account ValidationBeforeTransaction(string accountNumber, string userId);
+        Account GetAccount(string accountNumber, string userId);
+
+        bool UpdateBalance(Account account);
+
+
+
     }
     public interface INetHandler
     {

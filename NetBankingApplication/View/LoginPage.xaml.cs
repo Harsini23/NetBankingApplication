@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -33,13 +34,12 @@ namespace NetBankingApplication.View
         {
             this.InitializeComponent();
          
-
             LoginVMserviceProviderInstance = PresenterService.GetInstance();
             LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
             //setting login view value for callback
             LoginViewModel.LoginViewModelCallback = this;
         }
-
+    
         private void Verify_Click(object sender, RoutedEventArgs e)
         {
          
