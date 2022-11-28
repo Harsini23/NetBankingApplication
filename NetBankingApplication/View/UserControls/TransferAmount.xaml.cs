@@ -66,7 +66,7 @@ namespace NetBankingApplication.View.UserControls
 
             GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
             GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
-          
+
 
         }
         MenuFlyout selectPayeeList;
@@ -79,7 +79,7 @@ namespace NetBankingApplication.View.UserControls
 
             //show the current transaction overview receipt
             //TransactionDetails.Visibility = Visibility.Visible;
-           
+
 
             //get transaction fields
             if (!String.IsNullOrEmpty(NewPayeeName.Text))
@@ -88,8 +88,8 @@ namespace NetBankingApplication.View.UserControls
                 ToAccount = AccountNumberTextBox.Text;
             }
 
-            Amount=AmountTextBox.Text;
-            RemarkDescription=RemarkTextBox.Text;
+            Amount = AmountTextBox.Text;
+            RemarkDescription = RemarkTextBox.Text;
             //get from account from using user id from datamanager
             AmountTransfer amountTransfer = new AmountTransfer
             {
@@ -100,9 +100,9 @@ namespace NetBankingApplication.View.UserControls
                 Remark = RemarkDescription,
                 Amount = Amount
             };
-            if (amountTransfer.ToAccount!=null && amountTransfer.Amount!=null && amountTransfer.Name!=null)
+            if (amountTransfer.ToAccount != null && amountTransfer.Amount != null && amountTransfer.Name != null)
             {
-                TransferAmountViewModel.SendTransaction(amountTransfer,amountTransfer.UserId);
+                TransferAmountViewModel.SendTransaction(amountTransfer, amountTransfer.UserId);
             }
             ResetUI();
 
@@ -115,7 +115,7 @@ namespace NetBankingApplication.View.UserControls
             SelectPayee.Content = "Select payee";
             NewPayeeName.Visibility = Visibility.Collapsed;
             AccountNumberTextBox.Text = ""; SelectAccount.Content = "Select From Account";
-            RemarkTextBox.Text = "";AmountTextBox.Text = "";
+            RemarkTextBox.Text = ""; AmountTextBox.Text = "";
             TransactionResult.Text = "";
         }
 
@@ -124,7 +124,7 @@ namespace NetBankingApplication.View.UserControls
             //load list of payee with all details as payee object
             GetAllPayeeViewModel.GetAllPayee(currentUserId);
             allRecipientNames.Clear();
-           allRecipientNames= GetAllPayeeViewModel.PayeeNames;
+            allRecipientNames = GetAllPayeeViewModel.PayeeNames;
             allRecipients.Clear();
             allRecipients = GetAllPayeeViewModel.AllPayee;
 
@@ -137,7 +137,7 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
-   
+
 
         private void MenuFlyout_Opened(object sender, object e)
         {
@@ -163,7 +163,7 @@ namespace NetBankingApplication.View.UserControls
             var selectedItem = sender as MenuFlyoutItem;
             NewPayeeName.Visibility = Visibility.Collapsed;
             SelectPayee.Content = selectedItem.Text;
-            ToAccount=selectedItem.Text;
+            ToAccount = selectedItem.Text;
             foreach (var i in allRecipients)
             {
                 if (selectedItem.Text == i.PayeeName)
@@ -176,14 +176,14 @@ namespace NetBankingApplication.View.UserControls
                     break;
                 }
             }
-        
+
         }
 
         private void QuickTransaction_Click(object sender, RoutedEventArgs e)
         {
             AccountNumberTextBox.Text = String.Empty;
             AccountNumberTextBox.IsEnabled = true;
-            AccountNumberTextBox.IsReadOnly=false;
+            AccountNumberTextBox.IsReadOnly = false;
             var selectedItem = sender as MenuFlyoutItem;
             SelectPayee.Content = selectedItem.Text;
             ToAccount = selectedItem.Text;
@@ -208,7 +208,7 @@ namespace NetBankingApplication.View.UserControls
         {
             var selectedItem = sender as MenuFlyoutItem;
             FromAccount = selectedItem.Text;
-            SelectAccount.Content= selectedItem.Text;
+            SelectAccount.Content = selectedItem.Text;
             Debug.WriteLine(ToAccount);
         }
 
@@ -216,7 +216,7 @@ namespace NetBankingApplication.View.UserControls
         {
             var name = (TextBox)sender;
             NewPayeeEnteredName = name.Text.ToString();
-           
+
         }
     }
 }

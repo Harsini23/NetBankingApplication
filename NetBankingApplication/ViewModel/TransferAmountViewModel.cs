@@ -16,9 +16,9 @@ namespace NetBankingApplication.ViewModel
     {
 
         TransferAmountUseCase transfer;
-        public override void SendTransaction(AmountTransfer transaction,string userId)
+        public override void SendTransaction(AmountTransfer transaction, string userId)
         {
-            transfer = new TransferAmountUseCase(new TransferAmountRequest(transaction,userId), new PresenterTransferAmountCallback(this));
+            transfer = new TransferAmountUseCase(new TransferAmountRequest(transaction, userId), new PresenterTransferAmountCallback(this));
             transfer.Execute();
         }
     }
@@ -48,18 +48,26 @@ namespace NetBankingApplication.ViewModel
         {
             TransferAmountViewModel.ResultText = response.Response.ToString();
             var currentTransaction = response.Data.transaction;
-            TransferAmountViewModel.AmountTransfered = currentTransaction.TransactionAmout;
+            TransferAmountViewModel.AmountTransfered = currentTransaction.Amount;
             TransferAmountViewModel.TransactionIdValue = currentTransaction.TransactionId;
             TransferAmountViewModel.DateTime = currentTransaction.Date;
             TransferAmountViewModel.FromAccountNumber = currentTransaction.FromAccount;
             TransferAmountViewModel.ToAccountNumber = currentTransaction.ToAccount;
             TransferAmountViewModel.ToName = currentTransaction.Name;
             TransferAmountViewModel.Remark = currentTransaction.Remark;
+            if (currentTransaction.Status)
+            {
+                TransferAmountViewModel.Status = "Success";
+            }
+            else
+            {
+                TransferAmountViewModel.Status = "Failed";
+            }
             //Debug.WriteLine(response.Data.transaction.Name, response.Data.transaction.ToAccount);
         }
 
 
-      
+
     }
 
     public abstract class TransferAmountBaseViewModel : NotifyPropertyBase
@@ -86,8 +94,8 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChangedAsync(nameof(TransactionIdValue));
                 //SetProperty(ref _response, value);
             }
-        }  
-        
+        }
+
         private string _datetime = String.Empty;
         public string DateTime
         {
@@ -98,8 +106,8 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChangedAsync(nameof(DateTime));
                 //SetProperty(ref _response, value);
             }
-        } 
-        
+        }
+
         private string _fromAccount = String.Empty;
         public string FromAccountNumber
         {
@@ -110,7 +118,7 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChangedAsync(nameof(FromAccountNumber));
                 //SetProperty(ref _response, value);
             }
-        } 
+        }
         private string _toAccountNumber = String.Empty;
         public string ToAccountNumber
         {
@@ -132,8 +140,8 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChangedAsync(nameof(ToName));
                 //SetProperty(ref _response, value);
             }
-        }  
-        
+        }
+
         private string _amountTransfered = String.Empty;
         public string AmountTransfered
         {
@@ -144,8 +152,8 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChangedAsync(nameof(AmountTransfered));
                 //SetProperty(ref _response, value);
             }
-        } 
-        
+        }
+
         private string _remark = String.Empty;
         public string Remark
         {
@@ -157,9 +165,22 @@ namespace NetBankingApplication.ViewModel
                 //SetProperty(ref _response, value);
             }
         }
+        private string _status = String.Empty;
+        public string Status
+        {
+            get { return this._status; }
+            set
+            {
+                _status = value;
+                OnPropertyChangedAsync(nameof(Status));
+                //SetProperty(ref _response, value);
+            }
+        }
 
 
-        public abstract void SendTransaction(AmountTransfer transaction,string userId);
-      
+
+
+        public abstract void SendTransaction(AmountTransfer transaction, string userId);
+
     }
 }

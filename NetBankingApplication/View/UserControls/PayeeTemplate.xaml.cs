@@ -23,5 +23,15 @@ namespace NetBankingApplication.View.UserControls
         {
             this.InitializeComponent();
         }
+        public string PayeeNameTextBox
+        {
+            get { return (string)GetValue(PayeeNameProperty); }
+            set { SetValue(PayeeNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PayeeName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PayeeNameProperty =
+            DependencyProperty.Register("PayeeNameTextBox", typeof(string), typeof(PayeeTemplate), new PropertyMetadata(null));
+    
     }
 }

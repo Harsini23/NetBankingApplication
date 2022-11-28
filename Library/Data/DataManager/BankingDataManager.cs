@@ -12,18 +12,18 @@ namespace Library.Data.DataManager
         protected static IDbHandler DbHandler;
         protected static INetHandler NetHandler;
 
-        public BankingDataManager(IDbHandler dbHandler,INetHandler netHandler)
+        public BankingDataManager(IDbHandler dbHandler, INetHandler netHandler)
         {
             DbHandler = dbHandler;
             NetHandler = netHandler;
-        }   
+        }
     }
 
     public interface IDbHandler
     {
 
-      
-      bool CheckUser(string userId);
+
+        bool CheckUser(string userId);
         User GetUser(string userId);
         void BlockAccount(string userId);
         void UnBlockAccount(string userId);
@@ -45,7 +45,7 @@ namespace Library.Data.DataManager
         Account GetAccount(string accountNumber, string userId);
 
         bool UpdateBalance(Account account);
-
+        void DeletePayee(Payee payee);
 
 
     }

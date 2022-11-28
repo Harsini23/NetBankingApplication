@@ -22,8 +22,8 @@ namespace Library.Data.DataManager
             ZResponse<TransactionHistoryResponse> Response = new ZResponse<TransactionHistoryResponse>();
 
             var userId = request.UserId;
-            var allTransactions= DbHandler.GetAllTransactions(userId);
-            TransactionHistoryResponse transactionHistoryResponse= new TransactionHistoryResponse();
+            var allTransactions = DbHandler.GetAllTransactions(userId);
+            TransactionHistoryResponse transactionHistoryResponse = new TransactionHistoryResponse();
             transactionHistoryResponse.allTransactions = allTransactions;
             Response.Data = transactionHistoryResponse;
             var responseStatus = "Successfull got all transactions";

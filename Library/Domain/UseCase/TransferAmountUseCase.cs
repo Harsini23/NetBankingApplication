@@ -20,10 +20,10 @@ namespace Library.Domain.UseCase
         public AmountTransfer Transaction { get; set; }
         public string UserId { get; set; }
 
-        public TransferAmountRequest(AmountTransfer transaction,string userId)
+        public TransferAmountRequest(AmountTransfer transaction, string userId)
         {
-             Transaction= transaction;
-            UserId= userId;
+            Transaction = transaction;
+            UserId = userId;
         }
     }
 
@@ -33,7 +33,7 @@ namespace Library.Domain.UseCase
         void OnError(ZResponse<TransferAmountResponse> response);
         void OnFailure(ZResponse<TransferAmountResponse> response);
     }
-    public class TransferAmountUseCase:UseCaseBase
+    public class TransferAmountUseCase : UseCaseBase
     {
 
 

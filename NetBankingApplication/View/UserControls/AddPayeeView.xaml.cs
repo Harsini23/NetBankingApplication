@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -34,6 +35,7 @@ namespace NetBankingApplication.View.UserControls
             AddPayeeViewModel = AddPayeeVMserviceProviderInstance.Services.GetService<AddPayeeBaseViewModel>();
             currentUserId = userId;
             Result.Text = "";
+
         }
 
         private void AddPayee_Click(object sender, RoutedEventArgs e)
@@ -41,11 +43,17 @@ namespace NetBankingApplication.View.UserControls
             Payee newRecipent = new Payee { UserID = currentUserId, AccountHolderName = AccountHolderName.Text, AccountNumber = Accountnumber.Text, IfscCode = IfscCode.Text, BankName = BankName.Text, PayeeName = PayeeName.Text };
             AddPayeeViewModel.AddPayee(newRecipent);
             PayeeName.Text = String.Empty;
-            AccountHolderName.Text=String.Empty;
-            Accountnumber.Text=String.Empty;
+            AccountHolderName.Text = String.Empty;
+            Accountnumber.Text = String.Empty;
             IfscCode.Text = String.Empty;
-            BankName.Text=String.Empty;
+            BankName.Text = String.Empty;
 
         }
+
+        //private void Testing_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //PayeeTemplate.PayeeNameProperty
+        //    PayeeTemplate p = new PayeeTemplate();
+        //}
     }
 }

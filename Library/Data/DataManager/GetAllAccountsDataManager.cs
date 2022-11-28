@@ -26,14 +26,14 @@ namespace Library.Data.DataManager
             var allCurrentAccounts = DbHandler.GetAllAccounts(userId);
 
             GetAllAccountsResponse.allAccount = allCurrentAccounts;
-            Response.Data= GetAllAccountsResponse;
+            Response.Data = GetAllAccountsResponse;
             Response.Response = "Successfully got all accounts";
             response.OnResponseSuccess(Response);
 
         }
     }
 
-  
+
 
     public class GetAllAccountsResponse : ZResponse<Account>
     {

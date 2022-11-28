@@ -11,14 +11,14 @@ namespace Library.Data.DataManager
 {
     public class AddPayeeDataManager : BankingDataManager, IAddPayeeDataManager
     {
-        public AddPayeeDataManager() : base(new DbHandler(),new NetHandler())
+        public AddPayeeDataManager() : base(new DbHandler(), new NetHandler())
         {
         }
 
         public void AddNewPayee(AddPayeeRequest request, AddPayee.AddPayeeCallback response)
         {
             ZResponse<String> Response = new AddPayeeResponse();
-           
+
             var res = DbHandler.AddNewPayee(request.NewPayee);
             if (res)
             {
@@ -33,7 +33,7 @@ namespace Library.Data.DataManager
     }
 
     public class AddPayeeResponse : ZResponse<String>
-    { 
+    {
 
     }
 }

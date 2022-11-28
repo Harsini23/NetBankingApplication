@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,8 +27,10 @@ namespace NetBankingApplication.View.UserControls
 
         PresenterService GetAllPayeeVMserviceProviderInstance;
 
+        private DeletePayeeBaseViewModel DeletePayeeViewModel;
 
-       
+        PresenterService DeletePayeeVMserviceProviderInstance;
+
         //List<Payee> allRecipients = new List<Payee>();
 
         private string currentUserId;
@@ -37,6 +40,9 @@ namespace NetBankingApplication.View.UserControls
             currentUserId = userId;
             GetAllPayeeVMserviceProviderInstance = PresenterService.GetInstance();
             GetAllPayeeViewModel = GetAllPayeeVMserviceProviderInstance.Services.GetService<GetAllPayeeBaseViewModel>();
+
+            DeletePayeeVMserviceProviderInstance = PresenterService.GetInstance();
+            DeletePayeeViewModel = DeletePayeeVMserviceProviderInstance.Services.GetService<DeletePayeeBaseViewModel>();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -44,6 +50,19 @@ namespace NetBankingApplication.View.UserControls
             GetAllPayeeViewModel.GetAllPayee(currentUserId);
             //allRecipients.Clear();
             //allRecipients = GetAllPayeeViewModel.AllPayee;
+        }
+
+        private void DeletePayee_Click(object sender, RoutedEventArgs e)
+        {
+            //Button button = (Button)sender;
+            //var listViewItem = button.Parent;
+            //Debug.WriteLine(listViewItem,"  ----------- ");
+            var button = (Button)sender;
+            var recipient = (Payee)button.DataContext;
+
+            DeletePayeeViewModel.DeletePayee(recipient);
+
+            GetAllPayeeViewModel.GetAllPayee(currentUserId);
         }
     }
 }

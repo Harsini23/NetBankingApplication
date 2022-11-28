@@ -14,17 +14,17 @@ namespace Library.Data.DataManager
 {
     public class TransferAmountDataManager : BankingDataManager, ITransferAmountDataManager
     {
-        public TransferAmountDataManager() : base(new DbHandler(),new NetHandler())
+        public TransferAmountDataManager() : base(new DbHandler(), new NetHandler())
         {
         }
 
-        private bool ValidateCurrentAccountAndDeductBalance(Account currentAccount,string Amount)
+        private bool ValidateCurrentAccountAndDeductBalance(Account currentAccount, string Amount)
         {
             if (currentAccount != null)
             {
                 double AccountBalance = Double.Parse(currentAccount.TotalBalance);
                 double amount = Double.Parse(Amount);
-                if(AccountBalance>=amount)
+                if (AccountBalance >= amount)
                 {
                     double deductedValue = AccountBalance - amount;
                     //deduct amount from account
@@ -39,9 +39,10 @@ namespace Library.Data.DataManager
                         TotalBalance = deductedValue.ToString()
                     };
                     //Debug.WriteLine(deductedValue.ToString());
-                    var res =DbHandler.UpdateBalance(account);
+                    var res = DbHandler.UpdateBalance(account);
                     return res;
                 }
+
             }
             return false;
         }
@@ -53,31 +54,45 @@ namespace Library.Data.DataManager
             //conversion of amountTransfer to transaction
             //check for balance  before transaction
             var account = DbHandler.GetAccount(request.Transaction.FromAccount, request.UserId);
-            var status= ValidateCurrentAccountAndDeductBalance(account,request.Transaction.Amount);
+            var status = ValidateCurrentAccountAndDeductBalance(account, request.Transaction.Amount);
             Transaction currentTransaction = new Transaction
             {
                 UserId = request.UserId,
-                Name =request.Transaction.Name,
-                TransactionId =GenerateUniqueId.GetUniqueId("TID"),
-                Date =CurrentDateTime.GetCurrentDate(),
+                Name = request.Transaction.Name,
+                TransactionId = GenerateUniqueId.GetUniqueId("TID"),
+                Date = CurrentDateTime.GetCurrentDate(),
                 TransactionType = Model.Enum.TransactionType.Debited,
-                Remark =request.Transaction.Remark,
-                TransactionAmout =request.Transaction.Amount,
-                FromAccount =request.Transaction.FromAccount,
-                ToAccount =request.Transaction.ToAccount,
-                Status =status,
+                Remark = request.Transaction.Remark,
+                Amount = request.Transaction.Amount,
+                FromAccount = request.Transaction.FromAccount,
+                ToAccount = request.Transaction.ToAccount,
+                Status = status,
             };
 
             var responseTransactions = DbHandler.AddTransaction(currentTransaction);
-           // DeductBalance(request.Transaction.Amount);
+            // DeductBalance(request.Transaction.Amount);
             TransferAmountResponse transferAmountResponse = new TransferAmountResponse();
-            transferAmountResponse.Status = "Successfully added transactions";
-            transferAmountResponse.transaction = currentTransaction;
-            transferAmountResponse.Data = responseTransactions;
-            var responseStatus = "Transaction Processed";
-            Response.Response = responseStatus;
-            Response.Data = transferAmountResponse;
-            response.OnResponseSuccess(Response);
+            if (status)
+            {
+                transferAmountResponse.Status = "Successfully added transactions";
+                transferAmountResponse.transaction = currentTransaction;
+                transferAmountResponse.Data = responseTransactions;
+                var responseStatus = "Transaction Processed";
+                Response.Response = responseStatus;
+                Response.Data = transferAmountResponse;
+                response.OnResponseSuccess(Response);
+            }
+            else
+            {
+                transferAmountResponse.Status = "Transaction failed, added transactions";
+                transferAmountResponse.transaction = currentTransaction;
+                transferAmountResponse.Data = responseTransactions;
+                var responseStatus = "Transaction failed due to insuficient balance";
+                Response.Response = responseStatus;
+                Response.Data = transferAmountResponse;
+                response.OnResponseSuccess(Response);
+            }
+
         }
     }
 

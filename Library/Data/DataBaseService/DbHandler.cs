@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Library.Data.DataBaseService
 {
     //make this and nethandler singleton
-    public class DbHandler: IDbHandler
+    public class DbHandler : IDbHandler
     {
 
         //private static DbHandler _instance;
@@ -19,14 +19,14 @@ namespace Library.Data.DataBaseService
 
         public DbHandler()
         {
-            if(connection == null)
+            if (connection == null)
             {
                 var conn = DatabaseConnection.GetInstance();
                 connection = conn.DbConnection;
             }
-           
+
         }
-     
+
 
         #region "User Table operations"
         public bool CheckUser(string userId)
@@ -180,18 +180,18 @@ namespace Library.Data.DataBaseService
             return allAccounts;
         }
 
-        public Account GetAccount(string accountNumber,string userId)
+        public Account GetAccount(string accountNumber, string userId)
         {
 
-            var account = connection.Table<Account>().Where(i => i.UserId == userId &&i.AccountNumber==accountNumber).FirstOrDefault();
-          return account;
+            var account = connection.Table<Account>().Where(i => i.UserId == userId && i.AccountNumber == accountNumber).FirstOrDefault();
+            return account;
         }
 
         public bool UpdateBalance(Account account)
         {
-           
+
             connection.InsertOrReplace(account);
-            var ReCheckingquery = connection.Table<Account>().Where(c => c.UserId == account.UserId && c.AccountNumber == account.AccountNumber && c.TotalBalance==account.TotalBalance).FirstOrDefault();
+            var ReCheckingquery = connection.Table<Account>().Where(c => c.UserId == account.UserId && c.AccountNumber == account.AccountNumber && c.TotalBalance == account.TotalBalance).FirstOrDefault();
             if (ReCheckingquery != null) return true;
             return false;
         }
@@ -204,13 +204,13 @@ namespace Library.Data.DataBaseService
         {
             var account = new Account()
             {
-                AccountNumber= "678987265323",
-                UserId="Harsh",
-                AccountType=0,
-                AvailableBalanceAsOn="21-11-2022",
-                TotalBalance= "1000000.00",
-                BId="B001",
-                Currency=0
+                AccountNumber = "678987265323",
+                UserId = "Harsh",
+                AccountType = 0,
+                AvailableBalanceAsOn = "21-11-2022",
+                TotalBalance = "1000000.00",
+                BId = "B001",
+                Currency = 0
             };
             connection.Insert(account);
 
@@ -258,12 +258,12 @@ namespace Library.Data.DataBaseService
         {
             List<Transaction> allTransactions = new List<Transaction>();
             var AllTransactions = connection.Table<Transaction>().Where(c => c.UserId == userId);
-            foreach(var i in AllTransactions)
+            foreach (var i in AllTransactions)
             {
                 allTransactions.Add(i);
             }
             return allTransactions;
-           
+
         }
 
         #endregion
@@ -273,20 +273,26 @@ namespace Library.Data.DataBaseService
         public bool AddNewPayee(Payee newPayee)
         {
             connection.Insert(newPayee);
-            var ReCheckingquery = connection.Table<Payee>().Where(i=> i.UserID==newPayee.UserID && i.AccountNumber==newPayee.AccountNumber).FirstOrDefault();
-            if (ReCheckingquery != null && newPayee!=null) return true;
+            var ReCheckingquery = connection.Table<Payee>().Where(i => i.UserID == newPayee.UserID && i.AccountNumber == newPayee.AccountNumber).FirstOrDefault();
+            if (ReCheckingquery != null && newPayee != null) return true;
             return false;
         }
 
         public List<Payee> GetAllPayee(string userId)
         {
             List<Payee> allPayee = new List<Payee>();
-            var AllCurrentPayee = connection.Table<Payee>().Where(i =>i.UserID==userId);
-            foreach(var i in AllCurrentPayee)
+            var AllCurrentPayee = connection.Table<Payee>().Where(i => i.UserID == userId);
+            foreach (var i in AllCurrentPayee)
             {
                 allPayee.Add(i);
             }
             return allPayee;
+        }
+
+        public void DeletePayee(Payee payee)
+        {
+            connection.Delete(payee);
+            var DeletedPayee = connection.Table<Payee>().Where(i => i.UserID == payee.UserID && i.AccountNumber == payee.AccountNumber);
         }
         #endregion
 

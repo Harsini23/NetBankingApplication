@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Library.Data.DataBaseService
 {
-    public class NetHandler: INetHandler
+    public class NetHandler : INetHandler
     {
 
         public NetHandler()
         {
-          //  connection;
+            //  connection;
         }
-       
+
     }
 }

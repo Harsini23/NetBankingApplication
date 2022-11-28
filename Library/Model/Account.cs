@@ -10,7 +10,7 @@ namespace Library.Model
 {
     public class Account
     {
-       
+
         public string UserId { get; set; }
         [PrimaryKey]
         public string AccountNumber { get; set; }
@@ -26,7 +26,7 @@ namespace Library.Model
             AccountNumber = accountNumber;
             AccountType = accountType;
             TotalBalance = totalBalance;
-         
+
         }
         public Account() { }
 

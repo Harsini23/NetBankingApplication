@@ -9,7 +9,25 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid Width="300" x:Name="PayeeGridTemplate" HorizontalAlignment="Center" Margin="20" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Add new Payee" Margin="5" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
+        <TextBox BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="5" Header="Account Holder name:"  Grid.Row="1" x:Name="PayeeName" Text="{x:Bind PayeeNameTextBox,Mode=TwoWay}" />
+        
+        <!--<TextBox Grid.Row="2" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="5" Header="Account Holder name:" PlaceholderText="Account holder name" x:Name="AccountHolderName"/>
+        <TextBox Grid.Row="3" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="5" Header="Bank Name:" PlaceholderText="Bank name" x:Name="BankName"/>
+        <TextBox Grid.Row="4" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="5" InputScope="Number" Header="Enter account number:" PlaceholderText="Account number" x:Name="Accountnumber"/>
+        <TextBox Grid.Row="5" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="5" Header="IFSC Code:" PlaceholderText="IFSC code" x:Name="IfscCode" />
+        <Button Grid.Row="6" x:Name="AddPayee" CornerRadius="5" Content="Add Payee" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="6" Click="AddPayee_Click"></Button>-->
 
     </Grid>
 </UserControl>
