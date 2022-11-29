@@ -10,141 +10,19 @@
     Loaded="UserControl_Loaded"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
 
 
+    <Grid x:Name="PaymentandTransferNavigation" Margin="15">
+        <NavigationView x:Name="PaymentsAndTransferNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top"
+    SelectionFollowsFocus="Enabled" IsBackButtonVisible="Collapsed" SelectionChanged="PaymentsAndTransferNavigation_SelectionChanged"  CornerRadius="20">
+            <NavigationView.MenuItems>
+                <NavigationViewItem  Content="AccountsPreview" x:Name="AccountsPreview" />
+                <NavigationViewItem  Content="Account Details" x:Name="AccountDetails" />
+                <NavigationView Content="Open an Account" x:Name="CreateAccount"></NavigationView>
+            </NavigationView.MenuItems>
 
-    <Grid>
-        
-
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.AllAccounts,Mode=OneWay}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView">
-            <!--ItemTemplate="{StaticResource TransactionListViewTemplate}"-->
-            <ListView.ItemTemplate>
-                <DataTemplate x:Name="TransactionListViewTemplate" x:DataType="data:Account">
-
-
-                    <Grid Padding="30" Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Margin="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"></RowDefinition>
-                                <RowDefinition Height="1*"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition   Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition   Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition  Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                          
-                                <TextBlock Margin="5" Grid.Row="0" HorizontalAlignment="Left" Text="Account Number " Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
-                                <TextBlock Margin="5" Grid.Row="0" Grid.Column="1" Text="{x:Bind AccountNumber }"  Style="{StaticResource BasicTextBlock}" TextWrapping="Wrap"></TextBlock>
-                         
-                                <TextBlock Margin="5" Grid.Row="1" HorizontalAlignment="Left" Text="Account Type" Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
-                                <TextBlock Margin="5"  Grid.Row="1" Grid.Column="1" Text="{x:Bind AccountType}" TextWrapping="Wrap" Style="{StaticResource BasicTextBlock}" ></TextBlock>
-                          
-                        </Grid>
-                        <NavigationViewItemSeparator Grid.Row="1"></NavigationViewItemSeparator>
-
-
-                        <Grid Grid.Row="2" Margin="5" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"></RowDefinition>  
-                                <RowDefinition Height="1*"></RowDefinition>
-                                <RowDefinition Height="1*"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition  Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition  Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Margin="5" Grid.Row="0" HorizontalAlignment="Left" Text="Available Balance " Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
-                            <TextBlock Margin="5" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{x:Bind TotalBalance }"  Style="{StaticResource BasicTextBlock}" TextWrapping="Wrap"></TextBlock>
-                            
-                                <TextBlock Margin="5" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" FontWeight="SemiBold" Text="Available as on" Style="{StaticResource BasicTextBlock}"></TextBlock>
-                                <TextBlock Margin="5" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Bind AvailableBalanceAsOn}" Style="{StaticResource BasicTextBlock}"></TextBlock>
-
-                            <TextBlock Margin="5" Grid.Row="2" HorizontalAlignment="Left" Text="Currency" Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
-                            <TextBlock Margin="5" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{x:Bind Currency}" TextWrapping="Wrap" Style="{StaticResource BasicTextBlock}" ></TextBlock>
-                        </Grid>
-                        <Grid Grid.Row="3">
-                            <Button Content="View More Details"  Style="{StaticResource ButtonStyling}" ></Button>
-                        </Grid>
-                      
-
-
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+            <ContentControl Margin="10" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedItem,Mode=OneWay}" CornerRadius="30" />
+        </NavigationView>
     </Grid>
-
-    <!--<StackPanel>
-     
-            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.AllAccounts,Mode=OneWay}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllAccountView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-             
-                <ListView.ItemTemplate >
-                    <DataTemplate x:Name="AccountListViewTemplate" x:DataType="data:Account">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                            </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="700"></ColumnDefinition></Grid.ColumnDefinitions>
-
-                            <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"></RowDefinition>
-                                    <RowDefinition Height="1*"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <PersonPicture Initials="H" Grid.RowSpan="2" Grid.Column="0" Width="50" Height="50"></PersonPicture>
-                                <TextBlock Text="Username" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                                <TextBlock Text="AccountNumber" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                                <Button Style="{StaticResource ButtonStyling}" Content="Edit" Grid.Row="0" Grid.Column="2" Width="70"></Button>
-                                <Button Style="{StaticResource ButtonStyling}" Content="Delete" Grid.Row="1" Grid.Column="2" Width="70"></Button>
-                                
-                            </Grid>
-
-                        <StackPanel Grid.Row="1">
-                            <TextBlock Text="Account Type"></TextBlock>
-                        </StackPanel>
-                        <Grid Grid.Row="2">
-                            
-                        </Grid>
-
-                    </Grid>
-                        
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-     
-    </StackPanel>-->
 
 </UserControl>

@@ -58,7 +58,7 @@
                     <TextBlock x:Name="TransactionType" Grid.Column="4" Margin="10" TextWrapping="NoWrap" Text="{x:Bind TransactionType}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                         <TextBlock x:Name="TransacctionTypeTextBlock" Grid.Column="4" Margin="0,0,0,5" Grid.Row="1" TextWrapping="Wrap" Text="Transaction Type" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
-                    <TextBlock x:Name="Status" Grid.Column="5" Margin="10" TextWrapping="NoWrap" Text="{x:Bind Status}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        <TextBlock x:Name="Status" Grid.Column="5" Margin="10" TextWrapping="NoWrap" Text="{x:Bind Status}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                         <TextBlock x:Name="StatusTextBlock" Grid.Column="5" Margin="0,0,0,5" TextWrapping="Wrap" Grid.Row="1" Text="Status" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
                 </Grid>

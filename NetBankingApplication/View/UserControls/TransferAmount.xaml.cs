@@ -130,11 +130,11 @@ namespace NetBankingApplication.View.UserControls
             allRecipients = GetAllPayeeViewModel.AllPayee;
 
             GetAllAccountsViewModel.GetAllAccounts(currentUserId);
-            allAccountNumbers.Clear();
-            allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
-            allAccounts.Clear();
-            allAccounts = GetAllAccountsViewModel.AllAccounts;
-            TransactionResult.Text = String.Empty;
+            //allAccountNumbers.Clear();
+            //allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
+            //allAccounts.Clear();
+            //allAccounts = GetAllAccountsViewModel.AllAccounts;
+            //TransactionResult.Text = String.Empty;
 
         }
 
@@ -195,7 +195,7 @@ namespace NetBankingApplication.View.UserControls
         {
             selectAccountList = sender as MenuFlyout;
             selectAccountList.Items.Clear();
-            foreach (var i in allAccountNumbers)
+            foreach (var i in GetAllAccountsViewModel.AllAccountNumbers)
             {
                 var item = new MenuFlyoutItem();
                 item.Text = i;

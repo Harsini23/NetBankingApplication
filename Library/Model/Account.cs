@@ -11,7 +11,7 @@ namespace Library.Model
     public class Account
     {
 
-        public string UserId { get; set; }
+       // public string UserId { get; set; }
         [PrimaryKey]
         public string AccountNumber { get; set; }
         public AccountType AccountType { get; set; }
@@ -28,8 +28,6 @@ namespace Library.Model
             TotalBalance = totalBalance;
             AvailableBalanceAsOn = TotalBalanceAsOn;
             BId = bId;
-
-
         }
         public Account() { }
 

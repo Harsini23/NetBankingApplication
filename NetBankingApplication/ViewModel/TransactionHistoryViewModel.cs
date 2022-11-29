@@ -18,25 +18,7 @@ namespace NetBankingApplication.ViewModel
         TransactionHistoryUseCase Transaction;
         public override void GetTransactionData(string userId)
         {
-            //load the observable collection frm db
-            //for (int i = 2; i < 20; i++)
-            //{
-            //    AllTransactions.Add(new Transaction
-            //    {
-            //        UserId = "Harsh",
-            //        TransactionId = "T0000" + i,
-            //        Date = "21-11-2022",
-            //        TransactionType = (Library.Model.Enum.TransactionType)1,
-            //        Remark = "Outing",
-            //        TransactionAmout = "20" + i * 200,
-            //        FromAccount = "89036457389231",
-            //        ToAccount = "89036457389234",
-            //        Status = true
-
-            //    });
-            //}
-
-            //send userid here XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+           
             Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest(userId), new PresenterTransactionHistoryCallback(this));
             Transaction.Execute();
             

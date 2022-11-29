@@ -125,6 +125,7 @@
     <Compile Include="Data\DataBasePath.cs" />
     <Compile Include="Data\DataBaseService\DbHandler.cs" />
     <Compile Include="Data\DataBaseService\NetHandler.cs" />
+    <Compile Include="Data\DataManager\AccountTransactionsDataManager.cs" />
     <Compile Include="Data\DataManager\AddPayeeDataManager.cs" />
     <Compile Include="Data\DataManager\BankingDataManager.cs" />
     <Compile Include="Data\DataManager\CreateNewUserDataManager.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Data\DataManager\TransferAmountDataManager.cs" />
     <Compile Include="Domain\BaseCase.cs" />
     <Compile Include="Domain\IServiceProvider.cs" />
+    <Compile Include="Domain\UseCase\AccountTransactions.cs" />
     <Compile Include="Domain\UseCase\AddPayee.cs" />
     <Compile Include="Domain\UseCase\CreateNewUser.cs" />
     <Compile Include="Domain\UseCase\DeletePayee.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Domain\UseCase\TransactionHistoryUseCase.cs" />
     <Compile Include="Domain\UseCase\TransferAmountUseCase.cs" />
     <Compile Include="Model\Account.cs" />
+    <Compile Include="Model\AccountTransactionBObj.cs" />
     <Compile Include="Model\Admin.cs" />
     <Compile Include="Model\AmountTransfer.cs" />
     <Compile Include="Model\Branch.cs" />

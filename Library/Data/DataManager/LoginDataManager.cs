@@ -87,14 +87,14 @@ namespace Library.Data.DataManager
           
         
             var result = DbHandler.CheckUserCredential(UserId, password);
+            //DbHandler.AddAccountForUser();
            //DbHandler.GetAllTransactions("Harsh");
-          //  DbHandler.AddAccount();
-            //var result = credentialService.CheckUserCredential(UserId, request.Password);
+           //  DbHandler.AddAccount();
+           //var result = credentialService.CheckUserCredential(UserId, request.Password);
 
 
             if (result)
             {
-               
                 //check if admin
                 var IsAdmin = DbHandler.CheckIfAdmin(UserId);
                 if (IsAdmin)

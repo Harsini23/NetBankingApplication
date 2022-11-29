@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AccountTransactionsViewModel.cs" />
     <Compile Include="ViewModel\AddPayeeViewModel.cs" />
     <Compile Include="ViewModel\DeletePayeeViewModel.cs" />
     <Compile Include="ViewModel\GetAllAccountsViewModel.cs" />
@@ -146,17 +147,20 @@
     <Compile Include="View\UserControls\AddPayeeView.xaml.cs">
       <DependentUpon>AddPayeeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\AllAccountsPreview.xaml.cs">
+      <DependentUpon>AllAccountsPreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\BankAccount.xaml.cs">
       <DependentUpon>BankAccount.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\CardComponentTemplate.xaml.cs">
       <DependentUpon>CardComponentTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\DetailedAccountOverview.xaml.cs">
+      <DependentUpon>DetailedAccountOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\EditPayee.xaml.cs">
       <DependentUpon>EditPayee.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UserControls\FullAccountDetails.xaml.cs">
-      <DependentUpon>FullAccountDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\PayeeTemplate.xaml.cs">
       <DependentUpon>PayeeTemplate.xaml</DependentUpon>
@@ -228,6 +232,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControls\AllAccountsPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControls\BankAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -236,11 +244,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserControls\EditPayee.xaml">
+    <Page Include="View\UserControls\DetailedAccountOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserControls\FullAccountDetails.xaml">
+    <Page Include="View\UserControls\EditPayee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

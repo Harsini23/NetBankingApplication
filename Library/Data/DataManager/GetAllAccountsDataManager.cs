@@ -23,7 +23,14 @@ namespace Library.Data.DataManager
             GetAllAccountsResponse GetAllAccountsResponse = new GetAllAccountsResponse();
 
             var userId = request.UserId;
-            var allCurrentAccounts = DbHandler.GetAllAccounts(userId);
+            var currentAccountForUser = DbHandler.GetAllAccountsForUser(userId);
+            List<Account> allCurrentAccounts = new List<Account>();
+            foreach (var accNo in currentAccountForUser)
+            {
+                allCurrentAccounts.Add(DbHandler.GetAccount(accNo));
+            }
+
+            //var allCurrentAccounts = DbHandler.GetAllAccounts(userId);
 
             GetAllAccountsResponse.allAccount = allCurrentAccounts;
             Response.Data = GetAllAccountsResponse;

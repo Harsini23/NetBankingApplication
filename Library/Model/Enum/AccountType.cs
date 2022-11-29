@@ -12,7 +12,7 @@ namespace Library.Model.Enum
             SalaryAccount,
             SavingsAccount,
             JointAccount,
-            childrensAccount,
+            ChildrensAccount,
             LoanAccount,
             PensionAccount
         }

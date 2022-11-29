@@ -80,8 +80,12 @@ namespace NetBankingApplication.View
             else if (args.SelectedItem == BankAccount)
             {
                 //_dashboardNavigationViewModel.SetBankAccount();
+
+
+
+
                 BankAccount bankAccount = new BankAccount(Currentuser);
-              
+
                 CurrentSelectedModule = bankAccount;
                 HeaderTitle = "Bank Account";
                 //  pageType = typeof(BankAccount);

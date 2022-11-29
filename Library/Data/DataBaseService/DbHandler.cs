@@ -76,6 +76,11 @@ namespace Library.Data.DataBaseService
             connection.Insert(user);
         }
 
+        public string GetUserName(String userId)
+        {
+            var query = connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault();
+            return query.UserName;
+        }
         #endregion
 
         #region "Credential Table operations"
@@ -169,21 +174,20 @@ namespace Library.Data.DataBaseService
         //    return false;
         //}
 
-        public List<Account> GetAllAccounts(string userId)
-        {
-            List<Account> allAccounts = new List<Account>();
-            var AllAccounts = connection.Table<Account>().Where(c => c.UserId == userId);
-            foreach (var i in AllAccounts)
-            {
-                allAccounts.Add(i);
-            }
-            return allAccounts;
-        }
+        //public List<Account> GetAllAccounts(string accountnumber)
+        //{
+        //    List<Account> allAccounts = new List<Account>();
+        //    var AllAccounts = connection.Table<Account>().Where(c => c.AccountNumber == accountnumber);
+        //    foreach (var i in AllAccounts)
+        //    {
+        //        allAccounts.Add(i);
+        //    }
+        //    return allAccounts;
+        //}
 
-        public Account GetAccount(string accountNumber, string userId)
+        public Account GetAccount(string accountNumber)
         {
-
-            var account = connection.Table<Account>().Where(i => i.UserId == userId && i.AccountNumber == accountNumber).FirstOrDefault();
+            var account = connection.Table<Account>().Where(i => i.AccountNumber == accountNumber).FirstOrDefault();
             return account;
         }
 
@@ -191,7 +195,7 @@ namespace Library.Data.DataBaseService
         {
 
             connection.InsertOrReplace(account);
-            var ReCheckingquery = connection.Table<Account>().Where(c => c.UserId == account.UserId && c.AccountNumber == account.AccountNumber && c.TotalBalance == account.TotalBalance).FirstOrDefault();
+            var ReCheckingquery = connection.Table<Account>().Where(c =>  c.AccountNumber == account.AccountNumber && c.TotalBalance == account.TotalBalance).FirstOrDefault();
             if (ReCheckingquery != null) return true;
             return false;
         }
@@ -204,8 +208,7 @@ namespace Library.Data.DataBaseService
         {
             var account = new Account()
             {
-                AccountNumber = "678987265323",
-                UserId = "Harsh",
+                AccountNumber = "978374847492",
                 AccountType = 0,
                 AvailableBalanceAsOn = "21-11-2022",
                 TotalBalance = "1000000.00",
@@ -216,8 +219,7 @@ namespace Library.Data.DataBaseService
 
             var account2 = new Account()
             {
-                AccountNumber = "907625243788",
-                UserId = "Harsh",
+                AccountNumber = "730364478904",
                 AccountType = 0,
                 AvailableBalanceAsOn = "24-11-2022",
                 TotalBalance = "9000000.00",
@@ -266,6 +268,18 @@ namespace Library.Data.DataBaseService
 
         }
 
+
+        public List<Transaction> GetTransactionsForAccount(string accountNumber)
+        {
+            List<Transaction> allTransactions = new List<Transaction>();
+            var AllTransactions = connection.Table<Transaction>().Where(c => c.FromAccount == accountNumber || c.ToAccount== accountNumber);
+            foreach (var i in AllTransactions)
+            {
+                allTransactions.Add(i);
+            }
+            return allTransactions;
+        }
+
         #endregion
 
         #region "Payee"
@@ -295,6 +309,42 @@ namespace Library.Data.DataBaseService
             var DeletedPayee = connection.Table<Payee>().Where(i => i.UserID == payee.UserID && i.AccountNumber == payee.AccountNumber);
         }
         #endregion
+
+        #region "UserAccounts"
+        public void AddAccountForUser()
+        {
+            UserAccounts userAccounts = new UserAccounts
+            {
+                Sno = "100001",
+                AccountNumber = "978374847492",
+                UserId = "Harsh"
+
+            };
+            connection.Insert(userAccounts);
+            UserAccounts userAccounts2 = new UserAccounts
+            {
+                Sno = "100002",
+                AccountNumber = "730364478904",
+                UserId = "Harsh"
+
+            };
+            connection.Insert(userAccounts2);
+        }
+
+        public List<String> GetAllAccountsForUser(string userId)
+        {
+            List<String> allAccounts = new List<String>();
+            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId);
+            foreach (var i in AllAccounts)
+            {
+                allAccounts.Add(i.AccountNumber);
+            }
+            return allAccounts;
+        }
+        #endregion
+
+
+
 
     }
 }

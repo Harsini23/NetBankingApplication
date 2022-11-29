@@ -3,8 +3,10 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -20,33 +22,56 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class BankAccount : UserControl
+    public sealed partial class BankAccount : UserControl, INotifyPropertyChanged
     {
+        User currentUser;
 
-        private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
-
-        PresenterService GetAllAccountsVMserviceProviderInstance;
-
-
-        private User user;
-
-        private readonly string _userId;
-      
         public BankAccount(User currentUser)
         {
             this.InitializeComponent();
-            this.user = currentUser;
-            this._userId = currentUser.UserId;
+            this.currentUser = currentUser;
 
-            GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
-            GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private UserControl _currentSelectedItem;
+        public UserControl CurrentSelectedItem
+        {
+            get { return _currentSelectedItem; }
+            set
+            {
+                _currentSelectedItem = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            GetAllAccountsViewModel.GetAllAccounts(_userId);
+            CurrentSelectedItem = new AllAccountsPreview(currentUser.UserId);
+        }
 
-          
+
+        private void PaymentsAndTransferNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+
+            if (args.SelectedItem == AccountsPreview)
+            {
+                CurrentSelectedItem = new AllAccountsPreview(currentUser.UserId);
+            }
+            else if (args.SelectedItem == AccountDetails)
+            {
+                CurrentSelectedItem = new DetailedAccountOverview(currentUser.UserId);
+            }
+            else
+            {
+                CurrentSelectedItem = new AllAccountsPreview(currentUser.UserId);
+            }
+
         }
     }
 }

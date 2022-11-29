@@ -30,7 +30,7 @@ namespace Library.Data.DataManager
                     //deduct amount from account
                     Account account = new Account
                     {
-                        UserId = currentAccount.UserId,
+                        //UserId = currentAccount.UserId,
                         AccountNumber = currentAccount.AccountNumber,
                         AccountType = currentAccount.AccountType,
                         AvailableBalanceAsOn = CurrentDateTime.GetCurrentDate(),
@@ -53,7 +53,7 @@ namespace Library.Data.DataManager
 
             //conversion of amountTransfer to transaction
             //check for balance  before transaction
-            var account = DbHandler.GetAccount(request.Transaction.FromAccount, request.UserId);
+            var account = DbHandler.GetAccount(request.Transaction.FromAccount);
             var status = ValidateCurrentAccountAndDeductBalance(account, request.Transaction.Amount);
             Transaction currentTransaction = new Transaction
             {
