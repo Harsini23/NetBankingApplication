@@ -12,13 +12,13 @@
     d:DesignWidth="400">
 
 
-    <Grid x:Name="PaymentandTransferNavigation" Margin="15">
-        <NavigationView x:Name="PaymentsAndTransferNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top"
-    SelectionFollowsFocus="Enabled" IsBackButtonVisible="Collapsed" SelectionChanged="PaymentsAndTransferNavigation_SelectionChanged"  CornerRadius="20">
+    <Grid x:Name="BankAccountOuterGrid" Margin="15">
+        <NavigationView x:Name="BankAccountNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top"
+    SelectionFollowsFocus="Enabled" IsBackButtonVisible="Collapsed" SelectionChanged="BankAccountNavigation_SelectionChanged"  CornerRadius="20">
             <NavigationView.MenuItems>
                 <NavigationViewItem  Content="AccountsPreview" x:Name="AccountsPreview" />
                 <NavigationViewItem  Content="Account Details" x:Name="AccountDetails" />
-                <NavigationView Content="Open an Account" x:Name="CreateAccount"></NavigationView>
+                <NavigationViewItem Content="Open an Account" x:Name="CreateAccount"/>
             </NavigationView.MenuItems>
 
             <ContentControl Margin="10" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedItem,Mode=OneWay}" CornerRadius="30" />

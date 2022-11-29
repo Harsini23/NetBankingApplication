@@ -60,10 +60,14 @@
 
             </Grid>
         </Border>
-        <StackPanel Grid.Column="1">
-            <TextBlock Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold"></TextBlock>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold"></TextBlock>
 
-            <ListView  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions}" x:Name="AllTransactionsOnAccountListView">
+            <ListView Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions}" x:Name="AllTransactionsOnAccountListView">
 
                 <ListView.ItemTemplate>
                     <DataTemplate x:Name="TransactionListViewTemplate" x:DataType="data:AccountTransactionBObj">
@@ -110,7 +114,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-        </StackPanel>
+        </Grid>
       
 
     </Grid>

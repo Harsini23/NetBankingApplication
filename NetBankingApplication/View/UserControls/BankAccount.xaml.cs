@@ -56,7 +56,7 @@ namespace NetBankingApplication.View.UserControls
         }
 
 
-        private void PaymentsAndTransferNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private void BankAccountNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
 
             if (args.SelectedItem == AccountsPreview)

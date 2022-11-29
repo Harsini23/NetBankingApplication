@@ -54,12 +54,13 @@ namespace NetBankingApplication.ViewModel
      
         public async void populateData( List<AccountTransactionBObj> TransactionList)
         {
+            var SortedTransactionList = TransactionList.OrderByDescending(i => DateTime.Parse(i.DateOfTransaction));
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
               Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
               {
                   AccountTransactionsViewModel.AllSortedAccountTransactions.Clear();
 
-                  foreach (var i in TransactionList)
+                  foreach (var i in SortedTransactionList)
                   AccountTransactionsViewModel.AllSortedAccountTransactions.Add(i);
               });
         }

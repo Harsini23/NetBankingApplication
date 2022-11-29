@@ -1,6 +1,7 @@
 ﻿using Library.Data.DataBaseService;
 using Library.Domain;
 using Library.Domain.UseCase;
+using Library.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,27 +24,8 @@ namespace Library.Data.DataManager
         {
             ZResponse<bool> Response = new ZResponse<bool>();
 
-             byte[] EncryptPassword(string str)
-            {
-                SHA256 sha256 = SHA256Managed.Create();
-                byte[] hashValue;
-                UTF8Encoding objUtf8 = new UTF8Encoding();
-                hashValue = sha256.ComputeHash(objUtf8.GetBytes(str));
-                return hashValue;
-            }
-
-             string BytesToString(byte[] bytes)
-            {
-                using (MemoryStream stream = new MemoryStream(bytes))
-                {
-                    using (StreamReader streamReader = new StreamReader(stream))
-                    {
-                        return streamReader.ReadToEnd();
-                    }
-                }
-            }
             var IsAdmin = DbHandler.CheckIfAdmin(request.UserId);
-            var result= DbHandler.ResetPassword(request.UserId,BytesToString(EncryptPassword( request.NewPassword)),IsAdmin);
+            var result= DbHandler.ResetPassword(request.UserId, PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword( request.NewPassword)),IsAdmin);
             Response.Data = result;
             if (result)
             {

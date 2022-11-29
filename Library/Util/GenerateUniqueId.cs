@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Util
 {
-    public class GenerateUniqueId
+    public static class GenerateUniqueId
     {
         public static string GetUniqueId(string preFix)
         {

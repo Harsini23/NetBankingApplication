@@ -12,6 +12,7 @@ using SQLite;
 using Library.Data.DataBaseService;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using Library.Util;
 
 namespace Library.Data.DataManager
 {
@@ -42,27 +43,6 @@ namespace Library.Data.DataManager
             //call back implementation to view model
         }
 
-       
-        private byte[] EncryptPassword(string str)
-        {
-            SHA256 sha256 = SHA256Managed.Create();
-            byte[] hashValue;
-            UTF8Encoding objUtf8 = new UTF8Encoding();
-            hashValue = sha256.ComputeHash(objUtf8.GetBytes(str));
-            return hashValue;
-        }
-
-        static string BytesToString(byte[] bytes)
-        {
-            using (MemoryStream stream = new MemoryStream(bytes))
-            {
-                using (StreamReader streamReader = new StreamReader(stream))
-                {
-                    return streamReader.ReadToEnd();
-                }
-            }
-        }
-
         public void ValidateUserLogin(UserLoginRequest request, Login.UserLoginCallback response)
         {
           
@@ -72,7 +52,7 @@ namespace Library.Data.DataManager
             string responseStatus = "";
             LoginResponse loginResponse = new LoginResponse();
             ZResponse<LoginResponse> Response = new ZResponse<LoginResponse>();
-            var password = BytesToString(EncryptPassword(request.Password));
+            var password = PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(request.Password));
          // credentialService.AddRecord(request.UserId, password,false);
 
             if (AccessDeniedCount <= 0 && DbHandler.CheckUser(UserId))

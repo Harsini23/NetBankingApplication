@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Util
 {
-    public class CurrentDateTime
+    public static class CurrentDateTime
     {
         //making it singleton?
         public static String GetCurrentDate()
