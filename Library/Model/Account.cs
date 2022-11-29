@@ -21,11 +21,14 @@ namespace Library.Model
 
         public Currency Currency { get; set; }
 
-        public Account(string accountNumber, string ifscCode, AccountType accountType, string totalBalance, string cardNumber)
+        public Account(string accountNumber, AccountType accountType, string totalBalance,string TotalBalanceAsOn,string bId)
         {
             AccountNumber = accountNumber;
             AccountType = accountType;
             TotalBalance = totalBalance;
+            AvailableBalanceAsOn = TotalBalanceAsOn;
+            BId = bId;
+
 
         }
         public Account() { }

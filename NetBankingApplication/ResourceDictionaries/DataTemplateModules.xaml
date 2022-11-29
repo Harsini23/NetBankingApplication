@@ -2,10 +2,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
      xmlns:componentmodules="using:NetBankingApplication.View.UserControls">
-    <DataTemplate x:Key="OverView">
+    <!--<DataTemplate x:Key="OverView">
         <componentmodules:Overview  ></componentmodules:Overview>
     </DataTemplate>
     <DataTemplate x:Key="BankAccount">
         <componentmodules:BankAccount ></componentmodules:BankAccount>
-    </DataTemplate>
+    </DataTemplate>-->
 </ResourceDictionary>

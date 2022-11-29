@@ -9,12 +9,16 @@
     Loaded="UserControl_Loaded"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <ScrollViewer>
         <Grid>
-
-
             <Grid x:Name="TransferAmountDetails"  HorizontalAlignment="Center" Margin="20" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -31,32 +35,33 @@
                 <TextBlock Text="Make a Transaction" Margin="10" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
                     <TextBlock Text="Select recipient" Margin="10"></TextBlock>
-                    <DropDownButton Name="SelectPayee" Content="Select payee" CornerRadius="5" MinWidth="150">
-                        <DropDownButton.Flyout  >
-                            <MenuFlyout Opening="MenuFlyout_Opened" Placement="Bottom">
+                    <DropDownButton BorderBrush="Black" BorderThickness="0.3" Background="White" Name="SelectPayee" Content="Select payee" CornerRadius="5" MinWidth="150">
+                        <DropDownButton.Flyout >
+                            <MenuFlyout  Opening="MenuFlyout_Opened" Placement="Bottom">
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
                 </StackPanel>
 
-                <TextBox Visibility="Collapsed" Grid.Row="2" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" Header="Enter name of recipient:" PlaceholderText="Name of Recipient" x:Name="NewPayeeName" TextChanged="NewPayeeName_TextChanged"></TextBox>
+                <TextBox Visibility="Collapsed" Grid.Row="2" Style="{StaticResource InputFieldTextBox}" Header="Enter name of recipient:" PlaceholderText="Name of Recipient" x:Name="NewPayeeName" TextChanged="NewPayeeName_TextChanged"></TextBox>
 
-                <TextBox Grid.Row="3" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" InputScope="Number" Header="Enter account number:" PlaceholderText="Account number" x:Name="AccountNumberTextBox"/>
+                <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" InputScope="Number" Header="Enter account number:" PlaceholderText="Account number" x:Name="AccountNumberTextBox"/>
 
                 <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="10">
                     <TextBlock Text="Select Your Account" Margin="10"></TextBlock>
-                    <DropDownButton Name="SelectAccount" Content="Select From Account" CornerRadius="5" MinWidth="150">
-                        <DropDownButton.Flyout  >
+                    <DropDownButton BorderBrush="Black" BorderThickness="0.3" Name="SelectAccount" Background="White" Content="Select From Account" CornerRadius="5" MinWidth="150">
+                        <DropDownButton.Flyout >
                             <MenuFlyout x:Name="AccountDropdown" Opening="AccountDropdown_Opening" Placement="Bottom">
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
                 </StackPanel>
 
-                <TextBox Grid.Row="5" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" Header="Remark:" PlaceholderText="Remark" x:Name="RemarkTextBox" />
-                <TextBox Grid.Row="6" BorderBrush="Gray" FontSize="16" BorderThickness="0.3" CornerRadius="5" Margin="10" Header="Amount" PlaceholderText="Amount" InputScope="CurrencyAmount" x:Name="AmountTextBox"/>
+                <TextBox Grid.Row="5" Style="{StaticResource InputFieldTextBox}" Header="Remark:" PlaceholderText="Remark" x:Name="RemarkTextBox" />
+                <TextBox Grid.Row="6" Style="{StaticResource InputFieldTextBox}" Header="Amount" PlaceholderText="Amount" TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox"/>
 
-                <Button Click="MakeTransaction_Click" x:Name="MakeTransaction" Grid.Row="7" CornerRadius="10" Content="Make Payment" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Margin="5"></Button>
+                <Button IsEnabled="False"  Click="MakeTransaction_Click" x:Name="MakeTransaction" Grid.Row="7"  Content="Make Payment" Style="{StaticResource ButtonStyling}">
+                </Button>
 
                 <TextBlock Grid.Row="8" Text="{x:Bind TransferAmountViewModel.ResultText,Mode=OneWay}" Name="TransactionResult" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
             </Grid>
@@ -113,9 +118,8 @@
 
             <ContentDialog x:Name="ContentDialog"
         Title="Transaction Details"
-        PrimaryButtonText="Ok"
-        CloseButtonText="Cancel"
-        DefaultButton="Primary">
+        CloseButtonText="Done"
+        DefaultButton="Close" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid  x:Name="TransactionDetails" HorizontalAlignment="Center" VerticalAlignment="Center" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>

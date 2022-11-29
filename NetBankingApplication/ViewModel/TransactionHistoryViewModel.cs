@@ -71,29 +71,31 @@ namespace NetBankingApplication.ViewModel
           populateData(TransctionList);
         }
 
-
+        //newContacts = Contacts.OrderBy(c => c.FirstName);
+        //    ContactSort.Clear();
+        //    foreach (var item in newContacts)
+        //        ContactSort.Add(item);
         public async void populateData( List<Transaction> TransactionList)
         {
-
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
               Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
               {
-                  transactionHistoryViewModel.AllTransactions.Clear();
+                  transactionHistoryViewModel.AllSortedTransactions.Clear();
+                  var AllTransactions = TransactionList.OrderByDescending(i => DateTime.Parse(i.Date));
                   transactionHistoryViewModel.RecipientNameInitials.Clear();
-                  foreach (var i in TransactionList)
+                  foreach (var i in AllTransactions)
                   {
-                      transactionHistoryViewModel.AllTransactions.Add(i);
+                      transactionHistoryViewModel.AllSortedTransactions.Add(i);
                       transactionHistoryViewModel.RecipientNameInitials.Add(i.Name.Substring(0, 1));
                   }
               });
-                
         }
     }
 
 
     public abstract class TransactionHistoryBaseViewModel : NotifyPropertyBase
     {
-        public ObservableCollection<Transaction> AllTransactions = new ObservableCollection<Transaction>();
+        public ObservableCollection<Transaction> AllSortedTransactions = new ObservableCollection<Transaction>();
         public abstract void GetTransactionData(string UserId);
         public List<Transaction> AllTransactionList= new List<Transaction>(){};
 

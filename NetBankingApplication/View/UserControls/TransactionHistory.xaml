@@ -10,64 +10,60 @@
     d:DesignHeight="300"
     Loaded="UserControl_Loaded"
     d:DesignWidth="400">
-    <UserControl.Resources>
-
-        <DataTemplate x:Name="TransactionListViewTemplate" x:DataType="data:Transaction">
-            <Grid Margin="10" BorderBrush="Gray" BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <Grid.ColumnDefinitions>
-
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                </Grid.RowDefinitions>
-
-
-                <TextBlock  Grid.Column="0" Text="{x:Bind Name}" TextWrapping="Wrap" FontWeight="Bold" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                <TextBlock Grid.Row="1" Margin="0,0,0,5" Grid.Column="0" Text="Recipient" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-
-                <TextBlock Margin="10"  Grid.Column="1" TextWrapping="Wrap" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind Remark}"  ></TextBlock>
-                <TextBlock Text="Remark" Margin="0,0,0,5"  Grid.Column="1" Grid.Row="1" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-
-                <TextBlock  Grid.Column="2" Text="{x:Bind Date}" TextWrapping="Wrap" Margin="10" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock  Grid.Column="2" Margin="0,0,0,5" TextWrapping="Wrap" Grid.Row="1" Text="Date of transaction" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-
-                <TextBlock Grid.Column="3" Margin="10" TextWrapping="NoWrap" Text="{x:Bind Amount}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock Grid.Column="3" Margin="0,0,0,5" Grid.Row="1" Text="Amount" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-
-                <TextBlock Grid.Column="4" Margin="10" TextWrapping="NoWrap" Text="{x:Bind TransactionType}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock Grid.Column="4" Margin="0,0,0,5" TextWrapping="Wrap" Grid.Row="1" Text="Transaction Type" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-                <TextBlock Grid.Column="5" Margin="10" TextWrapping="NoWrap" Text="{x:Bind Status}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock Grid.Column="5" Margin="0,0,0,5" TextWrapping="Wrap" Grid.Row="1" Text="Status" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-            </Grid>
-        </DataTemplate>
-
-    </UserControl.Resources>
-
+   
     <Grid>
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollMode="Enabled" ItemsSource="{x:Bind TransactionViewModel.AllTransactions,Mode=OneWay}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView"
-                  ItemTemplate="{StaticResource TransactionListViewTemplate}">
-            <!--<ListView.ItemTemplate >
-                -->
-            <!--<DataTemplate  x:DataType="data:Transaction">
-                   
-                </DataTemplate>-->
-            <!--
-            </ListView.ItemTemplate>-->
+       
+        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind TransactionViewModel.AllSortedTransactions,Mode=OneWay}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView">
+            <!--ItemTemplate="{StaticResource TransactionListViewTemplate}"-->
+            <ListView.ItemTemplate>
+                <DataTemplate x:Name="TransactionListViewTemplate" x:DataType="data:Transaction">
 
+
+                <Grid Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+
+                    <TextBlock  Grid.Column="0" Text="{x:Bind Name}" TextWrapping="Wrap" FontWeight="Bold" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="0,0,0,5" Grid.Column="0" Text="Recipient" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+
+                    <TextBlock Margin="10"  Grid.Column="1" TextWrapping="Wrap" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind Remark}"  ></TextBlock>
+                    <TextBlock Text="Remark" Margin="0,0,0,5"  Grid.Column="1" Grid.Row="1" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+
+                    <TextBlock  Grid.Column="2" Text="{x:Bind Date}" TextWrapping="Wrap" Margin="10" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock  Grid.Column="2" Margin="0,0,0,5" TextWrapping="Wrap" Grid.Row="1" Text="Date of transaction" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                    <!--seperate-->
+
+                    <TextBlock x:Name="Amount" Grid.Column="3" Margin="10" TextWrapping="NoWrap" Text="{x:Bind Amount}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock x:Name="AmountTextBlock" Grid.Column="3" Margin="0,0,0,5" Grid.Row="1" Text="Amount" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                    <TextBlock x:Name="TransactionType" Grid.Column="4" Margin="10" TextWrapping="NoWrap" Text="{x:Bind TransactionType}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        <TextBlock x:Name="TransacctionTypeTextBlock" Grid.Column="4" Margin="0,0,0,5" Grid.Row="1" TextWrapping="Wrap" Text="Transaction Type" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                    <TextBlock x:Name="Status" Grid.Column="5" Margin="10" TextWrapping="NoWrap" Text="{x:Bind Status}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        <TextBlock x:Name="StatusTextBlock" Grid.Column="5" Margin="0,0,0,5" TextWrapping="Wrap" Grid.Row="1" Text="Status" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                </Grid>
+            </DataTemplate>
+            </ListView.ItemTemplate>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />

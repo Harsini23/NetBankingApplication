@@ -1,4 +1,6 @@
 ﻿using Library.Model;
+using Microsoft.Extensions.DependencyInjection;
+using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,19 +23,30 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class BankAccount : UserControl
     {
 
+        private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
+
+        PresenterService GetAllAccountsVMserviceProviderInstance;
+
+
         private User user;
 
         private readonly string _userId;
       
         public BankAccount(User currentUser)
         {
+            this.InitializeComponent();
             this.user = currentUser;
             this._userId = currentUser.UserId;
+
+            GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
+            GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
         }
-      
-        public BankAccount()
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            this.InitializeComponent();
+            GetAllAccountsViewModel.GetAllAccounts(_userId);
+
+          
         }
     }
 }

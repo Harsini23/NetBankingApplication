@@ -51,6 +51,7 @@ namespace NetBankingApplication.ViewModel
             foreach(var i in response.Data.allAccount)
             {
                 GetAllAccountsViewModel.AllAccountNumbers.Add(i.AccountNumber);
+            
             }
         }
 

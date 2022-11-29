@@ -61,8 +61,8 @@
 
                     <TextBlock Style="{StaticResource FailureText}" Grid.Row="4" Grid.ColumnSpan="2" Text="{x:Bind LoginViewModel.LoginResponseValue,Mode=OneWay }" x:Name="ResultText" ></TextBlock>
 
-                <StackPanel Grid.Row="5" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Name="SubmitLoginDetails" IsEnabled="False"  Content="Submit" Click="Verify_Click"></Button>
+                <StackPanel Grid.ColumnSpan="2" Grid.Row="5" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Name="SubmitLoginDetails" IsEnabled="False" Style="{StaticResource ButtonStyling}" Content="Submit" Click="Verify_Click"></Button>
                 </StackPanel>
             </Grid>
 
@@ -98,7 +98,7 @@
     Checked="RevealModeCheckbox_Changed_RePassword" Unchecked="RevealModeCheckbox_Changed_RePassword"/>
                 </StackPanel>
 
-                <Button Click="ResetPassword_Click" Grid.Row="3" IsEnabled="False"  Name="ReSetPassword" Content="Reset Password"></Button>
+                <Button Style="{StaticResource ButtonStyling}" Click="ResetPassword_Click" Grid.Row="3" IsEnabled="False"  Name="ReSetPassword" Content="Reset Password"></Button>
                 <TextBlock Grid.Row="4" Text="{x:Bind LoginViewModel.ResetPasswordResponseValue,Mode=OneWay}"></TextBlock>
             </Grid>
 

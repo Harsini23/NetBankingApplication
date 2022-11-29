@@ -117,6 +117,7 @@ namespace NetBankingApplication.View.UserControls
             AccountNumberTextBox.Text = ""; SelectAccount.Content = "Select From Account";
             RemarkTextBox.Text = ""; AmountTextBox.Text = "";
             TransactionResult.Text = "";
+            MakeTransaction.IsEnabled = false;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -217,6 +218,29 @@ namespace NetBankingApplication.View.UserControls
             var name = (TextBox)sender;
             NewPayeeEnteredName = name.Text.ToString();
 
+        }
+
+        private void AmountTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var amountBox = (TextBox)sender;
+            var amount = amountBox.Text.ToString();
+            if (IsFloatOrInt(amount) && AccountNumberTextBox.Text!=null && SelectAccount.Content!= "Select From Account" && RemarkTextBox.Text!=null)
+            {
+                MakeTransaction.IsEnabled = true;
+            }
+            else
+            {
+                MakeTransaction.IsEnabled=false;
+            }
+
+
+        }
+
+        private static bool IsFloatOrInt(string value)
+        {
+            int intValue;
+            float floatValue;
+            return Int32.TryParse(value, out intValue) || float.TryParse(value, out floatValue);
         }
     }
 }

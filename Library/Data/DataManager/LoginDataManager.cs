@@ -34,7 +34,6 @@ namespace Library.Data.DataManager
                 createTableInstance.InstantiateAllTables();
               
             }
-
        
         }
         private void InvalidLogin()
