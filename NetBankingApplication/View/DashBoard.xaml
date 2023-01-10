@@ -34,8 +34,13 @@
 
         <NavigationView  Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False" CompactPaneLength="45">
 
-            <NavigationView.MenuItems>
-                <NavigationViewItem Margin="1" x:Name="Overview" >
+            <!--<NavigationView.Resources>
+                <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="#272D42" />
+               //keep foreground white
+            </NavigationView.Resources>-->
+
+            <NavigationView.MenuItems >
+                <NavigationViewItem  Margin="1" x:Name="Overview" >
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <TextBlock  FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE80F;" FontSize="16" Margin="0,0,10,0"></TextBlock>
                         <TextBlock Text="Overview" FontSize="16" VerticalAlignment="Center"></TextBlock>

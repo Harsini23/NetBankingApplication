@@ -47,7 +47,6 @@ namespace NetBankingApplication.View.UserControls
             Accountnumber.Text = String.Empty;
             IfscCode.Text = String.Empty;
             BankName.Text = String.Empty;
-
         }
 
         //private void Testing_Click(object sender, RoutedEventArgs e)

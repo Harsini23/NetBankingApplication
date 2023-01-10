@@ -80,8 +80,9 @@ namespace Library.Data.DataManager
                 if (IsAdmin)
                 {
                     responseStatus = "Sucessfully Loged in, Welcome Admin!";
+                  loginResponse.IsAdmin=true;
                 }
-                else if(DbHandler.CheckIfNewUser(UserId))
+                 if(DbHandler.CheckIfNewUser(UserId))
                 {
                     responseStatus = "Sucessfully Loged in as new User - reset password!";
                     IsNewUser = true;
@@ -127,6 +128,7 @@ namespace Library.Data.DataManager
     {
         public User currentUser;
         public bool NewUser;
+        public bool IsAdmin;
 
     }
 }

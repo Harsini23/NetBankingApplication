@@ -52,11 +52,14 @@ namespace NetBankingApplication.ViewModel
     public interface ILoginViewModel
     {
         void SwitchToResetPasswordContainer();
+
         //set iloginview instance to service provider
     }
     public interface IMainPageNavigation
     {
         void NavigateToDashBoard(User user);
+
+        void NavigateToAdminDashBoard(User user);
         //future logout change frame
     }
 }

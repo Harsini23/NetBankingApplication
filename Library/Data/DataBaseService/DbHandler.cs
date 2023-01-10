@@ -14,7 +14,6 @@ namespace Library.Data.DataBaseService
     public class DbHandler : IDbHandler
     {
 
-        //private static DbHandler _instance;
         public static SQLiteConnection connection;
 
         public DbHandler()
@@ -26,6 +25,28 @@ namespace Library.Data.DataBaseService
             }
 
         }
+
+        //private static DbHandler _instance;
+
+        //private DbHandler()
+        //{
+        //    if (connection == null)
+        //    {
+        //        var conn = DatabaseConnection.GetInstance();
+        //        connection = conn.DbConnection;
+        //    }
+        //}
+        //public static DbHandler Instance
+        //{
+        //    get
+        //    {
+        //        if (_instance == null)
+        //        {
+        //            _instance = new DbHandler();
+        //        }
+        //         return _instance;
+        //    }
+        //}
 
 
         #region "User Table operations"
@@ -63,16 +84,8 @@ namespace Library.Data.DataBaseService
             connection.Update(query);
         }
 
-        public void AddUser()
+        public void AddUser(User user)
         {
-            var user = new User()
-            {
-                UserId = "Harsh",
-                UserName = "Harsini",
-                MobileNumber = 9026745564,
-                EmailId = "harsh@gmail.com",
-                IsBlocked = false
-            };
             connection.Insert(user);
         }
 
@@ -159,6 +172,12 @@ namespace Library.Data.DataBaseService
             };
             connection.Insert(newCredential);
         }
+
+
+        public void CreateCredential(Credentials cred)
+        {
+            connection.Insert(cred);
+        }
         //public void GetData<User>()
         //{
         //   //get data from db and return in type of user
@@ -200,33 +219,9 @@ namespace Library.Data.DataBaseService
             return false;
         }
 
-        #endregion
-
-
-        #region "Add account explictly"
-        public void AddAccount()
+        public void AddAccount(Account account)
         {
-            var account = new Account()
-            {
-                AccountNumber = "978374847492",
-                AccountType = 0,
-                AvailableBalanceAsOn = "21-11-2022",
-                TotalBalance = "1000000.00",
-                BId = "B001",
-                Currency = 0
-            };
             connection.Insert(account);
-
-            var account2 = new Account()
-            {
-                AccountNumber = "730364478904",
-                AccountType = 0,
-                AvailableBalanceAsOn = "24-11-2022",
-                TotalBalance = "9000000.00",
-                BId = "B002",
-                Currency = 0
-            };
-            connection.Insert(account2);
         }
 
         #endregion
@@ -311,24 +306,9 @@ namespace Library.Data.DataBaseService
         #endregion
 
         #region "UserAccounts"
-        public void AddAccountForUser()
+        public void AddAccountForUser(UserAccounts userAccounts)
         {
-            UserAccounts userAccounts = new UserAccounts
-            {
-                Sno = "100001",
-                AccountNumber = "978374847492",
-                UserId = "Harsh"
-
-            };
             connection.Insert(userAccounts);
-            UserAccounts userAccounts2 = new UserAccounts
-            {
-                Sno = "100002",
-                AccountNumber = "730364478904",
-                UserId = "Harsh"
-
-            };
-            connection.Insert(userAccounts2);
         }
 
         public List<String> GetAllAccountsForUser(string userId)

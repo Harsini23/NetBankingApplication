@@ -44,7 +44,11 @@ namespace NetBankingApplication
              LoadContentFrame.Navigate(typeof(LoginPage));
         }
 
-       
+        //load admin authorized panel
+        public void NavigateToAdminDashBoard(User user)
+        {
+            LoadContentFrame.Navigate(typeof(AdminPage));
+        }
     }
 
   

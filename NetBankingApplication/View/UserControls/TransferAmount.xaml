@@ -57,7 +57,7 @@
                     </DropDownButton>
                 </StackPanel>
 
-                <TextBox Grid.Row="5" Style="{StaticResource InputFieldTextBox}" Header="Remark:" PlaceholderText="Remark" x:Name="RemarkTextBox" />
+                <TextBox Grid.Row="5" Style="{StaticResource InputFieldTextBox}" Header="Remark" PlaceholderText="Remark" x:Name="RemarkTextBox" />
                 <TextBox Grid.Row="6" Style="{StaticResource InputFieldTextBox}" Header="Amount" PlaceholderText="Amount" TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox"/>
 
                 <Button IsEnabled="False"  Click="MakeTransaction_Click" x:Name="MakeTransaction" Grid.Row="7"  Content="Make Payment" Style="{StaticResource ButtonStyling}">

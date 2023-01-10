@@ -127,8 +127,8 @@
     <Compile Include="Data\DataBaseService\NetHandler.cs" />
     <Compile Include="Data\DataManager\AccountTransactionsDataManager.cs" />
     <Compile Include="Data\DataManager\AddPayeeDataManager.cs" />
+    <Compile Include="Data\DataManager\AddUserDataManager.cs" />
     <Compile Include="Data\DataManager\BankingDataManager.cs" />
-    <Compile Include="Data\DataManager\CreateNewUserDataManager.cs" />
     <Compile Include="Data\DataManager\DeletePayeeDataManager.cs" />
     <Compile Include="Data\DataManager\GetAllAccountsDataManager.cs" />
     <Compile Include="Data\DataManager\GetAllPayeeDataManager.cs" />
@@ -141,7 +141,7 @@
     <Compile Include="Domain\IServiceProvider.cs" />
     <Compile Include="Domain\UseCase\AccountTransactions.cs" />
     <Compile Include="Domain\UseCase\AddPayee.cs" />
-    <Compile Include="Domain\UseCase\CreateNewUser.cs" />
+    <Compile Include="Domain\UseCase\AddUser.cs" />
     <Compile Include="Domain\UseCase\DeletePayee.cs" />
     <Compile Include="Domain\UseCase\GetAllAccounts.cs" />
     <Compile Include="Domain\UseCase\GetAllPayee.cs" />
@@ -166,6 +166,7 @@
     <Compile Include="Model\Payee.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Model\UserAccountDetails.cs" />
     <Compile Include="Model\UserAccounts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\CurrentDateTime.cs" />

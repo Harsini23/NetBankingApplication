@@ -42,6 +42,7 @@ namespace Library.Domain
             services.AddSingleton<IGetAllPayeeDataManager, GetAllPayeeDataManager>();
             services.AddSingleton<IGetAllAccountsDataManager, GetAllAccountsDataManager>();
             services.AddSingleton<IAccountTransactionsDataManager, AccountTransactionsDataManager>();
+            services.AddSingleton<IAddUserDataManager, AddUserDataManager>();
 
             return services.BuildServiceProvider();
         }

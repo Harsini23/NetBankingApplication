@@ -71,13 +71,11 @@ namespace Library.Data.DataManager
 
     public interface IDbHandler
     {
-
-
         bool CheckUser(string userId);
         User GetUser(string userId);
         void BlockAccount(string userId);
         void UnBlockAccount(string userId);
-        void AddUser();
+        void AddUser(User user);
         bool CheckIfUserExists(string userId);
         bool CheckUserCredential(string userId, string password);
         bool CheckIfAdmin(string userId);
@@ -87,10 +85,10 @@ namespace Library.Data.DataManager
         void AddCredential(string userId, string password);
         //bool GetAccount(string userId);
         Transaction AddTransaction(Transaction transaction);
-        void AddAccount();
+        void AddAccount(Account account);
         List<Transaction> GetAllTransactions(string userId);
         bool AddNewPayee(Payee newPayee);
-        void AddAccountForUser();
+        void AddAccountForUser(UserAccounts userAccounts);
         List<Payee> GetAllPayee(string userId);
        // List<Account> GetAllAccounts(string accountnummber);
         Account GetAccount(string accountNumber);
@@ -103,6 +101,7 @@ namespace Library.Data.DataManager
         List<Transaction> GetTransactionsForAccount(string accountNumber);
 
         string GetUserName(String userId);
+        void CreateCredential(Credentials cred);
 
 
     }

@@ -41,7 +41,6 @@ namespace NetBankingApplication.ViewModel
 
         public void OnFailure(ZResponse<TransferAmountResponse> response)
         {
-
         }
 
         public void OnSuccess(ZResponse<TransferAmountResponse> response)
@@ -176,8 +175,6 @@ namespace NetBankingApplication.ViewModel
                 //SetProperty(ref _response, value);
             }
         }
-
-
 
 
         public abstract void SendTransaction(AmountTransfer transaction, string userId);

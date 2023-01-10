@@ -24,6 +24,7 @@ namespace NetBankingApplication.ViewModel
         ResetPassword resetPassword;
         public string userId, password, resetNewPassword;
         public static User user;
+        public static bool IsAdmin;
 
         ILoginViewModel loginViewCallback;
         IMainPageNavigation mainPageNavigation;
@@ -37,9 +38,9 @@ namespace NetBankingApplication.ViewModel
         }
         public void CallResetUseCase()
         {
-
             resetPassword = new ResetPassword(new ResetPasswordRequest(userId, resetNewPassword), new PresenterLoginCallback(this));
             resetPassword.Execute();
+           //call to display admin or user dashboard
         }
 
         private void SetValueForCallback()
@@ -60,6 +61,7 @@ namespace NetBankingApplication.ViewModel
         {
             this.resetNewPassword = newPassword;
             CallResetUseCase();
+            
         }
 
         public class PresenterLoginCallback : IPresenterLoginCallback, IPersenterResetPasswordCallback
@@ -86,7 +88,17 @@ namespace NetBankingApplication.ViewModel
             public void OnSuccess(ZResponse<bool> response)
             {
                 loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
+                //
+                if (IsAdmin)
+                {
+                    handleAdminAccess();
+                }
+                else
+                {
+                    LoadDashBoard(LoginViewModel.user);
+                }
             }
+       
         
             private async Task LoadDashBoard(User user)
             {
@@ -97,7 +109,6 @@ namespace NetBankingApplication.ViewModel
             });
 
             }
-
             private async Task handleCallbackAsync()
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
@@ -106,22 +117,53 @@ namespace NetBankingApplication.ViewModel
                   loginViewModel.loginViewCallback.SwitchToResetPasswordContainer();
               });
             }
+            private async Task handleAdminAccess()
+            {
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+              {
+                  loginViewModel.mainPageNavigation.NavigateToAdminDashBoard(LoginViewModel.user);
+              });
+            }
 
             //Presenter call back methods
-            public void OnSuccess(ZResponse<LoginResponse> response)
+            public async void OnSuccess(ZResponse<LoginResponse> response)
             {
-               // loginViewModel.LoginResponseValue = response.Response.ToString();
-                //redirect to next page with user details
-                if (response.Data.NewUser)
+                LoginViewModel.IsAdmin = response.Data.IsAdmin;
+                LoginViewModel.user = response.Data.currentUser;
+                if (response.Data.IsAdmin)
                 {
-                    //in vm base hv interface.. in abstract class hv the property of I and set it from view by passing this acces from VM by I so only interface functionalities are visibles
-                    handleCallbackAsync();
+                    if (response.Data.NewUser)
+                    {
+                        //in vm base hv interface.. in abstract class hv the property of I and set it from view by passing this acces from VM by I so only interface functionalities are visibles
+                      await  handleCallbackAsync();
+                    }
+                    else
+                    {
+                        handleAdminAccess();
+                    }
+                }
+                else
+                {
+                    // loginViewModel.LoginResponseValue = response.Response.ToString();
+                    //redirect to next page with user details
+                    if (response.Data.NewUser)
+                    {
+                        //in vm base hv interface.. in abstract class hv the property of I and set it from view by passing this acces from VM by I so only interface functionalities are visibles
+                      await  handleCallbackAsync();
+                    }
+                    else
+                    {
+                        //then continue with user profile details display //pass user and id
+                      
+                        //Debug.WriteLine(LoginViewModel.user.EmailId);
+                        LoadDashBoard(LoginViewModel.user);
+                    }
+
+                  
+
                 }
 
-                //then continue with user profile details display //pass user and id
-                LoginViewModel.user = response.Data.currentUser;
-                //Debug.WriteLine(LoginViewModel.user.EmailId);
-                LoadDashBoard(LoginViewModel.user);
             }
 
             public void OnError(ZResponse<LoginResponse> response)

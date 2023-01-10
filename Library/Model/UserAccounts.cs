@@ -9,8 +9,8 @@ namespace Library.Model
 {
     public class UserAccounts
     {
-        [PrimaryKey]
-        public string Sno { get; set; }
+        [PrimaryKey,AutoIncrement]
+        public int Sno { get; set; }
         public string UserId { get; set; }
         public string AccountNumber { get; set;}
         public UserAccounts(string userId, string accountNumber)

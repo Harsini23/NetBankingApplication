@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="NetBankingApplication.View.AdminPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NetBankingApplication.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d"
+   
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" SelectionChanged="AdminPageNavigation_SelectionChanged"  x:Name="AdminPageNavigation" IsBackButtonVisible="Collapsed"  IsSettingsVisible="False" OpenPaneLength="200">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Name="AddUser" Icon="Edit" Content="Add User" Tag="Add User"  />
+                <NavigationViewItem Name="EditProfile" Icon="Contact" Content="Edit Profile" Tag="Edit Profile" />
+            </NavigationView.MenuItems>
+            <ContentControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedModule,Mode=OneWay}" CornerRadius="30" />
+        </NavigationView>
+    </Grid>
+
+
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+            <VisualState>
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger
+                        MinWindowWidth="900" />
+                </VisualState.StateTriggers>
+
+                <VisualState.Setters>
+                    <!--<Setter Target="DashBoardNavigation.CompactPaneLength" Value="240"/>-->
+                    <Setter Target="AdminPageNavigation.PaneDisplayMode" Value="Left"/>
+                  
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+</Page>

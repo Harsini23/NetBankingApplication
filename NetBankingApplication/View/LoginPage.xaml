@@ -41,6 +41,7 @@
                         <RowDefinition Height="1*"></RowDefinition>
                         <RowDefinition Height="1*"></RowDefinition>
                         <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <!--<Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -53,7 +54,7 @@
                 <TextBlock Grid.Row="1" Text="Login to the portal" Margin="10" HorizontalAlignment="Center" Grid.ColumnSpan="2" ></TextBlock>
 
                 <TextBox Grid.Row="2" Style="{StaticResource InputFieldTextBox}" Header="User ID:" PlaceholderText="User ID" x:Name="UserId"/>
-                <PasswordBox CornerRadius="5" Header="Password" IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" PasswordChanged="Password_PasswordChanged"  Grid.Row="3"  Style="{StaticResource FormPasswordBox}" x:Name="Password" >
+                <PasswordBox CornerRadius="5" Header="Password" IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" Background="White" PasswordChanged="Password_PasswordChanged"  Grid.Row="3"  Style="{StaticResource FormPasswordBox}" x:Name="Password" >
                     <ToolTipService.ToolTip>
                         <ToolTip Content="Must be mininum of 9 characters with one lowercase, uppercase and special charater." VerticalOffset="-80"/>
                     </ToolTipService.ToolTip>
@@ -78,7 +79,7 @@
 
                     <TextBlock Style="{StaticResource FailureText}" Grid.Row="4" Grid.ColumnSpan="2" Text="{x:Bind LoginViewModel.LoginResponseValue,Mode=OneWay }" x:Name="ResultText" ></TextBlock>-->
 
-                <StackPanel Grid.ColumnSpan="2"  Grid.Row="5" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Grid.ColumnSpan="2"  Grid.Row="6" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button Name="SubmitLoginDetails" MinWidth="300" IsEnabled="False" Style="{StaticResource ButtonStyling}" Content="Submit" Click="Verify_Click"></Button>
                 </StackPanel>
             </Grid>
