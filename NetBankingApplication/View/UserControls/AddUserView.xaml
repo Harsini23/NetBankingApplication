@@ -39,10 +39,10 @@
             
             <TextBlock Text="User Details" Margin="10" FontWeight="Bold" FontSize="20" ></TextBlock>
 
-            <TextBox Grid.Row="1" Style="{StaticResource InputFieldTextBox}" Header="User AccountNumber" PlaceholderText="Account number" x:Name="UserAccountNumberTextBox" InputScope="Digits"/>
+                <TextBox Grid.Row="1" Style="{StaticResource InputFieldTextBox}" Header="User AccountNumber" PlaceholderText="Account number" x:Name="UserAccountNumberTextBox" BeforeTextChanging="TextBox_OnBeforeTextChanging" InputScope="Digits"/>
             <TextBox Grid.Row="2" Style="{StaticResource InputFieldTextBox}" Header="User Name" PlaceholderText="User name" x:Name="UserNameTextBox" />
             <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" Header="Email ID" PlaceholderText="EmailId"  x:Name="EmailIdTextBox" InputScope="EmailSmtpAddress"/>
-                <TextBox Grid.Row="4" Style="{StaticResource InputFieldTextBox}" Header="Mobile Number" PlaceholderText="MobileNumber"  x:Name="MobileNumberTextBox"  InputScope="TelephoneNumber"/>
+                <TextBox Grid.Row="4" Style="{StaticResource InputFieldTextBox}"  BeforeTextChanging="TextBox_OnBeforeTextChanging" Header="Mobile Number" PlaceholderText="MobileNumber"  x:Name="MobileNumberTextBox"  InputScope="TelephoneNumber"/>
           
         </Grid>
 
@@ -60,12 +60,17 @@
             </ComboBox>
                 <ComboBox x:Name="CurrencyValues" Header="Currency" MinWidth="300" CornerRadius="5" Margin="5" Grid.Row="2" ItemsSource="{x:Bind _CurrencyValues}">
             </ComboBox>
-            <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" Header="Balance" PlaceholderText="Balance" InputScope="Number"  x:Name="BalanceTextBox"/>   
+                <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" Header="Balance" BeforeTextChanging="TextBox_OnBeforeTextChanging" PlaceholderText="Balance" InputScope="Number"  x:Name="BalanceTextBox"/>   
             <TextBox Grid.Row="4" Style="{StaticResource InputFieldTextBox}" Header="Branch Id" PlaceholderText="Branch ID"  x:Name="BranchIdTextBox"/>
         </Grid>
 
         <Grid Grid.Row="2">
-            <Button x:Name="Submit" Click="Submit_Click" Content="Create user" Style="{StaticResource ButtonStyling}"></Button>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="ErrorMessage" Text="{x:Bind AddUserViewModel.ErrorMessage ,Mode=OneWay}" Style="{StaticResource FailureText}"></TextBlock>
+            <Button x:Name="Submit" Grid.Row="1" Click="Submit_Click" Content="Create user" Style="{StaticResource ButtonStyling}"></Button>
         </Grid>
 
 

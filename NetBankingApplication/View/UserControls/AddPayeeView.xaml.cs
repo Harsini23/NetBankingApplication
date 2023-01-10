@@ -49,6 +49,12 @@ namespace NetBankingApplication.View.UserControls
             BankName.Text = String.Empty;
         }
 
+        private void TextBox_OnBeforeTextChanging(TextBox sender,
+                                          TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
+
         //private void Testing_Click(object sender, RoutedEventArgs e)
         //{
         //    //PayeeTemplate.PayeeNameProperty

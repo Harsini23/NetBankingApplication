@@ -13,9 +13,9 @@ namespace Library.Model
         public string FromAccount { get; set; }
         public string ToAccount { get; set; }
         public string Remark { get; set; }
-        public string Amount { get; set; }
+        public double Amount { get; set; }
 
-        public AmountTransfer(string userId, string name, string fromAccount, string toAccount, string remark, string amount)
+        public AmountTransfer(string userId, string name, string fromAccount, string toAccount, string remark, double amount)
         {
             UserId = userId;
             Name = name;

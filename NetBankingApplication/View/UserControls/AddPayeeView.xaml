@@ -35,7 +35,7 @@
                     <TextBox Grid.Row="1" Style="{StaticResource InputFieldTextBox}" Header="Enter Payee Name:" PlaceholderText="Payee name" x:Name="PayeeName" />
                     <TextBox Grid.Row="2" Style="{StaticResource InputFieldTextBox}" Header="Account Holder name:" PlaceholderText="Account holder name" x:Name="AccountHolderName"/>
                     <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" Header="Bank Name:" PlaceholderText="Bank name" x:Name="BankName"/>
-                    <TextBox Grid.Row="4" Style="{StaticResource InputFieldTextBox}" InputScope="Number" Header="Enter account number:" PlaceholderText="Account number" x:Name="Accountnumber"/>
+                    <TextBox Grid.Row="4" Style="{StaticResource InputFieldTextBox}" InputScope="Number" Header="Enter account number:" PlaceholderText="Account number" x:Name="Accountnumber" BeforeTextChanging="TextBox_OnBeforeTextChanging" />
                     <TextBox Grid.Row="5" Style="{StaticResource InputFieldTextBox}" Header="IFSC Code:" PlaceholderText="IFSC code" x:Name="IfscCode" />
                     <Button  Grid.Row="6" x:Name="AddPayee" Content="Add Payee" Style="{StaticResource ButtonStyling}" Click="AddPayee_Click"></Button>
 

@@ -60,7 +60,7 @@ namespace Library.Data.DataManager
                 IsBlocked = false
             };
         }
-        private Account CreateAccount(string accNo,AccountType accType,string TotalBalance,string BId,Currency currency)
+        private Account CreateAccount(string accNo,AccountType accType,double TotalBalance,string BId,Currency currency)
         {
             return new Account
             {

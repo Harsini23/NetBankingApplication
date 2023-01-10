@@ -12,11 +12,11 @@ namespace Library.Model
         public string UserName { get; set; }
         public string AccountNumber { get; set; }
         public TransactionType TransactionType { get; set; }
-        public string Amount { get; set; }
+        public double Amount { get; set; }
         public string DateOfTransaction { get; set; }
         public string Initial { get; set; }
 
-        public AccountTransactionBObj(string userName, string accountNumber, TransactionType transactionType, string amount, string dateOfTransaction, string initial)
+        public AccountTransactionBObj(string userName, string accountNumber, TransactionType transactionType, double amount, string dateOfTransaction, string initial)
         {
             UserName = userName;
             AccountNumber = accountNumber;

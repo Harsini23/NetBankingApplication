@@ -15,13 +15,13 @@ namespace Library.Model
         [PrimaryKey]
         public string AccountNumber { get; set; }
         public AccountType AccountType { get; set; }
-        public string TotalBalance { get; set; }
+        public double TotalBalance { get; set; }
         public string AvailableBalanceAsOn { get; set; }
         public string BId { get; set; }
 
         public Currency Currency { get; set; }
 
-        public Account(string accountNumber, AccountType accountType, string totalBalance,string TotalBalanceAsOn,string bId)
+        public Account(string accountNumber, AccountType accountType, double totalBalance,string TotalBalanceAsOn,string bId)
         {
             AccountNumber = accountNumber;
             AccountType = accountType;

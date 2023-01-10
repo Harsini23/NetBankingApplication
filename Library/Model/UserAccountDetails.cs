@@ -14,11 +14,11 @@ namespace Library.Model
         public string EmailId { get; set; }
         public string AccountNumber { get; set; }
         public AccountType AccountType { get; set; }
-        public string TotalBalance { get; set; }
+        public double TotalBalance { get; set; }
         public Currency Currency { get; set; }
         public string BId { get; set; }
 
-        public UserAccountDetails(string userName, long mobileNumber, string emailId, string accountNumber, AccountType accountType, string totalBalance, Currency currency, string bId)
+        public UserAccountDetails(string userName, long mobileNumber, string emailId, string accountNumber, AccountType accountType, double totalBalance, Currency currency, string bId)
         {
          
             UserName = userName;

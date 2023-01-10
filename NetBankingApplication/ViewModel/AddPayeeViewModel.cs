@@ -52,7 +52,7 @@ namespace NetBankingApplication.ViewModel
             //show payee added successfully to user -> UI
             Debug.WriteLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxxx");
             Debug.WriteLine(response.Response.ToString());
-            addPayeeViewModel.AddPayeeResponseValue = response.Response.ToString();
+           // addPayeeViewModel.AddPayeeResponseValue = response.Response.ToString();
         }
 
 
@@ -63,7 +63,7 @@ namespace NetBankingApplication.ViewModel
     public abstract class AddPayeeBaseViewModel : NotifyPropertyBase
     {
         public abstract void AddPayee(Payee newRecipent);
-
+     
 
         private string _response = String.Empty;
         public string AddPayeeResponseValue

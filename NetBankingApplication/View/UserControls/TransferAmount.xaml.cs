@@ -30,7 +30,7 @@ namespace NetBankingApplication.View.UserControls
         private string FromAccount;
         private string ToAccount;
         private string RemarkDescription;
-        private string Amount;
+        private double Amount;
         private string NewPayeeEnteredName;
 
 
@@ -88,7 +88,7 @@ namespace NetBankingApplication.View.UserControls
                 ToAccount = AccountNumberTextBox.Text;
             }
 
-            Amount = AmountTextBox.Text;
+            Amount = Double.Parse(AmountTextBox.Text);
             RemarkDescription = RemarkTextBox.Text;
             //get from account from using user id from datamanager
             AmountTransfer amountTransfer = new AmountTransfer
@@ -116,7 +116,7 @@ namespace NetBankingApplication.View.UserControls
             NewPayeeName.Visibility = Visibility.Collapsed;
             AccountNumberTextBox.Text = ""; SelectAccount.Content = "Select From Account";
             RemarkTextBox.Text = ""; AmountTextBox.Text = "";
-            TransactionResult.Text = "";
+            TransactionResult.Text = String.Empty;
             MakeTransaction.IsEnabled = false;
         }
 
@@ -134,7 +134,7 @@ namespace NetBankingApplication.View.UserControls
             //allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
             //allAccounts.Clear();
             //allAccounts = GetAllAccountsViewModel.AllAccounts;
-            //TransactionResult.Text = String.Empty;
+            TransactionResult.Text = String.Empty;
 
         }
 

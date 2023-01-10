@@ -18,12 +18,12 @@ namespace Library.Data.DataManager
         {
         }
 
-        private bool ValidateCurrentAccountAndDeductBalance(Account currentAccount, string Amount)
+        private bool ValidateCurrentAccountAndDeductBalance(Account currentAccount, double Amount)
         {
             if (currentAccount != null)
             {
-                double AccountBalance = Double.Parse(currentAccount.TotalBalance);
-                double amount = Double.Parse(Amount);
+                double AccountBalance = currentAccount.TotalBalance;
+                double amount =Amount;
                 if (AccountBalance >= amount)
                 {
                     double deductedValue = AccountBalance - amount;
@@ -36,7 +36,7 @@ namespace Library.Data.DataManager
                         AvailableBalanceAsOn = CurrentDateTime.GetCurrentDate(),
                         BId = currentAccount.BId,
                         Currency = currentAccount.Currency,
-                        TotalBalance = deductedValue.ToString()
+                        TotalBalance = deductedValue
                     };
                     //Debug.WriteLine(deductedValue.ToString());
                     var res = DbHandler.UpdateBalance(account);

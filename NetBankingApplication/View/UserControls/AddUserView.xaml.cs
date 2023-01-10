@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -39,31 +40,54 @@ namespace NetBankingApplication.View.UserControls
             _CurrencyValues = Enum.GetValues(typeof(Currency)).Cast<Currency>();
         }
 
-       
+        private void TextBox_OnBeforeTextChanging(TextBox sender,
+                                          TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
+      
+
+
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            UserAccountDetails details = new UserAccountDetails
+
+            if (MobileNumberTextBox.Text.Length!=10)
             {
-                UserName = UserNameTextBox.Text,
-                MobileNumber = long.Parse(MobileNumberTextBox.Text),
-                EmailId = EmailIdTextBox.Text,
-                AccountNumber = UserAccountNumberTextBox.Text,
-                AccountType = Enum.Parse<AccountType>(AccountTypeBox.SelectedItem.ToString()),
-                TotalBalance = BalanceTextBox.Text,
-                Currency = Enum.Parse<Currency>(CurrencyValues.SelectedItem.ToString()),
-                BId = BranchIdTextBox.Text.ToString()
-            };
+                AddUserViewModel.ErrorMessage = "Enter a valid mobile number";
+            }
+            else if(!this.EmailIdTextBox.Text.Contains('@') || !this.EmailIdTextBox.Text.Contains('.')|| !this.EmailIdTextBox.Text.Contains("com")){
+                AddUserViewModel.ErrorMessage = "Enter a valid email id";
+            }
+            else
+            {
+                UserAccountDetails details = new UserAccountDetails
+                {
+                    UserName = UserNameTextBox.Text,
+                    MobileNumber = long.Parse(MobileNumberTextBox.Text),
+                    EmailId = EmailIdTextBox.Text,
+                    AccountNumber = UserAccountNumberTextBox.Text,
+                    AccountType = Enum.Parse<AccountType>(AccountTypeBox.SelectedItem.ToString()),
+                    TotalBalance = Double.Parse(BalanceTextBox.Text),
+                    Currency = Enum.Parse<Currency>(CurrencyValues.SelectedItem.ToString()),
+                    BId = BranchIdTextBox.Text.ToString()
+                };
 
-            AddUserViewModel.AddUser(details);
 
-            UserNameTextBox.Text = String.Empty;
-            MobileNumberTextBox.Text = String.Empty;
-            EmailIdTextBox.Text = String.Empty;
-            BranchIdTextBox.Text = String.Empty;
-            BalanceTextBox.Text=String.Empty;
-            UserAccountNumberTextBox.Text = String.Empty;
-            AccountTypeBox.SelectedIndex = 0;
-            CurrencyValues.SelectedIndex = 0;
+                AddUserViewModel.AddUser(details);
+
+
+                UserNameTextBox.Text = String.Empty;
+                MobileNumberTextBox.Text = String.Empty;
+                EmailIdTextBox.Text = String.Empty;
+                BranchIdTextBox.Text = String.Empty;
+                BalanceTextBox.Text = String.Empty;
+                UserAccountNumberTextBox.Text = String.Empty;
+                AccountTypeBox.SelectedItem = null;
+                CurrencyValues.SelectedItem = null;
+                AddUserViewModel.ErrorMessage = String.Empty;
+            }
+        
+
         }
 
 

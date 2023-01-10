@@ -47,6 +47,17 @@ namespace NetBankingApplication.ViewModel
 
     public abstract class AddUserBaseViewModel : NotifyPropertyBase
     {
+        private string _errorMessage = String.Empty;
+        public string ErrorMessage
+        {
+            get { return this._errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChangedAsync(nameof(ErrorMessage));
+                //SetProperty(ref _response, value);
+            }
+        }
         public abstract void AddUser(UserAccountDetails userDetails);
     }
 }

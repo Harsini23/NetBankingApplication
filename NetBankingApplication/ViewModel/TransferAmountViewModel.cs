@@ -141,8 +141,8 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
-        private string _amountTransfered = String.Empty;
-        public string AmountTransfered
+        private double _amountTransfered = 0.0;
+        public double AmountTransfered
         {
             get { return this._amountTransfered; }
             set
