@@ -33,13 +33,16 @@ namespace NetBankingApplication.View
         public LoginPage()
         {
             this.InitializeComponent();
-         
+
             LoginVMserviceProviderInstance = PresenterService.GetInstance();
             LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
             //setting login view value for callback
             LoginViewModel.LoginViewModelCallback = this;
+
+            LoginViewModel.ResetPasswordResponseValue = String.Empty;
+
         }
-    
+
         private void Verify_Click(object sender, RoutedEventArgs e)
         {
          

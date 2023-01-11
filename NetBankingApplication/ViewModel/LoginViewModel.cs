@@ -64,6 +64,21 @@ namespace NetBankingApplication.ViewModel
             
         }
 
+        public override async void Logout()
+        {
+             LoggingOut();
+        }
+
+        private async Task LoggingOut()
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+                       Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                       {
+                           this.mainPageNavigation.NavigateToLoginPage();
+                       });
+        }
+
+
         public class PresenterLoginCallback : IPresenterLoginCallback, IPersenterResetPasswordCallback
         {
             private LoginViewModel loginViewModel;
@@ -109,6 +124,8 @@ namespace NetBankingApplication.ViewModel
             });
 
             }
+
+           
             private async Task handleCallbackAsync()
             {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(

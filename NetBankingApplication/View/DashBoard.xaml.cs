@@ -30,11 +30,17 @@ namespace NetBankingApplication.View
     /// 
     public sealed partial class DashBoard : Page,INotifyPropertyChanged
     {
-      
+
+        private LoginBaseViewModel LoginViewModel;
+        PresenterService LoginVMserviceProviderInstance;
+
         public DashBoard()
         {
             this.InitializeComponent();
-      
+
+            LoginVMserviceProviderInstance = PresenterService.GetInstance();
+            LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
+
         }
         User Currentuser;
 
@@ -146,5 +152,10 @@ namespace NetBankingApplication.View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            //logout logic
+            LoginViewModel.Logout();
+        }
     }
 }

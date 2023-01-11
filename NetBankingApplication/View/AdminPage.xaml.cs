@@ -34,10 +34,16 @@ namespace NetBankingApplication.View
         //private AddUserBaseViewModel AddUserViewModel;
 
         //PresenterService AddUserVMserviceProviderInstance;
+
+
+        private LoginBaseViewModel LoginViewModel;
+        PresenterService LoginVMserviceProviderInstance;
         public AdminPage()
         {
             this.InitializeComponent();
 
+            LoginVMserviceProviderInstance = PresenterService.GetInstance();
+            LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
             //AddUserVMserviceProviderInstance = PresenterService.GetInstance();
             //AddUserViewModel = AddUserVMserviceProviderInstance.Services.GetService<AddUserBaseViewModel>();
         }
@@ -91,6 +97,12 @@ namespace NetBankingApplication.View
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            //logout logic
+            LoginViewModel.Logout();
         }
 
     }

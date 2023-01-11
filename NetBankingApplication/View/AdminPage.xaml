@@ -23,6 +23,17 @@
                 <NavigationViewItem Name="AddUser" Icon="Edit" Content="Add User" Tag="Add User"  />
                 <NavigationViewItem Name="EditProfile" Icon="Contact" Content="Edit Profile" Tag="Edit Profile" />
             </NavigationView.MenuItems>
+
+
+            <NavigationView.PaneFooter>
+                <NavigationViewItem Tapped="Logout_Tapped" Margin="1" x:Name="Logout">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock  FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xF3B1;" FontSize="16" Margin="0,0,10,0"></TextBlock>
+                        <TextBlock Text="Logout" FontSize="16" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                </NavigationViewItem>
+            </NavigationView.PaneFooter>
+
             <ContentControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedModule,Mode=OneWay}" CornerRadius="30" />
         </NavigationView>
     </Grid>

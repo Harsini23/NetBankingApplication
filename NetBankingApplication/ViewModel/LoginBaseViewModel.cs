@@ -46,6 +46,9 @@ namespace NetBankingApplication.ViewModel
         public abstract void ValidateUserInput(string userId, string password);
         public abstract void ResetPassword(string newPassword);
         public abstract void CallUseCase();
+
+
+        public abstract void Logout();
     
     }
 
@@ -60,6 +63,8 @@ namespace NetBankingApplication.ViewModel
         void NavigateToDashBoard(User user);
 
         void NavigateToAdminDashBoard(User user);
+
+        void NavigateToLoginPage();
         //future logout change frame
     }
 }

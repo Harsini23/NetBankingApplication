@@ -105,7 +105,7 @@
     Checked="RevealModeCheckbox_Changed_RePassword" Unchecked="RevealModeCheckbox_Changed_RePassword"/>
                 </StackPanel>
                 <Button Style="{StaticResource ButtonStyling}" Click="ResetPassword_Click" Grid.Row="3" IsEnabled="False"  Name="ReSetPassword" Content="Reset Password"></Button>
-                <TextBlock Grid.Row="4" Text="{x:Bind LoginViewModel.ResetPasswordResponseValue,Mode=OneWay}"></TextBlock>
+                <!--<TextBlock Grid.Row="4" Text="{x:Bind LoginViewModel.ResetPasswordResponseValue,Mode=OneWay}"></TextBlock>-->
             </Grid>
         </Grid>
     </ScrollViewer>
