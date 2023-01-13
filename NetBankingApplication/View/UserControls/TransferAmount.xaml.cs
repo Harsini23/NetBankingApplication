@@ -223,10 +223,15 @@ namespace NetBankingApplication.View.UserControls
         private void AmountTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var amountBox = (TextBox)sender;
+            ErrorMessage.Text = String.Empty;
             var amount = amountBox.Text.ToString();
             if (IsFloatOrInt(amount) && AccountNumberTextBox.Text!=null && SelectAccount.Content!= "Select From Account" && RemarkTextBox.Text!=null)
             {
                 MakeTransaction.IsEnabled = true;
+            }
+            else if (!IsFloatOrInt(amount))
+            {
+                ErrorMessage.Text = "Kindly check and enter valid amount";
             }
             else
             {
@@ -241,6 +246,12 @@ namespace NetBankingApplication.View.UserControls
             int intValue;
             float floatValue;
             return Int32.TryParse(value, out intValue) || float.TryParse(value, out floatValue);
+        }
+
+        private void TextBox_OnBeforeTextChanging(TextBox sender,
+                                         TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
         }
     }
 }

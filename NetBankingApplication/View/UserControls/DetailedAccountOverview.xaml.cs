@@ -42,7 +42,8 @@ namespace NetBankingApplication.View.UserControls
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            AccountTransactionsViewModel.GetAllTransactions("978374847492", "Harsh");
+            //take current accountnumber and userid
+            AccountTransactionsViewModel.GetAllTransactions("1234567098", "UIDaf913875");
         }
     }
 }

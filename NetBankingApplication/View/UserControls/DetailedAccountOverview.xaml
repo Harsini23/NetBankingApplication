@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NetBankingApplication.View.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:data="using:Library.Model"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:data="using:Library.Model" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -16,62 +16,27 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
+  
     <Grid>
        <!--//use visual state-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="Black" BorderThickness="0.5" CornerRadius="10" Margin="10">
-            <Grid Grid.RowSpan="2" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="4*"></RowDefinition>
-                <RowDefinition Height="2*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.Currency}" FontSize="32" Margin="10"></TextBlock>
-                <TextBlock FontSize="32" Text="{x:Bind AccountTransactionsViewModel.AccountDetails.TotalBalance}" Margin="10"></TextBlock>
-                    </StackPanel>
-                <TextBlock Text="Current Account Balance" FontWeight="ExtraLight" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-            </StackPanel>
-            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5"  Text="Account Number : "  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                        <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountNumber}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5" Text="Account Type : "  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                    <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountType}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5"  Text="Branch Id : "  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                    <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.BId}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                </StackPanel>
-                 
-                </StackPanel>
-                <ListView>
-                    <!--//list all the account holders name-->
-                </ListView>
-                <Button Grid.Row="2" Content="Remove Account" Style="{StaticResource ButtonStyling}"></Button>
-
-            </Grid>
-        </Border>
-        <Grid Grid.Column="1">
+       
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold"></TextBlock>
 
-            <ListView Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions}" x:Name="AllTransactionsOnAccountListView">
+            <ListView Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions,Mode=OneWay}" x:Name="AllTransactionsOnAccountListView">
 
                 <ListView.ItemTemplate>
                     <DataTemplate x:Name="TransactionListViewTemplate" x:DataType="data:AccountTransactionBObj">
-                        <Grid Padding="10" Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ScrollViewer>
+                            <Grid Padding="10" Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                             <Grid.ColumnDefinitions>
 
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -88,24 +53,27 @@
                                 <RowDefinition Height="1*"></RowDefinition>
                             </Grid.RowDefinitions>
 
+                            <PersonPicture Initials="{x:Bind Initial,Mode=OneWay}" MaxWidth="50" MaxHeight="50" Grid.Column="0" Grid.RowSpan="2"></PersonPicture>
 
-                            <PersonPicture Initials="{x:Bind Initial}" Width="50" Height="50" Grid.Column="0" Grid.RowSpan="2"></PersonPicture>
-
-                            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{x:Bind UserName}" Style="{StaticResource BasicTextBlock}"></TextBlock>
-                            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{x:Bind AccountNumber}" Style="{StaticResource BasicTextBlock}"></TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{x:Bind UserName,Mode=OneWay}" Style="{StaticResource BasicTextBlock}"></TextBlock>
+                            <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
+                                <TextBlock Text="To: " Padding="5" Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                <TextBlock  Text="{x:Bind AccountNumber,Mode=OneWay}" Style="{StaticResource BasicTextBlock}"></TextBlock>
+                            </StackPanel>
 
                             <StackPanel Margin="20,10,0,0" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3" >
-                                <TextBlock  Text="Transaction Amount :"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                                <TextBlock Margin="5" Text="{x:Bind Amount}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                <TextBlock  Text="Amount :"  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                <TextBlock Margin="5" Text="{x:Bind Amount,Mode=OneWay}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
                             </StackPanel>
                             <StackPanel Margin="20,0,0,0"  Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="3" >
                                 <TextBlock  Text="Date :"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                                <TextBlock Text="{x:Bind DateOfTransaction}" TextWrapping="Wrap"  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                <TextBlock Text="{x:Bind DateOfTransaction,Mode=OneWay}" TextWrapping="Wrap"  Style="{StaticResource BasicTextBlock}"></TextBlock>
                             </StackPanel>
 
-                            <TextBlock Text="{x:Bind TransactionType}" Grid.Column="2" Grid.RowSpan="2"  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                            <TextBlock Text="{x:Bind TransactionType,Mode=OneWay}" Grid.Column="2" Grid.RowSpan="2"  Style="{StaticResource BasicTextBlock}"></TextBlock>
 
                         </Grid>
+                        </ScrollViewer>
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.ItemContainerStyle>
@@ -115,8 +83,87 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
-      
 
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Margin="10" Content="Account summary "  Style="{StaticResource ButtonStyling}" HorizontalAlignment="Right"></Button>
+
+            <Border Grid.Row="1"  BorderBrush="Black" BorderThickness="0.5" CornerRadius="10" Margin="10">
+                <ScrollViewer>
+                    <Grid Grid.RowSpan="2" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4*"></RowDefinition>
+                            <RowDefinition Height="2*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.Currency,Mode=OneWay}" FontSize="32" Margin="10"></TextBlock>
+                                <TextBlock FontSize="32" Text="{x:Bind AccountTransactionsViewModel.AccountDetails.TotalBalance,Mode=OneWay}" Margin="10"></TextBlock>
+                            </StackPanel>
+                            <TextBlock Text="Current Account Balance" FontWeight="ExtraLight" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5"  Text="Account Number : "  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountNumber,Mode=OneWay}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5" Text="Account Type : "  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountType,Mode=OneWay}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="5"  Text="Branch Id : "  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.BId,Mode=OneWay}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                            </StackPanel>
+
+                        </StackPanel>
+                        <ListView>
+                            <!--//list all the account holders name-->
+                        </ListView>
+                        <Button Grid.Row="2" Content="Remove Account" Style="{StaticResource ButtonStyling}"></Button>
+
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+        
+        <!--trying grid splitter-->
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="200"></ColumnDefinition>
+                <ColumnDefinition Width="11"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--Column Grid Splitter-->
+            <controls:GridSplitter
+        Grid.Column="1"
+            Width="11"
+        ResizeBehavior="BasedOnAlignment"
+        ResizeDirection="Auto"
+            Background="Gray"
+            Foreground="White"
+            FontSize="13">
+                <controls:GridSplitter.Element>
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                    IsHitTestVisible="False"
+                    VerticalAlignment="Center"
+                    Text="&#xE784;"
+                    Foreground="Black"
+                    FontFamily="Segoe MDL2 Assets">
+                        </TextBlock>
+                    </Grid>
+                </controls:GridSplitter.Element>
+            </controls:GridSplitter>
+        </Grid>
+
+        <!--end-->
+        
     </Grid>
     
 </Page>

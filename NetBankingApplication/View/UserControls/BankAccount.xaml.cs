@@ -53,6 +53,7 @@ namespace NetBankingApplication.View.UserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             CurrentSelectedItem = new AllAccountsPreview(currentUser.UserId);
+            BankAccountNavigation.SelectedItem = AccountsPreview;
         }
 
 
@@ -73,5 +74,22 @@ namespace NetBankingApplication.View.UserControls
             }
 
         }
+
+
+        private void AccountDropdown_Opening(object sender, object e)
+        {
+            //selectAccountList = sender as MenuFlyout;
+            //selectAccountList.Items.Clear();
+            //foreach (var i in GetAllAccountsViewModel.AllAccountNumbers)
+            //{
+            //    var item = new MenuFlyoutItem();
+            //    item.Text = i;
+            //    item.Click += Account_Selection; ;
+            //    item.MinWidth = 150;
+            //    selectAccountList.Items.Add(item);
+            //}
+        }
+
+
     }
 }

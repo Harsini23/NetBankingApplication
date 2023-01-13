@@ -18,10 +18,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-
-
     <Grid>
-
 
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.AllAccounts,Mode=OneWay}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView">
             <!--ItemTemplate="{StaticResource TransactionListViewTemplate}"-->
@@ -30,7 +27,6 @@
 
 
                     <Grid Padding="30" Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"></RowDefinition>

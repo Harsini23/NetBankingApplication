@@ -35,7 +35,8 @@ namespace Library.Domain
                 catch(Exception ex)
                 {
                     Debug.WriteLine("Exception has been caught:");
-                    Debug.WriteLine(ex.ToString()); 
+                    Debug.WriteLine(ex.ToString());
+                  
                 }
             }, _token);
         }

@@ -80,6 +80,8 @@ namespace NetBankingApplication.View.UserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             CurrentSelectedItem = new TransferAmount(currentUser.UserId);
+            PaymentsAndTransferNavigation.SelectedItem = Transfer;
+          
         }
     }
 }

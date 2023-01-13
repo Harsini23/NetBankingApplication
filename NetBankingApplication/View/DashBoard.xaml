@@ -32,62 +32,42 @@
             <TextBlock x:Name="HeaderTextBox" HorizontalAlignment="Left" Style="{StaticResource HeaderStyle }" Text="ZBank" Grid.Column="0"></TextBlock>
         </StackPanel>-->
 
-        <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False" CompactPaneLength="45">
+        <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False">
 
             <!--<NavigationView.Resources>
                 <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="#272D42" />
                //keep foreground white
             </NavigationView.Resources>-->
 
+            
             <NavigationView.MenuItems >
-                <NavigationViewItem  Margin="1" x:Name="Overview" >
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock  FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE80F;" FontSize="16" Margin="0,0,10,0"></TextBlock>
-                        <TextBlock Text="Overview" FontSize="16" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </NavigationViewItem>
-                <NavigationViewItem Margin="1" x:Name="BankAccount" >
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock  FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE825;" FontSize="16" Margin="0,0,10,0"></TextBlock>
-                        <TextBlock Text="BankAccount" FontSize="16" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </NavigationViewItem>
-                <NavigationViewItem Margin="1" x:Name="PaymentsAndTransfer" >
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock  FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE724;" FontSize="16" Margin="0,0,10,0"></TextBlock>
-                        <TextBlock Text="Payments and Transfer" FontSize="16" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </NavigationViewItem>
-                <NavigationViewItem  Margin="1"  x:Name="CardAndLoans" >
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock  FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE8C7;" FontSize="16" Margin="0,0,10,0"></TextBlock>
-                        <TextBlock Text="Card and Loans" FontSize="16" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </NavigationViewItem>
-                <NavigationViewItem Margin="1"  x:Name="InvestmentAndInsurance" >
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock  FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE773;" FontSize="16" Margin="0,0,10,0"></TextBlock>
-                        <TextBlock Text="Investment and Insurance" FontSize="16" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </NavigationViewItem>
-                <NavigationViewItem Margin="1"  x:Name="CustomerService" >
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock  FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xEC25;" FontSize="16" Margin="0,0,10,0"></TextBlock>
-                        <TextBlock Text="Customer Service" FontSize="16" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                </NavigationViewItem>
 
-              
+                <NavigationViewItem Icon="Home" x:Name="Overview" Content="Overview" Tag="Overview" />
+                <NavigationViewItem  x:Name="BankAccount" Content="Bank Account" Tag="BankAccount" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE825;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="PaymentsAndTransfer"  Content="Payments and Transfer"  >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE724;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem  x:Name="CardAndLoans" Content="Card and Loans" Tag="CardAndLoans" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8C7;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
             </NavigationView.MenuItems>
 
             <NavigationView.PaneFooter>
-                <NavigationViewItem Tapped="Logout_Tapped" Margin="1" x:Name="Logout">
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock  FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xF3B1;" FontSize="16" Margin="0,0,10,0"></TextBlock>
-                        <TextBlock Text="Logout" FontSize="16" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
+                <NavigationViewItem Tapped="Logout_Tapped"  x:Name="Logout" Content="Logout" Tag="Logout" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xF3B1;"></FontIcon>
+                    </NavigationViewItem.Icon>
                 </NavigationViewItem>
+
             </NavigationView.PaneFooter>
 
 

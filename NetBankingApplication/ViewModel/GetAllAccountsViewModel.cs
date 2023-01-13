@@ -55,8 +55,6 @@ namespace NetBankingApplication.ViewModel
             
             }
         }
-
-
     }
     public abstract class GetAllAccountsBaseViewModel : NotifyPropertyBase
     {

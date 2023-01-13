@@ -40,13 +40,21 @@ namespace NetBankingApplication.View.UserControls
 
         private void AddPayee_Click(object sender, RoutedEventArgs e)
         {
-            Payee newRecipent = new Payee { UserID = currentUserId, AccountHolderName = AccountHolderName.Text, AccountNumber = Accountnumber.Text, IfscCode = IfscCode.Text, BankName = BankName.Text, PayeeName = PayeeName.Text };
-            AddPayeeViewModel.AddPayee(newRecipent);
-            PayeeName.Text = String.Empty;
-            AccountHolderName.Text = String.Empty;
-            Accountnumber.Text = String.Empty;
-            IfscCode.Text = String.Empty;
-            BankName.Text = String.Empty;
+            if (AccountHolderName.Text==String.Empty|| Accountnumber.Text==String.Empty|| IfscCode.Text==String.Empty|| BankName.Text==String.Empty|| PayeeName.Text==String.Empty)
+            {
+                ErrorMessage.Text = "All fields are required";
+            }
+            else
+            {
+                Payee newRecipent = new Payee { UserID = currentUserId, AccountHolderName = AccountHolderName.Text, AccountNumber = Accountnumber.Text, IfscCode = IfscCode.Text, BankName = BankName.Text, PayeeName = PayeeName.Text };
+                AddPayeeViewModel.AddPayee(newRecipent);
+                PayeeName.Text = String.Empty;
+                AccountHolderName.Text = String.Empty;
+                Accountnumber.Text = String.Empty;
+                IfscCode.Text = String.Empty;
+                BankName.Text = String.Empty;
+                ErrorMessage.Text= String.Empty;
+            }
         }
 
         private void TextBox_OnBeforeTextChanging(TextBox sender,

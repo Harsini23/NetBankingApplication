@@ -26,11 +26,10 @@
 
 
             <NavigationView.PaneFooter>
-                <NavigationViewItem Tapped="Logout_Tapped" Margin="1" x:Name="Logout">
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock  FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xF3B1;" FontSize="16" Margin="0,0,10,0"></TextBlock>
-                        <TextBlock Text="Logout" FontSize="16" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
+                <NavigationViewItem Tapped="Logout_Tapped"  x:Name="Logout" Content="Logout" Tag="Logout" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xF3B1;"></FontIcon>
+                    </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.PaneFooter>
 

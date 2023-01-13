@@ -56,6 +56,7 @@ namespace NetBankingApplication.View
           
             CurrentSelectedModule = overview;
             HeaderTitle = "Overview";
+            DashBoardNavigation.SelectedItem = Overview;
             //_dashboardNavigationViewModel.SetOverview();
             // SelectedDashboardContentFrame.Navigate(typeof(Overview), Currentuser);
         }
@@ -104,16 +105,6 @@ namespace NetBankingApplication.View
             {
                 HeaderTitle = "Card and Loans";
               //  pageType = typeof(CardAndLoans);
-            }
-            else if (args.SelectedItem == InvestmentAndInsurance)
-            {
-                HeaderTitle = "Investment and Insurance";
-               // pageType = typeof(InvestmentAndInsurance);
-            }
-            else if (args.SelectedItem == CustomerService)
-            {
-                HeaderTitle = "Customer Service";
-               // pageType = typeof(CustomerService);
             }
             else
             {

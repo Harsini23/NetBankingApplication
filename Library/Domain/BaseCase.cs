@@ -29,4 +29,12 @@ namespace Library.Domain
 
         public R Data;
     }
+
+
+    public interface IPresenterCallback<R>
+    {
+        void OnSuccess(ZResponse<R> response);
+        void OnError(ZResponse<R> response);
+        void OnFailure(ZResponse<R> response);
+    }
 }

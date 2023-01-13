@@ -14,7 +14,6 @@ namespace NetBankingApplication.ViewModel
     {
      //   public string LoginResponse { get; set; }
 
-
         private string _response = String.Empty;
         public string LoginResponseValue
         {

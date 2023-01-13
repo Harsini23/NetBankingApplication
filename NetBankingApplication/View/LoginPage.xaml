@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NetBankingApplication.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Windows10version1903="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 8)"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -31,7 +31,7 @@
             </StackPanel>
             <Grid  x:Name="LoginContainer" Style="{StaticResource FormBackground}" Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*" ></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
@@ -39,22 +39,25 @@
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <!--<Grid.ColumnDefinitions>
+           
+
+                <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>-->
+                    </Grid.ColumnDefinitions>
+                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock Foreground="Black" Grid.Row="0" FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE825;" FontSize="30" Margin="20"></TextBlock>
-                    <TextBlock Text="Banking Application" Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold" FontSize="20"></TextBlock>
+                    <TextBlock Text="Banking Application"  Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold" FontSize="20"></TextBlock>
                 </StackPanel>
-                <TextBlock Grid.Row="1" Text="Login to the portal" Margin="10" HorizontalAlignment="Center" Grid.ColumnSpan="2" ></TextBlock>
-                <TextBox Grid.Row="2" Style="{StaticResource InputFieldTextBox}" Header="User ID:" PlaceholderText="User ID" x:Name="UserId"/>
-                <PasswordBox CornerRadius="5" Header="Password" IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" Background="White" PasswordChanged="Password_PasswordChanged"  Grid.Row="3"  Style="{StaticResource FormPasswordBox}" x:Name="Password" >
+                <TextBlock Grid.Row="1" Margin="20,10,10,10" Text="Login to the portal"  Grid.ColumnSpan="2" ></TextBlock>
+                <TextBox MaxWidth="220"  Grid.Row="2" Style="{StaticResource InputFieldTextBox}" Header="User ID"  x:Name="UserId"/>
+                <PasswordBox MaxLength="100" MaxWidth="220" CornerRadius="5" Header="Password" IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" Background="White" PasswordChanged="Password_PasswordChanged"  Grid.Row="3"  Style="{StaticResource FormPasswordBox}" x:Name="Password" >
                     <ToolTipService.ToolTip>
                         <ToolTip Content="Must be mininum of 9 characters with one lowercase, uppercase and special charater." VerticalOffset="-80"/>
                     </ToolTipService.ToolTip>
                 </PasswordBox>
-                <CheckBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Name="revealModeCheckBox" Content="Show password" IsChecked="False"
+                <CheckBox Grid.Row="4"  HorizontalAlignment="Left" Margin="20,0,0,0" Name="revealModeCheckBox" Content="Show password" IsChecked="False"
     Checked="RevealModeCheckbox_Changed" Unchecked="RevealModeCheckbox_Changed"/>
                 <TextBlock Style="{StaticResource FailureText}" Grid.Row="5" Grid.ColumnSpan="2" Text="{x:Bind LoginViewModel.LoginResponseValue,Mode=OneWay }" x:Name="ResultText" ></TextBlock>
 
@@ -74,6 +77,9 @@
                 <StackPanel Grid.ColumnSpan="2"  Grid.Row="6" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button Name="SubmitLoginDetails" MinWidth="300" IsEnabled="False" Style="{StaticResource ButtonStyling}" Content="Submit" Click="Verify_Click"></Button>
                 </StackPanel>
+
+
+                <Image MaxHeight="300" MaxWidth="300" Grid.RowSpan="6" Grid.Column="1" Source="ms-appx:///Assets/loginlogo.png"></Image>
             </Grid>
 
             <Grid Grid.Row="1" Style="{StaticResource FormBackground}" Visibility="Collapsed" Name="ResetPasswordcontainer"  >
@@ -84,6 +90,8 @@
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
+
+           
                 <TextBlock Text="Reset Password"></TextBlock>
                 <StackPanel Grid.Row="1">
                     <PasswordBox IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" PasswordChanged="Password_PasswordChangedReset"  Style="{StaticResource FormPasswordBox}" x:Name="PasswordReset" >
@@ -105,6 +113,8 @@
     Checked="RevealModeCheckbox_Changed_RePassword" Unchecked="RevealModeCheckbox_Changed_RePassword"/>
                 </StackPanel>
                 <Button Style="{StaticResource ButtonStyling}" Click="ResetPassword_Click" Grid.Row="3" IsEnabled="False"  Name="ReSetPassword" Content="Reset Password"></Button>
+
+            
                 <!--<TextBlock Grid.Row="4" Text="{x:Bind LoginViewModel.ResetPasswordResponseValue,Mode=OneWay}"></TextBlock>-->
             </Grid>
         </Grid>

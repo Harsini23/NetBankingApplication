@@ -31,7 +31,6 @@ namespace NetBankingApplication.View.UserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             GetAllAccountsViewModel.GetAllAccounts(userId);
-           
             //DetailedAccountOverview detailedAccountOverview = new DetailedAccountOverview("", "");
             //CurrentSelectedModule = detailedAccountOverview;
         }
@@ -42,6 +41,7 @@ namespace NetBankingApplication.View.UserControls
             this.userId = userId;
             GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
             GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
+            GetAllAccountsViewModel.GetAllAccounts(userId);
         }
     }
 }

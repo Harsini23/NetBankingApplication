@@ -50,8 +50,12 @@ namespace NetBankingApplication.View.UserControls
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            if (UserNameTextBox.Text==String.Empty||MobileNumberTextBox.Text==String.Empty||EmailIdTextBox.Text==String.Empty||UserAccountNumberTextBox.Text==String.Empty|| BalanceTextBox.Text==String.Empty|| BranchIdTextBox.Text==String.Empty|| AccountTypeBox.SelectedItem==null|| CurrencyValues.SelectedItem==null)
+            {
+                AddUserViewModel.ErrorMessage = "All fields are required*";
+            }
 
-            if (MobileNumberTextBox.Text.Length!=10)
+            else if (MobileNumberTextBox.Text.Length!=10)
             {
                 AddUserViewModel.ErrorMessage = "Enter a valid mobile number";
             }

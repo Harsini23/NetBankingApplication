@@ -20,6 +20,8 @@ namespace Library.Data
             conn = DatabaseConnection.GetInstance();
            // InstantiateAllTables();
         }
+
+       
         public static CreateTables GetInstance()
         {
             if (_instance == null)
