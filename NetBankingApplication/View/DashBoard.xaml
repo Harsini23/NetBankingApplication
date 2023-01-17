@@ -19,6 +19,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
+
     <Grid>
         <!--<Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -32,15 +33,22 @@
             <TextBlock x:Name="HeaderTextBox" HorizontalAlignment="Left" Style="{StaticResource HeaderStyle }" Text="ZBank" Grid.Column="0"></TextBlock>
         </StackPanel>-->
 
-        <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False">
+        <NavigationView  Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False">
+            <!--<NavigationView.Background>
+                --><!--<SolidColorBrush x:Name="NavigationViewBg" Color="{ThemeResource SystemAccentColorLight2}"></SolidColorBrush>--><!--
+                <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+              BackgroundSource="Backdrop" TintColor="Blue" TintOpacity=".6"/>
+            </NavigationView.Background>-->
 
-            <!--<NavigationView.Resources>
-                <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="#272D42" />
-               //keep foreground white
-            </NavigationView.Resources>-->
+            <NavigationView.Resources>
+                <!--<SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource SystemAccentColorLight1}" />-->
+                <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SystemAccentColorLight1}" />
+               
+                <!--//keep foreground white-->
+            </NavigationView.Resources>
 
             
-            <NavigationView.MenuItems >
+            <NavigationView.MenuItems  >
 
                 <NavigationViewItem Icon="Home" x:Name="Overview" Content="Overview" Tag="Overview" />
                 <NavigationViewItem  x:Name="BankAccount" Content="Bank Account" Tag="BankAccount" >

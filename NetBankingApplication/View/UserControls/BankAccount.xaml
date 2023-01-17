@@ -17,18 +17,7 @@
     SelectionFollowsFocus="Enabled" IsBackButtonVisible="Collapsed" SelectionChanged="BankAccountNavigation_SelectionChanged"  CornerRadius="20">
             <NavigationView.MenuItems>
                 <NavigationViewItem  Content="Account Preview" x:Name="AccountsPreview" />
-                <NavigationViewItem x:Name="AccountDetails"  >
-                    <DropDownButton Content="Account Details" MinWidth="200">
-                        <DropDownButton.Flyout>
-                            <MenuFlyout Placement="Bottom">
-                                <MenuFlyoutItem Text="Account1" MinWidth="200">
-                                </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="Account2"/>
-                                <MenuFlyoutItem Text="Account3"/>
-                            </MenuFlyout>
-                        </DropDownButton.Flyout>
-                    </DropDownButton>
-                </NavigationViewItem>
+                <NavigationViewItem x:Name="AccountDetails" Content="Account Transactions" />
                 <NavigationViewItem Content="Open an Account" x:Name="CreateAccount"/>
             </NavigationView.MenuItems>
 

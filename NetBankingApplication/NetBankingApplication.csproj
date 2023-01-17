@@ -169,6 +169,9 @@
     <Compile Include="View\UserControls\DetailedAccountOverview.xaml.cs">
       <DependentUpon>DetailedAccountOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\DetailedTransactionView.xaml.cs">
+      <DependentUpon>DetailedTransactionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\EditPayee.xaml.cs">
       <DependentUpon>EditPayee.xaml</DependentUpon>
     </Compile>
@@ -313,6 +316,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\DetailedAccountOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\DetailedTransactionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -66,7 +66,7 @@ namespace NetBankingApplication.View.UserControls
             }
             else if (args.SelectedItem == AccountDetails)
             {
-                CurrentSelectedItem = new DetailedAccountOverview(currentUser.UserId);
+                CurrentSelectedItem = new DetailedAccountOverview(currentUser);
             }
             else
             {

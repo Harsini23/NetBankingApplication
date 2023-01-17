@@ -26,28 +26,6 @@ namespace Library.Data.DataBaseService
 
         }
 
-        //private static DbHandler _instance;
-
-        //private DbHandler()
-        //{
-        //    if (connection == null)
-        //    {
-        //        var conn = DatabaseConnection.GetInstance();
-        //        connection = conn.DbConnection;
-        //    }
-        //}
-        //public static DbHandler Instance
-        //{
-        //    get
-        //    {
-        //        if (_instance == null)
-        //        {
-        //            _instance = new DbHandler();
-        //        }
-        //         return _instance;
-        //    }
-        //}
-
 
         #region "User Table operations"
         public bool CheckUser(string userId)

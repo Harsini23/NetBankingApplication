@@ -34,6 +34,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
 
             </Grid.RowDefinitions>
             
@@ -43,8 +44,9 @@
             <TextBox Grid.Row="2" Style="{StaticResource InputFieldTextBox}" Header="User Name" x:Name="UserNameTextBox" />
             <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" Header="Email ID"  x:Name="EmailIdTextBox" InputScope="EmailSmtpAddress"/>
                 <TextBox Grid.Row="4" Style="{StaticResource InputFieldTextBox}"  BeforeTextChanging="TextBox_OnBeforeTextChanging" Header="Mobile Number"   x:Name="MobileNumberTextBox"  InputScope="TelephoneNumber"/>
-          
-        </Grid>
+                <TextBox Grid.Row="5" Style="{StaticResource InputFieldTextBox}" Header="PAN"   x:Name="PANTextBox" />
+
+            </Grid>
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>

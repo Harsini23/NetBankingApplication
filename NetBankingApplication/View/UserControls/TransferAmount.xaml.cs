@@ -23,9 +23,9 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class TransferAmount : UserControl
     {
-        private string currentUserId;
+        private string _currentUserId;
 
-        private string UserId;
+       // private string UserId;
         private string Name;
         private string FromAccount;
         private string ToAccount;
@@ -56,7 +56,7 @@ namespace NetBankingApplication.View.UserControls
         public TransferAmount(string userId)
         {
             this.InitializeComponent();
-            currentUserId = userId;
+            _currentUserId = userId;
 
             GetAllPayeeVMserviceProviderInstance = PresenterService.GetInstance();
             GetAllPayeeViewModel = GetAllPayeeVMserviceProviderInstance.Services.GetService<GetAllPayeeBaseViewModel>();
@@ -79,35 +79,53 @@ namespace NetBankingApplication.View.UserControls
 
             //show the current transaction overview receipt
             //TransactionDetails.Visibility = Visibility.Visible;
-
-
-            //get transaction fields
-            if (!String.IsNullOrEmpty(NewPayeeName.Text))
+            if (String.IsNullOrEmpty(RemarkTextBox.Text))
             {
-                Name = NewPayeeName.Text;
-                ToAccount = AccountNumberTextBox.Text;
+                ErrorMessage.Text = "Fill out remark field";
+            }
+            else if (String.IsNullOrEmpty(AccountNumberTextBox.Text))
+            {
+                ErrorMessage.Text = "Fill out account number field";
+            }
+            else if (String.IsNullOrEmpty(AmountTextBox.Text))
+            {
+                ErrorMessage.Text = "Fill out amount field";
+            }
+            else if((string)SelectAccount.Content == (string)"Select From Account"){
+                ErrorMessage.Text = "Select your account";
+            }
+            else
+            {
+
+                //get transaction fields
+                if (!String.IsNullOrEmpty(NewPayeeName.Text))
+                {
+                    Name = NewPayeeName.Text;
+                    ToAccount = AccountNumberTextBox.Text;
+                }
+
+                Amount = Double.Parse(AmountTextBox.Text);
+                RemarkDescription = RemarkTextBox.Text;
+                //get from account from using user id from datamanager
+                AmountTransfer amountTransfer = new AmountTransfer
+                {
+                    UserId = _currentUserId,
+                    Name = Name,
+                    FromAccount = FromAccount,
+                    ToAccount = ToAccount,
+                    Remark = RemarkDescription,
+                    Amount = Amount
+                };
+                if (amountTransfer.ToAccount != null && amountTransfer.Amount != null && amountTransfer.Name != null)
+                {
+                    TransferAmountViewModel.SendTransaction(amountTransfer, amountTransfer.UserId);
+                }
+                ResetUI();
+
+                await ContentDialog.ShowAsync();
+                // TransferAmountViewModel.SendTransaction(currentTransaction);
             }
 
-            Amount = Double.Parse(AmountTextBox.Text);
-            RemarkDescription = RemarkTextBox.Text;
-            //get from account from using user id from datamanager
-            AmountTransfer amountTransfer = new AmountTransfer
-            {
-                UserId = currentUserId,
-                Name = Name,
-                FromAccount = FromAccount,
-                ToAccount = ToAccount,
-                Remark = RemarkDescription,
-                Amount = Amount
-            };
-            if (amountTransfer.ToAccount != null && amountTransfer.Amount != null && amountTransfer.Name != null)
-            {
-                TransferAmountViewModel.SendTransaction(amountTransfer, amountTransfer.UserId);
-            }
-            ResetUI();
-
-            await ContentDialog.ShowAsync();
-            // TransferAmountViewModel.SendTransaction(currentTransaction);
         }
 
         private void ResetUI()
@@ -116,25 +134,29 @@ namespace NetBankingApplication.View.UserControls
             NewPayeeName.Visibility = Visibility.Collapsed;
             AccountNumberTextBox.Text = ""; SelectAccount.Content = "Select From Account";
             RemarkTextBox.Text = ""; AmountTextBox.Text = "";
-            TransactionResult.Text = String.Empty;
-            MakeTransaction.IsEnabled = false;
+           // TransactionResult.Text = String.Empty;
+            //MakeTransaction.IsEnabled = false;
+            ErrorMessage.Text = String.Empty;
+
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             //load list of payee with all details as payee object
-            GetAllPayeeViewModel.GetAllPayee(currentUserId);
+            GetAllPayeeViewModel.GetAllPayee(_currentUserId);
             allRecipientNames.Clear();
             allRecipientNames = GetAllPayeeViewModel.PayeeNames;
             allRecipients.Clear();
             allRecipients = GetAllPayeeViewModel.AllPayee;
-
-            GetAllAccountsViewModel.GetAllAccounts(currentUserId);
+            ErrorMessage.Text = String.Empty;
+            GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
+            AccountNumberTextBox.IsEnabled = false;
+            AccountNumberTextBox.IsReadOnly = true;
             //allAccountNumbers.Clear();
             //allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
             //allAccounts.Clear();
             //allAccounts = GetAllAccountsViewModel.AllAccounts;
-            TransactionResult.Text = String.Empty;
+            // TransactionResult.Text = String.Empty;
 
         }
 
@@ -171,6 +193,7 @@ namespace NetBankingApplication.View.UserControls
                 {
                     AccountNumberTextBox.Text = i.AccountNumber;
                     AccountNumberTextBox.IsReadOnly = true;
+                    AccountNumberTextBox.IsEnabled = true;
                     Name = i.PayeeName;
                     ToAccount = i.AccountNumber;
                     Name = i.AccountHolderName;
@@ -225,18 +248,17 @@ namespace NetBankingApplication.View.UserControls
             var amountBox = (TextBox)sender;
             ErrorMessage.Text = String.Empty;
             var amount = amountBox.Text.ToString();
-            if (IsFloatOrInt(amount) && AccountNumberTextBox.Text!=null && SelectAccount.Content!= "Select From Account" && RemarkTextBox.Text!=null)
-            {
-                MakeTransaction.IsEnabled = true;
-            }
-            else if (!IsFloatOrInt(amount))
+         
+             if (!IsFloatOrInt(amount) || Double.Parse(amount) == 0)
             {
                 ErrorMessage.Text = "Kindly check and enter valid amount";
+                //MakeTransaction.IsEnabled = false;
             }
             else
             {
-                MakeTransaction.IsEnabled=false;
+                ErrorMessage.Text = String.Empty;
             }
+      
 
 
         }

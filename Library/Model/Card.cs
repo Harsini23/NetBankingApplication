@@ -20,7 +20,7 @@ namespace Library.Model
         public string CardHolder { get; set; }
         public string ValidFrom { get; set; }
         public string ValidTill { get; set; }
-
+      
         public Card(string cardNumber, CardType cardType, string pinNumber, string validTill, string validFrom)
         {
             CardNumber = cardNumber;
@@ -31,12 +31,17 @@ namespace Library.Model
         }
     }
 
-    public class CreditCard
+    public class CreditCard : Card
     {
-        public double TotalCreditLimit { get; set; }
-        public double AvailableCreditLimit { get; set; }
+        public CreditCard(string cardNumber, CardType cardType, string pinNumber, string validTill, string validFrom) : base(cardNumber, cardType, pinNumber, validTill, validFrom)
+        {
+        }
+
+        public double TotalLimit { get; set; }
+        public double AvailableCredit { get; set; }
         public string PaymentDueDate { get; set; }
         public double TotalAmoutDue { get; set; }
+        public double DeducedAmount {get; set;}
 
     }
 }

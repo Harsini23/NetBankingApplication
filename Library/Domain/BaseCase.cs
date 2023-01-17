@@ -14,9 +14,9 @@ namespace Library.Domain
     public interface IResponseBaseCase<R>
     {
         //contain functions to call presenter callback
-        void OnResponseSuccess(ZResponse<R> response);
-        void OnResponseFailure(ZResponse<R> response);
-        void OnResponseError(ZResponse<R> response);
+        void OnSuccess(ZResponse<R> response);
+        void OnError(ZResponse<R> errorMessage);
+        void OnFailure(ZResponse<R> response);
     }
     public interface IResponseType 
     {
@@ -31,10 +31,10 @@ namespace Library.Domain
     }
 
 
-    public interface IPresenterCallback<R>
-    {
-        void OnSuccess(ZResponse<R> response);
-        void OnError(ZResponse<R> response);
-        void OnFailure(ZResponse<R> response);
-    }
+    //public interface IPresenterCallback<R>
+    //{
+    //    void OnSuccess(ZResponse<R> response);
+    //    void OnError(ZResponse<R> response);
+    //    void OnFailure(ZResponse<R> response);
+    //}
 }

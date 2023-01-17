@@ -25,11 +25,11 @@ namespace Library.Domain
             Password = password;
         }
     }
-    public interface IPresenterLoginCallback
+    public interface IPresenterLoginCallback: IResponseBaseCase<LoginResponse>
     {
-        void OnSuccess(ZResponse<LoginResponse> response);
-        void OnError(ZResponse<LoginResponse> response);
-        void OnFailure(ZResponse<LoginResponse> response);
+        //void OnSuccess(ZResponse<LoginResponse> response);
+        //void OnError(ZResponse<LoginResponse> response);
+        //void OnFailure(ZResponse<LoginResponse> response);
     }
     public class Login : UseCaseBase
     {

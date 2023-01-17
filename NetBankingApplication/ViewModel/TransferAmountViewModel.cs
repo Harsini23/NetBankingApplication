@@ -45,7 +45,7 @@ namespace NetBankingApplication.ViewModel
 
         public void OnSuccess(ZResponse<TransferAmountResponse> response)
         {
-            TransferAmountViewModel.ResultText = response.Response.ToString();
+            //TransferAmountViewModel.ResultText = response.Response.ToString();
             var currentTransaction = response.Data.transaction;
             TransferAmountViewModel.AmountTransfered = currentTransaction.Amount;
             TransferAmountViewModel.TransactionIdValue = currentTransaction.TransactionId;

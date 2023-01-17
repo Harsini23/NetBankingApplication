@@ -16,63 +16,76 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-  
+
     <Grid>
-       <!--//use visual state-->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <TextBlock FontSize="16" Text="Account Number" VerticalAlignment="Center"></TextBlock>
+            <DropDownButton  Visibility="Collapsed" BorderBrush="Black" BorderThickness="0.3" Background="White" Name="SelectAccountDropdown" CornerRadius="5" Margin="20" Content="Account Details" MinWidth="200">
+                <DropDownButton.Flyout>
+                    <MenuFlyout Placement="Bottom" Opening="MenuFlyout_Opening">
+                        <MenuFlyout.MenuFlyoutPresenterStyle>
+                            <Style TargetType="MenuFlyoutPresenter">
+                                <Setter Property="MinWidth" Value="200"/>
+                                <Setter Property="CornerRadius" Value="5"/>
+                                <Setter Property="Background" Value="White"/>
+                            </Style>
+                        </MenuFlyout.MenuFlyoutPresenterStyle>
+                    </MenuFlyout>
+                </DropDownButton.Flyout>
+            </DropDownButton>
+            <TextBlock FontSize="16" x:Name="SingleAccountnumberTextblock" Visibility="Collapsed" Text="{x:Bind CurrentUserAccountNumber}"></TextBlock>
+        </StackPanel>
+   
+        <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition  MinWidth="400" MaxWidth="500" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-       
-        <Grid Grid.Column="0">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold"></TextBlock>
 
-            <ListView Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions,Mode=OneWay}" x:Name="AllTransactionsOnAccountListView">
+            <ListView Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions,Mode=OneWay}" x:Name="AllTransactionsOnAccountListView"
+                      IsItemClickEnabled="True" SelectionMode="Single" ItemClick="AllTransactionsOnAccountListView_ItemClick">
 
                 <ListView.ItemTemplate>
                     <DataTemplate x:Name="TransactionListViewTemplate" x:DataType="data:AccountTransactionBObj">
                         <ScrollViewer>
                             <Grid Padding="10" Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                            <Grid.ColumnDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
 
-                                <ColumnDefinition Width="1*"></ColumnDefinition>
-                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
 
+                                <PersonPicture Initials="{x:Bind Initial,Mode=OneWay}" MaxWidth="50" MaxHeight="50" Grid.Column="0" Grid.RowSpan="2"></PersonPicture>
 
-                            </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
+                                    <TextBlock Text="Account : " Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                    <TextBlock Margin="5" TextTrimming="CharacterEllipsis" Width="100" Text="{x:Bind AccountNumber,Mode=OneWay}" Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                </StackPanel>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="1*"></RowDefinition>
-                                <RowDefinition Height="1*"></RowDefinition>
-                                <RowDefinition Height="1*"></RowDefinition>
-                                <RowDefinition Height="1*"></RowDefinition>
-                            </Grid.RowDefinitions>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Grid.Row="1">
+                                    <TextBlock  Text="Amount : "  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                    <TextBlock Margin="5" Text="{x:Bind Amount,Mode=OneWay}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                                </StackPanel>
 
-                            <PersonPicture Initials="{x:Bind Initial,Mode=OneWay}" MaxWidth="50" MaxHeight="50" Grid.Column="0" Grid.RowSpan="2"></PersonPicture>
-
-                            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="{x:Bind UserName,Mode=OneWay}" Style="{StaticResource BasicTextBlock}"></TextBlock>
-                            <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
-                                <TextBlock Text="To: " Padding="5" Style="{StaticResource BasicTextBlock}"></TextBlock>
-                                <TextBlock  Text="{x:Bind AccountNumber,Mode=OneWay}" Style="{StaticResource BasicTextBlock}"></TextBlock>
-                            </StackPanel>
-
-                            <StackPanel Margin="20,10,0,0" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="3" >
-                                <TextBlock  Text="Amount :"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                                <TextBlock Margin="5" Text="{x:Bind Amount,Mode=OneWay}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Margin="20,0,0,0"  Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="3" >
-                                <TextBlock  Text="Date :"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                                <TextBlock Text="{x:Bind DateOfTransaction,Mode=OneWay}" TextWrapping="Wrap"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                            </StackPanel>
-
-                            <TextBlock Text="{x:Bind TransactionType,Mode=OneWay}" Grid.Column="2" Grid.RowSpan="2"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-
-                        </Grid>
+                                <TextBlock Text="{x:Bind TransactionType,Mode=OneWay}" Grid.Column="2" Grid.RowSpan="2"  Style="{StaticResource BasicTextBlock}"></TextBlock>
+                            </Grid>
                         </ScrollViewer>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -83,63 +96,7 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
-
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" Margin="10" Content="Account summary "  Style="{StaticResource ButtonStyling}" HorizontalAlignment="Right"></Button>
-
-            <Border Grid.Row="1"  BorderBrush="Black" BorderThickness="0.5" CornerRadius="10" Margin="10">
-                <ScrollViewer>
-                    <Grid Grid.RowSpan="2" Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="4*"></RowDefinition>
-                            <RowDefinition Height="2*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.Currency,Mode=OneWay}" FontSize="32" Margin="10"></TextBlock>
-                                <TextBlock FontSize="32" Text="{x:Bind AccountTransactionsViewModel.AccountDetails.TotalBalance,Mode=OneWay}" Margin="10"></TextBlock>
-                            </StackPanel>
-                            <TextBlock Text="Current Account Balance" FontWeight="ExtraLight" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-                        </StackPanel>
-                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Margin="5"  Text="Account Number : "  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountNumber,Mode=OneWay}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Margin="5" Text="Account Type : "  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountType,Mode=OneWay}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Margin="5"  Text="Branch Id : "  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.BId,Mode=OneWay}"  Style="{StaticResource BasicTextBlock}"></TextBlock>
-                            </StackPanel>
-
-                        </StackPanel>
-                        <ListView>
-                            <!--//list all the account holders name-->
-                        </ListView>
-                        <Button Grid.Row="2" Content="Remove Account" Style="{StaticResource ButtonStyling}"></Button>
-
-                    </Grid>
-                </ScrollViewer>
-            </Border>
-        </Grid>
-        
-        <!--trying grid splitter-->
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="200"></ColumnDefinition>
-                <ColumnDefinition Width="11"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <!--Column Grid Splitter-->
+        <!--Column Grid Splitter-->
             <controls:GridSplitter
         Grid.Column="1"
             Width="11"
@@ -160,10 +117,11 @@
                     </Grid>
                 </controls:GridSplitter.Element>
             </controls:GridSplitter>
-        </Grid>
 
-        <!--end-->
-        
+            <local:DetailedTransactionView DataContext="{x:Bind CurrentSelectedTransaction}" Grid.Column="2"></local:DetailedTransactionView>
+
     </Grid>
-    
+
+    </Grid>
+
 </Page>

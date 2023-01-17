@@ -16,13 +16,18 @@ namespace Library.Model
         public long MobileNumber { get; set; }
         public string EmailId { get; set; }
         public bool IsBlocked { get; set; }
+        public bool HasSingleAccount { get; set; } 
+        
+        public string PAN { get; set; }
 
-        public User(string userId, string userName, long mobileNumber, string emailId)
+        public User(string userId, string userName, long mobileNumber, string emailId, bool hasSingleAccount, string pan)
         {
             UserId = userId;
             UserName = userName;
             MobileNumber = mobileNumber;
             EmailId = emailId;
+            HasSingleAccount = hasSingleAccount;
+            PAN = pan;
         }
         public User() { }
     }

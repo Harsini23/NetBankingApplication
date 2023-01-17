@@ -13,6 +13,7 @@ using Library.Data.DataBaseService;
 using System.Security.Cryptography;
 using System.Diagnostics;
 using Library.Util;
+using Library.Model.Enum;
 
 namespace Library.Data.DataManager
 {
@@ -86,13 +87,27 @@ namespace Library.Data.DataManager
                 {
                     responseStatus = "Sucessfully Loged in as new User - reset password!";
                     IsNewUser = true;
-
                 }
                 else
                 {
                     responseStatus = "Sucessfully Loged in, Welcome User ";
                 }
                 user = DbHandler.GetUser(UserId);
+
+                //DbHandler.AddTransaction(new Transaction
+                //{
+                //    TransactionId = "TIDc1f45b57",
+                //    Date = "17-1-2023 12:38 AM",
+                //    TransactionType = TransactionType.Credited,
+                //Remark = "gift",
+                //Amount = 900.90,
+                //FromAccount = "1234567098",
+                //ToAccount = "390102938345",
+                //Status = true,
+                //Name = "Enid",
+                //UserId= "UIDaf913875"
+                //});
+
                 loginResponse.currentUser = user;
                 loginResponse.NewUser = IsNewUser;
                 Response.Data=loginResponse;

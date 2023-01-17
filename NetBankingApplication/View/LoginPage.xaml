@@ -24,7 +24,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Background="#126180" Orientation="Horizontal">
+            <StackPanel Background="{ThemeResource SystemAccentColorDark1}" Orientation="Horizontal">
                 <TextBlock Foreground="White" FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE825;" FontSize="40" Margin="20"></TextBlock>
                 <TextBlock Foreground="White" HorizontalAlignment="Left" x:Name="HeaderTextBox" Style="{StaticResource HeaderStyle }" Margin="10" Text="Banking Application" Grid.Column="0"></TextBlock>
                 <!--<TextBlock Style="{StaticResource HeaderStyle }" Grid.Column="1">Welcome to ZBank</TextBlock>-->

@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Library.Domain
 {
-    public class UseCaseBase
+    public abstract class UseCaseBase
     {
         public CancellationTokenSource Source { get; }
+      //  IResponseBaseCase<R> presenterCallback;
 
         private readonly CancellationToken _token;
 
@@ -42,7 +43,6 @@ namespace Library.Domain
         }
 
         public virtual void Action() { }
-
         public virtual bool GetIfAvailableInCache()
         {
             return false;

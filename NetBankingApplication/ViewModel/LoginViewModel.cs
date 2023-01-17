@@ -100,17 +100,17 @@ namespace NetBankingApplication.ViewModel
                 loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
             }
 
-            public void OnSuccess(ZResponse<bool> response)
+            public async void OnSuccess(ZResponse<bool> response)
             {
                 loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
                 //
                 if (IsAdmin)
                 {
-                    handleAdminAccess();
+                   await handleAdminAccess();
                 }
                 else
                 {
-                    LoadDashBoard(LoginViewModel.user);
+                  await  LoadDashBoard(LoginViewModel.user);
                 }
             }
        
@@ -157,7 +157,7 @@ namespace NetBankingApplication.ViewModel
                     }
                     else
                     {
-                        handleAdminAccess();
+                       await handleAdminAccess();
                     }
                 }
                 else
@@ -174,10 +174,8 @@ namespace NetBankingApplication.ViewModel
                         //then continue with user profile details display //pass user and id
                       
                         //Debug.WriteLine(LoginViewModel.user.EmailId);
-                        LoadDashBoard(LoginViewModel.user);
+                       await LoadDashBoard(LoginViewModel.user);
                     }
-
-                  
 
                 }
 

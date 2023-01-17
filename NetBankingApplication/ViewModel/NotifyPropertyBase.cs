@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NetBankingApplication.ViewModel
 {
-    public abstract class NotifyPropertyBase:INotifyPropertyChanged
+    public class NotifyPropertyBase:INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         //protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
@@ -29,3 +29,4 @@ namespace NetBankingApplication.ViewModel
         }
     }
 }
+

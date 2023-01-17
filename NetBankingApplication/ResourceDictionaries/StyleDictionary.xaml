@@ -69,7 +69,6 @@
         <Setter Target="BorderThickness" Value="0.3"></Setter>
         <Setter Target="CornerRadius" Value="5"></Setter>
         <Setter Target="Margin" Value="5"></Setter>
-     
     </Style>
 
     <Style TargetType="TextBlock" x:Name="InputFieldTextBlock">
@@ -96,6 +95,7 @@
         <Setter Target="HorizontalAlignment" Value="Center"></Setter>
         <Setter Target="VerticalAlignment" Value="Center"></Setter>
     </Style>
- 
+
+
 
 </ResourceDictionary>

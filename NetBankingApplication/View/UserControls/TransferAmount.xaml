@@ -34,11 +34,18 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Make a Transaction" Margin="10" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
-                    <TextBlock FontSize="16" Text="Select Recipient" Margin="10" ></TextBlock>
-                    <DropDownButton BorderBrush="Black" BorderThickness="0.3" Background="White" Name="SelectPayee" Content="Select payee" CornerRadius="5" MinWidth="150">
+                <StackPanel Grid.Row="1" Margin="5" >
+                    <TextBlock FontSize="16" Text="Select Recipient" Margin="5" ></TextBlock>
+                    <DropDownButton BorderBrush="Black" BorderThickness="0.3" Background="White" Name="SelectPayee" Content="Select payee" CornerRadius="5" MinWidth="350">
                         <DropDownButton.Flyout >
                             <MenuFlyout  Opening="MenuFlyout_Opened" Placement="Bottom">
+                                <MenuFlyout.MenuFlyoutPresenterStyle>
+                                    <Style TargetType="MenuFlyoutPresenter">
+                                        <Setter Property="MinWidth" Value="350"/>
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                        <Setter Property="Background" Value="White"/>
+                                    </Style>
+                                </MenuFlyout.MenuFlyoutPresenterStyle>
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
@@ -46,13 +53,20 @@
 
                 <TextBox Visibility="Collapsed" Grid.Row="2" Style="{StaticResource InputFieldTextBox}" Header="Enter Name of Recipient"  x:Name="NewPayeeName" TextChanged="NewPayeeName_TextChanged"></TextBox>
 
-                <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" InputScope="Number" Header="Enter Account Number"  x:Name="AccountNumberTextBox" BeforeTextChanging="TextBox_OnBeforeTextChanging"/>
+                <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" InputScope="Number" Header="Account Number"  x:Name="AccountNumberTextBox" BeforeTextChanging="TextBox_OnBeforeTextChanging"/>
 
-                <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="10">
-                    <TextBlock Text="Select Your Account" FontSize="16" Margin="10"></TextBlock>
-                    <DropDownButton BorderBrush="Black" BorderThickness="0.3" Name="SelectAccount" Background="White" Content="Select From Account" CornerRadius="5" MinWidth="150">
+                <StackPanel Grid.Row="4" Margin="5">
+                    <TextBlock Text="Select Your Account" FontSize="16" Margin="5"></TextBlock>
+                    <DropDownButton BorderBrush="Black" BorderThickness="0.3" Name="SelectAccount" Background="White" Content="Select From Account" CornerRadius="5" MinWidth="350">
                         <DropDownButton.Flyout >
                             <MenuFlyout x:Name="AccountDropdown" Opening="AccountDropdown_Opening" Placement="Bottom">
+                                <MenuFlyout.MenuFlyoutPresenterStyle>
+                                    <Style TargetType="MenuFlyoutPresenter">
+                                        <Setter Property="MinWidth" Value="350"/>
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                        <Setter Property="Background" Value="White"/>
+                                    </Style>
+                                </MenuFlyout.MenuFlyoutPresenterStyle>
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
@@ -60,13 +74,13 @@
 
                 <TextBox Grid.Row="5" Style="{StaticResource InputFieldTextBox}" Header="Remark" x:Name="RemarkTextBox" />
                 <TextBox Grid.Row="6" Style="{StaticResource InputFieldTextBox}" Header="Amount" TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox"/>
+
+                <TextBlock Grid.Row="7" Text="{x:Bind TransferAmountViewModel.ResultText,Mode=OneWay}" x:Name="ErrorMessage" Style="{StaticResource FailureText}"></TextBlock>
                 
-                <TextBlock Grid.Row="7" x:Name="ErrorMessage" Style="{StaticResource FailureText}"></TextBlock>
-                
-                <Button IsEnabled="False"  Click="MakeTransaction_Click" x:Name="MakeTransaction" Grid.Row="8"  Content="Make Payment" Style="{StaticResource ButtonStyling}">
+                <Button Click="MakeTransaction_Click" x:Name="MakeTransaction" Grid.Row="8"  Content="Make Payment" Style="{StaticResource ButtonStyling}">
                 </Button>
 
-                <TextBlock Grid.Row="8" Text="{x:Bind TransferAmountViewModel.ResultText,Mode=OneWay}" Name="TransactionResult" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <!--<TextBlock Grid.Row="8"  Name="TransactionResult" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>-->
             </Grid>
 
 

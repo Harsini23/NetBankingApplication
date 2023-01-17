@@ -45,7 +45,6 @@ namespace Library.Domain.UseCase
             public void OnResponseSuccess(ZResponse<OverviewResponse> response)
             {
                 
-
             }
         }
     }

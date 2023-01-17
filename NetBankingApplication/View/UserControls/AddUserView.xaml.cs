@@ -62,6 +62,10 @@ namespace NetBankingApplication.View.UserControls
             else if(!this.EmailIdTextBox.Text.Contains('@') || !this.EmailIdTextBox.Text.Contains('.')|| !this.EmailIdTextBox.Text.Contains("com")){
                 AddUserViewModel.ErrorMessage = "Enter a valid email id";
             }
+            else if (PANTextBox.Text.Length!=10)
+            {
+                AddUserViewModel.ErrorMessage = "Enter valid PAN number";
+            }
             else
             {
                 UserAccountDetails details = new UserAccountDetails
@@ -94,6 +98,11 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
+        private void PanNumberTextBox_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
 
+        }
+
+     
     }
 }
