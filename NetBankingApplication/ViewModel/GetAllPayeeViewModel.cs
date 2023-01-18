@@ -45,7 +45,7 @@ namespace NetBankingApplication.ViewModel
 
         }
 
-        public void OnSuccess(ZResponse<GetAllPayeeResponse> response)
+        public  void OnSuccess(ZResponse<GetAllPayeeResponse> response)
         {
             var allPayee = response.Data.allRecipients;
             populateData(allPayee);

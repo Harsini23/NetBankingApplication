@@ -55,7 +55,7 @@
 
                 <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" InputScope="Number" Header="Account Number"  x:Name="AccountNumberTextBox" BeforeTextChanging="TextBox_OnBeforeTextChanging"/>
 
-                <StackPanel Grid.Row="4" Margin="5">
+                <StackPanel x:Name="MultipleAccounts" Grid.Row="4" Margin="5" Visibility="Collapsed">
                     <TextBlock Text="Select Your Account" FontSize="16" Margin="5"></TextBlock>
                     <DropDownButton BorderBrush="Black" BorderThickness="0.3" Name="SelectAccount" Background="White" Content="Select From Account" CornerRadius="5" MinWidth="350">
                         <DropDownButton.Flyout >
@@ -70,6 +70,10 @@
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
+                </StackPanel>
+                <StackPanel x:Name="SingleAccount"  Grid.Row="4" Margin="5" Visibility="Collapsed" Orientation="Horizontal">
+                    <TextBlock Text="Account number" FontSize="16" Margin="5"></TextBlock>
+                    <TextBlock Text="{x:Bind UserAccountNumber,Mode=OneWay}" FontSize="16" Margin="5">s</TextBlock>
                 </StackPanel>
 
                 <TextBox Grid.Row="5" Style="{StaticResource InputFieldTextBox}" Header="Remark" x:Name="RemarkTextBox" />

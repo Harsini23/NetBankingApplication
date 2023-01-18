@@ -43,6 +43,7 @@ namespace Library.Domain
             services.AddSingleton<IGetAllAccountsDataManager, GetAllAccountsDataManager>();
             services.AddSingleton<IAccountTransactionsDataManager, AccountTransactionsDataManager>();
             services.AddSingleton<IAddUserDataManager, AddUserDataManager>();
+            services.AddSingleton<IDeletePayeeDataManager, DeletePayeeDataManager>();
 
             return services.BuildServiceProvider();
         }

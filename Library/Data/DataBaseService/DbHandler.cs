@@ -241,7 +241,6 @@ namespace Library.Data.DataBaseService
 
         }
 
-
         public List<Transaction> GetTransactionsForAccount(string accountNumber)
         {
             List<Transaction> allTransactions = new List<Transaction>();
@@ -299,6 +298,7 @@ namespace Library.Data.DataBaseService
             }
             return allAccounts;
         }
+
         #endregion
 
 

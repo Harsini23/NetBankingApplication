@@ -20,7 +20,7 @@
 
     <Grid>
 
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.AllAccounts,Mode=OneWay}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView">
+        <ListView SelectionMode="None" IsItemClickEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.AllAccounts,Mode=OneWay}"  x:Name="AllTransactionListView">
             <!--ItemTemplate="{StaticResource TransactionListViewTemplate}"-->
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="TransactionListViewTemplate" x:DataType="data:Account">

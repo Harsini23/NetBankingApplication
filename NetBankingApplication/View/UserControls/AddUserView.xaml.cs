@@ -77,7 +77,8 @@ namespace NetBankingApplication.View.UserControls
                     AccountType = Enum.Parse<AccountType>(AccountTypeBox.SelectedItem.ToString()),
                     TotalBalance = Double.Parse(BalanceTextBox.Text),
                     Currency = Enum.Parse<Currency>(CurrencyValues.SelectedItem.ToString()),
-                    BId = BranchIdTextBox.Text.ToString()
+                    BId = BranchIdTextBox.Text.ToString(),
+                    PAN = PANTextBox.Text.ToString()     
                 };
 
 
@@ -93,6 +94,7 @@ namespace NetBankingApplication.View.UserControls
                 AccountTypeBox.SelectedItem = null;
                 CurrencyValues.SelectedItem = null;
                 AddUserViewModel.ErrorMessage = String.Empty;
+                PANTextBox.Text = String.Empty;
             }
         
 

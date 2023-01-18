@@ -23,7 +23,7 @@ namespace Library.Data.DataManager
         public void AddNewUser(AddUserRequest request, AddUser.AddUserCallback response)
         {
             var credentials= CreateUserCredentials();
-            var user =CreateUser(request.newUser.UserName,request.newUser.MobileNumber,request.newUser.EmailId);
+            var user =CreateUser(request.newUser.UserName,request.newUser.MobileNumber,request.newUser.EmailId,request.newUser.PAN);
             var account= CreateAccount(request.newUser.AccountNumber,request.newUser.AccountType,request.newUser.TotalBalance,request.newUser.BId,request.newUser.Currency);
             var userAccount= CreateUserAccounts(request.newUser.AccountNumber);
 
@@ -49,7 +49,7 @@ namespace Library.Data.DataManager
                 NewUser=true,
             };
         }
-        private User CreateUser(string username,long mobile,string email)
+        private User CreateUser(string username,long mobile,string email,string PAN)
         {
             return new User
             {
@@ -57,7 +57,8 @@ namespace Library.Data.DataManager
                 UserName = username,
                 MobileNumber = mobile,
                 EmailId = email,
-                IsBlocked = false
+                IsBlocked = false,
+                PAN=PAN
             };
         }
         private Account CreateAccount(string accNo,AccountType accType,double TotalBalance,string BId,Currency currency)

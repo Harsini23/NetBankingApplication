@@ -21,30 +21,16 @@
 
 
     <Grid>
-        <!--<Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>-->
+      
 
-        <!--<StackPanel>
-          -->
-        <!--Bank logo bank name, userID change password,profile, logout button options - top -->
-        <!--
-           
-            <TextBlock x:Name="HeaderTextBox" HorizontalAlignment="Left" Style="{StaticResource HeaderStyle }" Text="ZBank" Grid.Column="0"></TextBlock>
-        </StackPanel>-->
+        <!--Header="{x:Bind HeaderTitle,Mode=OneWay}"-->
 
-        <NavigationView  Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False">
-            <!--<NavigationView.Background>
-                --><!--<SolidColorBrush x:Name="NavigationViewBg" Color="{ThemeResource SystemAccentColorLight2}"></SolidColorBrush>--><!--
-                <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
-              BackgroundSource="Backdrop" TintColor="Blue" TintOpacity=".6"/>
-            </NavigationView.Background>-->
-
+        <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False">
+          
             <NavigationView.Resources>
                 <!--<SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource SystemAccentColorLight1}" />-->
-                <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SystemAccentColorLight1}" />
-               
-                <!--//keep foreground white-->
+                <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SystemAccentColorDark1}" />
+            
             </NavigationView.Resources>
 
             

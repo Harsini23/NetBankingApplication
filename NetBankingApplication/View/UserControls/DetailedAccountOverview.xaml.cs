@@ -26,7 +26,7 @@ namespace NetBankingApplication.View.UserControls
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class DetailedAccountOverview : Page//, INotifyPropertyChanged
+    public sealed partial class DetailedAccountOverview : Page, ISwitchUserView
     {
 
         public AccountTransactionBObj CurrentSelectedTransaction;
@@ -38,6 +38,7 @@ namespace NetBankingApplication.View.UserControls
         private string currentAccount;
         private string CurrentUserAccountNumber;
         private User currentUser;
+        private List<String> AllAccounts;
 
         //public event PropertyChangedEventHandler PropertyChanged;
         PresenterService TransferAmountVMserviceProviderInstance;
@@ -48,28 +49,35 @@ namespace NetBankingApplication.View.UserControls
         public DetailedAccountOverview(User user)
         {
             this.InitializeComponent();
+
             AccountTransactionsVMserviceProviderInstance = PresenterService.GetInstance();
             AccountTransactionsViewModel = AccountTransactionsVMserviceProviderInstance.Services.GetService<AccountTransactionsBaseViewModel>();
 
 
             GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
             GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
+            GetAllAccountsViewModel.TransferAmountView = this;
+
 
             currentUserId = user.UserId;
-            if (user.HasSingleAccount)
-            {
-                SingleAccountnumberTextblock.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                SelectAccountDropdown.Visibility = Visibility.Visible;
-            }
+
+         
+            //if (user.HasSingleAccount)
+            //{
+            //    SingleAccountnumberTextblock.Visibility = Visibility.Visible;
+            //}
+            //else
+            //{
+            //    SelectAccountDropdown.Visibility = Visibility.Visible;
+            //}
             //currentAccount = accountNo;
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             //take current accountnumber and userid
             // GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
+            GetAllAccountsViewModel.GetAllAccounts(currentUserId);
+            AllAccounts = GetAllAccountsViewModel.AllAccountNumbers;
             CurrentUserAccountNumber = GetAllAccountsViewModel.AllAccountNumbers[0];
             AccountTransactionsViewModel.GetAllTransactions(CurrentUserAccountNumber, currentUserId);
             SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
@@ -108,6 +116,20 @@ namespace NetBankingApplication.View.UserControls
             CurrentUserAccountNumber = selectedItem.Text;
             SelectAccountDropdown.Content = selectedItem.Text;
             AccountTransactionsViewModel.GetAllTransactions(CurrentUserAccountNumber, currentUserId);
+
+        }
+
+        public void SwitchBasedOnUserAccount()
+        {
+            if (AllAccounts.Count==1)
+            {
+                SingleAccountnumberTextblock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SelectAccountDropdown.Visibility = Visibility.Visible;
+            }
+            Bindings.Update();
 
         }
     }

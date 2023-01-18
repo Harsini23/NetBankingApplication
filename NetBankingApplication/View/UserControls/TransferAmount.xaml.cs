@@ -21,17 +21,19 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class TransferAmount : UserControl
+    public sealed partial class TransferAmount : UserControl, ISwitchUserView
     {
         private string _currentUserId;
 
-       // private string UserId;
+        // private string UserId;
         private string Name;
         private string FromAccount;
         private string ToAccount;
         private string RemarkDescription;
         private double Amount;
         private string NewPayeeEnteredName;
+        private string UserAccountNumber;
+        private string _amount;
 
 
         private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
@@ -56,6 +58,8 @@ namespace NetBankingApplication.View.UserControls
         public TransferAmount(string userId)
         {
             this.InitializeComponent();
+        
+
             _currentUserId = userId;
 
             GetAllPayeeVMserviceProviderInstance = PresenterService.GetInstance();
@@ -66,6 +70,11 @@ namespace NetBankingApplication.View.UserControls
 
             GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
             GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
+
+            GetAllAccountsViewModel.TransferAmountView = this;
+
+            GetAllPayeeViewModel.GetAllPayee(_currentUserId);
+            GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
 
 
         }
@@ -91,7 +100,12 @@ namespace NetBankingApplication.View.UserControls
             {
                 ErrorMessage.Text = "Fill out amount field";
             }
-            else if((string)SelectAccount.Content == (string)"Select From Account"){
+            else if (!IsFloatOrInt(_amount) || Double.Parse(_amount) <= 0)
+            {
+                ErrorMessage.Text = "Enter valid amount";
+            }
+            else if ((string)SelectAccount.Content == (string)"Select From Account")
+            {
                 ErrorMessage.Text = "Select your account";
             }
             else
@@ -134,31 +148,51 @@ namespace NetBankingApplication.View.UserControls
             NewPayeeName.Visibility = Visibility.Collapsed;
             AccountNumberTextBox.Text = ""; SelectAccount.Content = "Select From Account";
             RemarkTextBox.Text = ""; AmountTextBox.Text = "";
-           // TransactionResult.Text = String.Empty;
+            // TransactionResult.Text = String.Empty;
             //MakeTransaction.IsEnabled = false;
             ErrorMessage.Text = String.Empty;
 
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             //load list of payee with all details as payee object
-            GetAllPayeeViewModel.GetAllPayee(_currentUserId);
+            
             allRecipientNames.Clear();
             allRecipientNames = GetAllPayeeViewModel.PayeeNames;
             allRecipients.Clear();
             allRecipients = GetAllPayeeViewModel.AllPayee;
             ErrorMessage.Text = String.Empty;
-            GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
+
+
+            allAccountNumbers.Clear();
+            allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
+            allAccounts.Clear();
+            allAccounts = GetAllAccountsViewModel.AllAccounts;
+
             AccountNumberTextBox.IsEnabled = false;
             AccountNumberTextBox.IsReadOnly = true;
+
+            
             //allAccountNumbers.Clear();
             //allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
             //allAccounts.Clear();
             //allAccounts = GetAllAccountsViewModel.AllAccounts;
+            //MultipleAccounts.Visibility = Visibility.Visible;
+            //if (allAccountNumbers.Count > 1)
+            //{
+               // MultipleAccounts.Visibility = Visibility.Visible;
+            //}
+            //else
+            //{
+            //    SingleAccount.Visibility = Visibility.Visible;
+            //    UserAccountNumber = allAccountNumbers[0];
+            //}
             // TransactionResult.Text = String.Empty;
 
         }
+
+
 
 
 
@@ -247,9 +281,9 @@ namespace NetBankingApplication.View.UserControls
         {
             var amountBox = (TextBox)sender;
             ErrorMessage.Text = String.Empty;
-            var amount = amountBox.Text.ToString();
-         
-             if (!IsFloatOrInt(amount) || Double.Parse(amount) == 0)
+             _amount = amountBox.Text.ToString();
+
+            if (!IsFloatOrInt(_amount) || Double.Parse(_amount) <= 0 )
             {
                 ErrorMessage.Text = "Kindly check and enter valid amount";
                 //MakeTransaction.IsEnabled = false;
@@ -258,9 +292,6 @@ namespace NetBankingApplication.View.UserControls
             {
                 ErrorMessage.Text = String.Empty;
             }
-      
-
-
         }
 
         private static bool IsFloatOrInt(string value)
@@ -274,6 +305,20 @@ namespace NetBankingApplication.View.UserControls
                                          TextBoxBeforeTextChangingEventArgs args)
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
+
+        public void SwitchBasedOnUserAccount()
+        {
+            if (allAccountNumbers.Count > 1)
+            {
+                MultipleAccounts.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SingleAccount.Visibility = Visibility.Visible;
+                UserAccountNumber = allAccountNumbers[0];
+            }
+            Bindings.Update();
         }
     }
 }

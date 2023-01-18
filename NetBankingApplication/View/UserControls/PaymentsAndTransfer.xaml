@@ -38,7 +38,7 @@
                 <NavigationViewItem  Content="Transfer" x:Name="Transfer" />
                 <NavigationViewItem  Content="View Transactions" x:Name="ViewTransactions" />
                 <NavigationViewItem  Content="Add Payee" x:Name="AddPayee" />
-                <NavigationViewItem  Content="View and Edit Payee" x:Name="ViewAndEditPayee"/>
+                <NavigationViewItem  Content="Delete Payee" x:Name="ViewAndEditPayee"/>
             </NavigationView.MenuItems>
 
            <ContentControl Margin="10" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedItem,Mode=OneWay}" CornerRadius="30" />

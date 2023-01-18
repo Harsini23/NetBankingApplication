@@ -2,99 +2,212 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
    >
-  
-    <Style TargetType="TextBlock" x:Name="HeaderStyle">
-        <Setter Target="VerticalAlignment" Value="Center"></Setter>
-        <Setter Target="HorizontalAlignment" Value="Center"></Setter>
-        <Setter Target="FontSize" Value="30"></Setter>
-        <Setter Target="Margin" Value="5"></Setter>
-        <Setter Target="Padding" Value="5"></Setter>
-        <Setter Target="LineHeight" Value="3"></Setter>
-      
-    </Style>
-    <Style TargetType="Grid" x:Name="FormBackground">
-        <Setter Target="VerticalAlignment" Value="Center"></Setter>
-        <Setter Target="HorizontalAlignment" Value="Center"></Setter>
-        <Setter Target="CornerRadius" Value="20"></Setter>
-        <Setter Target="Margin" Value="5"></Setter>
-        <Setter Target="BorderThickness" Value="0"></Setter>
-        <Setter Target="Padding" Value="30"></Setter>
-        <Setter Target="BorderBrush" Value="Transparent"></Setter>
-        <Setter Target="Background" Value="White"></Setter>
-    </Style>
-    <Style TargetType="TextBox" x:Name="FormTextBox">
-        <Setter Target="MinWidth" Value="200"></Setter>
-        <Setter Target="BorderThickness" Value="1"></Setter>
-        <Setter Target="Opacity" Value="1"></Setter>
-        <Setter Target="Background" Value="LightGray"></Setter>
-        <Setter Target="Margin" Value="5"></Setter>
-        <Setter Target="HorizontalAlignment" Value="Stretch"></Setter>
-        <Setter Target="VerticalAlignment" Value="Center"></Setter>
-   
-    </Style>
-    <Style TargetType="PasswordBox" x:Name="FormPasswordBox">
-        <Setter Target="MinWidth" Value="200"></Setter>
-        <Setter Target="Opacity" Value="1"></Setter>
-        <Setter Target="Background" Value="LightGray"></Setter>
-        <Setter Target="Margin" Value="5"></Setter>
-        <Setter Target="HorizontalAlignment" Value="Stretch"></Setter>
-        <Setter Target="VerticalAlignment" Value="Center"></Setter>
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Name="Light">
+            <Style TargetType="TextBlock" x:Key="HeaderStyle">
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Target="FontSize" Value="30"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="Padding" Value="5"></Setter>
+                <Setter Target="LineHeight" Value="3"></Setter>
+                <Setter Target="Foreground" Value="Black"></Setter>
 
-        <Setter Target="BorderBrush" Value="Gray"></Setter>
-        <Setter Target="FontSize" Value="16"></Setter>
-        <Setter Target="BorderThickness" Value="0.3"></Setter>
-        <Setter Target="CornerRadius" Value="5"></Setter>
+            </Style>
+            <Style TargetType="Grid" x:Key="FormBackground">
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Target="CornerRadius" Value="20"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="BorderThickness" Value="0"></Setter>
+                <Setter Target="Padding" Value="30"></Setter>
+                <Setter Target="BorderBrush" Value="Transparent"></Setter>
+                <Setter Target="Background" Value="White"></Setter>
+            </Style>
+            <Style TargetType="TextBox" x:Key="FormTextBox">
+                <Setter Target="MinWidth" Value="200"></Setter>
+                <Setter Target="BorderThickness" Value="1"></Setter>
+                <Setter Target="Opacity" Value="1"></Setter>
+                <Setter Target="Background" Value="LightGray"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Stretch"></Setter>
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
 
+            </Style>
+            <Style TargetType="PasswordBox" x:Key="FormPasswordBox">
+                <Setter Target="MinWidth" Value="200"></Setter>
+                <Setter Target="Opacity" Value="1"></Setter>
+                <Setter Target="Background" Value="LightGray"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Stretch"></Setter>
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
 
-    </Style>
-    <Style TargetType="TextBlock" x:Name="FailureText">
-        <Setter Target="HorizontalAlignment" Value="Center"></Setter>
-        <Setter Target="VerticalAlignment" Value="Center"></Setter>
-        <Setter Target="Foreground" Value="Red"></Setter>
-        <Setter Target="CharacterSpacing" Value="-18"></Setter>
-        <Setter Target="Margin" Value="5"></Setter>
-        <Setter Target="FontSize" Value="16"></Setter>
-     
-    </Style>
- 
-    <Style TargetType="Button" x:Name="BasicButtonStyle">
-        <Setter Target="Foreground" Value="White"></Setter>
-        <Setter Target="CornerRadius" Value="20"></Setter>
-        <Setter Target="FontSize" Value="16"></Setter>
-    </Style>
-
-    <Style TargetType="TextBox" x:Name="InputFieldTextBox">
-        <Setter Target="BorderBrush" Value="Gray"></Setter>
-        <Setter Target="FontSize" Value="16"></Setter>
-        <Setter Target="BorderThickness" Value="0.3"></Setter>
-        <Setter Target="CornerRadius" Value="5"></Setter>
-        <Setter Target="Margin" Value="5"></Setter>
-    </Style>
-
-    <Style TargetType="TextBlock" x:Name="InputFieldTextBlock">
-        <Setter Target="FontSize" Value="16"></Setter>
-        <Setter Target="Margin" Value="5"></Setter>
-    </Style>
+                <Setter Target="BorderBrush" Value="Gray"></Setter>
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="BorderThickness" Value="0.3"></Setter>
+                <Setter Target="CornerRadius" Value="5"></Setter>
 
 
-    <Style TargetType="Button" x:Name="ButtonStyling">
-        <Setter Target="FontSize" Value="16"></Setter>
-        <Setter Target="BorderThickness" Value="0.3"></Setter>
-        <Setter Target="BorderBrush" Value="Black"></Setter>
-        <Setter Target="CornerRadius" Value="5"></Setter>
-        <Setter Target="Margin" Value="5"></Setter>
-        <Setter Target="Background" Value="White"></Setter>
-        <Setter Target="HorizontalAlignment" Value="Center"></Setter>
-        <Setter Target="VerticalAlignment" Value="Center"></Setter>
-        <Setter Target="Padding" Value="7"></Setter>
+            </Style>
+            <Style TargetType="TextBlock" x:Key="FailureText">
+                <Setter Target="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+                <Setter Target="Foreground" Value="Red"></Setter>
+                <Setter Target="CharacterSpacing" Value="-18"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="FontSize" Value="16"></Setter>
+
+            </Style>
+
+            <Style TargetType="Button" x:Key="BasicButtonStyle">
+                <Setter Target="Foreground" Value="White"></Setter>
+                <Setter Target="CornerRadius" Value="20"></Setter>
+                <Setter Target="FontSize" Value="16"></Setter>
+            </Style>
+
+            <Style TargetType="TextBox" x:Key="InputFieldTextBox">
+                <Setter Target="BorderBrush" Value="Gray"></Setter>
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="BorderThickness" Value="0.3"></Setter>
+                <Setter Target="CornerRadius" Value="5"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="InputFieldTextBlock">
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+            </Style>
+
+
+            <Style TargetType="Button" x:Key="ButtonStyling">
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="BorderThickness" Value="0.3"></Setter>
+                <Setter Target="BorderBrush" Value="Black"></Setter>
+                <Setter Target="CornerRadius" Value="5"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="Background" Value="White"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+                <Setter Target="Padding" Value="7"></Setter>
+
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="BasicTextBlock">
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="HeadderTheme">
+                <Setter Target="Foreground" Value="Black"></Setter>
+            </Style>
+            <Style TargetType="Grid" x:Key="LoginGrid">
+                <Setter Target="Background" Value="LightGray"></Setter>
+            </Style>
+
+        </ResourceDictionary>
         
-    </Style>
+        <ResourceDictionary x:Name="Dark">
+           <Style TargetType="TextBlock" x:Key="HeaderStyle">
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Target="FontSize" Value="30"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="Padding" Value="5"></Setter>
+                <Setter Target="LineHeight" Value="3"></Setter>
+                <Setter Target="Foreground" Value="White"></Setter>
 
-    <Style TargetType="TextBlock" x:Name="BasicTextBlock">
-        <Setter Target="FontSize" Value="16"></Setter>
-        <Setter Target="HorizontalAlignment" Value="Center"></Setter>
-        <Setter Target="VerticalAlignment" Value="Center"></Setter>
-    </Style>
+            </Style>
+            <Style TargetType="Grid" x:Key="FormBackground">
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Target="CornerRadius" Value="20"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="BorderThickness" Value="0"></Setter>
+                <Setter Target="Padding" Value="30"></Setter>
+                <Setter Target="BorderBrush" Value="Transparent"></Setter>
+                <Setter Target="Background" Value="#242424"></Setter>
+            </Style>
+            <Style TargetType="TextBox" x:Key="FormTextBox">
+                <Setter Target="MinWidth" Value="200"></Setter>
+                <Setter Target="BorderThickness" Value="1"></Setter>
+                <Setter Target="Opacity" Value="1"></Setter>
+                <Setter Target="Background" Value="LightGray"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Stretch"></Setter>
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+
+            </Style>
+            <Style TargetType="PasswordBox" x:Key="FormPasswordBox">
+                <Setter Target="MinWidth" Value="200"></Setter>
+                <Setter Target="Opacity" Value="1"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Stretch"></Setter>
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+                <Setter Target="Foreground" Value="Black"></Setter>
+                <Setter Target="BorderBrush" Value="Gray"></Setter>
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="BorderThickness" Value="0.3"></Setter>
+                <Setter Target="CornerRadius" Value="5"></Setter>
+
+            </Style>
+            <Style TargetType="TextBlock" x:Key="FailureText">
+                <Setter Target="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+                <Setter Target="Foreground" Value="Red"></Setter>
+                <Setter Target="CharacterSpacing" Value="-18"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="FontSize" Value="16"></Setter>
+
+            </Style>
+
+            <Style TargetType="Button" x:Key="BasicButtonStyle">
+                <Setter Target="Foreground" Value="White"></Setter>
+                <Setter Target="CornerRadius" Value="20"></Setter>
+                <Setter Target="FontSize" Value="16"></Setter>
+            </Style>
+
+            <Style TargetType="TextBox" x:Key="InputFieldTextBox">
+                <Setter Target="BorderBrush" Value="Gray"></Setter>
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="BorderThickness" Value="0.3"></Setter>
+                <Setter Target="CornerRadius" Value="5"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="InputFieldTextBlock">
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+            </Style>
+
+
+            <Style TargetType="Button" x:Key="ButtonStyling">
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="BorderThickness" Value="0.3"></Setter>
+                <Setter Target="BorderBrush" Value="Black"></Setter>
+                <Setter Target="CornerRadius" Value="5"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+                <Setter Target="Padding" Value="7"></Setter>
+
+            </Style>
+
+            <Style TargetType="TextBlock" x:Key="BasicTextBlock">
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Target="VerticalAlignment" Value="Center"></Setter>
+            </Style>
+            <Style TargetType="TextBlock" x:Key="HeadderTheme">
+                <Setter Target="Foreground" Value="White"></Setter>
+            </Style>
+
+            <Style TargetType="Grid" x:Key="LoginGrid">
+                <Setter Target="Background" Value="#333333"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+  
 
 
 

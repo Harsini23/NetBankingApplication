@@ -18,9 +18,11 @@ namespace Library.Model
         public Currency Currency { get; set; }
         public string BId { get; set; }
 
-        public UserAccountDetails(string userName, long mobileNumber, string emailId, string accountNumber, AccountType accountType, double totalBalance, Currency currency, string bId)
+        public string PAN { get; set; }
+
+        public UserAccountDetails(string userName, long mobileNumber, string emailId, string accountNumber, AccountType accountType, double totalBalance, Currency currency, string bId, string PAN)
         {
-         
+
             UserName = userName;
             MobileNumber = mobileNumber;
             EmailId = emailId;
@@ -29,6 +31,7 @@ namespace Library.Model
             TotalBalance = totalBalance;
             Currency = currency;
             BId = bId;
+            PAN = PAN;
         }
         public UserAccountDetails()
         {

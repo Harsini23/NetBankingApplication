@@ -13,10 +13,17 @@ namespace NetBankingApplication.ViewModel
     public class GetAllAccountsViewModel : GetAllAccountsBaseViewModel
     {
         GetAllAccounts getAllAccounts;
+
+        ISwitchUserView tranferView;
         public override void GetAllAccounts(string userId)
         {
+            SetValueForCallback();
             getAllAccounts = new GetAllAccounts(new GetAllAccountsRequest(userId),  new PresenterGetAllAccountsCallback(this));
             getAllAccounts.Execute();
+        }
+        private void SetValueForCallback()
+        {
+            tranferView = TransferAmountView;
         }
     }
 
@@ -44,16 +51,46 @@ namespace NetBankingApplication.ViewModel
         public void OnSuccess(ZResponse<GetAllAccountsResponse> response)
         {
             var allAccounts = response.Data.allAccount;
-            GetAllAccountsViewModel.AllAccounts.Clear();
-            GetAllAccountsViewModel.AllAccountNumbers.Clear();
+             populateData(allAccounts);
+            handleCallbackAsync();
+           
+            //GetAllAccountsViewModel.AllAccounts.Clear();
+            //GetAllAccountsViewModel.AllAccountNumbers.Clear();
 
-            GetAllAccountsViewModel.AllAccounts = allAccounts;
-            foreach(var i in response.Data.allAccount)
+            //GetAllAccountsViewModel.AllAccounts = allAccounts;
+            //foreach(var i in response.Data.allAccount)
+            //{
+            //    GetAllAccountsViewModel.AllAccountNumbers.Add(i.AccountNumber);
+            //  //  GetAllAccountsViewModel.AllAccounts.Add(i);
+
+            //}
+        }
+            private async Task handleCallbackAsync()
             {
-                GetAllAccountsViewModel.AllAccountNumbers.Add(i.AccountNumber);
-              //  GetAllAccountsViewModel.AllAccounts.Add(i);
-            
+                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+              {
+                  GetAllAccountsViewModel?.TransferAmountView?.SwitchBasedOnUserAccount();
+              });
             }
+
+        public async void populateData(List<Account> allAccounts)
+        {
+
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+              {
+
+                  GetAllAccountsViewModel.AllAccounts.Clear();
+                  GetAllAccountsViewModel.AllAccountNumbers.Clear();
+                 // GetAllAccountsViewModel.AllAccounts = allAccounts;
+                  foreach (var i in allAccounts)
+                  {
+                      GetAllAccountsViewModel.AllAccountNumbers.Add(i.AccountNumber);
+                      GetAllAccountsViewModel.AllAccounts.Add(i);
+
+                  }
+              });
         }
     }
     public abstract class GetAllAccountsBaseViewModel : NotifyPropertyBase
@@ -61,5 +98,13 @@ namespace NetBankingApplication.ViewModel
         public abstract void GetAllAccounts(string userId);
         public List<Account> AllAccounts = new List<Account>();
         public List<String> AllAccountNumbers = new List<String>();
+
+        public ISwitchUserView TransferAmountView { get; set; }
+
+    }
+
+    public interface ISwitchUserView
+    {
+         void SwitchBasedOnUserAccount();
     }
 }

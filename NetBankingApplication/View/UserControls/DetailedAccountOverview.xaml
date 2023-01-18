@@ -37,7 +37,7 @@
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
-            <TextBlock FontSize="16" x:Name="SingleAccountnumberTextblock" Visibility="Collapsed" Text="{x:Bind CurrentUserAccountNumber}"></TextBlock>
+            <TextBlock FontSize="16" x:Name="SingleAccountnumberTextblock" Visibility="Collapsed" Margin="5" Text="{x:Bind CurrentUserAccountNumber}"></TextBlock>
         </StackPanel>
    
         <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
