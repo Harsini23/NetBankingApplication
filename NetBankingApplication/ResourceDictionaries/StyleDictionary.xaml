@@ -104,7 +104,21 @@
             <Style TargetType="Grid" x:Key="LoginGrid">
                 <Setter Target="Background" Value="LightGray"></Setter>
             </Style>
-
+            <Style TargetType="MenuFlyoutPresenter" x:Key="MenuFlyoutStyle">
+                <Setter Property="MinWidth" Value="200"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Background" Value="White"/>
+            </Style>
+            <Style TargetType="MenuFlyoutPresenter" x:Key="MenuFlyoutStyle2">
+                <Setter Property="MinWidth" Value="350"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Background" Value="White"/>
+            </Style>
+            <Style TargetType="DropDownButton" x:Key="DropdownStyle">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderThickness" Value="0.3"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+            </Style>
         </ResourceDictionary>
         
         <ResourceDictionary x:Name="Dark">
@@ -204,6 +218,20 @@
 
             <Style TargetType="Grid" x:Key="LoginGrid">
                 <Setter Target="Background" Value="#333333"></Setter>
+            </Style>
+
+            <Style TargetType="MenuFlyoutPresenter" x:Key="MenuFlyoutStyle">
+                <Setter Property="MinWidth" Value="200"/>
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style> 
+            <Style TargetType="MenuFlyoutPresenter" x:Key="MenuFlyoutStyle2">
+                <Setter Property="MinWidth" Value="350"/>
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+            <Style TargetType="DropDownButton" x:Key="DropdownStyle">
+                <Setter Property="BorderThickness" Value="0.3"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="CornerRadius" Value="5"/>
             </Style>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>

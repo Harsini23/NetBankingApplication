@@ -23,17 +23,10 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
-            <TextBlock FontSize="16" Text="Account Number" VerticalAlignment="Center"></TextBlock>
-            <DropDownButton  Visibility="Collapsed" BorderBrush="Black" BorderThickness="0.3" Background="White" Name="SelectAccountDropdown" CornerRadius="5" Margin="20" Content="Account Details" MinWidth="200">
+            <TextBlock FontSize="16" Text="Account Number" VerticalAlignment="Center" Margin="5"></TextBlock>
+            <DropDownButton Margin="10" Visibility="Collapsed" Name="SelectAccountDropdown" Style="{StaticResource DropdownStyle}" Content="Account Details" MinWidth="200">
                 <DropDownButton.Flyout>
-                    <MenuFlyout Placement="Bottom" Opening="MenuFlyout_Opening">
-                        <MenuFlyout.MenuFlyoutPresenterStyle>
-                            <Style TargetType="MenuFlyoutPresenter">
-                                <Setter Property="MinWidth" Value="200"/>
-                                <Setter Property="CornerRadius" Value="5"/>
-                                <Setter Property="Background" Value="White"/>
-                            </Style>
-                        </MenuFlyout.MenuFlyoutPresenterStyle>
+                    <MenuFlyout Placement="Bottom" Opening="MenuFlyout_Opening" MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutStyle}">
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>

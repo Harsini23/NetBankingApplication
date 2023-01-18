@@ -57,16 +57,9 @@
 
                 <StackPanel x:Name="MultipleAccounts" Grid.Row="4" Margin="5" Visibility="Collapsed">
                     <TextBlock Text="Select Your Account" FontSize="16" Margin="5"></TextBlock>
-                    <DropDownButton BorderBrush="Black" BorderThickness="0.3" Name="SelectAccount" Background="White" Content="Select From Account" CornerRadius="5" MinWidth="350">
+                    <DropDownButton HorizontalAlignment="Left" Name="SelectAccount"   Style="{StaticResource DropdownStyle}" Content="Select From Account"  MinWidth="350" MinHeight="30">
                         <DropDownButton.Flyout >
-                            <MenuFlyout x:Name="AccountDropdown" Opening="AccountDropdown_Opening" Placement="Bottom">
-                                <MenuFlyout.MenuFlyoutPresenterStyle>
-                                    <Style TargetType="MenuFlyoutPresenter">
-                                        <Setter Property="MinWidth" Value="350"/>
-                                        <Setter Property="CornerRadius" Value="5"/>
-                                        <Setter Property="Background" Value="White"/>
-                                    </Style>
-                                </MenuFlyout.MenuFlyoutPresenterStyle>
+                            <MenuFlyout x:Name="AccountDropdown"  Opening="AccountDropdown_Opening" Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutStyle2}">
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
