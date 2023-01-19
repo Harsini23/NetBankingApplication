@@ -30,4 +30,15 @@ namespace Library.Model
 
         }
     }
+
+    public class AccountBobj
+    {
+        public string UserId { get; set; }
+        public Account Account { get; set; }
+
+        public AccountBobj()
+        {
+
+        }
+    }
 }

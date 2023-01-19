@@ -95,6 +95,7 @@ namespace NetBankingApplication.View
         {
             Debug.WriteLine(ResetPasswordcontainer.Visibility.ToString());
             LoginContainer.Visibility = Visibility.Collapsed;
+            LoginContainerShadow.Visibility = Visibility.Collapsed;
             ResetPasswordcontainer.Visibility = Visibility.Visible;
             Debug.WriteLine(ResetPasswordcontainer.Visibility.ToString());
           

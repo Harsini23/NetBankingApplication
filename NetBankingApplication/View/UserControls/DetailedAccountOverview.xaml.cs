@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -38,7 +39,7 @@ namespace NetBankingApplication.View.UserControls
         private string currentAccount;
         private string CurrentUserAccountNumber;
         private User currentUser;
-        private List<String> AllAccounts;
+        private ObservableCollection<String> AllAccounts;
 
         //public event PropertyChangedEventHandler PropertyChanged;
         PresenterService TransferAmountVMserviceProviderInstance;

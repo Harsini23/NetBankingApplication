@@ -54,23 +54,67 @@ namespace NetBankingApplication.ViewModel
      
         public async void populateData( List<AccountTransactionBObj> TransactionList)
         {
+            double income = 0, expense = 0;
+            int incomeCount=0,expenseCount=0;
             var SortedTransactionList = TransactionList.OrderByDescending(i => DateTime.Parse(i.DateOfTransaction));
+            String recentTransactionDate="";
+            if (TransactionList.Count > 0)
+            {
+                recentTransactionDate = TransactionList[0].DateOfTransaction;
+            }
+
+            foreach(var i in SortedTransactionList)
+            {
+                if (i.TransactionType == Library.Model.Enum.TransactionType.Debited)
+                {
+                    expense += i.Amount;
+                    expenseCount++;
+                }
+                else
+                {
+                    income += i.Amount;
+                    incomeCount++;
+                }
+            }
+
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
               Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
               {
                   AccountTransactionsViewModel.AllSortedAccountTransactions.Clear();
-
+                
                   foreach (var i in SortedTransactionList)
-                  AccountTransactionsViewModel.AllSortedAccountTransactions.Add(i);
+                  {
+                      AccountTransactionsViewModel.AllSortedAccountTransactions.Add(i);
+                  }
+                  AccountTransactionsViewModel.CurrentMonthExpense = expense.ToString();
+                  AccountTransactionsViewModel.CurrentMonthIncome = income.ToString(); AccountTransactionsViewModel.CurrentMonthExpenseTransactionCount = expenseCount.ToString();
+                  AccountTransactionsViewModel.CurrentMonthIncomeTransactionCount = incomeCount.ToString();
+                  AccountTransactionsViewModel.LastTransactionDate = recentTransactionDate.ToString();
+
+                  AccountTransactionsViewModel.updateBindingInstance.updateBindingsAsync();
+
               });
+
         }
     }
-
 
     public abstract class AccountTransactionsBaseViewModel : NotifyPropertyBase
     {
         public ObservableCollection<AccountTransactionBObj> AllSortedAccountTransactions = new ObservableCollection<AccountTransactionBObj>();
-         public abstract void GetAllTransactions(string accountno,string userid );
+         public abstract void GetAllTransactions(string accountno,string userid);
         public Account AccountDetails;
+        public string CurrentMonthExpense { get; set; }
+        public string CurrentMonthIncome { get; set; }
+        public string CurrentMonthExpenseTransactionCount { get; set; }
+        public string CurrentMonthIncomeTransactionCount { get; set; }
+
+        public string LastTransactionDate { get; set; }
+
+        public IUpdateBindings updateBindingInstance { get; set; }
+    }
+
+    public interface IUpdateBindings
+    {
+        void updateBindingsAsync();
     }
 }

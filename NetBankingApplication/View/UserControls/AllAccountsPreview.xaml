@@ -20,52 +20,51 @@
 
     <Grid>
 
-        <ListView SelectionMode="None" IsItemClickEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.AllAccounts,Mode=OneWay}"  x:Name="AllTransactionListView">
+        <GridView SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.accounts,Mode=OneWay}"  x:Name="AllTransactionListView">
             <!--ItemTemplate="{StaticResource TransactionListViewTemplate}"-->
-            <ListView.ItemTemplate>
+            <GridView.ItemTemplate>
                 <DataTemplate x:Name="TransactionListViewTemplate" x:DataType="data:Account">
-
-
-                    <Grid Padding="30" Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-
+                    <Grid Padding="30" Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MinWidth="400">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
-                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <!--<RowDefinition Height="Auto"></RowDefinition>-->
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0" Margin="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"></RowDefinition>
                                 <RowDefinition Height="1*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition   Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition   Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition  Width="*"></ColumnDefinition>
+                                <ColumnDefinition   Width="1*"></ColumnDefinition>
+                                <ColumnDefinition   Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Margin="5" Grid.Row="0" HorizontalAlignment="Left" Text="Account Number " Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
-                            <TextBlock Margin="5" Grid.Row="0" Grid.Column="1" Text="{x:Bind AccountNumber }"  Style="{StaticResource BasicTextBlock}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Margin="5" Grid.Row="0" Grid.Column="1" Text="{x:Bind AccountNumber }"  Style="{StaticResource BasicTextBlock}" TextWrapping="Wrap" HorizontalAlignment="Left"></TextBlock>
 
                             <TextBlock Margin="5" Grid.Row="1" HorizontalAlignment="Left" Text="Account Type" Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
-                            <TextBlock Margin="5"  Grid.Row="1" Grid.Column="1" Text="{x:Bind AccountType}" TextWrapping="Wrap" Style="{StaticResource BasicTextBlock}" ></TextBlock>
+                            <TextBlock Margin="5"  Grid.Row="1" Grid.Column="1" Text="{x:Bind AccountType}" TextWrapping="Wrap" Style="{StaticResource BasicTextBlock}" HorizontalAlignment="Left" ></TextBlock>
+                            
+                            <TextBlock Margin="5" Grid.Row="2" HorizontalAlignment="Left" Text="Available Balance " Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
+                            <TextBlock Margin="5" Grid.Row="2" Grid.Column="1"  Text="{x:Bind TotalBalance.ToString()}"  Style="{StaticResource BasicTextBlock}" TextWrapping="Wrap" HorizontalAlignment="Left"></TextBlock>
 
                         </Grid>
                         <NavigationViewItemSeparator Grid.Row="1"></NavigationViewItemSeparator>
 
 
-                        <Grid Grid.Row="2" Margin="5" >
+                        <!--<Grid Grid.Row="2" Margin="5" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"></RowDefinition>
                                 <RowDefinition Height="1*"></RowDefinition>
                                 <RowDefinition Height="1*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition  Width="Auto"></ColumnDefinition>
-                                <ColumnDefinition  Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition  Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Margin="5" Grid.Row="0" HorizontalAlignment="Left" Text="Available Balance " Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
@@ -76,21 +75,19 @@
 
                             <TextBlock Margin="5" Grid.Row="2" HorizontalAlignment="Left" Text="Currency" Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
                             <TextBlock Margin="5" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{x:Bind Currency}" TextWrapping="Wrap" Style="{StaticResource BasicTextBlock}" ></TextBlock>
+                        </Grid>-->
+                        <Grid Grid.Row="2">
+                            <Button Content="View More Details" Name="DisplayFullAccountDetails" Click="DisplayFullAccountDetails_Click_1" Style="{StaticResource ButtonStyling}" ></Button>
                         </Grid>
-                        <Grid Grid.Row="3">
-                            <Button Content="View More Details"  Style="{StaticResource ButtonStyling}" ></Button>
-                        </Grid>
-
-
 
                     </Grid>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-            <ListView.ItemContainerStyle>
+            </GridView.ItemTemplate>
+            <GridView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+            </GridView.ItemContainerStyle>
+        </GridView>
     </Grid>
 </UserControl>

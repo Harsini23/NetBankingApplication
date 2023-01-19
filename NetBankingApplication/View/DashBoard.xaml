@@ -29,8 +29,7 @@
           
             <NavigationView.Resources>
                 <!--<SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource SystemAccentColorLight1}" />-->
-                <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SystemAccentColorDark1}" />
-            
+                <!--<SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SystemAccentColorDark1}" />-->
             </NavigationView.Resources>
 
             

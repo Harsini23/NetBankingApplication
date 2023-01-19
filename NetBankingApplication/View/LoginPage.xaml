@@ -40,6 +40,7 @@
                                       HorizontalAlignment="Center"
                                       Margin="5"
                                       Padding="30"
+                                      Name="LoginContainerShadow"
                         >
                 <Grid  x:Name="LoginContainer" Style="{StaticResource FormBackground}" Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -83,7 +84,7 @@
                 </Grid>
             </controls:DropShadowPanel>
 
-            <Grid Grid.Row="1" Style="{StaticResource FormBackground}" Visibility="Collapsed" Name="ResetPasswordcontainer"  >
+            <Grid Grid.Row="1" Style="{StaticResource FormBackground}" Visibility="Collapsed" Name="ResetPasswordcontainer" MinWidth="400"  >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
@@ -105,7 +106,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="2">
-                    <PasswordBox IsEnabled="False"  PlaceholderText="Retype Password"  IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" PasswordChanged="Password_Verify"  Style="{StaticResource FormPasswordBox}" x:Name="RePasswordReset" >
+                    <PasswordBox IsEnabled="False"  PlaceholderText="Re-type Password"  IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" PasswordChanged="Password_Verify"  Style="{StaticResource FormPasswordBox}" x:Name="RePasswordReset" >
                         <ToolTipService.ToolTip>
                             <ToolTip Content="Must be mininum of 9 characters with one lowercase, uppercase and special charater." VerticalOffset="-80"/>
                         </ToolTipService.ToolTip>

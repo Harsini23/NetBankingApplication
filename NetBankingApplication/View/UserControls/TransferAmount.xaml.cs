@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace NetBankingApplication.View.UserControls
         List<Payee> allRecipients = new List<Payee>();
 
         List<Account> allAccounts = new List<Account>();
-        List<String> allAccountNumbers = new List<String>();
+        ObservableCollection<String> allAccountNumbers = new ObservableCollection<String>();
 
         public TransferAmount(string userId)
         {
@@ -104,7 +105,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 ErrorMessage.Text = "Enter valid amount";
             }
-            else if ((string)SelectAccount.Content == (string)"Select From Account")
+            else if ((string)SelectAccount.Content == (string)"Select From Account" && MultipleAccounts.Visibility!=Visibility.Collapsed)
             {
                 ErrorMessage.Text = "Select your account";
             }
@@ -317,6 +318,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 SingleAccount.Visibility = Visibility.Visible;
                 UserAccountNumber = allAccountNumbers[0];
+                FromAccount = UserAccountNumber;
             }
             Bindings.Update();
         }

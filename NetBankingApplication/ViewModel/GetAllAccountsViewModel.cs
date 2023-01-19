@@ -4,6 +4,7 @@ using Library.Domain.UseCase;
 using Library.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,12 +83,15 @@ namespace NetBankingApplication.ViewModel
               {
 
                   GetAllAccountsViewModel.AllAccounts.Clear();
+                  GetAllAccountsViewModel.accounts.Clear();
+
                   GetAllAccountsViewModel.AllAccountNumbers.Clear();
                  // GetAllAccountsViewModel.AllAccounts = allAccounts;
                   foreach (var i in allAccounts)
                   {
                       GetAllAccountsViewModel.AllAccountNumbers.Add(i.AccountNumber);
                       GetAllAccountsViewModel.AllAccounts.Add(i);
+                      GetAllAccountsViewModel.accounts.Add(i);
 
                   }
               });
@@ -97,8 +101,8 @@ namespace NetBankingApplication.ViewModel
     {
         public abstract void GetAllAccounts(string userId);
         public List<Account> AllAccounts = new List<Account>();
-        public List<String> AllAccountNumbers = new List<String>();
-
+        public ObservableCollection<String> AllAccountNumbers = new ObservableCollection<string>();
+        public ObservableCollection<Account> accounts= new ObservableCollection<Account>();
         public ISwitchUserView TransferAmountView { get; set; }
 
     }
