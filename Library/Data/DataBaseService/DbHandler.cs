@@ -302,6 +302,14 @@ namespace Library.Data.DataBaseService
         #endregion
 
 
+        #region "Brach table"
+        public Branch GetBranchDetails(String BId)
+        {
+            return connection.Table<Branch>().Where(i => i.BId == BId).FirstOrDefault();
+        }
+        #endregion
+
+
 
 
     }

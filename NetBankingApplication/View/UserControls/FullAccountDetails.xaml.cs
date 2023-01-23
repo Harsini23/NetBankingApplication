@@ -45,12 +45,18 @@ namespace NetBankingApplication.View.UserControls
         private AccountTransactionsBaseViewModel AccountTransactionsViewModel;
         PresenterService AccountTransactionsVMserviceProviderInstance;
 
+        private GetBranchDetailsBaseViewModel GetBranchDetailsViewModel;
+        PresenterService GetBranchDetailsVMserviceProviderInstance;
+
 
         public FullAccountDetails()
         {
             this.InitializeComponent();
             AccountTransactionsVMserviceProviderInstance = PresenterService.GetInstance();
             AccountTransactionsViewModel = AccountTransactionsVMserviceProviderInstance.Services.GetService<AccountTransactionsBaseViewModel>();
+
+            GetBranchDetailsVMserviceProviderInstance = PresenterService.GetInstance();
+            GetBranchDetailsViewModel = GetBranchDetailsVMserviceProviderInstance.Services.GetService<GetBranchDetailsBaseViewModel>();
 
             Bindings.Update();
          
@@ -65,6 +71,8 @@ namespace NetBankingApplication.View.UserControls
             selectedUserId = selectedAccount.UserId;
           
             AccountTransactionsViewModel.GetAllTransactions(selectedAccountNumber, selectedUserId);
+
+            GetBranchDetailsViewModel.FetchBranchDetails("B001");
             Bindings.Update();
 
         }

@@ -14,13 +14,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-
-    <Grid>
+    <ScrollViewer>
+        <Grid>
         <!--<TextBlock VerticalAlignment="Center" Text="{x:Bind expense,Mode=OneWay}"></TextBlock>
         <TextBlock Text="{x:Bind CurrentSelectedAccount.AccountNumber}"></TextBlock>-->
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -30,13 +29,20 @@
         
         <controls:DropShadowPanel Color="Black" OffsetX="10" OffsetY="10" BlurRadius="20" ShadowOpacity=".2" Grid.Row="1" HorizontalAlignment="Center" Margin="5" Name="ContainerShadow">
          
-                <Grid x:Name="AccountOverviewDetails" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{StaticResource FormBackground}" >
+                <Grid x:Name="AccountOverviewDetails" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{StaticResource FormBackground}">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <StackPanel MinWidth="500" Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
@@ -44,19 +50,57 @@
                         <TextBlock FontFamily="CascadiaMono" Margin="5,0,0,0" FontSize="20" FontWeight="ExtraBold"  Text="{x:Bind CurrentSelectedAccount.AccountNumber,Mode=OneWay}"></TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
-                        <TextBlock Text="Your last transaction wasn on " FontSize="16" FontWeight="Light"></TextBlock>
-                        <TextBlock Margin="5,0,0,0" Text="{x:Bind AccountTransactionsViewModel.LastTransactionDate,Mode=OneWay}" FontSize="16" FontWeight="Light"></TextBlock>
+                        <TextBlock Text="Your last transaction was on " FontSize="16" FontWeight="Light"></TextBlock>
+                        <TextBlock Margin="5,0,0,0" Text="{x:Bind AccountTransactionsViewModel.LastTransactionDate,Mode=OneWay}" TextWrapping="Wrap" FontSize="16" FontWeight="Light"></TextBlock>
                     </StackPanel>
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="Total Balance" FontSize="16" FontWeight="Light"></TextBlock>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" >
                         <TextBlock Text="₹" FontSize="20" FontWeight="Bold"></TextBlock>
                         <TextBlock Text="{x:Bind CurrentSelectedAccount.TotalBalance,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
                     </StackPanel>
-      
-        </Grid>
+                    
+                <!--showing details-->
+
+                <NavigationViewItemSeparator Grid.Row="2" Grid.ColumnSpan="2" Margin="5"></NavigationViewItemSeparator>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="3" >
+                    <TextBlock Margin="5" HorizontalAlignment="Stretch" Grid.Column="0" FontSize="16" Text="Account Type :"></TextBlock>
+                    <TextBlock  Margin="5" HorizontalAlignment="Stretch"  FontSize="16"  Text="{x:Bind CurrentSelectedAccount.AccountType,Mode=OneWay}"></TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="4" >
+                    <TextBlock  Margin="5" Grid.Row="4" FontSize="16"  Text="Branch ID :"></TextBlock>
+                    <TextBlock  Margin="5" Grid.Row="4" Grid.Column="1" FontSize="16" Text="{x:Bind CurrentSelectedAccount.BId,Mode=OneWay}"></TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="5" >
+                    <TextBlock Grid.Row="4" FontSize="16" Margin="5" Text="Branch Name :"></TextBlock>
+                        <TextBlock Grid.Row="4" Grid.Column="1"  Margin="5" FontSize="16" Text="{x:Bind GetBranchDetailsViewModel.BName,Mode=OneWay}"></TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="6" >
+                    <TextBlock Grid.Row="5" FontSize="16"  Margin="5" Text="Branch City :"></TextBlock>
+                        <TextBlock Grid.Row="5" Grid.Column="1" FontSize="16" Margin="5" Text="{x:Bind GetBranchDetailsViewModel.City,Mode=OneWay}"></TextBlock>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" Grid.Row="7" >
+                    <TextBlock Grid.Row="6"  FontSize="16" Text="IFSC Code :"  Margin="5"></TextBlock>
+                        <TextBlock  Grid.Row="6" Grid.Column="1" FontSize="16" Margin="5" Text="{x:Bind GetBranchDetailsViewModel.IfscCode,Mode=OneWay}"></TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="8" >
+                    <TextBlock Grid.Row="7"  FontSize="16" Text="Currency :"  Margin="5"></TextBlock>
+                    <TextBlock  Grid.Row="7" Grid.Column="1" FontSize="16" Margin="5" Text="{x:Bind CurrentSelectedAccount.Currency,Mode=OneWay}"></TextBlock>
+                </StackPanel>
+
+
+
+            </Grid>
         </controls:DropShadowPanel>
-        
-        <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="700" Margin="5" >
+       
+
+        <Grid Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="700" Margin="5"  Padding="30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -94,45 +138,6 @@
                 </StackPanel>
             </Grid>
         </Grid>
-
-            <controls:DropShadowPanel Grid.Row="3" Color="Black" OffsetX="10" OffsetY="10" BlurRadius="20" ShadowOpacity=".2" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5" Name="ContainerShadow2" >
-
-                <Grid Style="{StaticResource FormBackground}" HorizontalAlignment="Stretch">
-                      <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch" >
-                        <TextBlock FontSize="16" Text="Account Type :"></TextBlock>
-                        <TextBlock  FontSize="16" Margin="5,0,0,0" Text="{x:Bind CurrentSelectedAccount.AccountType,Mode=OneWay}"></TextBlock>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                        <TextBlock FontSize="16"  Text="Branch ID :"></TextBlock>
-                        <TextBlock  FontSize="16" Margin="5,0,0,0" Text="{x:Bind CurrentSelectedAccount.BId,Mode=OneWay}"></TextBlock>
-                    </StackPanel>
-                    <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                        <TextBlock  FontSize="16" Text="Branch Name :"></TextBlock>
-                        <TextBlock  FontSize="16" Margin="5,0,0,0" Text="asdfaskdm"></TextBlock>
-                    </StackPanel>
-                    <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                        <TextBlock  FontSize="16" Text="Branch City :"></TextBlock>
-                        <TextBlock  FontSize="16" Margin="5,0,0,0" Text="asdfaskdm"></TextBlock>
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                        <TextBlock  FontSize="16" Text="IFSC Code :"></TextBlock>
-                        <TextBlock  FontSize="16" Margin="5,0,0,0" Text="AFE$$@1231"></TextBlock>
-                    </StackPanel>
-                    <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                        <TextBlock  FontSize="16" Text="Currency :"></TextBlock>
-                        <TextBlock  FontSize="16" Margin="5,0,0,0" Text="{x:Bind CurrentSelectedAccount.Currency,Mode=OneWay}"></TextBlock>
-                    </StackPanel>
-                </Grid>
-            </controls:DropShadowPanel>
-       
     </Grid>
+    </ScrollViewer>
 </Page>

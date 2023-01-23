@@ -125,7 +125,7 @@
     <Compile Include="ViewModel\DeletePayeeViewModel.cs" />
     <Compile Include="ViewModel\GetAllAccountsViewModel.cs" />
     <Compile Include="ViewModel\GetAllPayeeViewModel.cs" />
-    <Compile Include="ViewModel\GetBranchDetails.cs" />
+    <Compile Include="ViewModel\GetBranchDetailsViewModel.cs" />
     <Compile Include="ViewModel\LoginBaseViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\NotifyPropertyBase.cs" />

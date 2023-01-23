@@ -103,6 +103,8 @@ namespace Library.Data.DataManager
         string GetUserName(String userId);
         void CreateCredential(Credentials cred);
 
+        Branch GetBranchDetails(String BId);
+
     }
     public interface INetHandler
     {

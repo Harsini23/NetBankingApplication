@@ -34,9 +34,7 @@ namespace NetBankingApplication.View.UserControls
         PresenterService GetAllAccountsVMserviceProviderInstance;
         private string userId;
         Dictionary<int, AppWindow> appWindows = new Dictionary<int, AppWindow>();
-        // public List<AppWindow> appWindows = new List<AppWindow>();
-        // Dictionary<int, int> appWindowList = new Dictionary<int, int>();
-
+     
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -53,10 +51,6 @@ namespace NetBankingApplication.View.UserControls
             GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
             GetAllAccountsViewModel.GetAllAccounts(userId);
             Bindings.Update();
-        }
-        public AllAccountsPreview()
-        {
-
         }
         private async void DisplayFullAccountDetails_Click_1(object sender, RoutedEventArgs e)
         {
@@ -75,25 +69,12 @@ namespace NetBankingApplication.View.UserControls
 
           
            var button = sender as Button;
-        //   button.IsEnabled = false;
-
             var item = button.DataContext;
-
-            // Get the container of the item
             var container = AllTransactionListView.ContainerFromItem(item);
-
-            // Get the index of the item
             var index = AllTransactionListView.IndexFromContainer(container);
-
             await GoToOpenPage(selectedAccountDetails,index);
 
         }
-
-        //public void DisableButton( )
-        //{
-        //    AllTransactionListView.
-        //}
-
 
         public  async Task GoToOpenPage(AccountBobj selectedAccountDetails,int buttonIndex)
         {
@@ -109,40 +90,14 @@ namespace NetBankingApplication.View.UserControls
                 ElementCompositionPreview.SetAppWindowContent(appWindow, OpenPage1);
                 await appWindow.TryShowAsync();
 
-                // await appWindow.TryShowAsync();
             }
             else
             {
                 await appWindow.TryShowAsync();
             }
-            //AppWindow appWindow = await AppWindow.TryCreateAsync();
-          //  appWindows.Add(appWindow);
-          //  appWindowList.Add(appWindows.IndexOf(appWindow), buttonIndex);
-            //appWindow.Closed += AppWindow_Closed;
-          
-          
 
         }
-        //private void AppWindow_Closed(AppWindow sender, object args)
-        //{
-        //    int index = appWindows.IndexOf(sender);
-        //    foreach (var appWindow in appWindowList)
-        //    {
-        //        if (appWindow.Key == index)
-        //        {
-        //            var val = appWindow.Value;
-        //            var container = AllTransactionListView.ContainerFromIndex(val) as FrameworkElement;
-        //            if (container != null)
-        //            {
-        //                var button = container.FindName("DisplayFullAccountDetails") as Button;
-        //                if (button != null)
-        //                {
-        //                    button.IsEnabled = true;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+       
         private void AppWindow_Closed(AppWindow sender, object args)
         {
 
@@ -154,7 +109,6 @@ namespace NetBankingApplication.View.UserControls
                 appWindows.Remove(key);
             }
 
-           // appWindows.RemoveWhere(x => x.Value == sender);
         }
 
 

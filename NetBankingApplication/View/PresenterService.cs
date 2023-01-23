@@ -39,6 +39,7 @@ namespace NetBankingApplication.View
             services.AddSingleton<AccountTransactionsBaseViewModel,AccountTransactionsViewModel>();
             services.AddSingleton<AddUserBaseViewModel,AddUserViewModel>();
             services.AddSingleton<DeletePayeeBaseViewModel, DeletePayeeViewModel>();
+            services.AddSingleton<GetBranchDetailsBaseViewModel, GetBranchDetailsViewModel>();
 
             //services.AddSingleton<IUserProfileViewModel, UserProfileViewModel>();
             return services.BuildServiceProvider();
