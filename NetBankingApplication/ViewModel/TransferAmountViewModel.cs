@@ -47,6 +47,7 @@ namespace NetBankingApplication.ViewModel
         {
             //TransferAmountViewModel.ResultText = response.Response.ToString();
             var currentTransaction = response.Data.transaction;
+            TransferAmountViewModel.ResultStatus = response.Response;
             TransferAmountViewModel.AmountTransfered = currentTransaction.Amount;
             TransferAmountViewModel.TransactionIdValue = currentTransaction.TransactionId;
             TransferAmountViewModel.DateTime = currentTransaction.Date;
@@ -57,6 +58,7 @@ namespace NetBankingApplication.ViewModel
             if (currentTransaction.Status)
             {
                 TransferAmountViewModel.Status = "Success";
+                
             }
             else
             {
@@ -176,6 +178,18 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+
+        private string _resultStatus = String.Empty;
+        public string ResultStatus
+        {
+            get { return this._resultStatus; }
+            set
+            {
+                _resultStatus = value;
+                OnPropertyChangedAsync(nameof(ResultStatus));
+                //SetProperty(ref _response, value);
+            }
+        }
 
         public abstract void SendTransaction(AmountTransfer transaction, string userId);
 

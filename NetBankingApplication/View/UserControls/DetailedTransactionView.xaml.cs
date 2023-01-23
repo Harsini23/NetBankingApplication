@@ -34,13 +34,15 @@ namespace NetBankingApplication.View.UserControls
             get {
                 // return this.DataContext as AccountTransactionBObj;
                 Debug.WriteLine(this.DataContext);
+               // Bindings.Update();
                 return _selectedTransaction;
             }
             set
             {
                 this.DataContext = value;
                 _selectedTransaction= value;
-                 //OnPropertyChanged(nameof(SelectedTransaction));
+               // Bindings.Update();
+                //OnPropertyChanged(nameof(SelectedTransaction));
             }
         }
         public DetailedTransactionView()

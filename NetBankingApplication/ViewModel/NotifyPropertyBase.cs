@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 
 namespace NetBankingApplication.ViewModel
 {
@@ -27,6 +29,17 @@ namespace NetBankingApplication.ViewModel
 
                 });
         }
+
+        protected async Task OnViewPropertyChange(string propertyName, CoreDispatcher dispatcher)
+        {
+            CoreApplicationView currentView = CoreApplication.GetCurrentView();
+            await dispatcher?.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+              {
+                  PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+              });
+        }
     }
 }
+       
 
+ 

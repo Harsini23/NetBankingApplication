@@ -111,6 +111,7 @@ namespace NetBankingApplication.View.UserControls
             }
             else
             {
+                ErrorMessage.Text = String.Empty;
 
                 //get transaction fields
                 if (!String.IsNullOrEmpty(NewPayeeName.Text))
@@ -283,8 +284,12 @@ namespace NetBankingApplication.View.UserControls
             var amountBox = (TextBox)sender;
             ErrorMessage.Text = String.Empty;
              _amount = amountBox.Text.ToString();
+            if (_amount == String.Empty)
+            {
+                ErrorMessage.Text = String.Empty;
+            }
 
-            if (!IsFloatOrInt(_amount) || Double.Parse(_amount) <= 0 )
+           else if (!IsFloatOrInt(_amount) || Double.Parse(_amount) <= 0 && !String.IsNullOrEmpty(_amount) )
             {
                 ErrorMessage.Text = "Kindly check and enter valid amount";
                 //MakeTransaction.IsEnabled = false;
@@ -314,11 +319,16 @@ namespace NetBankingApplication.View.UserControls
             {
                 MultipleAccounts.Visibility = Visibility.Visible;
             }
-            else
+            else if(allAccountNumbers.Count==1)
             {
                 SingleAccount.Visibility = Visibility.Visible;
+                if(allAccountNumbers.Count > 0)
                 UserAccountNumber = allAccountNumbers[0];
                 FromAccount = UserAccountNumber;
+            }
+            else
+            {
+                //handle ui reload
             }
             Bindings.Update();
         }

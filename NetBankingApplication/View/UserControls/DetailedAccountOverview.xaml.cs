@@ -87,8 +87,8 @@ namespace NetBankingApplication.View.UserControls
         private void AllTransactionsOnAccountListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             CurrentSelectedTransaction = e.ClickedItem as AccountTransactionBObj;
-            //DetailedTransactionView detailedTransactionView = new DetailedTransactionView();
-            //detailedTransactionView.SelectedTransaction = CurrentSelectedTransaction;
+            DetailedTransactionView detailedTransactionView = new DetailedTransactionView();
+            detailedTransactionView.SelectedTransaction = CurrentSelectedTransaction;
         }
         MenuFlyout selectAccountList;
         private void MenuFlyout_Opening(object sender, object e)

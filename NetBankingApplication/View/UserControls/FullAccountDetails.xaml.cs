@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -31,17 +32,42 @@ namespace NetBankingApplication.View.UserControls
     /// </summary>
     /// 
 
-    public sealed partial class FullAccountDetails : Page, IUpdateBindings
+    public sealed partial class FullAccountDetails : Page, IUpdateBindings,INotifyPropertyChanged
     {
         AccountBobj selectedAccount;
         private string selectedAccountNumber;
         private string selectedUserId;
         private string expense;
+       // private string test;
 
         public Account CurrentSelectedAccount;
 
         private AccountTransactionsBaseViewModel AccountTransactionsViewModel;
         PresenterService AccountTransactionsVMserviceProviderInstance;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        protected async Task OnPropertyChangedAsync(string propertyName)
+        {
+            //await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+            //    Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            //    {
+
+            //    });
+            var myView =  CoreApplication.GetCurrentView();
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+            //await myView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            //{
+               
+            //});
+        }
+
+        // Set the data context for the new view
+     
+
 
         public FullAccountDetails()
         {
@@ -51,13 +77,14 @@ namespace NetBankingApplication.View.UserControls
 
            // AccountTransactionsViewModel.GetAllTransactions(selectedAccountNumber, selectedUserId);
             Bindings.Update();
+            this.DataContextChanged += (s, e) => this.Bindings.Update();
             //Debug.WriteLine(AccountTransactionsViewModel.AllSortedAccountTransactions);
 
         }
-        private void PopulateData()
+        private async void PopulateData()
         {
             expense=AccountTransactionsViewModel.CurrentMonthExpense;
-            //Bindings.Update();
+             //   Bindings.Update();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -67,29 +94,58 @@ namespace NetBankingApplication.View.UserControls
             CurrentSelectedAccount= selectedAccount.Account;
             selectedAccountNumber = selectedAccount.Account.AccountNumber.ToString();
             selectedUserId = selectedAccount.UserId;
-            AccountTransactionsViewModel.updateBindingInstance = this;
+           AccountTransactionsViewModel.updateBindingInstance = this;
             AccountTransactionsViewModel.GetAllTransactions(selectedAccountNumber, selectedUserId);
+
+            AccountTransactionsViewModel._dispatcher = selectedAccount._dispatcher;
             PopulateData();
            // this.DataContextChanged += (s, e) => Bindings.Update();
             Bindings.Update();
+
+
         }
 
-        public async Task updateBindingsAsync()
-        {
-            PopulateData();
+        //public async Task updateBindingsAsync()
+        //{
+        //    PopulateData();
 
-            //int currentViewId = ApplicationView.GetForCurrentView().Id;
+        //    //int currentViewId = ApplicationView.GetForCurrentView().Id;
            
-            //if (currentViewId != null)
+        //    //if (currentViewId != null)
+        //    //{
+        //    //    // Use the Dispatcher to access the new window's UI thread
+        //    //    await currentViewId.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+        //    //    {
+        //    //        // Update the bindings
+        //    //        Bindings.Update();
+        //    //    });
+        //    //}
+        //    // Bindings.Update();
+        //}
+
+        async Task IUpdateBindings.updateBindingsAsync()
+        {
+            //PopulateData();
+            //CoreApplicationView targetView = CoreApplication.GetCurrentView();
+            //await targetView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             //{
-            //    // Use the Dispatcher to access the new window's UI thread
-            //    await currentViewId.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            //    {
-            //        // Update the bindings
-            //        Bindings.Update();
-            //    });
-            //}
-            // Bindings.Update();
+             test=AccountTransactionsViewModel.CurrentMonthExpense;
+                this.Bindings.Update();
+            Debug.WriteLine("");
+                // Update the target view here
+            //});
+
+        }
+        private string _test = String.Empty;
+        public string test
+        {
+            get { return this._test; }
+            set
+            {
+                _test = value;
+                OnPropertyChangedAsync(nameof(test));
+                //SetProperty(ref _response, value);
+            }
         }
 
 

@@ -54,6 +54,7 @@ namespace NetBankingApplication.View.UserControls
                 IfscCode.Text = String.Empty;
                 BankName.Text = String.Empty;
                 ErrorMessage.Text= String.Empty;
+
             }
         }
 

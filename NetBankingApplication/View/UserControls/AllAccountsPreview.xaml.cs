@@ -9,6 +9,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -51,33 +52,53 @@ namespace NetBankingApplication.View.UserControls
 
         private async void DisplayFullAccountDetails_Click_1(object sender, RoutedEventArgs e)
         {
-            var selectedItem = (sender as FrameworkElement).DataContext;
+                var selectedItem = (sender as FrameworkElement).DataContext;
 
-            // Use the selected item as needed
-            var account = selectedItem as Account;
-            var selectedAccountDetails = new AccountBobj
-            {
-                Account = account,
-                UserId = userId
-            };
+                // Use the selected item as needed
+                var account = selectedItem as Account;
+            var Account = new Account();
+            Account = account;
+              
 
             var myView = CoreApplication.CreateNewView();
             //can overload
             int newViewId = 0;
-
-            await myView.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            Frame newFrame=null;
+           
+        await myView.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
-                Frame newFrame = new Frame();
+                newFrame = new Frame();
                 newFrame.Content = myView;
+                var selectedAccountDetails = new AccountBobj
+                {
+                    Account = Account,
+                    UserId = userId,
+                    _dispatcher = myView.Dispatcher,
+                };
                 newFrame.Navigate(typeof(FullAccountDetails), selectedAccountDetails);//object parameter
                 Window.Current.Content = newFrame;
                 Window.Current.Activate();
-              
                 newViewId = ApplicationView.GetForCurrentView().Id;
 
             });
 
+          
+
+
+
+
             await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId, ViewSizePreference.UseMinimum);
+
+            CoreApplicationView targetView = CoreApplication.GetCurrentView();
+            await targetView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                //BindingOperations.UpdateAll();
+                //var binding = myTextBlock.GetBindingExpression(TextBlock.TextProperty);
+                //binding.UpdateTarget();
+            });
+
         }
+
+
     }
 }

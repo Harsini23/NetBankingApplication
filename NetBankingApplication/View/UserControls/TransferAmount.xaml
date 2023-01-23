@@ -97,40 +97,47 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <StackPanel HorizontalAlignment="Center" Margin="10">
                         <TextBlock FontSize="20"  FontWeight="Bold" HorizontalAlignment="Center" Text="{x:Bind TransferAmountViewModel.Status,Mode=OneWay}" Margin="5"  x:Name="Transaction_status"></TextBlock>
-                        <TextBlock FontWeight="ExtraLight" FontSize="14"  Text="Please find below the transaction receipt" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                    </StackPanel>
+                        <TextBlock FontWeight="Medium" FontSize="14"  Text="{x:Bind TransferAmountViewModel.ResultStatus,Mode=OneWay}"  HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                    </StackPanel> 
                     <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock Text="Transaction Reference Number:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Transaction Reference Number :" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         <TextBlock x:Name="TransactionId" Margin="10,0,0,0" Text="{x:Bind TransferAmountViewModel.TransactionIdValue,Mode=OneWay}"  FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                     <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBlock Text="Transaction Date:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Transaction Date :" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                         <TextBlock x:Name="TransactionDate" Text="{x:Bind TransferAmountViewModel.DateTime,Mode=OneWay}"  FontSize="16" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                     <StackPanel Margin="10" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="From Account:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="From Account :" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <TextBlock x:Name="FromAccountNumber" Text="{x:Bind TransferAmountViewModel.FromAccountNumber,Mode=OneWay}"  FontSize="16" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
 
                     </StackPanel>
                     <StackPanel Margin="10" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="To Account:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="To Account :" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <TextBlock x:Name="ToAccountNumber" Text="{x:Bind TransferAmountViewModel.ToAccountNumber,Mode=OneWay}"  FontSize="16" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
-                        <TextBlock x:Name="ToAccountName" Text="{x:Bind TransferAmountViewModel.ToName,Mode=OneWay}" FontSize="16"  HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                     
+                       
                     </StackPanel>
 
                     <StackPanel Margin="10" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBlock Text="Amount Transfered:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="Name :" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock x:Name="ToAccountName" Text="{x:Bind TransferAmountViewModel.ToName,Mode=OneWay}" FontSize="16" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Margin="10" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock Text="Amount :" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         <TextBlock x:Name="AmountTransfered" Margin="10,0,0,0" Text="{x:Bind TransferAmountViewModel.AmountTransfered,Mode=OneWay}" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
-                    <StackPanel Margin="10" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <TextBlock Text="Remark:" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <StackPanel Margin="10" Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock Text="Remark :" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                         <TextBlock x:Name="Remark" Text="{x:Bind TransferAmountViewModel.Remark,Mode=OneWay}" FontSize="16" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
 

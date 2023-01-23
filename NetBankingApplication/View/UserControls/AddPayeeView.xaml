@@ -39,7 +39,7 @@
                     <TextBox Grid.Row="4" Style="{StaticResource InputFieldTextBox}" InputScope="Number" Header="Enter Account Number" PlaceholderText="Account number" x:Name="Accountnumber" BeforeTextChanging="TextBox_OnBeforeTextChanging" />
                     <TextBox Grid.Row="5" Style="{StaticResource InputFieldTextBox}" Header="IFSC Code" PlaceholderText="IFSC code" x:Name="IfscCode" />
 
-                    <TextBlock Grid.Row="6" x:Name="ErrorMessage" Style="{StaticResource FailureText}"></TextBlock>
+                    <TextBlock Grid.Row="6" x:Name="ErrorMessage" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <Button  Grid.Row="7" x:Name="AddPayee" Content="Add Payee" Style="{StaticResource ButtonStyling}" Click="AddPayee_Click"></Button>
 
                 </Grid>

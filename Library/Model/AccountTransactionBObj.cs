@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 
 namespace Library.Model
 {
@@ -35,6 +36,8 @@ namespace Library.Model
     {
         public string UserId { get; set; }
         public Account Account { get; set; }
+
+        public CoreDispatcher _dispatcher { get; set; }
 
         public AccountBobj()
         {

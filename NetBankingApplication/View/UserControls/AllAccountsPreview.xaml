@@ -43,14 +43,14 @@
                                 <ColumnDefinition   Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Margin="5" Grid.Row="0" HorizontalAlignment="Left" Text="Account Number " Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
-                            <TextBlock Margin="5" Grid.Row="0" Grid.Column="1" Text="{x:Bind AccountNumber }"  Style="{StaticResource BasicTextBlock}" TextWrapping="Wrap" HorizontalAlignment="Left"></TextBlock>
+                            <TextBlock Margin="5" Grid.Row="0" HorizontalAlignment="Stretch" Text="Account Number " Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
+                            <TextBlock Margin="5" Grid.Row="0" Grid.Column="1" Text="{x:Bind AccountNumber }"  Style="{StaticResource BasicTextBlock}" TextWrapping="Wrap" HorizontalAlignment="Stretch"></TextBlock>
 
-                            <TextBlock Margin="5" Grid.Row="1" HorizontalAlignment="Left" Text="Account Type" Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
-                            <TextBlock Margin="5"  Grid.Row="1" Grid.Column="1" Text="{x:Bind AccountType}" TextWrapping="Wrap" Style="{StaticResource BasicTextBlock}" HorizontalAlignment="Left" ></TextBlock>
+                            <TextBlock Margin="5" Grid.Row="1" HorizontalAlignment="Stretch" Text="Account Type" Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
+                            <TextBlock Margin="5"  Grid.Row="1" Grid.Column="1" Text="{x:Bind AccountType}" TextWrapping="Wrap" Style="{StaticResource BasicTextBlock}" HorizontalAlignment="Stretch" ></TextBlock>
                             
-                            <TextBlock Margin="5" Grid.Row="2" HorizontalAlignment="Left" Text="Available Balance " Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
-                            <TextBlock Margin="5" Grid.Row="2" Grid.Column="1"  Text="{x:Bind TotalBalance.ToString()}"  Style="{StaticResource BasicTextBlock}" TextWrapping="Wrap" HorizontalAlignment="Left"></TextBlock>
+                            <TextBlock Margin="5" Grid.Row="2" HorizontalAlignment="Stretch" Text="Available Balance " Style="{StaticResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
+                            <TextBlock Margin="5" Grid.Row="2" Grid.Column="1"  Text="{x:Bind TotalBalance.ToString()}"  Style="{StaticResource BasicTextBlock}" TextWrapping="Wrap" HorizontalAlignment="Stretch"></TextBlock>
 
                         </Grid>
                         <NavigationViewItemSeparator Grid.Row="1"></NavigationViewItemSeparator>
