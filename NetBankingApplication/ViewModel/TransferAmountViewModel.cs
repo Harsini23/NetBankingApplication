@@ -20,6 +20,7 @@ namespace NetBankingApplication.ViewModel
         {
             transfer = new TransferAmountUseCase(new TransferAmountRequest(transaction, userId), new PresenterTransferAmountCallback(this));
             transfer.Execute();
+            //notify account transaction changes
         }
     }
 

@@ -37,8 +37,6 @@ namespace Library.Model
         public string UserId { get; set; }
         public Account Account { get; set; }
 
-        public CoreDispatcher _dispatcher { get; set; }
-
         public AccountBobj()
         {
 

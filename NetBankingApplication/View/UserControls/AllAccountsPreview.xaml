@@ -77,7 +77,7 @@
                             <TextBlock Margin="5" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Text="{x:Bind Currency}" TextWrapping="Wrap" Style="{StaticResource BasicTextBlock}" ></TextBlock>
                         </Grid>-->
                         <Grid Grid.Row="2">
-                            <Button Content="View More Details" Name="DisplayFullAccountDetails" Click="DisplayFullAccountDetails_Click_1" Style="{StaticResource ButtonStyling}" ></Button>
+                            <Button Content="View More Details" x:Name="DisplayFullAccountDetails" Click="DisplayFullAccountDetails_Click_1" Style="{StaticResource ButtonStyling}" ></Button>
                         </Grid>
 
                     </Grid>

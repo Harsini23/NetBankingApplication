@@ -95,26 +95,6 @@ namespace NetBankingApplication.ViewModel
                   AccountTransactionsViewModel.CurrentMonthIncomeTransactionCount = incomeCount.ToString();
                   AccountTransactionsViewModel.LastTransactionDate = recentTransactionDate.ToString();
 
-                  AccountTransactionsViewModel?.updateBindingInstance?.updateBindingsAsync();
-
-
-              });
-
-            //CoreApplicationView currentView = CoreApplication.GetCurrentView();
-            //await currentView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            //{
-            //    AccountTransactionsViewModel.updateBindingInstance.updateBindingsAsync();
-            //    // BindingOperations.GetBindingExpression(myTextBlock, TextBlock.TextProperty).Update();
-            //});
-          
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-              {
-                  AccountTransactionsViewModel.updateBindingInstance?.updateBindingsAsync();
-                  // Perform UI-related work here
-                  // like updating bindings, access UI elements and so on
-                  // Bindings.Update();
-                  //newViewId = ApplicationView.GetForCurrentView().Id;
               });
 
 
@@ -126,15 +106,53 @@ namespace NetBankingApplication.ViewModel
         public ObservableCollection<AccountTransactionBObj> AllSortedAccountTransactions = new ObservableCollection<AccountTransactionBObj>();
         public abstract void GetAllTransactions(string accountno,string userid);
 
-        public CoreDispatcher _dispatcher { get; set; }
-
         public Account AccountDetails;
         //public string CurrentMonthExpense { get; set; }
-        public string CurrentMonthIncome { get; set; }
-        public string CurrentMonthExpenseTransactionCount { get; set; }
-        public string CurrentMonthIncomeTransactionCount { get; set; }
+       // public string CurrentMonthIncome { get; set; }
+        //public string CurrentMonthExpenseTransactionCount { get; set; }
+        //public string CurrentMonthIncomeTransactionCount { get; set; }
 
-        public string LastTransactionDate { get; set; }
+        private string _currentMonthIncomeTransactionCount = String.Empty;
+        public string CurrentMonthIncomeTransactionCount
+        {
+            get { return this._currentMonthIncomeTransactionCount; }
+            set
+            {
+                _currentMonthIncomeTransactionCount = value;
+                OnPropertyChangedAsync(nameof(CurrentMonthIncomeTransactionCount));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+        private string _currentMonthExpenseTransactionCount = String.Empty;
+        public string CurrentMonthExpenseTransactionCount
+        {
+            get { return this._currentMonthExpenseTransactionCount; }
+            set
+            {
+                _currentMonthExpenseTransactionCount = value;
+                OnPropertyChangedAsync(nameof(CurrentMonthExpenseTransactionCount));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+
+        //public string LastTransactionDate { get; set; }
+
+        private string _lastTransactionDate = String.Empty;
+        public string LastTransactionDate
+        {
+            get { return this._lastTransactionDate; }
+            set
+            {
+                _lastTransactionDate = value;
+                OnPropertyChangedAsync(nameof(LastTransactionDate));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+
+
 
         private string _currentMonthExpense = String.Empty;
         public string CurrentMonthExpense
@@ -143,18 +161,25 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _currentMonthExpense = value;
-                OnViewPropertyChange(nameof(CurrentMonthExpense), _dispatcher);
+                OnPropertyChangedAsync(nameof(CurrentMonthExpense));
                 //SetProperty(ref _response, value);
             }
         }
 
-       // private string _currentMonthExpense;
+        private string _currentMonthIncome = String.Empty;
+        public string CurrentMonthIncome
+        {
+            get { return this._currentMonthIncome; }
+            set
+            {
+                _currentMonthIncome = value;
+                OnPropertyChangedAsync(nameof(CurrentMonthIncome));
+                //SetProperty(ref _response, value);
+            }
+        }
 
-        public IUpdateBindings updateBindingInstance { get; set; }
+
     }
 
-    public interface IUpdateBindings
-    {
-        Task updateBindingsAsync();
-    }
+   
 }

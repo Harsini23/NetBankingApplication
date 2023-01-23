@@ -32,7 +32,7 @@ namespace NetBankingApplication.View.UserControls
     /// </summary>
     /// 
 
-    public sealed partial class FullAccountDetails : Page, IUpdateBindings,INotifyPropertyChanged
+    public sealed partial class FullAccountDetails : Page
     {
         AccountBobj selectedAccount;
         private string selectedAccountNumber;
@@ -45,29 +45,6 @@ namespace NetBankingApplication.View.UserControls
         private AccountTransactionsBaseViewModel AccountTransactionsViewModel;
         PresenterService AccountTransactionsVMserviceProviderInstance;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-        protected async Task OnPropertyChangedAsync(string propertyName)
-        {
-            //await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-            //    Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            //    {
-
-            //    });
-            var myView =  CoreApplication.GetCurrentView();
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-            //await myView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            //{
-               
-            //});
-        }
-
-        // Set the data context for the new view
-     
-
 
         public FullAccountDetails()
         {
@@ -75,16 +52,8 @@ namespace NetBankingApplication.View.UserControls
             AccountTransactionsVMserviceProviderInstance = PresenterService.GetInstance();
             AccountTransactionsViewModel = AccountTransactionsVMserviceProviderInstance.Services.GetService<AccountTransactionsBaseViewModel>();
 
-           // AccountTransactionsViewModel.GetAllTransactions(selectedAccountNumber, selectedUserId);
             Bindings.Update();
-            this.DataContextChanged += (s, e) => this.Bindings.Update();
-            //Debug.WriteLine(AccountTransactionsViewModel.AllSortedAccountTransactions);
-
-        }
-        private async void PopulateData()
-        {
-            expense=AccountTransactionsViewModel.CurrentMonthExpense;
-             //   Bindings.Update();
+         
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -94,64 +63,11 @@ namespace NetBankingApplication.View.UserControls
             CurrentSelectedAccount= selectedAccount.Account;
             selectedAccountNumber = selectedAccount.Account.AccountNumber.ToString();
             selectedUserId = selectedAccount.UserId;
-           AccountTransactionsViewModel.updateBindingInstance = this;
+          
             AccountTransactionsViewModel.GetAllTransactions(selectedAccountNumber, selectedUserId);
-
-            AccountTransactionsViewModel._dispatcher = selectedAccount._dispatcher;
-            PopulateData();
-           // this.DataContextChanged += (s, e) => Bindings.Update();
             Bindings.Update();
 
-
         }
-
-        //public async Task updateBindingsAsync()
-        //{
-        //    PopulateData();
-
-        //    //int currentViewId = ApplicationView.GetForCurrentView().Id;
-           
-        //    //if (currentViewId != null)
-        //    //{
-        //    //    // Use the Dispatcher to access the new window's UI thread
-        //    //    await currentViewId.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-        //    //    {
-        //    //        // Update the bindings
-        //    //        Bindings.Update();
-        //    //    });
-        //    //}
-        //    // Bindings.Update();
-        //}
-
-        async Task IUpdateBindings.updateBindingsAsync()
-        {
-            //PopulateData();
-            //CoreApplicationView targetView = CoreApplication.GetCurrentView();
-            //await targetView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            //{
-             test=AccountTransactionsViewModel.CurrentMonthExpense;
-                this.Bindings.Update();
-            Debug.WriteLine("");
-                // Update the target view here
-            //});
-
-        }
-        private string _test = String.Empty;
-        public string test
-        {
-            get { return this._test; }
-            set
-            {
-                _test = value;
-                OnPropertyChangedAsync(nameof(test));
-                //SetProperty(ref _response, value);
-            }
-        }
-
-
-
-
-        //calculate total income and expense of that month on that particular account (credited and debited info)
     }
 
 
