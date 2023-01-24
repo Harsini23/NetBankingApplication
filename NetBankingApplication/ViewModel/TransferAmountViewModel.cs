@@ -14,19 +14,27 @@ namespace NetBankingApplication.ViewModel
 {
     public class TransferAmountViewModel : TransferAmountBaseViewModel
     {
+        public  delegate void ValueChangedEventHandler(string value, string user);
 
         TransferAmountUseCase transfer;
+        public static String userId;
         public override void SendTransaction(AmountTransfer transaction, string userId)
         {
+            userId = userId;
             transfer = new TransferAmountUseCase(new TransferAmountRequest(transaction, userId), new PresenterTransferAmountCallback(this));
             transfer.Execute();
+            //ValueChanged?.Invoke(transaction.FromAccount,userId);
             //notify account transaction changes
         }
     }
 
     public class PresenterTransferAmountCallback : IPresenterTransferAmountCallback
     {
+        
+
         private TransferAmountViewModel TransferAmountViewModel;
+        public static event TransferAmountViewModel.ValueChangedEventHandler ValueChanged;
+
         public PresenterTransferAmountCallback()
         {
 
@@ -59,7 +67,7 @@ namespace NetBankingApplication.ViewModel
             if (currentTransaction.Status)
             {
                 TransferAmountViewModel.Status = "Success";
-                
+                ValueChanged?.Invoke(currentTransaction.FromAccount, TransferAmountViewModel.userId);
             }
             else
             {
@@ -67,8 +75,6 @@ namespace NetBankingApplication.ViewModel
             }
             //Debug.WriteLine(response.Data.transaction.Name, response.Data.transaction.ToAccount);
         }
-
-
 
     }
 

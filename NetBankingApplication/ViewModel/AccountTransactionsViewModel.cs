@@ -18,6 +18,16 @@ namespace NetBankingApplication.ViewModel
      public class AccountTransactionsViewModel : AccountTransactionsBaseViewModel
     {
         AccountTransactions Transaction;
+        public AccountTransactionsViewModel()
+        {
+            PresenterTransferAmountCallback.ValueChanged += TransferAmountViewModel_ValueChanged;
+        }
+
+        private void TransferAmountViewModel_ValueChanged(string value,string user)
+        {
+            GetAllTransactions(value,user);
+        }
+
         public override void GetAllTransactions(string accountId, string userId)
         {
             Transaction = new AccountTransactions(new AccountTransactionsRequest(accountId,userId), new PresenterAccountTransactionsCallback(this));

@@ -128,6 +128,7 @@
     <Compile Include="ViewModel\GetBranchDetailsViewModel.cs" />
     <Compile Include="ViewModel\LoginBaseViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\NotificationService.cs" />
     <Compile Include="ViewModel\NotifyPropertyBase.cs" />
     <Compile Include="ViewModel\OverviewViewModel.cs" />
     <Compile Include="ViewModel\TransactionHistoryViewModel.cs" />
