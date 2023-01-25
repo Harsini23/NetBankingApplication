@@ -70,13 +70,8 @@ namespace NetBankingApplication.ViewModel
             double income = 0, expense = 0;
             int incomeCount=0,expenseCount=0;
             var SortedTransactionList = TransactionList.OrderByDescending(i => DateTime.Parse(i.DateOfTransaction));
-            String recentTransactionDate="";
-
-            if (TransactionList.Count > 0)
-            {
-                recentTransactionDate = TransactionList[0].DateOfTransaction;
-            }
-
+            String recentTransactionDate=SortedTransactionList.FirstOrDefault().DateOfTransaction.ToString();
+           
             foreach(var i in SortedTransactionList)
             {
                 if (i.TransactionType == Library.Model.Enum.TransactionType.Debited)
@@ -116,7 +111,19 @@ namespace NetBankingApplication.ViewModel
         public ObservableCollection<AccountTransactionBObj> AllSortedAccountTransactions = new ObservableCollection<AccountTransactionBObj>();
         public abstract void GetAllTransactions(string accountno,string userid);
 
-        public Account AccountDetails;
+        private Account _accountDetails;
+        public Account AccountDetails
+        {
+            get
+            {
+                return this._accountDetails;
+            }
+            set
+            {
+                _accountDetails= value;
+                OnPropertyChangedAsync(nameof(AccountDetails));
+            }
+        }
         //public string CurrentMonthExpense { get; set; }
        // public string CurrentMonthIncome { get; set; }
         //public string CurrentMonthExpenseTransactionCount { get; set; }

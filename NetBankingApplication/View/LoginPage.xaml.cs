@@ -33,6 +33,8 @@ namespace NetBankingApplication.View
         public LoginPage()
         {
             this.InitializeComponent();
+            var coreWindow = Window.Current.CoreWindow;
+            coreWindow.KeyDown += CoreWindow_KeyDown;
 
             LoginVMserviceProviderInstance = PresenterService.GetInstance();
             LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
@@ -45,9 +47,17 @@ namespace NetBankingApplication.View
 
         private void Verify_Click(object sender, RoutedEventArgs e)
         {
-         
-            LoginViewModel.ValidateUserInput(UserId.Text, Password.Password);
-            UserId.Text = ""; Password.Password = "";
+
+            if (UserId.Text == "")
+            {
+                ResultText.Text = "Enter User ID";
+            }
+            else
+            {
+                LoginViewModel.ValidateUserInput(UserId.Text, Password.Password);
+                UserId.Text = ""; Password.Password = "";
+            }
+              
             // should be triggered only when user name pass is verified and for new first time users
             //SwitchToResetPasswordContainer();
         }
@@ -160,5 +170,14 @@ namespace NetBankingApplication.View
         }
 
       
+        private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        {
+            if (args.VirtualKey == Windows.System.VirtualKey.Enter)
+            {
+                if (SubmitLoginDetails.IsEnabled)
+                    Verify_Click(sender,new RoutedEventArgs());
+            }
+        }
+
     }
 }

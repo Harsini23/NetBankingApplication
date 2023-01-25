@@ -17,6 +17,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
+
+    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -38,13 +41,15 @@
             <ColumnDefinition  MinWidth="400" MaxWidth="500" />
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid>
+            </Grid.ColumnDefinitions>
+           
+            <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold"></TextBlock>
+             
+                <TextBlock Grid.Row="0" Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold" Name="asdf"></TextBlock>
 
             <ListView Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions,Mode=OneWay}" x:Name="AllTransactionsOnAccountListView"
                       IsItemClickEnabled="True" SelectionMode="Single" ItemClick="AllTransactionsOnAccountListView_ItemClick">
@@ -90,14 +95,7 @@
             </ListView>
         </Grid>
         <!--Column Grid Splitter-->
-            <controls:GridSplitter
-        Grid.Column="1"
-            Width="11"
-        ResizeBehavior="BasedOnAlignment"
-        ResizeDirection="Auto"
-            Background="Gray"
-            Foreground="White"
-            FontSize="13">
+            <controls:GridSplitter x:Name="TransactionGridSplitter" Grid.Column="1" Width="11" ResizeBehavior="BasedOnAlignment" ResizeDirection="Auto" Background="Gray" Foreground="White" FontSize="13">
                 <controls:GridSplitter.Element>
                     <Grid>
                         <TextBlock HorizontalAlignment="Center"
@@ -111,8 +109,8 @@
                 </controls:GridSplitter.Element>
             </controls:GridSplitter>
 
-            <local:DetailedTransactionView DataContext="{x:Bind CurrentSelectedTransaction}" Grid.Column="2"></local:DetailedTransactionView>
-
+            <local:TransactionDetailView Grid.Column="2" x:Name="TransactionDetails"></local:TransactionDetailView>
+            
     </Grid>
 
     </Grid>

@@ -53,6 +53,7 @@ namespace Library.Data.DataManager
                     Amount=i.Amount,
                     DateOfTransaction=i.Date,
                     Initial = UserMapping[i.UserId].Substring(0, 1).ToUpper(),
+                    Transaction=i
                 };
                 allAccountTransactions.Add(trasaction);
             }

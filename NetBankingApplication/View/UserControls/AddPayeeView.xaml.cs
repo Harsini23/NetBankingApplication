@@ -37,7 +37,10 @@ namespace NetBankingApplication.View.UserControls
             Result.Text = "";
 
         }
+        public AddPayeeView()
+        {
 
+        }
         private void AddPayee_Click(object sender, RoutedEventArgs e)
         {
             if (AccountHolderName.Text==String.Empty|| Accountnumber.Text==String.Empty|| IfscCode.Text==String.Empty|| BankName.Text==String.Empty|| PayeeName.Text==String.Empty)

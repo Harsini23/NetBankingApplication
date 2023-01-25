@@ -10,6 +10,6 @@
     d:DesignWidth="400">
 
     <Grid>
-        
+        <TextBlock Text="inetim"></TextBlock>
     </Grid>
 </UserControl>

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Library.Model;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -17,11 +19,22 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class PaymentTransactionOverview : UserControl
+    public sealed partial class TransactionDetailView : UserControl
     {
-        public PaymentTransactionOverview()
+        public AccountTransactionBObj transaction;
+        public TransactionDetailView()
         {
             this.InitializeComponent();
+            this.DataContextChanged += TransactionDetailView_DataContextChanged;
+        }
+
+        private void TransactionDetailView_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+           if(this.DataContext != null)
+            {
+               this.transaction = (AccountTransactionBObj)this.DataContext;
+                Bindings.Update();
+            }
         }
     }
 }

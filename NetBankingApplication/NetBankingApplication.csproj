@@ -165,14 +165,8 @@
     <Compile Include="View\UserControls\CardComponentTemplate.xaml.cs">
       <DependentUpon>CardComponentTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\CustomButtonDesign.xaml.cs">
-      <DependentUpon>CustomButtonDesign.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\UserControls\DetailedAccountOverview.xaml.cs">
       <DependentUpon>DetailedAccountOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UserControls\DetailedTransactionView.xaml.cs">
-      <DependentUpon>DetailedTransactionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\EditPayee.xaml.cs">
       <DependentUpon>EditPayee.xaml</DependentUpon>
@@ -183,6 +177,9 @@
     <Compile Include="View\UserControls\PayeeTemplate.xaml.cs">
       <DependentUpon>PayeeTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\TransactionDetailView.xaml.cs">
+      <DependentUpon>TransactionDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\TransferAmount.xaml.cs">
       <DependentUpon>TransferAmount.xaml</DependentUpon>
     </Compile>
@@ -191,9 +188,6 @@
     </Compile>
     <Compile Include="View\UserControls\PaymentsAndTransfer.xaml.cs">
       <DependentUpon>PaymentsAndTransfer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UserControls\PaymentTransactionOverview.xaml.cs">
-      <DependentUpon>PaymentTransactionOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\TransactionHistory.xaml.cs">
       <DependentUpon>TransactionHistory.xaml</DependentUpon>
@@ -316,15 +310,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserControls\CustomButtonDesign.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\UserControls\DetailedAccountOverview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserControls\DetailedTransactionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -340,6 +326,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControls\TransactionDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControls\TransferAmount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -349,10 +339,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\PaymentsAndTransfer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserControls\PaymentTransactionOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -55,11 +55,25 @@
             </NavigationView.MenuItems>
 
             <NavigationView.PaneFooter>
-                <NavigationViewItem Tapped="Logout_Tapped"  x:Name="Logout" Content="Logout" Tag="Logout" >
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xF3B1;"></FontIcon>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                <StackPanel>
+
+
+                    <NavigationViewItem  Tapped="ThemeChange_Tapped"  Name="ThemeChange" Content="{x:Bind OppositeTheme,Mode=OneWay}">
+                        <NavigationViewItem.Icon>
+                            <FontIcon x:Name="IconImg" Glyph="{x:Bind OppositeThemeIcon}"></FontIcon>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+
+
+                    <NavigationViewItem Tapped="Logout_Tapped"  x:Name="Logout" Content="Logout" Tag="Logout" >
+                        <NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xF3B1;"></FontIcon>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                 
+                </StackPanel>
+               
+               
 
             </NavigationView.PaneFooter>
 

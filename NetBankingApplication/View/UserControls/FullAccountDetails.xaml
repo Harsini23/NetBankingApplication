@@ -47,7 +47,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel MinWidth="500" Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
                         <TextBlock Text="Account No: " HorizontalAlignment="Left" FontSize="20" FontWeight="ExtraBold" FontFamily="CascadiaMono"></TextBlock>
-                        <TextBlock FontFamily="CascadiaMono" Margin="5,0,0,0" FontSize="20" FontWeight="ExtraBold"  Text="{x:Bind CurrentSelectedAccount.AccountNumber,Mode=OneWay}"></TextBlock>
+                        <TextBlock FontFamily="CascadiaMono" Margin="5,0,0,0" FontSize="20" FontWeight="ExtraBold"  Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountNumber,Mode=OneWay}"></TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
                         <TextBlock Text="Your last transaction was on " FontSize="16" FontWeight="Light"></TextBlock>
@@ -56,7 +56,7 @@
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="Total Balance" FontSize="16" FontWeight="Light"></TextBlock>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" >
                         <TextBlock Text="₹" FontSize="20" FontWeight="Bold"></TextBlock>
-                        <TextBlock Text="{x:Bind CurrentSelectedAccount.TotalBalance,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
+                        <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.TotalBalance,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
                     </StackPanel>
                     
                 <!--showing details-->
@@ -65,12 +65,12 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="3" >
                     <TextBlock Margin="5" HorizontalAlignment="Stretch" Grid.Column="0" FontSize="16" Text="Account Type :"></TextBlock>
-                    <TextBlock  Margin="5" HorizontalAlignment="Stretch"  FontSize="16"  Text="{x:Bind CurrentSelectedAccount.AccountType,Mode=OneWay}"></TextBlock>
+                        <TextBlock  Margin="5" HorizontalAlignment="Stretch"  FontSize="16"  Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountType,Mode=OneWay}"></TextBlock>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="4" >
                     <TextBlock  Margin="5" Grid.Row="4" FontSize="16"  Text="Branch ID :"></TextBlock>
-                    <TextBlock  Margin="5" Grid.Row="4" Grid.Column="1" FontSize="16" Text="{x:Bind CurrentSelectedAccount.BId,Mode=OneWay}"></TextBlock>
+                        <TextBlock  Margin="5" Grid.Row="4" Grid.Column="1" FontSize="16" Text="{x:Bind AccountTransactionsViewModel.AccountDetails.BId,Mode=OneWay}"></TextBlock>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="5" >
@@ -91,7 +91,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="8" >
                     <TextBlock Grid.Row="7"  FontSize="16" Text="Currency :"  Margin="5"></TextBlock>
-                    <TextBlock  Grid.Row="7" Grid.Column="1" FontSize="16" Margin="5" Text="{x:Bind CurrentSelectedAccount.Currency,Mode=OneWay}"></TextBlock>
+                        <TextBlock  Grid.Row="7" Grid.Column="1" FontSize="16" Margin="5" Text="{x:Bind AccountTransactionsViewModel.AccountDetails.Currency,Mode=OneWay}"></TextBlock>
                 </StackPanel>
 
 
