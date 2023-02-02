@@ -46,9 +46,9 @@
                         <FontIcon Glyph="&#xE724;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem  x:Name="CardAndLoans" Content="Card and Loans" Tag="CardAndLoans" >
+                <NavigationViewItem  x:Name="Settings" Content="Settings" Tag="Settings" >
                     <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE8C7;"></FontIcon>
+                        <FontIcon Glyph="&#xE115;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 

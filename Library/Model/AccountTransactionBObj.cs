@@ -16,7 +16,6 @@ namespace Library.Model
         public double Amount { get; set; }
         public string DateOfTransaction { get; set; }
         public string Initial { get; set; }
-
         public Transaction Transaction { get; set; }
 
         public AccountTransactionBObj(string userName, string accountNumber, TransactionType transactionType, double amount, string dateOfTransaction, string initial)

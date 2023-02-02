@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:data="using:Library.Model" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
+    SizeChanged="Page_SizeChanged"
     Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -38,18 +39,21 @@
    
         <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.ColumnDefinitions>
-            <ColumnDefinition  MinWidth="400" MaxWidth="500" />
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="*" />
+                <ColumnDefinition  MinWidth="400" MaxWidth="520" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-           
-            <Grid>
+
+            <Grid x:Name="TransactionListings" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-             
-                <TextBlock Grid.Row="0" Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold" Name="asdf"></TextBlock>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Button Content="&#xE830;" FontFamily="Segoe MDL2 Assets" Visibility="Collapsed" x:Name="BackToList" Click="BackToList_Click"></Button>
+                    <TextBlock Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold" Name="asdf"></TextBlock>
+                </StackPanel>
 
             <ListView Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions,Mode=OneWay}" x:Name="AllTransactionsOnAccountListView"
                       IsItemClickEnabled="True" SelectionMode="Single" ItemClick="AllTransactionsOnAccountListView_ItemClick">
@@ -108,8 +112,11 @@
                     </Grid>
                 </controls:GridSplitter.Element>
             </controls:GridSplitter>
+            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" x:Name="TransactionDetailGrid" >
+                <local:TransactionDetailView  x:Name="TransactionDetails" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></local:TransactionDetailView>
+            </Grid>
 
-            <local:TransactionDetailView Grid.Column="2" x:Name="TransactionDetails"></local:TransactionDetailView>
+          
             
     </Grid>
 

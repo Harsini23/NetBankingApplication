@@ -140,9 +140,9 @@ namespace NetBankingApplication.View
                 // pageType = typeof(PaymentsAndTransfer);
                 HeaderTitle = "Payment and Transfer";
             }
-            else if (args.SelectedItem == CardAndLoans)
+            else if (args.SelectedItem == Settings)
             {
-                HeaderTitle = "Card and Loans";
+                HeaderTitle = "Settings";
               //  pageType = typeof(CardAndLoans);
             }
             else

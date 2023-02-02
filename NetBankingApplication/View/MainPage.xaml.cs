@@ -66,6 +66,4 @@ namespace NetBankingApplication
         }
     }
 
-  
-
 }

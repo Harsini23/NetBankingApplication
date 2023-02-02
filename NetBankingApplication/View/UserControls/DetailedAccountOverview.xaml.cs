@@ -31,6 +31,8 @@ namespace NetBankingApplication.View.UserControls
     {
 
         public AccountTransactionBObj CurrentSelectedTransaction;
+        private bool _narrowLayout;
+        private bool ItemClicked;
 
         public AccountTransactionBObj SelectedItem;
 
@@ -90,6 +92,16 @@ namespace NetBankingApplication.View.UserControls
         {
             CurrentSelectedTransaction = e.ClickedItem as AccountTransactionBObj;
             TransactionDetails.DataContext = CurrentSelectedTransaction;
+            if (_narrowLayout)
+            {
+                AllTransactionsOnAccountListView.Visibility = Visibility.Collapsed;
+               // TransactionListings.Visibility = Visibility.Collapsed;
+                //Grid.SetColumn(TransactionDetailGrid, 0);
+                //Grid.SetColumnSpan(TransactionDetailGrid, 3);
+                //Grid.SetColumn(TransactionListings, 2);
+
+                //Grid.SetColumn();
+            }
         }
         MenuFlyout selectAccountList;
         private void MenuFlyout_Opening(object sender, object e)
@@ -133,6 +145,39 @@ namespace NetBankingApplication.View.UserControls
             }
             Bindings.Update();
 
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double windowHeight = e.NewSize.Height;
+            double windowWidth = e.NewSize.Width;
+            if(windowHeight<300 || windowWidth < 750)
+            {
+                TransactionGridSplitter.Visibility = Visibility.Collapsed;
+                TransactionDetailGrid.Visibility = Visibility.Collapsed;
+                TransactionDetails.Visibility = Visibility.Collapsed;
+                Grid.SetColumnSpan(TransactionListings, 3);
+                BackToList.Visibility = Visibility.Visible;
+                _narrowLayout = true;
+            }
+            else
+            {
+                TransactionGridSplitter.Visibility = Visibility.Visible;
+                TransactionDetails.Visibility = Visibility.Visible;
+                TransactionDetailGrid.Visibility = Visibility.Visible;
+                Grid.SetColumnSpan(TransactionListings, 1);
+                BackToList.Visibility = Visibility.Collapsed;
+                _narrowLayout = false;
+                Grid.SetColumn(TransactionDetailGrid, 2);
+                AllTransactionsOnAccountListView.Visibility = Visibility.Visible;
+
+            }
+        }
+
+        private void BackToList_Click(object sender, RoutedEventArgs e)
+        {
+            AllTransactionsOnAccountListView.Visibility = Visibility.Visible;
+            Grid.SetColumn(TransactionDetailGrid, 2);
         }
     }
 }

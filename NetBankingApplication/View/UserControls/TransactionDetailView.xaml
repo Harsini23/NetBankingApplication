@@ -9,7 +9,109 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
-        <TextBlock Text="{x:Bind transaction.Amount,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-    </Grid>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Grid.Row="0" Text="Transaction Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20" Margin="5"></TextBlock>
+                <NavigationViewItemSeparator></NavigationViewItemSeparator>
+
+            </StackPanel>
+            <Grid Grid.Row="1" Margin="10,0,0,0" Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock Text="Transaction Type : " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                    <TextBlock Text="{x:Bind transaction.TransactionType}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <TextBlock Text="Date : " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                    <TextBlock Text="{x:Bind transaction.DateOfTransaction}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3">
+                    <TextBlock Text="Amount : " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                    <TextBlock Text="{x:Bind transaction.Amount}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="4">
+                    <TextBlock Text="Remark : " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                    <TextBlock Text="{x:Bind transaction.Transaction.Remark}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"></TextBlock>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2"  Margin="10,0,0,0" Padding="10,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock Text="From Account : " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                </StackPanel>
+               <Grid BorderBrush="Black" BorderThickness="0.7" CornerRadius="10" Padding="10" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <TextBlock Text="Account : " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                        <TextBlock Text="{x:Bind transaction.Transaction.FromAccount}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2">
+                        <TextBlock Text="Name : " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                        <TextBlock Text="{x:Bind transaction.UserName}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"></TextBlock>
+                    </StackPanel>
+                </Grid>
+               
+            </Grid>
+            <Grid Grid.Row="3"  Margin="10,10,0,0" Padding="10,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock Text="To Account : " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                </StackPanel>
+                <Grid BorderBrush="Black" BorderThickness="0.7" CornerRadius="10" Padding="10" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <TextBlock Text="Account : " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                        <TextBlock Text="{x:Bind transaction.Transaction.ToAccount}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2">
+                        <TextBlock Text="Name : " Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" FontWeight="SemiBold"></TextBlock>
+                        <TextBlock Text="{x:Bind transaction.Transaction.Name}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"></TextBlock>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+    </ScrollViewer>
+  
 </UserControl>
+
