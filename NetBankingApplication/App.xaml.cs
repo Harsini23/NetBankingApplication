@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetBankingApplication.View;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,14 +42,14 @@ namespace NetBankingApplication
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
+            
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
-
+              
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
@@ -72,6 +73,7 @@ namespace NetBankingApplication
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+            ThemeSwitch.RegisterElement(rootFrame);//theme switch register
         }
 
         /// <summary>

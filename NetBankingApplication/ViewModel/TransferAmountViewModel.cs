@@ -14,7 +14,7 @@ namespace NetBankingApplication.ViewModel
 {
     public class TransferAmountViewModel : TransferAmountBaseViewModel
     {
-        public  delegate void ValueChangedEventHandler(string value, string user);
+        public delegate void ValueChangedEventHandler(string value, string user);
 
         TransferAmountUseCase transfer;
         public static String userId;

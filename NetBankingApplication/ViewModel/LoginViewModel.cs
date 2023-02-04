@@ -28,6 +28,7 @@ namespace NetBankingApplication.ViewModel
 
         ILoginViewModel loginViewCallback;
         IMainPageNavigation mainPageNavigation;
+        ICloseAllWindows closeAllWindowsCallback;
 
 
         public override void CallUseCase()
@@ -47,6 +48,7 @@ namespace NetBankingApplication.ViewModel
         {
             loginViewCallback = LoginViewModelCallback;
             mainPageNavigation = MainPageNavigationCallback;
+            closeAllWindowsCallback=CloseAllWindowsCallback;
         }
 
         public override void ValidateUserInput(string userId, string password)
@@ -67,6 +69,8 @@ namespace NetBankingApplication.ViewModel
         public override async void Logout()
         {
              LoggingOut();
+            //call allAccountsPreview view to close all new windows
+            this.closeAllWindowsCallback?.closeAllWindows();
         }
 
         private async Task LoggingOut()

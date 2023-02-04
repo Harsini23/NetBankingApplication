@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NetBankingApplication.View.UserControls;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,7 @@ namespace NetBankingApplication.View
             LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
             //setting login view value for callback
             LoginViewModel.LoginViewModelCallback = this;
+            LoginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
 
             LoginViewModel.ResetPasswordResponseValue = String.Empty;
 

@@ -12,8 +12,11 @@ namespace NetBankingApplication.ViewModel
     public class DeletePayeeViewModel : DeletePayeeBaseViewModel
     {
         DeletePayee deleteRecipient;
+        public static String userId;
+        public delegate void ValueChangedEventHandler(string value);
         public override void DeletePayee(Payee payee)
         {
+            userId = payee.UserID;
             deleteRecipient = new DeletePayee(new DeletePayeeRequest(payee.UserID, payee), new PresenterDeletePayeeCallback(this));
             deleteRecipient.Execute();
         }
@@ -22,6 +25,8 @@ namespace NetBankingApplication.ViewModel
     public class PresenterDeletePayeeCallback : IPresenterDeletePayeeCallback
     {
         private DeletePayeeViewModel deletePayeeViewModel;
+        public static event DeletePayeeViewModel.ValueChangedEventHandler ValueChanged;
+
         public PresenterDeletePayeeCallback()
         {
 
@@ -43,6 +48,7 @@ namespace NetBankingApplication.ViewModel
         public void OnSuccess(ZResponse<String> response)
         {
             deletePayeeViewModel.ResponseValue = response.Data.ToString();
+            ValueChanged?.Invoke(DeletePayeeViewModel.userId);
         }
 
     }

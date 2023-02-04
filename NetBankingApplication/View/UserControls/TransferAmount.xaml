@@ -51,15 +51,15 @@
                     </DropDownButton>
                 </StackPanel>
 
-                <TextBox Visibility="Collapsed" Grid.Row="2" Style="{StaticResource InputFieldTextBox}" Header="Enter Name of Recipient"  x:Name="NewPayeeName" TextChanged="NewPayeeName_TextChanged"></TextBox>
+                <TextBox Visibility="Collapsed" Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="Enter Name of Recipient"  x:Name="NewPayeeName" TextChanged="NewPayeeName_TextChanged"></TextBox>
 
-                <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" InputScope="Number" Header="Account Number"  x:Name="AccountNumberTextBox" BeforeTextChanging="TextBox_OnBeforeTextChanging"/>
+                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" InputScope="Number" Header="Account Number"  x:Name="AccountNumberTextBox" BeforeTextChanging="TextBox_OnBeforeTextChanging"/>
 
                 <StackPanel x:Name="MultipleAccounts" Grid.Row="4" Margin="5" Visibility="Collapsed">
                     <TextBlock Text="Select Your Account" FontSize="16" Margin="5"></TextBlock>
-                    <DropDownButton HorizontalAlignment="Left" Name="SelectAccount"   Style="{StaticResource DropdownStyle}" Content="Select From Account"  MinWidth="350" MinHeight="30">
+                    <DropDownButton HorizontalAlignment="Left" Name="SelectAccount"   Style="{ThemeResource DropdownStyle}" Content="Select From Account"  MinWidth="350" MinHeight="30">
                         <DropDownButton.Flyout >
-                            <MenuFlyout x:Name="AccountDropdown"  Opening="AccountDropdown_Opening" Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource MenuFlyoutStyle2}">
+                            <MenuFlyout x:Name="AccountDropdown"  Opening="AccountDropdown_Opening" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource MenuFlyoutStyle2}">
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
@@ -69,12 +69,12 @@
                     <TextBlock Text="{x:Bind UserAccountNumber,Mode=OneWay}" FontSize="16" Margin="5">s</TextBlock>
                 </StackPanel>
 
-                <TextBox Grid.Row="5" Style="{StaticResource InputFieldTextBox}" Header="Remark" x:Name="RemarkTextBox" />
-                <TextBox Grid.Row="6" Style="{StaticResource InputFieldTextBox}" Header="Amount" TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox"/>
+                <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}" Header="Remark" x:Name="RemarkTextBox" />
+                <TextBox Grid.Row="6" Style="{ThemeResource InputFieldTextBox}" Header="Amount" TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox"/>
 
-                <TextBlock Grid.Row="7" Text="{x:Bind TransferAmountViewModel.ResultText,Mode=OneWay}" x:Name="ErrorMessage" Style="{StaticResource FailureText}"></TextBlock>
+                <TextBlock Grid.Row="7" Text="{x:Bind TransferAmountViewModel.ResultText,Mode=OneWay}" x:Name="ErrorMessage" Style="{ThemeResource FailureText}"></TextBlock>
                 
-                <Button Click="MakeTransaction_Click" x:Name="MakeTransaction" Grid.Row="8"  Content="Make Payment" Style="{StaticResource ButtonStyling}">
+                <Button Click="MakeTransaction_Click" x:Name="MakeTransaction" Grid.Row="8"  Content="Make Payment" Style="{ThemeResource ButtonStyling}">
                 </Button>
 
                 <!--<TextBlock Grid.Row="8"  Name="TransactionResult" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>-->

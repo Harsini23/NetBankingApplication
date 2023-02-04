@@ -38,15 +38,11 @@ namespace NetBankingApplication.ViewModel
         }
 
         public ILoginViewModel LoginViewModelCallback { get; set; }
-
-        //
         public IMainPageNavigation MainPageNavigationCallback { get; set; }
-
+        public ICloseAllWindows CloseAllWindowsCallback { get; set; }
         public abstract void ValidateUserInput(string userId, string password);
         public abstract void ResetPassword(string newPassword);
         public abstract void CallUseCase();
-
-
         public abstract void Logout();
     
     }
@@ -66,4 +62,11 @@ namespace NetBankingApplication.ViewModel
         void NavigateToLoginPage();
         //future logout change frame
     }
+
+    public interface ICloseAllWindows
+    {
+        void closeAllWindows();
+    }
+
+   
 }

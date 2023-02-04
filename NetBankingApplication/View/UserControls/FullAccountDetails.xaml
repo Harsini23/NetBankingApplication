@@ -29,7 +29,7 @@
         
         <controls:DropShadowPanel Color="Black" OffsetX="10" OffsetY="10" BlurRadius="20" ShadowOpacity=".2" Grid.Row="1" HorizontalAlignment="Center" Margin="5" Name="ContainerShadow">
          
-                <Grid x:Name="AccountOverviewDetails" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{StaticResource FormBackground}">
+                <Grid x:Name="AccountOverviewDetails" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{ThemeResource FormBackground}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -55,7 +55,7 @@
                     </StackPanel>
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="Total Balance" FontSize="16" FontWeight="Light"></TextBlock>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" >
-                        <TextBlock Text="₹" FontSize="20" FontWeight="Bold"></TextBlock>
+                        <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
                         <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.TotalBalance,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
                     </StackPanel>
                     
@@ -105,7 +105,7 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Name="SpendingsColumn" CornerRadius="20" Style="{StaticResource FormBackground}" Background="AntiqueWhite" HorizontalAlignment="Stretch" MaxWidth="400">
+            <Grid Grid.Column="0" Name="SpendingsColumn" CornerRadius="20" Style="{ThemeResource FormBackground}"  HorizontalAlignment="Stretch" MaxWidth="400">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -113,7 +113,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="Spendings this month" FontSize="14" FontWeight="Light"></TextBlock>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" >
-                    <TextBlock Text="₹" FontSize="20" FontWeight="Bold"></TextBlock>
+                        <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
                     <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthExpense,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0">
@@ -121,7 +121,7 @@
                     <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthExpenseTransactionCount,Mode=OneWay}"  Margin="5,0,0,0"  FontSize="16"></TextBlock>
                 </StackPanel>
             </Grid>
-            <Grid Background="AntiqueWhite" HorizontalAlignment="Stretch" MaxWidth="400" Grid.Column="1" Name="IncomeColumn" Style="{StaticResource FormBackground}">
+            <Grid HorizontalAlignment="Stretch" MaxWidth="400" Grid.Column="1" Name="IncomeColumn" Style="{ThemeResource FormBackground}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -129,7 +129,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="Income this month" FontSize="14" FontWeight="Light"></TextBlock>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" >
-                    <TextBlock Text="₹" FontSize="20" FontWeight="Bold"></TextBlock>
+                    <TextBlock Text="₹" Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
                     <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthIncome,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2"  Margin="0,10,0,0">

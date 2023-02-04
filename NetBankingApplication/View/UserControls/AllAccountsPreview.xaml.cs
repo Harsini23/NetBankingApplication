@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.WindowManagement;
@@ -27,14 +28,16 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class AllAccountsPreview : UserControl
+    public sealed partial class AllAccountsPreview : UserControl, ICloseAllWindows
     {
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
 
         PresenterService GetAllAccountsVMserviceProviderInstance;
         private string userId;
-        Dictionary<int, AppWindow> appWindows = new Dictionary<int, AppWindow>();
-     
+       static Dictionary<int, AppWindow> appWindows = new Dictionary<int, AppWindow>();
+
+        private LoginBaseViewModel LoginViewModel;
+        PresenterService LoginVMserviceProviderInstance;
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -43,12 +46,20 @@ namespace NetBankingApplication.View.UserControls
             //DetailedAccountOverview detailedAccountOverview = new DetailedAccountOverview("", "");
             //CurrentSelectedModule = detailedAccountOverview;
         }
+        public AllAccountsPreview()
+        {
+
+        }
         public AllAccountsPreview(string userId)
         {
             this.InitializeComponent();
             this.userId = userId;
             GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
             GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
+            //LoginVMserviceProviderInstance = PresenterService.GetInstance();
+            //LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
+            ////setting login view value for callback
+            //LoginViewModel.CloseAllWindowsCallback=this;
             GetAllAccountsViewModel.GetAllAccounts(userId);
             Bindings.Update();
         }
@@ -76,6 +87,10 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
+
+        private FrameworkElement SomeElemnt;
+        //private Frame newFrame;
+
         public  async Task GoToOpenPage(AccountBobj selectedAccountDetails,int buttonIndex)
         {
 
@@ -85,9 +100,11 @@ namespace NetBankingApplication.View.UserControls
                 appWindow = await AppWindow.TryCreateAsync();
                 appWindows[buttonIndex] = appWindow;
                 appWindow.Closed += AppWindow_Closed;
-                Frame OpenPage1 = new Frame();
-                OpenPage1.Navigate(typeof(FullAccountDetails), selectedAccountDetails);
-                ElementCompositionPreview.SetAppWindowContent(appWindow, OpenPage1);
+                Frame newFrame = new Frame();
+                newFrame.Navigate(typeof(FullAccountDetails), selectedAccountDetails);
+                //newFrame.Loaded += NewFrame_Loaded;
+                ElementCompositionPreview.SetAppWindowContent(appWindow, newFrame);
+                ThemeSwitch.RegisterElement(newFrame);//change theme by registering
                 await appWindow.TryShowAsync();
 
             }
@@ -97,13 +114,34 @@ namespace NetBankingApplication.View.UserControls
             }
 
         }
+
+        //private Dictionary<UIContext, FrameworkElement> SomeDictoionary = new Dictionary<UIContext, FrameworkElement>();
+        ////private Page _rootPage;
+        //private void NewFrame_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    var frame = sender as Frame;
+        //    var _rootPage = frame.Content as Page;
+        //    SomeDictoionary.Add(_rootPage.UIContext, _rootPage);
+        //    ThemeSwitch.RegisterElement(_rootPage);
+
+        //}
        
         private void AppWindow_Closed(AppWindow sender, object args)
         {
 
             var keysToRemove = appWindows.Where(x => x.Value == sender).Select(x => x.Key).ToList();
+            //ThemeSwitch.UnRegisterElement(_rootPage);
 
-            // Remove the items
+            //foreach (var i in SomeDictoionary)
+            //{
+            //    if (sender.UIContext == i.Key)
+            //    {
+            //        ThemeSwitch.UnRegisterElement(i.Value);
+            //    }
+            //}
+
+            //// Remove the items
+            //SomeDictoionary.Remove(sender.UIContext);
             foreach (var key in keysToRemove)
             {
                 appWindows.Remove(key);
@@ -111,7 +149,13 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
-
-
+        public void closeAllWindows()
+        {
+            foreach (var i in appWindows)
+            {
+                i.Value.CloseAsync();
+            }
+        }
+      
     }
 }

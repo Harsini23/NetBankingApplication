@@ -32,15 +32,15 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Add new Payee" Style="{StaticResource InputFieldTextBox}" Margin="5" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
-                    <TextBox Grid.Row="1" Style="{StaticResource InputFieldTextBox}" Header="Enter Payee Name" PlaceholderText="Payee name" x:Name="PayeeName" />
-                    <TextBox Grid.Row="2" Style="{StaticResource InputFieldTextBox}" Header="Account Holder name" PlaceholderText="Account holder name" x:Name="AccountHolderName"/>
-                    <TextBox Grid.Row="3" Style="{StaticResource InputFieldTextBox}" Header="Bank Name" PlaceholderText="Bank name" x:Name="BankName"/>
-                    <TextBox Grid.Row="4" Style="{StaticResource InputFieldTextBox}" InputScope="Number" Header="Enter Account Number" PlaceholderText="Account number" x:Name="Accountnumber" BeforeTextChanging="TextBox_OnBeforeTextChanging" />
-                    <TextBox Grid.Row="5" Style="{StaticResource InputFieldTextBox}" Header="IFSC Code" PlaceholderText="IFSC code" x:Name="IfscCode" />
+                    <TextBlock Text="Add new Payee" Style="{ThemeResource InputFieldTextBox}" Margin="5" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
+                    <TextBox Grid.Row="1" Style="{ThemeResource InputFieldTextBox}" Header="Enter Payee Name" PlaceholderText="Payee name" x:Name="PayeeName" />
+                    <TextBox Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="Account Holder name" PlaceholderText="Account holder name" x:Name="AccountHolderName"/>
+                    <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" Header="Bank Name" PlaceholderText="Bank name" x:Name="BankName"/>
+                    <TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" InputScope="Number" Header="Enter Account Number" PlaceholderText="Account number" x:Name="Accountnumber" BeforeTextChanging="TextBox_OnBeforeTextChanging" />
+                    <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}" Header="IFSC Code" PlaceholderText="IFSC code" x:Name="IfscCode" />
 
                     <TextBlock Grid.Row="6" x:Name="ErrorMessage" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <Button  Grid.Row="7" x:Name="AddPayee" Content="Add Payee" Style="{StaticResource ButtonStyling}" Click="AddPayee_Click"></Button>
+                    <Button  Grid.Row="7" x:Name="AddPayee" Content="Add Payee" Style="{ThemeResource ButtonStyling}" Click="AddPayee_Click"></Button>
 
                 </Grid>
                 <TextBlock  Text="{x:Bind AddPayeeViewModel.AddPayeeResponseValue,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" x:Name="Result"></TextBlock>

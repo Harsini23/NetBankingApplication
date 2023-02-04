@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class ViewAndEditPayee : UserControl
+    public sealed partial class ViewAndEditPayee : UserControl, IViewAndEditPayeeVM
     {
         private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
 
@@ -30,6 +31,9 @@ namespace NetBankingApplication.View.UserControls
         private DeletePayeeBaseViewModel DeletePayeeViewModel;
 
         PresenterService DeletePayeeVMserviceProviderInstance;
+
+        public ObservableCollection<Payee> PayeeCollection = new ObservableCollection<Payee>();
+        public ObservableCollection<Payee> SelctionPayeeCollection = new ObservableCollection<Payee>();
 
         //List<Payee> allRecipients = new List<Payee>();
 
@@ -47,7 +51,11 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            GetAllPayeeViewModel.ChangeVisibility = this;
+            PayeeCollection.Clear();
             GetAllPayeeViewModel.GetAllPayee(currentUserId);
+            PayeeCollection = GetAllPayeeViewModel.AllPayeeCollection;
+           
             //allRecipients.Clear();
             //allRecipients = GetAllPayeeViewModel.AllPayee;
         }
@@ -61,8 +69,66 @@ namespace NetBankingApplication.View.UserControls
             var recipient = (Payee)button.DataContext;
 
             DeletePayeeViewModel.DeletePayee(recipient);
-
+            SelctionPayeeCollection.Clear();
             GetAllPayeeViewModel.GetAllPayee(currentUserId);
+            PayeeCollection = GetAllPayeeViewModel.AllPayeeCollection;
+            AllTransactionListView.ItemsSource = PayeeCollection;
+            SuggestboxPayeeChange.Text = String.Empty;
+            EmptyList.Visibility = Visibility.Collapsed;
+           
+
+        }
+
+      
+        private void SuggestboxPayeeChange_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                //var suitableItems = new List<Payee>();
+                var splitText = sender.Text.ToLower().Split(" ");
+                if(splitText.Length > 0)
+                {
+                    AllTransactionListView.ItemsSource = SelctionPayeeCollection;
+                    SelctionPayeeCollection.Clear();
+                    foreach (var i in GetAllPayeeViewModel.AllPayeeCollection)
+                    {
+                        var found = splitText.All((key) =>
+                        {
+                            return i.PayeeName.ToLower().Contains(key);
+                        });
+                        if (found)
+                        {
+                            EmptyList.Visibility = Visibility.Collapsed;
+                            SelctionPayeeCollection.Add(i);
+                        }
+                    }
+                    if (SelctionPayeeCollection.Count == 0)
+                    {
+                        EmptyList.Visibility = Visibility.Visible;
+                    }
+
+                }
+                else
+                {
+                    SelctionPayeeCollection = PayeeCollection;
+                    AllTransactionListView.ItemsSource = PayeeCollection;
+                }
+              
+               // sender.ItemsSource = suitableItems;
+            }
+
+        }
+
+        public void ChangeVisibility(bool visible)
+        {
+            if (visible)
+            {
+                EmptyList.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                EmptyList.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

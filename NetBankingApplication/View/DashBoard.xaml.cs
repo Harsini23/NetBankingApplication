@@ -64,7 +64,6 @@ namespace NetBankingApplication.View
             
             if(currentTheme == ApplicationTheme.Light)
             {
-
                 OppositeTheme = "Light mode";
                 OppositeThemeIcon = "";
                 currentTheme = ApplicationTheme.Dark;
@@ -72,11 +71,9 @@ namespace NetBankingApplication.View
 
             else
             {
-
                 OppositeTheme = "Dark mode";
                 OppositeThemeIcon = "☾";
                 currentTheme = ApplicationTheme.Light;
-
             }
 
         }
@@ -215,15 +212,17 @@ namespace NetBankingApplication.View
             LoginViewModel.Logout();
         }
 
-        private void ThemeChange_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void ThemeChange_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            if (currentTheme == ApplicationTheme.Dark)
             {
-                RequestedTheme = (ElementTheme)ApplicationTheme.Light;
+                await ThemeSwitch.ChangeTheme(ElementTheme.Light);
+                currentTheme = ApplicationTheme.Light;
             }
             else
             {
-                RequestedTheme = (ElementTheme)ApplicationTheme.Dark;
+               await ThemeSwitch.ChangeTheme(ElementTheme.Dark);
+                currentTheme = ApplicationTheme.Dark;
             }
         }
     }
