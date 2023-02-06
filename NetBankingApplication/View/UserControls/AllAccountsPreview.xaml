@@ -21,8 +21,11 @@
     <Grid>
 
         <GridView SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.accounts,Mode=OneWay}"  x:Name="AllTransactionListView">
+    
             <!--ItemTemplate="{ThemeResource TransactionListViewTemplate}"-->
             <GridView.ItemTemplate>
+                
+                
                 <DataTemplate x:Name="TransactionListViewTemplate" x:DataType="data:Account">
                     <Grid Padding="30" Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MinWidth="400">
                         <Grid.RowDefinitions>
@@ -83,10 +86,8 @@
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
-            <GridView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
+            <GridView.ItemContainerStyle  >
+                <Style TargetType="GridViewItem" BasedOn="{StaticResource AllAccountsPreviewGridView}"></Style>
             </GridView.ItemContainerStyle>
         </GridView>
     </Grid>

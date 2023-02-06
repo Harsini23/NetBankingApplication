@@ -14,7 +14,7 @@
     <Grid>
        
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind TransactionViewModel.AllSortedTransactions,Mode=OneWay}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView">
-            <ListView.HeaderTemplate>
+            <!--<ListView.HeaderTemplate>
                 <DataTemplate>
                     <Grid Margin="20" BorderBrush="Gray" BorderThickness="0.3"  >
                         <Grid.ColumnDefinitions>
@@ -31,7 +31,7 @@
                         <TextBlock Grid.Column="4" Padding="20" Style="{ThemeResource BaseTextBlockStyle}" Text="Transaction Type"></TextBlock>
                     </Grid>
                 </DataTemplate>
-            </ListView.HeaderTemplate>
+            </ListView.HeaderTemplate>-->
 
             <!--ItemTemplate="{ThemeResource TransactionListViewTemplate}"-->
             <ListView.ItemTemplate>

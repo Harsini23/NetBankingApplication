@@ -18,7 +18,7 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem  Content="Account Preview" x:Name="AccountsPreview" />
                 <NavigationViewItem x:Name="AccountDetails" Content="Account Transactions" />
-                <NavigationViewItem Content="Open an Account" x:Name="CreateAccount"/>
+                <!--<NavigationViewItem Content="Open an Account" x:Name="CreateAccount"/>-->
             </NavigationView.MenuItems>
 
             <ContentControl Margin="10" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedItem,Mode=OneWay}" CornerRadius="30" />

@@ -36,14 +36,14 @@
                 <TextBlock Text="Make a Transaction" Margin="10" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
                 <StackPanel Grid.Row="1" Margin="5" >
                     <TextBlock FontSize="16" Text="Select Recipient" Margin="5" ></TextBlock>
-                    <DropDownButton BorderBrush="Black" BorderThickness="0.3" Background="White" Name="SelectPayee" Content="Select payee" CornerRadius="5" MinWidth="350">
+                    <DropDownButton Name="SelectPayee" Content="Select payee" MinWidth="350"   Style="{ThemeResource DropdownStyle}" >
                         <DropDownButton.Flyout >
                             <MenuFlyout  Opening="MenuFlyout_Opened" Placement="Bottom">
                                 <MenuFlyout.MenuFlyoutPresenterStyle>
                                     <Style TargetType="MenuFlyoutPresenter">
                                         <Setter Property="MinWidth" Value="350"/>
                                         <Setter Property="CornerRadius" Value="5"/>
-                                        <Setter Property="Background" Value="White"/>
+                                        <!--<Setter Property="Background" Value="White"/>-->
                                     </Style>
                                 </MenuFlyout.MenuFlyoutPresenterStyle>
                             </MenuFlyout>

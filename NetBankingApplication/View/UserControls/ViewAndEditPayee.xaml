@@ -25,8 +25,9 @@
 
         <StackPanel Orientation="Horizontal" Margin="20">
             <TextBlock Text="Search Payee" Margin="0,10,10,10" Style="{ThemeResource BasicTextBlock}"></TextBlock>
-            <AutoSuggestBox Margin="10" x:Name="SuggestboxPayeeChange" TextChanged="SuggestboxPayeeChange_TextChanged"
-              />
+            <AutoSuggestBox Margin="10" x:Name="SuggestboxPayeeChange" QueryIcon="Find" TextChanged="SuggestboxPayeeChange_TextChanged" Width="200"
+              >
+            </AutoSuggestBox>
             <!--Style="{ThemeResource BasicSearchBoxStyle}" TextBoxStyle="{ThemeResource FormTextBox}"-->
         </StackPanel>
      
