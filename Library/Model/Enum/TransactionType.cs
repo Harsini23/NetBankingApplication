@@ -9,7 +9,8 @@ namespace Library.Model.Enum
     public enum TransactionType
         {
             Credited,
-            Debited
+            Debited,
+            Rejected
         }
 
 }

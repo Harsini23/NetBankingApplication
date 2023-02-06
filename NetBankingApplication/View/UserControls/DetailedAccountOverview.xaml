@@ -18,9 +18,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-
-    
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -44,16 +41,16 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="TransactionListings" Grid.Column="0">
+            <Grid x:Name="TransactionListings" Grid.ColumnSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
-                    <Button Content="&#xE830;" FontFamily="Segoe MDL2 Assets" Visibility="Collapsed" x:Name="BackToList" Click="BackToList_Click"></Button>
+                   
                     <TextBlock Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold" Name="asdf"></TextBlock>
-                </StackPanel>
+                </StackPanel>   
 
             <ListView Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions,Mode=OneWay}" x:Name="AllTransactionsOnAccountListView"
                       IsItemClickEnabled="True" SelectionMode="Single" ItemClick="AllTransactionsOnAccountListView_ItemClick">
@@ -99,7 +96,7 @@
             </ListView>
         </Grid>
         <!--Column Grid Splitter-->
-            <controls:GridSplitter x:Name="TransactionGridSplitter" Grid.Column="1" Width="11" ResizeBehavior="BasedOnAlignment" ResizeDirection="Auto" Background="Gray" Foreground="White" FontSize="13">
+            <controls:GridSplitter Visibility="Collapsed" x:Name="TransactionGridSplitter" Grid.Column="1" Width="11" ResizeBehavior="BasedOnAlignment" ResizeDirection="Auto" Background="Gray" Foreground="White" FontSize="13">
                 <controls:GridSplitter.Element>
                     <Grid>
                         <TextBlock HorizontalAlignment="Center"
@@ -112,12 +109,21 @@
                     </Grid>
                 </controls:GridSplitter.Element>
             </controls:GridSplitter>
-            <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" x:Name="TransactionDetailGrid" >
-                <local:TransactionDetailView  x:Name="TransactionDetails" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></local:TransactionDetailView>
+            
+            <Grid Visibility="Collapsed" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" x:Name="TransactionDetailGrid" ScrollViewer.VerticalScrollMode="Enabled" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <Button Margin="5,5,0,0" FontSize="24" CornerRadius="5" BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Content="&#xE298;" FontFamily="Segoe MDL2 Assets" Visibility="Collapsed" x:Name="BackToList" Click="BackToList_Click"></Button>
+                    <TextBlock Margin="5,0,0,0" Text="Transaction Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20" ></TextBlock>
+                </StackPanel>
+                <NavigationViewItemSeparator Grid.Row="1"></NavigationViewItemSeparator>
+                <local:TransactionDetailView Grid.Row="2"  x:Name="TransactionDetails" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></local:TransactionDetailView>
             </Grid>
 
-          
-            
     </Grid>
 
     </Grid>

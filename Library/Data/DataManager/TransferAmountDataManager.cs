@@ -2,6 +2,7 @@
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
+using Library.Model.Enum;
 using Library.Util;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Library.Data.DataManager
         public TransferAmountDataManager() : base(new DbHandler(), new NetHandler())
         {
         }
+        private TransactionType transactionType;
 
         private bool ValidateCurrentAccountAndDeductBalance(Account currentAccount, double Amount)
         {
@@ -50,18 +52,25 @@ namespace Library.Data.DataManager
         public void AddTransaction(TransferAmountRequest request, TransferAmountUseCase.TransferAmountCallback response)
         {
             ZResponse<TransferAmountResponse> Response = new ZResponse<TransferAmountResponse>();
-
             //conversion of amountTransfer to transaction
             //check for balance  before transaction
             var account = DbHandler.GetAccount(request.Transaction.FromAccount);
             var status = ValidateCurrentAccountAndDeductBalance(account, request.Transaction.Amount);
+            if (status)
+            {
+                transactionType = Model.Enum.TransactionType.Debited;
+            }
+            else
+            {
+                transactionType = Model.Enum.TransactionType.Rejected;
+            }
             Transaction currentTransaction = new Transaction
             {
                 UserId = request.UserId,
                 Name = request.Transaction.Name,
                 TransactionId = GenerateUniqueId.GetUniqueId("TID"),
                 Date = CurrentDateTime.GetCurrentDate(),
-                TransactionType = Model.Enum.TransactionType.Debited,
+                TransactionType = transactionType,
                 Remark = request.Transaction.Remark,
                 Amount = request.Transaction.Amount,
                 FromAccount = request.Transaction.FromAccount,

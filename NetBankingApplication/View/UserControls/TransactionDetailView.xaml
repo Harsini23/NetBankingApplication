@@ -17,21 +17,19 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalScrollMode="Enabled">
         <Grid >
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
+                <!--<RowDefinition Height="Auto"></RowDefinition>-->
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel>
-                <TextBlock Grid.Row="0" Text="Transaction Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20" Margin="5"></TextBlock>
-                <NavigationViewItemSeparator></NavigationViewItemSeparator>
-
-            </StackPanel>
-            <Grid Grid.Row="1" Margin="10,0,0,0" Padding="10">
+            <!--<StackPanel>
+              
+            </StackPanel>-->
+            <Grid Grid.Row="0" Margin="10,0,0,0" Padding="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
@@ -57,7 +55,7 @@
                     <TextBlock Text="{x:Bind transaction.Transaction.Remark}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"></TextBlock>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="2"  Margin="10,0,0,0" Padding="10,0,0,0">
+            <Grid Grid.Row="1"  Margin="10,0,0,0" Padding="10,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
@@ -83,7 +81,7 @@
                 </Grid>
                
             </Grid>
-            <Grid Grid.Row="3"  Margin="10,10,0,0" Padding="10,0,0,0">
+            <Grid Grid.Row="2"  Margin="10,10,0,0" Padding="10,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
@@ -107,9 +105,7 @@
                         <TextBlock Text="{x:Bind transaction.Transaction.Name}" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16"></TextBlock>
                     </StackPanel>
                 </Grid>
-
             </Grid>
-
         </Grid>
     </ScrollViewer>
   
