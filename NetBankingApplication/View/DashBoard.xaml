@@ -20,20 +20,19 @@
     </Page.Resources>
 
 
-    <Grid>
+    <Grid ScrollViewer.VerticalScrollMode="Disabled">
       
 
         <!--Header="{x:Bind HeaderTitle,Mode=OneWay}"-->
 
-        <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False">
+        <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.IsVerticalRailEnabled="False">
           
             <NavigationView.Resources>
                 <!--<SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource SystemAccentColorLight1}" />-->
                 <!--<SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SystemAccentColorDark1}" />-->
             </NavigationView.Resources>
-
             
-            <NavigationView.MenuItems  >
+            <NavigationView.MenuItems>
 
                 <NavigationViewItem Icon="Home" x:Name="Overview" Content="Overview" Tag="Overview" />
                 <NavigationViewItem  x:Name="BankAccount" Content="Bank Account" Tag="BankAccount" >

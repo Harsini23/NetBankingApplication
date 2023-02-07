@@ -100,12 +100,12 @@
         </controls:DropShadowPanel>
        
 
-        <Grid Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="700" Margin="5"  Padding="30">
+        <Grid Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="700" Margin="5"  Padding="30" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Name="SpendingsColumn" CornerRadius="20" Style="{ThemeResource FormBackground}"  HorizontalAlignment="Stretch" MaxWidth="400">
+            <Grid Grid.Column="0" BorderThickness="0.4" BorderBrush="Black" Name="SpendingsColumn" CornerRadius="20" Style="{ThemeResource FormBackground}"  HorizontalAlignment="Stretch" MaxWidth="400">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -121,7 +121,7 @@
                     <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthExpenseTransactionCount,Mode=OneWay}"  Margin="5,0,0,0"  FontSize="16"></TextBlock>
                 </StackPanel>
             </Grid>
-            <Grid HorizontalAlignment="Stretch" MaxWidth="400" Grid.Column="1" Name="IncomeColumn" Style="{ThemeResource FormBackground}">
+                <Grid BorderThickness="0.4" BorderBrush="Black" HorizontalAlignment="Stretch" MaxWidth="400" Grid.Column="1" Name="IncomeColumn" Style="{ThemeResource FormBackground}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>

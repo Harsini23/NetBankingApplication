@@ -11,7 +11,7 @@ namespace Library.Domain
          string UserId { get; set; }
     }
 
-    public interface IResponseBaseCase<R>
+    public interface IResponseCallbackBaseCase<R>
     {
         //contain functions to call presenter callback
         void OnSuccess(ZResponse<R> response);

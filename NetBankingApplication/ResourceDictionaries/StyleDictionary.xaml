@@ -9,6 +9,15 @@
                 <Setter Property="CornerRadius" Value="30"></Setter>
             </Style>
 
+            <Style TargetType="ContentPresenter" x:Key="GroupHeadder">
+                <Setter Property="Background" Value="#E9E9E9"></Setter>
+                <Setter Property="CornerRadius" Value="5"></Setter>
+                <Setter Property="Padding" Value="5"></Setter>
+                <Setter Property="Margin" Value="10"></Setter>
+            </Style>
+
+          
+
             <Style TargetType="GridViewItem" x:Key="AllAccountsPreviewGridView">
                 <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
                 <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
@@ -703,10 +712,20 @@
                 <Setter Property="BorderBrush" Value="Black"/>
                 <Setter Property="CornerRadius" Value="5"/>
             </Style>
+
+            <Style TargetType="ContentPresenter" x:Key="GroupHeadder">
+                <Setter Property="Background" Value="#2A2A2A"></Setter>
+                <Setter Property="CornerRadius" Value="5"></Setter>
+                <Setter Property="Padding" Value="5"></Setter>
+                <Setter Property="Margin" Value="10"></Setter>
+            </Style>
+
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
-  
 
 
+    <ResourceDictionary.MergedDictionaries>
+        
+    </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

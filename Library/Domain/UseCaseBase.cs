@@ -10,15 +10,23 @@ namespace Library.Domain
 {
     public abstract class UseCaseBase
     {
+        public UseCaseBase(CancellationToken cts)
+        {
+
+        }
         public CancellationTokenSource Source { get; }
       //  IResponseBaseCase<R> presenterCallback;
 
         private readonly CancellationToken _token;
 
+        //public UseCaseBase()
+        //{
+        //    Source = new CancellationTokenSource();
+        //    _token = Source.Token;
+
+        //}
         public UseCaseBase()
         {
-            Source = new CancellationTokenSource();
-            _token = Source.Token;
 
         }
         public void Execute()

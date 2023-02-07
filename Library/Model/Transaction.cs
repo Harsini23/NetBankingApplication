@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,5 +40,47 @@ namespace Library.Model
         public Transaction()
         {
         }
+    }
+
+
+
+    public class TransactionBObj
+    {
+        public int Index { get; set; }
+        public string UserId { get; set; }
+        public string Name { get; set; }
+        public string TransactionId { get; set; }
+        public DateTime Date { get; set; }
+        public TransactionType TransactionType { get; set; }
+        public string Remark { get; set; }
+        public string Amount { get; set; }
+        public string FromAccount { get; set; }
+        public string ToAccount { get; set; }
+        public bool Status { get; set; }
+        public string Time { get; set; }
+        public TransactionBObj(string transactionId, DateTime date, TransactionType transactionType, string remark, double transactionAmout, string fromAccount, string toAccount, bool status, string accountNumber, string name,int index,string time)
+        {
+            TransactionId = transactionId;
+            Date = date;
+            TransactionType = transactionType;
+            Remark = remark;
+            Amount = transactionAmout.ToString();
+            FromAccount = fromAccount;
+            ToAccount = toAccount;
+            Status = status;
+            Name = name;
+            Index = index;
+            Time = time;
+        }
+        public TransactionBObj()
+        {
+
+        }
+    }
+
+    public class GroupInfosList : ObservableCollection<TransactionBObj>
+    {
+        public string Key { get; set; }
+        public int Count { get; set; }
     }
 }
