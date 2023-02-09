@@ -24,10 +24,11 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class TransactionHistory : UserControl
     { 
         private string currentUserId;
-        private bool IsNarrowLayout;
+        public static bool IsNarrowLayout;
         private TransactionHistoryBaseViewModel TransactionViewModel;
 
         PresenterService TransactionVMserviceProviderInstance;
+
         public TransactionHistory(string userId)
         {
             TransactionVMserviceProviderInstance = PresenterService.GetInstance();
@@ -36,7 +37,26 @@ namespace NetBankingApplication.View.UserControls
             currentUserId = userId;
             IsNarrowLayout = false;
         }
+        public TransactionHistory()
+        {
+            TransactionVMserviceProviderInstance = PresenterService.GetInstance();
+            TransactionViewModel = TransactionVMserviceProviderInstance.Services.GetService<TransactionHistoryBaseViewModel>();
+            currentUserId = UserId;
+            this.InitializeComponent();
+            IsNarrowLayout = false;
+        }
 
+         public string UserId
+        {
+            get { return (string)GetValue(UserIdProperty); }
+            set { SetValue(UserIdProperty, value);
+                currentUserId = UserId;
+            }
+        }
+
+        public static readonly DependencyProperty UserIdProperty =
+            DependencyProperty.Register("UserId", typeof(string), typeof(TransactionHistory), new PropertyMetadata(null));
+    
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -50,11 +70,13 @@ namespace NetBankingApplication.View.UserControls
 
             if (windowHeight < 300 || windowWidth < 800)
             {
+                //VisualStateManager.GoToState(this, "Large", true);
                 IsNarrowLayout = true;
             }
             else
             {
-                IsNarrowLayout = false;
+                //VisualStateManager.GoToState(this, "Small", true);
+                IsNarrowLayout=false;
             }
         }
 
@@ -80,8 +102,16 @@ namespace NetBankingApplication.View.UserControls
             //{
             //    return OddTemplate;
             //}
-
-            return EvenTemplate;
+            var element = container as FrameworkElement;
+            if (TransactionHistory.IsNarrowLayout)
+            {
+                return OddTemplate;
+            }
+            else
+            {
+                return EvenTemplate;
+            }
+          //  return EvenTemplate;
 
         }
     }

@@ -163,9 +163,6 @@
     <Compile Include="View\UserControls\BankAccount.xaml.cs">
       <DependentUpon>BankAccount.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControls\CardComponentTemplate.xaml.cs">
-      <DependentUpon>CardComponentTemplate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\UserControls\DetailedAccountOverview.xaml.cs">
       <DependentUpon>DetailedAccountOverview.xaml</DependentUpon>
     </Compile>
@@ -304,10 +301,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\BankAccount.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserControls\CardComponentTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

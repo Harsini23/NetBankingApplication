@@ -360,7 +360,7 @@
             <Style TargetType="TextBlock" x:Key="HeaderStyle">
                 <Setter Target="VerticalAlignment" Value="Center"></Setter>
                 <Setter Target="HorizontalAlignment" Value="Center"></Setter>
-                <Setter Target="FontSize" Value="30"></Setter>
+                <Setter Target="FontSize" Value="24"></Setter>
                 <Setter Target="Margin" Value="5"></Setter>
                 <Setter Target="Padding" Value="5"></Setter>
                 <Setter Target="LineHeight" Value="3"></Setter>
@@ -601,7 +601,7 @@
            <Style TargetType="TextBlock" x:Key="HeaderStyle">
                 <Setter Target="VerticalAlignment" Value="Center"></Setter>
                 <Setter Target="HorizontalAlignment" Value="Center"></Setter>
-                <Setter Target="FontSize" Value="30"></Setter>
+                <Setter Target="FontSize" Value="24"></Setter>
                 <Setter Target="Margin" Value="5"></Setter>
                 <Setter Target="Padding" Value="5"></Setter>
                 <Setter Target="LineHeight" Value="3"></Setter>

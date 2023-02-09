@@ -419,23 +419,27 @@
                 </Grid.RowDefinitions>
 
 
-                <TextBlock  Grid.Column="0" Text="{x:Bind Name}" TextWrapping="Wrap" FontWeight="Bold" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                <TextBlock  Grid.Column="0" Text="{x:Bind Name,Mode=OneWay}" TextWrapping="Wrap" FontWeight="Bold" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
                 <TextBlock Grid.Row="1" Margin="0,0,0,5" Grid.Column="0" Text="Recipient" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
 
-                <TextBlock Margin="5"  Grid.Column="1" TextWrapping="Wrap" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind Remark}"  ></TextBlock>
+                <TextBlock Margin="5"  Grid.Column="1" TextWrapping="Wrap" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind Remark,Mode=OneWay}"  ></TextBlock>
                 <TextBlock Text="Remark" Margin="0,0,0,5"  Grid.Column="1" Grid.Row="1" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
 
-                <TextBlock  Grid.Column="2" Text="{x:Bind Date}" TextWrapping="Wrap" Margin="5" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock  Grid.Column="2" Text="{x:Bind Time,Mode=OneWay}" TextWrapping="Wrap" Margin="5" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                 <TextBlock  Grid.Column="2" Margin="0,0,0,5" TextWrapping="Wrap" Grid.Row="1" Text="Date of transaction" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
                 <!--seperate-->
+                    <StackPanel Orientation="Horizontal" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
+                        <TextBlock x:Name="Amount"  Margin="5" TextWrapping="NoWrap" Text="{x:Bind Amount,Mode=OneWay}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    </StackPanel>
 
-                <TextBlock x:Name="Amount" Grid.Column="3" Margin="5" TextWrapping="NoWrap" Text="{x:Bind Amount}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+             
                 <TextBlock x:Name="AmountTextBlock" Grid.Column="3" Margin="0,0,0,5" Grid.Row="1" Text="Amount" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
-                <TextBlock x:Name="TransactionType" Grid.Column="4" Margin="5" TextWrapping="NoWrap" Text="{x:Bind TransactionType}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock x:Name="TransactionType" Grid.Column="4" Margin="5" TextWrapping="NoWrap" Text="{x:Bind TransactionType,Mode=OneWay}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                 <TextBlock x:Name="TransacctionTypeTextBlock" Grid.Column="4" Margin="0,0,0,5" Grid.Row="1" TextWrapping="Wrap" Text="Transaction Type" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
                 <!--<TextBlock x:Name="Status" Grid.Column="5" Margin="10" TextWrapping="NoWrap" Text="{x:Bind Status}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
@@ -446,13 +450,12 @@
         </DataTemplate>
         <DataTemplate x:Key="OddTemplate" x:DataType="data:TransactionBObj" >
                 <Grid 
-                      Background="White"
+                     
                       x:Name="DetailedTransactionListTemplate"  ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
 
                     <!--Background="{Binding Converter={StaticResource AlternatingColorConverter}}"-->
                     <Grid.ColumnDefinitions>
 
-                    <ColumnDefinition Width="1*" MinWidth="100"></ColumnDefinition>
                     <ColumnDefinition Width="1*" MinWidth="100"></ColumnDefinition>
                     <ColumnDefinition Width="1*" MinWidth="100"></ColumnDefinition>
                     <ColumnDefinition Width="1*" MinWidth="100"></ColumnDefinition>
@@ -469,23 +472,19 @@
                     </Grid.RowDefinitions>
 
 
-                    <TextBlock  Grid.Column="0" Text="{x:Bind Name}" TextWrapping="Wrap"  Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                    <TextBlock  Grid.Column="0" Text="{x:Bind Name,Mode=OneWay}" TextWrapping="Wrap"  Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
                 
 
-
-                    <TextBlock Margin="10"  Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind Remark}"  ></TextBlock>
-                 
-
-
-                    <TextBlock  Grid.Column="2" Text="{x:Bind Date}" TextWrapping="Wrap" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock  Grid.Column="3" Text="{x:Bind Time,Mode=OneWay}" TextWrapping="Wrap" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                  
 
                     <!--seperate-->
-
-                    <TextBlock x:Name="Amount" Grid.Column="3" Margin="10" TextWrapping="NoWrap" Text="{x:Bind Amount}"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                 
-
-                    <TextBlock x:Name="TransactionType" Grid.Column="4" Margin="10" TextWrapping="NoWrap" Text="{x:Bind TransactionType}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="₹" HorizontalAlignment="Left" Padding="0,0,5,0" FontSize="20" FontWeight="Normal"></TextBlock>
+                        <TextBlock x:Name="Amount" TextWrapping="NoWrap" Text="{x:Bind Amount,Mode=OneWay}"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    </StackPanel>
+             
+                    <TextBlock x:Name="TransactionType" Grid.Column="2" Margin="10" TextWrapping="NoWrap" Text="{x:Bind TransactionType,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                  
                 </Grid>
         </DataTemplate>
@@ -499,7 +498,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid ScrollViewer.HorizontalScrollMode="Enabled">
         <TextBlock Visibility="{x:Bind TransactionViewModel.TextBoxVisibility,Mode=OneWay}" Name="EmptyDataDisplay" Text="No Transactions yet ;)"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled"  ItemsSource="{Binding Source={StaticResource TransactionSource}}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView"  ItemTemplateSelector="{StaticResource AlternatingColorTemplateSelector}" ItemContainerStyle="{StaticResource TransactionItemContainer}">
            
@@ -525,26 +524,30 @@
 
             <ListView.GroupStyle>
                 <GroupStyle >
-                    <GroupStyle.HeaderContainerStyle>
+                    <!--<GroupStyle.HeaderContainerStyle>
                         <Style TargetType="ListViewHeaderItem">
                             <Setter Property="Template" >
                                 <Setter.Value>
-                                    <!--Remove default rectangle border-->
+                                    --><!--Remove default rectangle border--><!--
                                     <ControlTemplate TargetType="ContentControl">
                                         <ContentPresenter Content="{Binding}"  Style="{ThemeResource GroupHeadder}"/>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </GroupStyle.HeaderContainerStyle>
-                    <GroupStyle.HeaderTemplate >
+                    </GroupStyle.HeaderContainerStyle>-->
+                    <GroupStyle.HeaderTemplate  >
                         <DataTemplate x:DataType="data:GroupInfosList" >
-                            <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Stretch">
-                            <TextBlock  Text="{x:Bind Key,Mode=OneWay}"
+                            <Grid VerticalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="950"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{x:Bind Key,Mode=OneWay}"
                               FontWeight="Bold"  FontSize="14"/>
-                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind Count,Mode=OneWay}"
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="{x:Bind Count,Mode=OneWay}"
                                FontWeight="Bold"  FontSize="14" />
-                            </StackPanel>
+                            </Grid>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>

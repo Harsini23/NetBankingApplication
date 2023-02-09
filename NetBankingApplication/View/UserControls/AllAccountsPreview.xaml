@@ -52,7 +52,11 @@
                             <TextBlock Margin="5"  Grid.Row="1" Grid.Column="1" Text="{x:Bind AccountType}" TextWrapping="Wrap" Style="{ThemeResource BasicTextBlock}" HorizontalAlignment="Stretch" ></TextBlock>
                             
                             <TextBlock Margin="5" Grid.Row="2" HorizontalAlignment="Stretch" Text="Available Balance " Style="{ThemeResource BasicTextBlock}" FontWeight="SemiBold"></TextBlock>
-                            <TextBlock Margin="5" Grid.Row="2" Grid.Column="1"  Text="{x:Bind TotalBalance.ToString()}"  Style="{ThemeResource BasicTextBlock}" TextWrapping="Wrap" HorizontalAlignment="Stretch"></TextBlock>
+                            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" >
+                                <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="Normal"></TextBlock>
+                                <TextBlock Text="{x:Bind TotalBalance.ToString()}" Margin="0,3,0,0"  FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Stretch"></TextBlock>
+                            </StackPanel>
+                          
 
                         </Grid>
                         <NavigationViewItemSeparator Grid.Row="1"></NavigationViewItemSeparator>

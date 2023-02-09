@@ -87,6 +87,8 @@ namespace NetBankingApplication.ViewModel
 
                       transactionHistoryViewModel.AllSortedTransactions.Add(i);
                       var date = DateTime.Parse(i.Date);
+                      DateTime time = DateTime.ParseExact(date.TimeOfDay.ToString(), "HH:mm:ss", CultureInfo.InvariantCulture);
+                      var finaltime=time.ToString("hh:mm tt");
                       TransactionBObj t = new TransactionBObj
                       {
                           TransactionId = i.TransactionId,
@@ -99,7 +101,7 @@ namespace NetBankingApplication.ViewModel
                           Status = i.Status,
                           Name = i.Name,
                           Index = temp++,
-                          Time=date.TimeOfDay.ToString()
+                          Time= finaltime,
                       };
                       transactionHistoryViewModel.AllSortedIndexedTransactions.Add(t);
                       transactionHistoryViewModel.RecipientNameInitials.Add(i.Name.Substring(0, 1));

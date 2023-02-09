@@ -25,8 +25,25 @@ namespace Library.Domain.UseCase
             CtsSource = cts;
         }
     }
+    public interface IPresenterOverviewCallback : IResponseCallbackBaseCase<OverviewResponse>
+    {
+    } 
+
     public class Overview:UseCaseBase<OverviewResponse>
     {
+        private IOverviewDataManager overviewDataManager;
+        private OverviewRequest overviewRequest;
+        private IPresenterOverviewCallback presenterOverviewCallback;
+        public Overview(OverviewRequest request, IPresenterOverviewCallback responseCallback):base(responseCallback,request.CtsSource)
+        {
+            var serviceProviderInstance = ServiceProvider.GetInstance();
+           // overviewDataManager = serviceProviderInstance.Services.GetService<IOverviewDataManager>();
+        }
+        public override void Action()
+        {
+            //use call back
+           
+        }
 
         public class OverviewCallback : ZResponse<OverviewResponse>
         {

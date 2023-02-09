@@ -1,4 +1,6 @@
-﻿using Library.Domain;
+﻿using Library.Data.DataBaseService;
+using Library.Domain;
+using Library.Domain.UseCase;
 using Library.Model;
 using System;
 using System.Collections.Generic;
@@ -8,11 +10,17 @@ using System.Threading.Tasks;
 
 namespace Library.Data.DataManager
 {
-    public class OverviewDataManager : BankingDataManager
+    public class OverviewDataManager : BankingDataManager,IOverviewDataManager
     {
-        public OverviewDataManager(IDbHandler dbHandler, INetHandler netHandler) : base(dbHandler, netHandler)
+        public OverviewDataManager() : base(new DbHandler(), new NetHandler())
         {
         }
+
+        public void GetOverviewData(OverviewRequest request, Overview.OverviewCallback response)
+        {
+           //validate and get records
+        }
+    
     }
 
     public class OverviewResponse : ZResponse<User>

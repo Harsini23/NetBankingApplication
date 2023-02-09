@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -21,10 +22,22 @@ using Windows.UI.Xaml.Navigation;
 //overview - bank account details, personal details, account summary
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class Overview : UserControl
+    public sealed partial class Overview : UserControl,INotifyPropertyChanged
     {
         private readonly User user;
         // private readonly string _userId;
+
+        private string _userId;
+        public string UserId
+        {
+            get { return this._userId; }
+            set
+            {
+                _userId = value;
+                OnPropertyChangedAsync(nameof(UserId));
+                //SetProperty(ref _response, value);
+            }
+        }
 
         private OverviewBaseViewModel _overviewViewModel;
      
@@ -32,20 +45,21 @@ namespace NetBankingApplication.View.UserControls
 
         public Overview(User currentUser)
         {
+         
             user = currentUser;
+            UserId = currentUser.UserId;
             this.InitializeComponent();
             OverviewVMserviceProviderInstance = PresenterService.GetInstance();
             _overviewViewModel = OverviewVMserviceProviderInstance.Services.GetService<OverviewBaseViewModel>();
             _overviewViewModel.setUser(user.UserId);
-            _overviewViewModel.getCardComponents();
-
-            //_userId = currentUser.UserId;
-            //need to get all details from viewmodel
-            //to send userid to overviewViewModel
+            _overviewViewModel.getData(user.UserId);
+         
         }
-        public Overview()
+        protected void OnPropertyChangedAsync(string propertyName)
         {
-            this.InitializeComponent();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
