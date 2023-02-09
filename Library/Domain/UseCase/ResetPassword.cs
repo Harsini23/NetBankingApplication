@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.ResetPassword;
 
@@ -13,13 +14,8 @@ namespace Library.Domain.UseCase
         void ResetPassword(ResetPasswordRequest request, ResetPasswordCallback response);//call back
     }
 
-    public interface IPersenterResetPasswordCallback
-    {
-        void OnSuccess(ZResponse<bool> response);
-        void OnFailure(ZResponse<bool> response);
-    }
-
-    public class ResetPassword :UseCaseBase
+    public interface IPersenterResetPasswordCallback : IResponseCallbackBaseCase<bool> { }
+    public class ResetPassword :UseCaseBase<bool>
     {
         private IResetPasswordDataManager ResetPasswordDataManager;
         private ResetPasswordRequest ResetPasswordRequest;
@@ -49,11 +45,11 @@ namespace Library.Domain.UseCase
 
             public void OnResponseSuccess(ZResponse<bool> response)
             {
-                _resetPassword.ResetPasswordResponse.OnSuccess(response);
+                _resetPassword.ResetPasswordResponse?.OnSuccess(response);
             }
             public void OnResponseFailure(ZResponse<bool> response)
             {
-                _resetPassword.ResetPasswordResponse.OnFailure(response);
+                _resetPassword.ResetPasswordResponse?.OnFailure(response);
             }
         }
        
@@ -63,10 +59,13 @@ namespace Library.Domain.UseCase
     {
         public string UserId { get; set; }
         public string NewPassword { get; set; }
-        public ResetPasswordRequest(string userId, string newPassword)
+        public CancellationTokenSource CtsSource { get; set ; }
+
+        public ResetPasswordRequest(string userId, string newPassword,CancellationTokenSource cts)
         {
             UserId = userId;
             NewPassword = newPassword;
+            CtsSource = cts;    
         }
 
     }

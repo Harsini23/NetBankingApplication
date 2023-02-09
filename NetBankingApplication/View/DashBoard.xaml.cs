@@ -36,45 +36,45 @@ namespace NetBankingApplication.View
         PresenterService LoginVMserviceProviderInstance;
         //private String OppositeTheme="Light mode";
         //private string OppositeThemeIcon = "";
-        Windows.UI.Xaml.ApplicationTheme currentTheme;
+       // Windows.UI.Xaml.ApplicationTheme currentTheme;
         public DashBoard()
         {
             this.InitializeComponent();
             UISettings uiSettings = new UISettings();
             uiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged; ;
 
-            currentTheme = Application.Current.RequestedTheme;
-            if (currentTheme == ApplicationTheme.Light)
-            {
-                OppositeTheme = "Dark mode";
-                OppositeThemeIcon = "☾";
-            }
-            else if (currentTheme == ApplicationTheme.Dark)
-            {
-                OppositeTheme = "Light mode";
-                OppositeThemeIcon = "";
-            }
+            // currentTheme = Application.Current.RequestedTheme;
+            SwitchThemeUIValues();
             LoginVMserviceProviderInstance = PresenterService.GetInstance();
             LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
 
         }
 
-        private void UiSettings_ColorValuesChanged(UISettings sender, object args)
+        private void SwitchThemeUIValues()
         {
-            
-            if(currentTheme == ApplicationTheme.Light)
+            if (ThemeSwitch.CurrentTheme == ElementTheme.Light)
+            {
+                OppositeTheme = "Dark mode";
+                OppositeThemeIcon = "";
+            }
+            else if (ThemeSwitch.CurrentTheme == ElementTheme.Dark)
             {
                 OppositeTheme = "Light mode";
                 OppositeThemeIcon = "";
-                currentTheme = ApplicationTheme.Dark;
             }
-
+        }
+        private void UiSettings_ColorValuesChanged(UISettings sender, object args)
+        {
+            
+            if((ThemeSwitch.CurrentTheme == ElementTheme.Light))
+            {
+                ThemeSwitch.CurrentTheme = ElementTheme.Dark;
+            }
             else
             {
-                OppositeTheme = "Dark mode";
-                OppositeThemeIcon = "☾";
-                currentTheme = ApplicationTheme.Light;
+                ThemeSwitch.CurrentTheme = ElementTheme.Light;
             }
+            SwitchThemeUIValues();
 
         }
 
@@ -214,16 +214,17 @@ namespace NetBankingApplication.View
 
         private async void ThemeChange_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (currentTheme == ApplicationTheme.Dark)
+            if (ThemeSwitch.CurrentTheme == ElementTheme.Dark)
             {
                 await ThemeSwitch.ChangeTheme(ElementTheme.Light);
-                currentTheme = ApplicationTheme.Light;
+                ThemeSwitch.CurrentTheme = ElementTheme.Light;
             }
             else
             {
-               await ThemeSwitch.ChangeTheme(ElementTheme.Dark);
-                currentTheme = ApplicationTheme.Dark;
+                await ThemeSwitch.ChangeTheme(ElementTheme.Dark);
+                ThemeSwitch.CurrentTheme = ElementTheme.Dark;
             }
+            SwitchThemeUIValues();
         }
     }
 }

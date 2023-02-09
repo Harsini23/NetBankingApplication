@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NetBankingApplication.ViewModel
@@ -21,7 +22,7 @@ namespace NetBankingApplication.ViewModel
         public override void SendTransaction(AmountTransfer transaction, string userId)
         {
             userId = userId;
-            transfer = new TransferAmountUseCase(new TransferAmountRequest(transaction, userId), new PresenterTransferAmountCallback(this));
+            transfer = new TransferAmountUseCase(new TransferAmountRequest(transaction, userId, new CancellationTokenSource()), new PresenterTransferAmountCallback(this));
             transfer.Execute();
             //ValueChanged?.Invoke(transaction.FromAccount,userId);
             //notify account transaction changes
@@ -44,7 +45,7 @@ namespace NetBankingApplication.ViewModel
             this.TransferAmountViewModel = TransferAmountViewModel;
         }
 
-        public void OnError(ZResponse<TransferAmountResponse> response)
+        public void OnError(String response)
         {
         }
 

@@ -500,6 +500,7 @@
     </UserControl.Resources>
 
     <Grid>
+        <TextBlock Visibility="{x:Bind TransactionViewModel.TextBoxVisibility,Mode=OneWay}" Name="EmptyDataDisplay" Text="No Transactions yet ;)"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled"  ItemsSource="{Binding Source={StaticResource TransactionSource}}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView"  ItemTemplateSelector="{StaticResource AlternatingColorTemplateSelector}" ItemContainerStyle="{StaticResource TransactionItemContainer}">
            
             <!--<ListView.HeaderTemplate>

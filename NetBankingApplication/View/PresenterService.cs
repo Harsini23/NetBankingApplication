@@ -29,17 +29,17 @@ namespace NetBankingApplication.View
         {
             var services = new ServiceCollection();
             //Services
-            services.AddSingleton<LoginBaseViewModel, LoginViewModel>();
-            services.AddSingleton<OverviewBaseViewModel, OverviewViewModel>();
-            services.AddSingleton<TransactionHistoryBaseViewModel, TransactionHistoryViewModel>();
-            services.AddSingleton<AddPayeeBaseViewModel,AddPayeeViewModel>();
-            services.AddSingleton<GetAllPayeeBaseViewModel,GetAllPayeeViewModel>();
-            services.AddSingleton<GetAllAccountsBaseViewModel,GetAllAccountsViewModel>();
-            services.AddSingleton<TransferAmountBaseViewModel,TransferAmountViewModel>();
-            services.AddSingleton<AccountTransactionsBaseViewModel,AccountTransactionsViewModel>();
-            services.AddSingleton<AddUserBaseViewModel,AddUserViewModel>();
-            services.AddSingleton<DeletePayeeBaseViewModel, DeletePayeeViewModel>();
-            services.AddSingleton<GetBranchDetailsBaseViewModel, GetBranchDetailsViewModel>();
+            services.AddTransient<LoginBaseViewModel, LoginViewModel>();
+            services.AddTransient<OverviewBaseViewModel, OverviewViewModel>();
+            services.AddTransient<TransactionHistoryBaseViewModel, TransactionHistoryViewModel>();
+            services.AddTransient<AddPayeeBaseViewModel,AddPayeeViewModel>();
+            services.AddTransient<GetAllPayeeBaseViewModel,GetAllPayeeViewModel>();
+            services.AddTransient<GetAllAccountsBaseViewModel,GetAllAccountsViewModel>();
+            services.AddTransient<TransferAmountBaseViewModel,TransferAmountViewModel>();
+            services.AddTransient<AccountTransactionsBaseViewModel,AccountTransactionsViewModel>();
+            services.AddTransient<AddUserBaseViewModel,AddUserViewModel>();
+            services.AddTransient<DeletePayeeBaseViewModel, DeletePayeeViewModel>();
+            services.AddTransient<GetBranchDetailsBaseViewModel, GetBranchDetailsViewModel>();
 
             //services.AddSingleton<IUserProfileViewModel, UserProfileViewModel>();
             return services.BuildServiceProvider();

@@ -23,7 +23,7 @@ namespace Library.Domain.UseCase
             newUser = addNewUser;
         }
     }
-    public class AddUser :UseCaseBase
+    public class AddUser :UseCaseBase<AddUserResponse>
     {
         private IAddUserDataManager AddUserDataManager;
         private AddUserRequest addUserRequest;
@@ -50,10 +50,7 @@ namespace Library.Domain.UseCase
         }
     }
 
-    public interface IPresenterAddUserCallback
+    public interface IPresenterAddUserCallback: IResponseCallbackBaseCase<AddUserResponse>
     {
-        void OnSuccess(ZResponse<AddUserResponse> response);
-        void OnError(ZResponse<AddUserResponse> response);
-        void OnFailure(ZResponse<AddUserResponse> response);
     }
 }

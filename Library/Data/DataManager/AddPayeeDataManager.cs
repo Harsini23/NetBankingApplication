@@ -24,7 +24,7 @@ namespace Library.Data.DataManager
             {
                 Response.Response = "Sucessfully added payee now you can make tranfers to this account";
                 Response.Data = null;
-                response.OnResponseSuccess(Response);
+                response?.OnResponseSuccess(Response);
 
             }
 

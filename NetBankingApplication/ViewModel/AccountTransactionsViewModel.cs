@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 
 namespace NetBankingApplication.ViewModel
 {
@@ -30,7 +32,7 @@ namespace NetBankingApplication.ViewModel
 
         public override void GetAllTransactions(string accountId, string userId)
         {
-            Transaction = new AccountTransactions(new AccountTransactionsRequest(accountId,userId), new PresenterAccountTransactionsCallback(this));
+            Transaction = new AccountTransactions(new AccountTransactionsRequest(accountId,userId, new CancellationTokenSource()), new PresenterAccountTransactionsCallback(this));
             Transaction.Execute();
         }
     }
@@ -48,7 +50,7 @@ namespace NetBankingApplication.ViewModel
             this.AccountTransactionsViewModel = AccountTransactionsViewModel;
         }
 
-        public void OnError(ZResponse<AccountTransactionsResponse> response)
+        public void OnError(String response)
         {
         }
 
@@ -67,12 +69,18 @@ namespace NetBankingApplication.ViewModel
      
         public async void populateData( List<AccountTransactionBObj> TransactionList)
         {
+          
             double income = 0, expense = 0;
             int incomeCount=0,expenseCount=0;
             var SortedTransactionList = TransactionList.OrderByDescending(i => DateTime.Parse(i.DateOfTransaction));
-            String recentTransactionDate=SortedTransactionList.FirstOrDefault().DateOfTransaction.ToString();
+            var SortedTransactionOfCurrentMonth = SortedTransactionList.Where(i => DateTime.Parse(i.DateOfTransaction).Month == DateTime.Now.Date.Month);
+            String recentTransactionDate="";
+            if (SortedTransactionList != null && SortedTransactionList.Count() >0)
+            {
+              recentTransactionDate = SortedTransactionList.FirstOrDefault().DateOfTransaction.ToString();
+            }
            
-            foreach(var i in SortedTransactionList)
+            foreach(var i in SortedTransactionOfCurrentMonth)
             {
                 if (i.TransactionType == Library.Model.Enum.TransactionType.Debited)
                 {
@@ -89,6 +97,13 @@ namespace NetBankingApplication.ViewModel
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
               Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
               {
+                  if (TransactionList.Count <= 0)
+                  {
+                      AccountTransactionsViewModel.TextBoxVisibility = Visibility.Visible;
+                      return;
+                  }
+                  AccountTransactionsViewModel.TextBoxVisibility = Visibility.Collapsed;
+
                   AccountTransactionsViewModel.AllSortedAccountTransactions.Clear();
                 
                   foreach (var i in SortedTransactionList)
@@ -196,7 +211,23 @@ namespace NetBankingApplication.ViewModel
         }
 
 
+
+
+        private Visibility _textBoxVisibility = Visibility.Collapsed;
+        public Visibility TextBoxVisibility
+        {
+            get { return _textBoxVisibility; }
+            set
+            {
+                _textBoxVisibility = value;
+                OnPropertyChangedAsync(nameof(TextBoxVisibility));
+
+            }
+        }
+
+
+
     }
 
-   
+
 }

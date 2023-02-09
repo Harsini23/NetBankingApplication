@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
             <TextBlock FontSize="16" Text="Account Number" VerticalAlignment="Center" Margin="5"></TextBlock>
-            <DropDownButton Margin="10" Visibility="Collapsed" Name="SelectAccountDropdown" Style="{ThemeResource DropdownStyle}" Content="Account Details" MinWidth="200">
+            <DropDownButton Margin="10" Visibility="Collapsed" Name="SelectAccountDropdown" Style="{ThemeResource DropdownStyle}" Content="Account Details" MinWidth="200" >
                 <DropDownButton.Flyout>
                     <MenuFlyout Placement="Bottom" Opening="MenuFlyout_Opening" MenuFlyoutPresenterStyle="{ThemeResource MenuFlyoutStyle}">
                     </MenuFlyout>
@@ -50,7 +50,9 @@
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                    
                     <TextBlock Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold" Name="asdf"></TextBlock>
-                </StackPanel>   
+                </StackPanel>
+
+                <TextBlock Grid.Row="1" Visibility="{x:Bind AccountTransactionsViewModel.TextBoxVisibility,Mode=OneWay}" Text="No Transactions yet ;)" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
 
             <ListView Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions,Mode=OneWay}" x:Name="AllTransactionsOnAccountListView"
                       IsItemClickEnabled="True" SelectionMode="Single" ItemClick="AllTransactionsOnAccountListView_ItemClick">

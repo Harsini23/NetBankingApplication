@@ -28,7 +28,7 @@ namespace NetBankingApplication.ViewModel
         {
             this.GetBranchDetailsViewModel = GetBranchDetailsViewModel;
         }
-        public void OnError(ZResponse<GetBranchDetailsResponse> response)
+        public void OnError(String response)
         {
            
         }

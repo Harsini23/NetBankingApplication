@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.GetAllAccounts;
 
@@ -19,20 +20,19 @@ namespace Library.Domain.UseCase
     public class GetAllAccountsRequest : IRequest
     {
         public string UserId { get; set; }
+        public CancellationTokenSource CtsSource { get; set ; }
 
-        public GetAllAccountsRequest(string userId)
+        public GetAllAccountsRequest(string userId,CancellationTokenSource cts)
         {
             UserId = userId;
+            CtsSource = cts;
         }
     }
 
-    public interface IPresenterGetAllAccountsCallback
+    public interface IPresenterGetAllAccountsCallback: IResponseCallbackBaseCase<GetAllAccountsResponse>
     {
-        void OnSuccess(ZResponse<GetAllAccountsResponse> response);
-        void OnError(ZResponse<GetAllAccountsResponse> response);
-        void OnFailure(ZResponse<GetAllAccountsResponse> response);
     }
-    public class GetAllAccounts:UseCaseBase
+    public class GetAllAccounts:UseCaseBase<GetAllAccountsResponse>
     {
      
         private IGetAllAccountsDataManager GetAllAccountsDataManager;
@@ -60,7 +60,7 @@ namespace Library.Domain.UseCase
             }
             public string Response { get; set; }
 
-            public void OnResponseError(ZResponse<GetAllAccountsResponse> response)
+            public void OnResponseError(String response)
             {
                 GetAllAccounts.GetAllAccountsResponse.OnError(response);
             }

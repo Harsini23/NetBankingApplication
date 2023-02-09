@@ -29,7 +29,7 @@ namespace NetBankingApplication.ViewModel
         {   
             this.addUserViewModel = addUserViewModel;
         }
-        public void OnError(ZResponse<AddUserResponse> response)
+        public void OnError(String response)
         {
             
         }

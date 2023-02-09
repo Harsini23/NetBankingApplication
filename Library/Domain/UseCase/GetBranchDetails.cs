@@ -15,13 +15,10 @@ namespace Library.Domain.UseCase
         void GetBranchDetails(String request, GetBranchDetailsCallback response);
     }
 
-    public interface IPresenterGetBranchDetailsCallback
+    public interface IPresenterGetBranchDetailsCallback: IResponseCallbackBaseCase<GetBranchDetailsResponse>
     {
-        void OnSuccess(ZResponse<GetBranchDetailsResponse> response);
-        void OnError(ZResponse<GetBranchDetailsResponse> response);
-        void OnFailure(ZResponse<GetBranchDetailsResponse> response);
     }
-    public class GetBranchDetails : UseCaseBase
+    public class GetBranchDetails : UseCaseBase<GetBranchDetailsResponse>
     {
         private IGetBranchDetailsDataManager BranchDetailsDataManager;
         IPresenterGetBranchDetailsCallback BranchDetailsResponse;
@@ -49,7 +46,7 @@ namespace Library.Domain.UseCase
             }
             public string Response { get; set; }
 
-            public void OnResponseError(ZResponse<GetBranchDetailsResponse> response)
+            public void OnResponseError(String response)
             {
                 GetBranchDetails.BranchDetailsResponse.OnError(response);
             }

@@ -66,7 +66,7 @@ namespace Library.Data.DataManager
             Response.Data = transactions;
             Response.Response = "Added all transactions of that account";
 
-            response.OnResponseSuccess(Response);
+            response?.OnResponseSuccess(Response);
         }
     }
 

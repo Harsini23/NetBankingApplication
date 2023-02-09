@@ -8,16 +8,12 @@ using System.Threading.Tasks;
 
 namespace Library.Domain
 {
-    public abstract class UseCaseBase
+    public abstract class UseCaseBase<T>
     {
-        public UseCaseBase(CancellationToken cts)
-        {
-
-        }
+      
         public CancellationTokenSource Source { get; }
-      //  IResponseBaseCase<R> presenterCallback;
-
         private readonly CancellationToken _token;
+        private IResponseCallbackBaseCase<T> responseCallback;
 
         //public UseCaseBase()
         //{
@@ -25,10 +21,14 @@ namespace Library.Domain
         //    _token = Source.Token;
 
         //}
-        public UseCaseBase()
+        public UseCaseBase() { }
+        protected UseCaseBase(IResponseCallbackBaseCase<T> responseCallback,CancellationTokenSource CtsSource)
         {
-
+            this.responseCallback = responseCallback;
+            Source = CtsSource;
+            _token = Source.Token;
         }
+
         public void Execute()
         {
             if (GetIfAvailableInCache())
@@ -45,7 +45,7 @@ namespace Library.Domain
                 {
                     Debug.WriteLine("Exception has been caught:");
                     Debug.WriteLine(ex.ToString());
-                  
+                    responseCallback?.OnError(ex.ToString());
                 }
             }, _token);
         }

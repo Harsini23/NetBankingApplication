@@ -22,7 +22,7 @@ using Windows.UI.Xaml.Navigation;
 namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class TransactionHistory : UserControl
-    {
+    { 
         private string currentUserId;
         private bool IsNarrowLayout;
         private TransactionHistoryBaseViewModel TransactionViewModel;
@@ -36,6 +36,7 @@ namespace NetBankingApplication.View.UserControls
             currentUserId = userId;
             IsNarrowLayout = false;
         }
+
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {

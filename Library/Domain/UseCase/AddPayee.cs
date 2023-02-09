@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.AddPayee;
 
@@ -20,23 +21,21 @@ namespace Library.Domain.UseCase
         public string UserId { get; set; }
      
         public Payee NewPayee { get; set; }
-        public AddPayeeRequest(string userId, Payee newPayee)
+        public CancellationTokenSource CtsSource { get; set; }
+
+        public AddPayeeRequest(string userId, Payee newPayee, CancellationTokenSource cts)
         {
             UserId = userId;
             NewPayee = newPayee;
+            CtsSource = cts;
         }
 
         public AddPayeeRequest()
         {
         }
     }
-    public interface IPresenterAddPayeeCallback
-    {
-        void OnSuccess(ZResponse<String> response);
-        void OnError(ZResponse<String> response);
-        void OnFailure(ZResponse<String> response);
-    }
-    public class AddPayee:UseCaseBase
+    public interface IPresenterAddPayeeCallback : IResponseCallbackBaseCase<String> { }
+    public class AddPayee:UseCaseBase<String>
     {
         private IAddPayeeDataManager AddPayeeDataManager;
         private AddPayeeRequest AddPayeeRequest;
@@ -64,17 +63,17 @@ namespace Library.Domain.UseCase
 
             public string Response { get; set; }
 
-            public void OnResponseError(ZResponse<String> response)
+            public void OnResponseError(String response)
             {
-                addPayee.AddPayeeResponse.OnError(response);
+                addPayee.AddPayeeResponse?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<String> response)
             {
-                addPayee.AddPayeeResponse.OnFailure(response);
+                addPayee.AddPayeeResponse?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<String> response)
             {
-                addPayee.AddPayeeResponse.OnSuccess(response);
+                addPayee.AddPayeeResponse?.OnSuccess(response);
 
             }
         }

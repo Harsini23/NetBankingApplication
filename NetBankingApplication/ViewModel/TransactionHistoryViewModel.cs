@@ -8,7 +8,9 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace NetBankingApplication.ViewModel
 {
@@ -20,7 +22,7 @@ namespace NetBankingApplication.ViewModel
         public override void GetTransactionData(string userId)
         {
            
-            Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest(userId), new PresenterTransactionHistoryCallback(this));
+            Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest(userId, new CancellationTokenSource()), new PresenterTransactionHistoryCallback(this));
             Transaction.Execute();
             
         }
@@ -39,7 +41,7 @@ namespace NetBankingApplication.ViewModel
             this.transactionHistoryViewModel = transactionHistoryViewModel;
         }
 
-        public void OnError(ZResponse<TransactionHistoryResponse> response)
+        public void OnError(String response)
         {
         }
 
@@ -60,10 +62,20 @@ namespace NetBankingApplication.ViewModel
         //        ContactSort.Add(item);
         public async void populateData( List<Transaction> TransactionList)
         {
+          
             int temp = 0;
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
               Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
               {
+                  if (TransactionList.Count <= 0)
+                  {
+                      transactionHistoryViewModel.TextBoxVisibility = Visibility.Visible;
+                      return;
+                  }
+                 
+                  transactionHistoryViewModel.TextBoxVisibility = Visibility.Collapsed;
+
+
                   transactionHistoryViewModel.AllSortedTransactions.Clear();
                   transactionHistoryViewModel.AllSortedIndexedTransactions.Clear();
                   transactionHistoryViewModel.FinalSortedIndexedTransactions.Clear();
@@ -118,9 +130,8 @@ namespace NetBankingApplication.ViewModel
                       }
                       transactionHistoryViewModel.FinalSortedIndexedTransactions.Add(info);
                   }
-
-
               });
+
         }
     }
 
@@ -134,5 +145,22 @@ namespace NetBankingApplication.ViewModel
         public List<Transaction> AllTransactionList= new List<Transaction>(){};
 
         public List<String> RecipientNameInitials = new List<string>();
+
+        private string _error = String.Empty;
+    
+
+        private Visibility _textBoxVisibility = Visibility.Collapsed;
+        public Visibility TextBoxVisibility
+        {
+            get { return _textBoxVisibility; }
+            set { _textBoxVisibility = value;
+                OnPropertyChangedAsync(nameof(TextBoxVisibility));
+
+            }
+        }
+
+
+
     }
+
 }

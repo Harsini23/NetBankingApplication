@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NetBankingApplication.ViewModel
@@ -29,7 +30,7 @@ namespace NetBankingApplication.ViewModel
         public override void GetAllPayee(string userId)
         {
             viewAndEditPayeeVMCallback =  ChangeVisibility;
-            recipients = new GetAllPayee(new GetAllPayeeRequest(userId), new PresenterGetAllPayeeCallback(this));
+            recipients = new GetAllPayee(new GetAllPayeeRequest(userId, new CancellationTokenSource()), new PresenterGetAllPayeeCallback(this));
             recipients.Execute();
         }
     }
@@ -48,7 +49,7 @@ namespace NetBankingApplication.ViewModel
             this.getAllPayeeViewModel = getAllPayeeViewModel;
         }
 
-        public void OnError(ZResponse<GetAllPayeeResponse> response)
+        public void OnError(String response)
         {
         }
 

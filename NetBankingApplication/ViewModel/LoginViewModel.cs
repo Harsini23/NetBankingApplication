@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.Login;
 
@@ -34,12 +35,12 @@ namespace NetBankingApplication.ViewModel
         public override void CallUseCase()
         {
             SetValueForCallback();
-            login = new Login(new UserLoginRequest(userId, password), new PresenterLoginCallback(this));
+            login = new Login(new UserLoginRequest(userId, password, new CancellationTokenSource()), new PresenterLoginCallback(this));
             login.Execute();
         }
         public void CallResetUseCase()
         {
-            resetPassword = new ResetPassword(new ResetPasswordRequest(userId, resetNewPassword), new PresenterLoginCallback(this));
+            resetPassword = new ResetPassword(new ResetPasswordRequest(userId, resetNewPassword,new CancellationTokenSource()), new PresenterLoginCallback(this));
             resetPassword.Execute();
            //call to display admin or user dashboard
         }
@@ -147,7 +148,7 @@ namespace NetBankingApplication.ViewModel
               });
             }
 
-            //Presenter call back methods
+            //Presenter call back methods -----------------------------------------------------------------------------------------------------------
             public async void OnSuccess(ZResponse<LoginResponse> response)
             {
                 LoginViewModel.IsAdmin = response.Data.IsAdmin;
@@ -185,15 +186,16 @@ namespace NetBankingApplication.ViewModel
 
             }
 
-            public void OnError(ZResponse<LoginResponse> response)
-            {
-                //Block account
-                loginViewModel.LoginResponseValue = response.Response.ToString();
-            }
-
+         
             public void OnFailure(ZResponse<LoginResponse> response)
             {
                 loginViewModel.LoginResponseValue = response.Response.ToString();
+            }
+
+            public void OnError(string errorMessage)
+            {
+                //Block account
+                loginViewModel.LoginResponseValue = errorMessage;
             }
         }
     }

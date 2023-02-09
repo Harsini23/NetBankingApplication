@@ -9,11 +9,26 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <!--<GridView Background="White" x:Name="CardHolder" ItemsSource="{x:Bind _overviewViewModel.cardcomponentItems,Mode=OneWay}" >
-        <GridView.ItemTemplate>
-            <DataTemplate x:DataType="data:CardComponent">
-                <local:CardComponentTemplate Background="White" />
-            </DataTemplate>
-        </GridView.ItemTemplate>
-    </GridView>-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="20" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <TextBlock CharacterSpacing="60" Text="{x:Bind user.UserName}" FontSize="24" FontWeight="Bold"></TextBlock>
+            <TextBlock Text="{x:Bind user.EmailId}" FontSize="14" FontWeight="Light"></TextBlock>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="12,000" FontSize="24" FontWeight="Bold"></TextBlock>
+                <TextBlock Text="Current Balance" FontSize="14" FontWeight="Light"></TextBlock>
+            </StackPanel>
+            <Button Content="Make a Transfer"></Button>
+        </StackPanel>
+    </Grid>
 </UserControl>

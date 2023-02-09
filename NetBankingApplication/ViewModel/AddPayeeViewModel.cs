@@ -38,7 +38,7 @@ namespace NetBankingApplication.ViewModel
             this.addPayeeViewModel = addPayeeViewModel;
         }
 
-        public void OnError(ZResponse<String> response)
+        public void OnError(String response)
         {
         }
 

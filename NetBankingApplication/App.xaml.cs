@@ -73,7 +73,7 @@ namespace NetBankingApplication
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
-            ThemeSwitch.RegisterElement(rootFrame);//theme switch register
+            ThemeSwitch.AddUIRootElement(rootFrame);//theme switch register
         }
 
         /// <summary>

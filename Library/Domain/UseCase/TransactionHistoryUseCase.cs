@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.TransactionHistoryUseCase;
 
@@ -18,20 +19,19 @@ namespace Library.Domain.UseCase
     public class TransactionHistoryRequest : IRequest
     {
         public string UserId { get; set; }
-    
-        public TransactionHistoryRequest(string userId)
+        public CancellationTokenSource CtsSource { get; set ; }
+
+        public TransactionHistoryRequest(string userId,CancellationTokenSource cts)
         {
             UserId = userId;
+            CtsSource = cts;
         }
     }
 
-    public interface IPresenterTransactionHistoryCallback
+    public interface IPresenterTransactionHistoryCallback: IResponseCallbackBaseCase<TransactionHistoryResponse>
     {
-        void OnSuccess(ZResponse<TransactionHistoryResponse> response);
-        void OnError(ZResponse<TransactionHistoryResponse> response);
-        void OnFailure(ZResponse<TransactionHistoryResponse> response);
     }
-    public class TransactionHistoryUseCase:UseCaseBase
+    public class TransactionHistoryUseCase:UseCaseBase<TransactionHistoryResponse>
     {
 
 
@@ -61,17 +61,17 @@ namespace Library.Domain.UseCase
             }
             public string Response { get; set; }
 
-            public void OnResponseError(ZResponse<TransactionHistoryResponse> response)
+            public void OnResponseError(String response)
             {
-                transactionHistory.TransactionHistoryResponse.OnError(response);
+                transactionHistory.TransactionHistoryResponse?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<TransactionHistoryResponse> response)
             {
-                transactionHistory.TransactionHistoryResponse.OnFailure(response);
+                transactionHistory.TransactionHistoryResponse?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<TransactionHistoryResponse> response)
             {
-                transactionHistory.TransactionHistoryResponse.OnSuccess(response);
+                transactionHistory.TransactionHistoryResponse?.OnSuccess(response);
 
             }
         }

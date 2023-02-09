@@ -77,9 +77,14 @@ namespace NetBankingApplication.View.UserControls
             // GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
             GetAllAccountsViewModel.GetAllAccounts(currentUserId);
             AllAccounts = GetAllAccountsViewModel.AllAccountNumbers;
-            CurrentUserAccountNumber = GetAllAccountsViewModel.AllAccountNumbers[0];
+            if (GetAllAccountsViewModel.AllAccountNumbers.Count() > 0)
+            {
+                CurrentUserAccountNumber = GetAllAccountsViewModel.AllAccountNumbers[0];
+                SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
+
+            }
             AccountTransactionsViewModel.GetAllTransactions(CurrentUserAccountNumber, currentUserId);
-            SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
+
         }
 
         MenuFlyout selectAccountList;

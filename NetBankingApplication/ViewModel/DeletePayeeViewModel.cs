@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NetBankingApplication.ViewModel
@@ -17,7 +18,7 @@ namespace NetBankingApplication.ViewModel
         public override void DeletePayee(Payee payee)
         {
             userId = payee.UserID;
-            deleteRecipient = new DeletePayee(new DeletePayeeRequest(payee.UserID, payee), new PresenterDeletePayeeCallback(this));
+            deleteRecipient = new DeletePayee(new DeletePayeeRequest(payee.UserID, payee, new CancellationTokenSource()), new PresenterDeletePayeeCallback(this));
             deleteRecipient.Execute();
         }
     }
@@ -36,7 +37,7 @@ namespace NetBankingApplication.ViewModel
             this.deletePayeeViewModel = deletePayeeViewModel;
         }
 
-        public void OnError(ZResponse<String> response)
+        public void OnError(String response)
         {
         }
 

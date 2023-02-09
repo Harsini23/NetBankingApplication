@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.AccountTransactions;
 
@@ -18,21 +19,20 @@ namespace Library.Domain.UseCase
     {
         public string AccountNumber { get; set; }
         public string UserId { get; set; }
+        public CancellationTokenSource CtsSource { get; set; }
 
-        public AccountTransactionsRequest(string accountNumber,string userId)
+        public AccountTransactionsRequest(string accountNumber,string userId,CancellationTokenSource cancellationTokenSource)
         {
             AccountNumber = accountNumber;
             UserId = userId;
+            CtsSource = cancellationTokenSource;
         }
     }
 
-    public interface IPresenterAccountTransactionsCallback
+    public interface IPresenterAccountTransactionsCallback: IResponseCallbackBaseCase<AccountTransactionsResponse>
     {
-        void OnSuccess(ZResponse<AccountTransactionsResponse> response);
-        void OnError(ZResponse<AccountTransactionsResponse> response);
-        void OnFailure(ZResponse<AccountTransactionsResponse> response);
     }
-    public class AccountTransactions: UseCaseBase
+    public class AccountTransactions: UseCaseBase<AccountTransactionsResponse>
     {
 
 
@@ -62,17 +62,17 @@ namespace Library.Domain.UseCase
             }
             public string Response { get; set; }
 
-            public void OnResponseError(ZResponse<AccountTransactionsResponse> response)
+            public void OnResponseError(String response)
             {
-                AccountTransactions.AccountTransactionsResponse.OnError(response);
+                AccountTransactions.AccountTransactionsResponse?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<AccountTransactionsResponse> response)
             {
-                AccountTransactions.AccountTransactionsResponse.OnFailure(response);
+                AccountTransactions.AccountTransactionsResponse?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<AccountTransactionsResponse> response)
             {
-                AccountTransactions.AccountTransactionsResponse.OnSuccess(response);
+                AccountTransactions.AccountTransactionsResponse?.OnSuccess(response);
 
             }
         }

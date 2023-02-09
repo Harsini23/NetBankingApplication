@@ -66,7 +66,6 @@ namespace NetBankingApplication.View.UserControls
         private async void DisplayFullAccountDetails_Click_1(object sender, RoutedEventArgs e)
         {
 
-
                 var selectedItem = (sender as FrameworkElement).DataContext;
             // Use the selected item as needed          
                 var account = selectedItem as Account;
@@ -93,25 +92,23 @@ namespace NetBankingApplication.View.UserControls
 
         public  async Task GoToOpenPage(AccountBobj selectedAccountDetails,int buttonIndex)
         {
-
-            AppWindow appWindow;
-            if (!appWindows.TryGetValue(buttonIndex, out appWindow) || !appWindow.IsVisible)
+            if (!appWindows.TryGetValue(buttonIndex, out AppWindow appWin))
             {
-                appWindow = await AppWindow.TryCreateAsync();
+                AppWindow appWindow = await AppWindow.TryCreateAsync();
                 appWindows[buttonIndex] = appWindow;
                 appWindow.Closed += AppWindow_Closed;
                 Frame newFrame = new Frame();
                 newFrame.Navigate(typeof(FullAccountDetails), selectedAccountDetails);
                 //newFrame.Loaded += NewFrame_Loaded;
                 ElementCompositionPreview.SetAppWindowContent(appWindow, newFrame);
-                ThemeSwitch.RegisterElement(newFrame);//change theme by registering
+                ThemeSwitch.AddUIRootElement(newFrame);//change theme by registering
                 await appWindow.TryShowAsync();
-
             }
-            else
+            else if(appWindows.TryGetValue(buttonIndex, out AppWindow appW))
             {
-                await appWindow.TryShowAsync();
+              await appW.TryShowAsync();
             }
+          
 
         }
 

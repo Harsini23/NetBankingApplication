@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.GetAllPayee;
 
@@ -17,20 +18,19 @@ namespace Library.Domain.UseCase
     public class GetAllPayeeRequest : IRequest
     {
         public string UserId { get; set; }
+        public CancellationTokenSource CtsSource { get; set; }
 
-        public GetAllPayeeRequest(string userId)
+        public GetAllPayeeRequest(string userId,CancellationTokenSource cts)
         {
             UserId = userId;
+            CtsSource=cts;
         }
     }
 
-    public interface IPresenterGetAllPayeeCallback
+    public interface IPresenterGetAllPayeeCallback: IResponseCallbackBaseCase<GetAllPayeeResponse>
     {
-        void OnSuccess(ZResponse<GetAllPayeeResponse> response);
-        void OnError(ZResponse<GetAllPayeeResponse> response);
-        void OnFailure(ZResponse<GetAllPayeeResponse> response);
     }
-    public class GetAllPayee:UseCaseBase
+    public class GetAllPayee:UseCaseBase<GetAllPayeeResponse>
     {
 
         private IGetAllPayeeDataManager GetAllPayeeDataManager;
@@ -59,7 +59,7 @@ namespace Library.Domain.UseCase
             }
             public string Response { get; set; }
 
-            public void OnResponseError(ZResponse<GetAllPayeeResponse> response)
+            public void OnResponseError(String response)
             {
                 GetAllPayee.GetAllPayeeResponse.OnError(response);
             }

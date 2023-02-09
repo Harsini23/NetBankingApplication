@@ -16,7 +16,7 @@ namespace NetBankingApplication.View
         private static Dictionary<UIContext, FrameworkElement> XamlRootCollections { get; } = new Dictionary<UIContext, FrameworkElement>();
         public static ElementTheme? CurrentTheme { get; set; }
 
-        public static bool RegisterElement(FrameworkElement rootElement)
+        public static bool AddUIRootElement(FrameworkElement rootElement)
         {
             ThemeSetting();
             try
@@ -30,7 +30,7 @@ namespace NetBankingApplication.View
                 return false;
             }
         }
-        public static bool UnRegisterElement(FrameworkElement rootElement)
+        public static bool RemoveUIRootElement(FrameworkElement rootElement)
         {
             try
             {
@@ -42,8 +42,6 @@ namespace NetBankingApplication.View
                 return false;
             }
         }
-
-
        
         public static void ThemeSetting()
         {
@@ -79,10 +77,6 @@ namespace NetBankingApplication.View
         public async static Task<bool> ChangeTheme(ElementTheme theme)
         {
 
-            //if (CurrentTheme == theme)
-            //{
-            //    return false;
-            //}
 
             ApplicationData.Current.LocalSettings.Values["Theme"] = (int)theme;
             CurrentTheme = theme;

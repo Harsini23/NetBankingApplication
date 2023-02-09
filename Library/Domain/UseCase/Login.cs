@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.Login;
 
@@ -18,30 +19,29 @@ namespace Library.Domain
     {
         public string UserId { get; set; }  
         public string Password { get; set; }
+        public CancellationTokenSource CtsSource { get ; set ; }
 
-        public UserLoginRequest(string userId, string password)
+        public UserLoginRequest(string userId, string password,CancellationTokenSource _cts)
         {
             UserId = userId;
             Password = password;
+            CtsSource =_cts;
         }
     }
-    public interface IPresenterLoginCallback
+    public interface IPresenterLoginCallback: IResponseCallbackBaseCase<LoginResponse>
     {
-        void OnSuccess(ZResponse<LoginResponse> response);
-        void OnError(ZResponse<LoginResponse> response);
-        void OnFailure(ZResponse<LoginResponse> response);
     }
-    public class Login : UseCaseBase
+    public class Login : UseCaseBase<LoginResponse>
     {
         private ILoginDataManager LoginDataManager;
         private UserLoginRequest LoginRequest;
-        IPresenterLoginCallback LoginResponse;
-        public Login(UserLoginRequest request, IPresenterLoginCallback responseCallback)
+        IPresenterLoginCallback LoginResponseCallback;
+        public Login(UserLoginRequest request, IPresenterLoginCallback responseCallback) : base(responseCallback,request.CtsSource)
         {
             var serviceProviderInstance= ServiceProvider.GetInstance();
             LoginDataManager = serviceProviderInstance.Services.GetService<ILoginDataManager>();
             LoginRequest = request;
-            LoginResponse= responseCallback;
+            LoginResponseCallback = responseCallback;
         }
         public override void Action()
         {
@@ -62,20 +62,23 @@ namespace Library.Domain
 
             public string Response { get; set; }
 
-            public void OnResponseError(ZResponse<LoginResponse> response)
+            public void OnResponseError(String response)
             {
-                login.LoginResponse.OnError( response);
+                login.LoginResponseCallback?.OnError( response);
+
             }
             public void OnResponseFailure(ZResponse<LoginResponse> response)
             {
-               login.LoginResponse.OnFailure(response);
+               login.LoginResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<LoginResponse> response)
             {
-                login.LoginResponse.OnSuccess(response);
-               
+                login.LoginResponseCallback?.OnSuccess(response);
             }
         }
     }
+
+   
+
 }
 

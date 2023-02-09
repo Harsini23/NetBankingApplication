@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.TransferAmountUseCase;
 
@@ -19,21 +20,20 @@ namespace Library.Domain.UseCase
     {
         public AmountTransfer Transaction { get; set; }
         public string UserId { get; set; }
+        public CancellationTokenSource CtsSource { get; set ; }
 
-        public TransferAmountRequest(AmountTransfer transaction, string userId)
+        public TransferAmountRequest(AmountTransfer transaction, string userId,CancellationTokenSource cts)
         {
             Transaction = transaction;
             UserId = userId;
+            CtsSource = cts;
         }
     }
 
-    public interface IPresenterTransferAmountCallback
+    public interface IPresenterTransferAmountCallback: IResponseCallbackBaseCase<TransferAmountResponse>
     {
-        void OnSuccess(ZResponse<TransferAmountResponse> response);
-        void OnError(ZResponse<TransferAmountResponse> response);
-        void OnFailure(ZResponse<TransferAmountResponse> response);
     }
-    public class TransferAmountUseCase : UseCaseBase
+    public class TransferAmountUseCase : UseCaseBase<TransferAmountResponse>
     {
 
 
@@ -60,17 +60,17 @@ namespace Library.Domain.UseCase
             }
             public string Response { get; set; }
 
-            public void OnResponseError(ZResponse<TransferAmountResponse> response)
+            public void OnResponseError(String response)
             {
-                transferAmountUseCase.TransferAmountResponse.OnError(response);
+                transferAmountUseCase.TransferAmountResponse?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<TransferAmountResponse> response)
             {
-                transferAmountUseCase.TransferAmountResponse.OnFailure(response);
+                transferAmountUseCase.TransferAmountResponse?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<TransferAmountResponse> response)
             {
-                transferAmountUseCase.TransferAmountResponse.OnSuccess(response);
+                transferAmountUseCase.TransferAmountResponse?.OnSuccess(response);
             }
         }
     }

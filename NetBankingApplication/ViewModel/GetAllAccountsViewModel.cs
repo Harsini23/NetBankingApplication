@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NetBankingApplication.ViewModel
@@ -19,7 +20,7 @@ namespace NetBankingApplication.ViewModel
         public override void GetAllAccounts(string userId)
         {
             SetValueForCallback();
-            getAllAccounts = new GetAllAccounts(new GetAllAccountsRequest(userId),  new PresenterGetAllAccountsCallback(this));
+            getAllAccounts = new GetAllAccounts(new GetAllAccountsRequest(userId, new CancellationTokenSource()),  new PresenterGetAllAccountsCallback(this));
             getAllAccounts.Execute();
         }
         private void SetValueForCallback()
@@ -40,7 +41,7 @@ namespace NetBankingApplication.ViewModel
             this.GetAllAccountsViewModel = getAllAccountsViewModel;
         }
 
-        public void OnError(ZResponse<GetAllAccountsResponse> response)
+        public void OnError(String response)
         {
         }
 

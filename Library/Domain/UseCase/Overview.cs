@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.Overview;
 
@@ -16,12 +17,15 @@ namespace Library.Domain.UseCase
     public class OverviewRequest : IRequest
     {
         public string UserId { get; set; }
-        public OverviewRequest(string userId)
+        public CancellationTokenSource CtsSource { get; set; }
+
+        public OverviewRequest(string userId,CancellationTokenSource cts)
         {
             UserId = userId;
+            CtsSource = cts;
         }
     }
-    public class Overview:UseCaseBase
+    public class Overview:UseCaseBase<OverviewResponse>
     {
 
         public class OverviewCallback : ZResponse<OverviewResponse>

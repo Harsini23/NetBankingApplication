@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.DeletePayee;
 
@@ -18,21 +19,20 @@ namespace Library.Domain.UseCase
     {
         public string UserId { get; set; }
         public Payee payeeToDelete { get; set; }
+        public CancellationTokenSource CtsSource { get; set ; }
 
-        public DeletePayeeRequest(string userId, Payee payee)
+        public DeletePayeeRequest(string userId, Payee payee,CancellationTokenSource cts)
         {
             UserId = userId;
             payeeToDelete = payee;
+            CtsSource = cts;
         }
     }
 
-    public interface IPresenterDeletePayeeCallback
+    public interface IPresenterDeletePayeeCallback: IResponseCallbackBaseCase<String>
     {
-        void OnSuccess(ZResponse<String> response);
-        void OnError(ZResponse<String> response);
-        void OnFailure(ZResponse<String> response);
     }
-    public class DeletePayee : UseCaseBase
+    public class DeletePayee : UseCaseBase<String>
     {
         private IDeletePayeeDataManager DeletePayeeDataManager;
         private DeletePayeeRequest DeletePayeeRequest;
@@ -60,7 +60,7 @@ namespace Library.Domain.UseCase
             }
             public string Response { get; set; }
 
-            public void OnResponseError(ZResponse<String> response)
+            public void OnResponseError(String response)
             {
                 DeletePayee.DeletePayeeResponse.OnError(response);
             }
