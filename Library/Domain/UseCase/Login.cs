@@ -62,7 +62,7 @@ namespace Library.Domain
 
             public string Response { get; set; }
 
-            public void OnResponseError(String response)
+            public void OnResponseError(BException response)
             {
                 login.LoginResponseCallback?.OnError( response);
 

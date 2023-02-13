@@ -1,4 +1,5 @@
-﻿using Library.Data.DataManager;
+﻿using Library;
+using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
@@ -192,10 +193,10 @@ namespace NetBankingApplication.ViewModel
                 loginViewModel.LoginResponseValue = response.Response.ToString();
             }
 
-            public void OnError(string errorMessage)
+            public void OnError(BException errorMessage)
             {
                 //Block account
-                loginViewModel.LoginResponseValue = errorMessage;
+                loginViewModel.LoginResponseValue = errorMessage.ToString();
             }
         }
     }

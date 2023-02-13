@@ -1,4 +1,5 @@
-﻿using Library.Data.DataManager;
+﻿using Library;
+using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
@@ -49,7 +50,7 @@ namespace NetBankingApplication.ViewModel
             this.getAllPayeeViewModel = getAllPayeeViewModel;
         }
 
-        public void OnError(String response)
+        public void OnError(BException response)
         {
         }
 

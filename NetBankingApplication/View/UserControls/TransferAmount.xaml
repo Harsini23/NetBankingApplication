@@ -65,7 +65,7 @@
                     </DropDownButton>
                 </StackPanel>
                 <StackPanel x:Name="SingleAccount"  Grid.Row="4" Margin="5" Visibility="Collapsed" Orientation="Horizontal">
-                    <TextBlock Text="Account number" FontSize="16" Margin="5"></TextBlock>
+                    <TextBlock Text="Account number : " FontSize="16" Margin="5"></TextBlock>
                     <TextBlock Text="{x:Bind UserAccountNumber,Mode=OneWay}" FontSize="16" Margin="5">s</TextBlock>
                 </StackPanel>
 

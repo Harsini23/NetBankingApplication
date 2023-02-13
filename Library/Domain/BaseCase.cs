@@ -17,7 +17,7 @@ namespace Library.Domain
     {
         //contain functions to call presenter callback
         void OnSuccess(ZResponse<R> response);
-        void OnError(String errorMessage);
+        void OnError(BException errorMessage);
         void OnFailure(ZResponse<R> response);
     }
     public interface IResponseType

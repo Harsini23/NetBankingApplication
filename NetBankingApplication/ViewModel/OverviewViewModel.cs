@@ -1,4 +1,5 @@
-﻿using Library.Data.DataManager;
+﻿using Library;
+using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
@@ -37,7 +38,7 @@ namespace NetBankingApplication.ViewModel
             {
                 OverviewViewModel = overviewViewModel;
             }
-            public void OnError(string errorMessage)
+            public void OnError(BException errorMessage)
             {
                 throw new NotImplementedException();
             }

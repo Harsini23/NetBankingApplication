@@ -60,7 +60,7 @@ namespace Library.Domain.UseCase
             }
             public string Response { get; set; }
 
-            public void OnResponseError(String response)
+            public void OnResponseError(BException response)
             {
                 DeletePayee.DeletePayeeResponse.OnError(response);
             }

@@ -45,7 +45,7 @@ namespace Library.Domain
                 {
                     Debug.WriteLine("Exception has been caught:");
                     Debug.WriteLine(ex.ToString());
-                    responseCallback?.OnError(ex.ToString());
+                    responseCallback?.OnError((BException)ex);
                 }
             }, _token);
         }

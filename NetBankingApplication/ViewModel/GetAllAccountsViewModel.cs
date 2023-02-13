@@ -1,4 +1,5 @@
-﻿using Library.Data.DataManager;
+﻿using Library;
+using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
@@ -41,7 +42,7 @@ namespace NetBankingApplication.ViewModel
             this.GetAllAccountsViewModel = getAllAccountsViewModel;
         }
 
-        public void OnError(String response)
+        public void OnError(BException response)
         {
         }
 
@@ -53,7 +54,7 @@ namespace NetBankingApplication.ViewModel
         public void OnSuccess(ZResponse<GetAllAccountsResponse> response)
         {
             var allAccounts = response.Data.allAccount;
-             populateData(allAccounts);
+            populateData(allAccounts);
             handleCallbackAsync();
            
             //GetAllAccountsViewModel.AllAccounts.Clear();
@@ -105,6 +106,30 @@ namespace NetBankingApplication.ViewModel
         public ObservableCollection<String> AllAccountNumbers = new ObservableCollection<string>();
         public ObservableCollection<Account> accounts= new ObservableCollection<Account>();
         public ISwitchUserView TransferAmountView { get; set; }
+
+        private  string _currentAccountSelection = String.Empty;
+        public  string CurrentAccountSelection
+        {
+            get {
+                if (PreviousSelection != null)
+                {
+                    return PreviousSelection;
+                }
+                return this._currentAccountSelection;
+            }
+            set
+            {
+                _currentAccountSelection = value;
+                OnPropertyChangedAsync(nameof(CurrentAccountSelection));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+        public static string PreviousSelection
+        {
+            get; set;
+        }
+
 
     }
 

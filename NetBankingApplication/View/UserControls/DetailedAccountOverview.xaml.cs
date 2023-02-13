@@ -39,8 +39,8 @@ namespace NetBankingApplication.View.UserControls
         PresenterService GetAllAccountsVMserviceProviderInstance;
 
         private string currentUserId;
-        private string CurrentUserAccountNumber;
-        private ObservableCollection<String> AllAccounts;
+       // private string CurrentUserAccountNumber;
+       // private ObservableCollection<String> AllAccounts;
 
         private static bool ItemSelected;
         private bool NarrowLayout;
@@ -57,9 +57,17 @@ namespace NetBankingApplication.View.UserControls
             GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
             GetAllAccountsViewModel.TransferAmountView = this;
 
+            GetAllAccountsViewModel.GetAllAccounts(user.UserId);
+            Bindings.Update();
+
 
             currentUserId = user.UserId;
             ItemSelected = false;
+
+
+       
+
+           // SwitchBasedOnUserAccount();
 
             //if (user.HasSingleAccount)
             //{
@@ -73,17 +81,53 @@ namespace NetBankingApplication.View.UserControls
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            //take current accountnumber and userid
-            // GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
-            GetAllAccountsViewModel.GetAllAccounts(currentUserId);
-            AllAccounts = GetAllAccountsViewModel.AllAccountNumbers;
-            if (GetAllAccountsViewModel.AllAccountNumbers.Count() > 0)
+            //AllAccounts = GetAllAccountsViewModel.AllAccountNumbers;
+
+            //if (GetAllAccountsBaseViewModel.PreviousSelection != null)
+            //{
+            //    GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsBaseViewModel.PreviousSelection;
+            //    SelectAccountDropdown.Content = GetAllAccountsViewModel.CurrentAccountSelection;
+
+            //}
+            //else if (GetAllAccountsViewModel.AllAccountNumbers.Count() > 0)
+            //{
+            //    GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsViewModel.AllAccountNumbers[0];
+            //    SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
+            //}
+            //AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, currentUserId);
+
+            //SwitchBasedOnUserAccount();
+
+
+            //AllAccounts = GetAllAccountsViewModel.AllAccountNumbers;
+            if (GetAllAccountsBaseViewModel.PreviousSelection != null)
             {
-                CurrentUserAccountNumber = GetAllAccountsViewModel.AllAccountNumbers[0];
-                SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
+                GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsBaseViewModel.PreviousSelection;
+                SelectAccountDropdown.Content = GetAllAccountsViewModel.CurrentAccountSelection;
 
             }
-            AccountTransactionsViewModel.GetAllTransactions(CurrentUserAccountNumber, currentUserId);
+            else if (GetAllAccountsViewModel.AllAccountNumbers.Count() > 0)
+            {
+                GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsViewModel.AllAccountNumbers[0];
+                SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
+            }
+            AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, currentUserId);
+            Bindings.Update();
+
+
+
+
+            //take current accountnumber and userid
+            // GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
+
+            //AllAccounts = GetAllAccountsViewModel.AllAccountNumbers;
+            //if (GetAllAccountsViewModel.AllAccountNumbers.Count() > 0)
+            //{
+            //    CurrentUserAccountNumber = GetAllAccountsViewModel.AllAccountNumbers[0];
+            //    SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
+
+            //}
+            //AccountTransactionsViewModel.GetAllTransactions(CurrentUserAccountNumber, currentUserId);
 
         }
 
@@ -95,7 +139,7 @@ namespace NetBankingApplication.View.UserControls
             selectAccountList.Items.Clear();
             foreach (var i in GetAllAccountsViewModel.AllAccountNumbers)
             {
-                if (i != CurrentUserAccountNumber)
+                if (i != GetAllAccountsViewModel.CurrentAccountSelection)
                 {
                     var item = new MenuFlyoutItem();
                     item.Text = i;
@@ -109,14 +153,15 @@ namespace NetBankingApplication.View.UserControls
         private void Account_Selection(object sender, RoutedEventArgs e)
         {
             var selectedItem = sender as MenuFlyoutItem;
-            CurrentUserAccountNumber = selectedItem.Text;
+            GetAllAccountsViewModel.CurrentAccountSelection = selectedItem.Text;
             SelectAccountDropdown.Content = selectedItem.Text;
-            AccountTransactionsViewModel.GetAllTransactions(CurrentUserAccountNumber, currentUserId);
+            GetAllAccountsBaseViewModel.PreviousSelection=selectedItem.Text;
+            AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, currentUserId);
         }
 
         public void SwitchBasedOnUserAccount()
         {
-            if (AllAccounts.Count == 1)
+            if (GetAllAccountsViewModel.AllAccountNumbers.Count == 1)
             {
                 SingleAccountnumberTextblock.Visibility = Visibility.Visible;
             }

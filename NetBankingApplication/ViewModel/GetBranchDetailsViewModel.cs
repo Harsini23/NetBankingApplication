@@ -1,4 +1,5 @@
-﻿using Library.Data.DataManager;
+﻿using Library;
+using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
 using System;
@@ -28,7 +29,7 @@ namespace NetBankingApplication.ViewModel
         {
             this.GetBranchDetailsViewModel = GetBranchDetailsViewModel;
         }
-        public void OnError(String response)
+        public void OnError(BException response)
         {
            
         }

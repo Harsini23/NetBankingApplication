@@ -31,7 +31,7 @@
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
-            <TextBlock FontSize="16" x:Name="SingleAccountnumberTextblock" Visibility="Collapsed" Margin="5" Text="{x:Bind CurrentUserAccountNumber}"></TextBlock>
+            <TextBlock FontSize="16" x:Name="SingleAccountnumberTextblock" Visibility="Collapsed" Margin="5" Text="{x:Bind  GetAllAccountsViewModel.CurrentAccountSelection,Mode=OneWay}"></TextBlock>  
         </StackPanel>
    
         <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -49,7 +49,7 @@
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                    
-                    <TextBlock Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 " FontWeight="SemiBold" Name="asdf"></TextBlock>
+                    <TextBlock Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 "  FontWeight="SemiBold" Name="asdf"></TextBlock>
                 </StackPanel>
 
                 <TextBlock Grid.Row="1" Visibility="{x:Bind AccountTransactionsViewModel.TextBoxVisibility,Mode=OneWay}" Text="No Transactions yet ;)" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>

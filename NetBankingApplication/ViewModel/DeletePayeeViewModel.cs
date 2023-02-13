@@ -1,4 +1,5 @@
-﻿using Library.Domain;
+﻿using Library;
+using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
 using System;
@@ -37,7 +38,7 @@ namespace NetBankingApplication.ViewModel
             this.deletePayeeViewModel = deletePayeeViewModel;
         }
 
-        public void OnError(String response)
+        public void OnError(BException response)
         {
         }
 
