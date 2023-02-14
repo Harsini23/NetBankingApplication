@@ -18,6 +18,8 @@ namespace Library.Model
         public string Initial { get; set; }
         public Transaction Transaction { get; set; }
 
+        public TransactionDateType TransactionDateType { get; set; }
+
         public AccountTransactionBObj(string userName, string accountNumber, TransactionType transactionType, double amount, string dateOfTransaction, string initial)
         {
             UserName = userName;

@@ -58,7 +58,8 @@ namespace Library.Model
         public string ToAccount { get; set; }
         public bool Status { get; set; }
         public string Time { get; set; }
-        public TransactionBObj(string transactionId, DateTime date, TransactionType transactionType, string remark, double transactionAmout, string fromAccount, string toAccount, bool status, string accountNumber, string name,int index,string time)
+        public TransactionDateType TransactionDateType { get; set; }
+        public TransactionBObj(string transactionId, DateTime date, TransactionType transactionType, string remark, double transactionAmout, string fromAccount, string toAccount, bool status, string accountNumber, string name,int index,string time,TransactionDateType transactionDateType)
         {
             TransactionId = transactionId;
             Date = date;
@@ -71,6 +72,7 @@ namespace Library.Model
             Name = name;
             Index = index;
             Time = time;
+            TransactionDateType=transactionDateType;
         }
         public TransactionBObj()
         {

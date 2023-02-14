@@ -3,6 +3,7 @@ using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
+using Library.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -90,6 +91,7 @@ namespace NetBankingApplication.ViewModel
                       var date = DateTime.Parse(i.Date);
                       DateTime time = DateTime.ParseExact(date.TimeOfDay.ToString(), "HH:mm:ss", CultureInfo.InvariantCulture);
                       var finaltime=time.ToString("hh:mm tt");
+                      var transactionDateType = TransactionDateType.Today;
                       TransactionBObj t = new TransactionBObj
                       {
                           TransactionId = i.TransactionId,
@@ -103,10 +105,12 @@ namespace NetBankingApplication.ViewModel
                           Name = i.Name,
                           Index = temp++,
                           Time= finaltime,
+                          TransactionDateType=transactionDateType
                       };
                       transactionHistoryViewModel.AllSortedIndexedTransactions.Add(t);
                       transactionHistoryViewModel.RecipientNameInitials.Add(i.Name.Substring(0, 1));
                   }
+                  //group by unique transactiondatetype
 
 
                   var query = from i in transactionHistoryViewModel.AllSortedIndexedTransactions
@@ -120,10 +124,30 @@ namespace NetBankingApplication.ViewModel
 
                       int n = g.GroupName.Date.Day;
                       string ordinalSuffix = n % 100 == 11 || n % 100 == 12 || n % 100 == 13 ? "th" : n % 10 == 1 ? "st" : n % 10 == 2 ? "nd" : n % 10 == 3 ? "rd" : "th";
+                      if(g.GroupName.Date == DateTime.Now.Date)
+                      {
+                          info.Key = "Today ";
+                      }
+                      else if(g.GroupName.Date == DateTime.Now.AddDays(-1))
+                      {
+                          info.Key = "Yesterday";
+                      }
+                      else if(g.GroupName.Date >= DateTime.Now.AddDays(-7))
+                      {
+                          info.Key = "Last 7 Days";
+                      }
+                      else if(g.GroupName.Month == DateTime.Now.Month)
+                      {
+                          info.Key = "Earlier this month";
+                      }
+                      else
+                      {
+                          info.Key = "Previous Transactions";
+                      }
                    
-                      info.Key = g.GroupName.Date.ToString("dd'\u00A0'MMM'\u00A0'yyyy", CultureInfo.InvariantCulture) ;
+                      //info.Key = g.GroupName.Date.ToString("dd'\u00A0'MMM'\u00A0'yyyy", CultureInfo.InvariantCulture) ;
 
-                      info.Key = info.Key.Insert(2, ordinalSuffix);
+                      //info.Key = info.Key.Insert(2, ordinalSuffix);
                       info.Count = g.Items.Count();
 
 
