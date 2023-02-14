@@ -50,7 +50,7 @@ namespace NetBankingApplication.ViewModel
 
             public void OnSuccess(ZResponse<OverviewResponse> response)
             {
-                throw new NotImplementedException();
+                OverviewViewModel.TotalBalance = response.Data.balance;
             }
         }
     }
@@ -67,9 +67,23 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChangedAsync(nameof(UserId));
             }
         }
-     
+
+
+        private string _totalBalance = String.Empty;
+        public string TotalBalance
+        {
+            get { return _totalBalance; }
+            set
+            {
+                _totalBalance = value;
+                OnPropertyChangedAsync(nameof(TotalBalance));
+            }
+        }
+
         public abstract void getData(string userId);
         public abstract void setUser(string userId);
 
     }
+
+
 }

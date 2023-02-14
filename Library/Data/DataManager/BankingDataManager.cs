@@ -105,6 +105,8 @@ namespace Library.Data.DataManager
 
         Branch GetBranchDetails(String BId);
 
+        double GetTotalBalnceOfUser(string userId);
+
     }
     public interface INetHandler
     {

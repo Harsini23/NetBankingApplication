@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.Overview;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace Library.Domain.UseCase
 {
@@ -37,20 +39,22 @@ namespace Library.Domain.UseCase
         public Overview(OverviewRequest request, IPresenterOverviewCallback responseCallback):base(responseCallback,request.CtsSource)
         {
             var serviceProviderInstance = ServiceProvider.GetInstance();
-           // overviewDataManager = serviceProviderInstance.Services.GetService<IOverviewDataManager>();
+            overviewDataManager = serviceProviderInstance.Services.GetService<IOverviewDataManager>();
+            overviewRequest = request;
+            presenterOverviewCallback = responseCallback;
         }
         public override void Action()
         {
             //use call back
-           
+            this.overviewDataManager.GetOverviewData(overviewRequest, new OverviewCallback(this));   
         }
 
         public class OverviewCallback : ZResponse<OverviewResponse>
         {
-            private Login login;
-            public OverviewCallback(Login login)
+            private Overview overview;
+            public OverviewCallback(Overview overview)
             {
-                this.login = login;
+                this.overview = overview;
             }
 
             public string Response { get; set; }
@@ -65,7 +69,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<OverviewResponse> response)
             {
-                
+                overview.presenterOverviewCallback?.OnSuccess(response);
             }
         }
     }

@@ -38,14 +38,8 @@
                     <TextBlock FontSize="16" Text="Select Recipient" Margin="5" ></TextBlock>
                     <DropDownButton Name="SelectPayee" Content="Select payee" MinWidth="350"   Style="{ThemeResource DropdownStyle}" >
                         <DropDownButton.Flyout >
-                            <MenuFlyout  Opening="MenuFlyout_Opened" Placement="Bottom">
-                                <MenuFlyout.MenuFlyoutPresenterStyle>
-                                    <Style TargetType="MenuFlyoutPresenter">
-                                        <Setter Property="MinWidth" Value="350"/>
-                                        <Setter Property="CornerRadius" Value="5"/>
-                                        <!--<Setter Property="Background" Value="White"/>-->
-                                    </Style>
-                                </MenuFlyout.MenuFlyoutPresenterStyle>
+                            <MenuFlyout  Opening="MenuFlyout_Opened" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
+                             
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
@@ -59,15 +53,26 @@
                     <TextBlock Text="Select Your Account" FontSize="16" Margin="5"></TextBlock>
                     <DropDownButton HorizontalAlignment="Left" Name="SelectAccount"   Style="{ThemeResource DropdownStyle}" Content="Select From Account"  MinWidth="350" MinHeight="30">
                         <DropDownButton.Flyout >
-                            <MenuFlyout x:Name="AccountDropdown"  Opening="AccountDropdown_Opening" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource MenuFlyoutStyle2}">
+                            <MenuFlyout x:Name="AccountDropdown"  Opening="AccountDropdown_Opening" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
                 </StackPanel>
-                <StackPanel x:Name="SingleAccount"  Grid.Row="4" Margin="5" Visibility="Collapsed" Orientation="Horizontal">
-                    <TextBlock Text="Account number : " FontSize="16" Margin="5"></TextBlock>
-                    <TextBlock Text="{x:Bind UserAccountNumber,Mode=OneWay}" FontSize="16" Margin="5">s</TextBlock>
-                </StackPanel>
+                <Grid x:Name="SingleAccount"  Grid.Row="4" Margin="5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0"  Orientation="Horizontal">
+                        <TextBlock Text="Account number : " FontSize="16"></TextBlock>
+                        <TextBlock Text="{x:Bind UserAccountNumber,Mode=OneWay}" FontSize="16" Margin="5,0,0,0"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
+                        <TextBlock Text="Balance : " FontSize="16"></TextBlock>
+                        <TextBlock Text="23,53,123.45" FontSize="16" Margin="5,0,0,0"></TextBlock>
+                    </StackPanel>
+                </Grid>
+               
 
                 <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}" Header="Remark" x:Name="RemarkTextBox" />
                 <TextBox Grid.Row="6" Style="{ThemeResource InputFieldTextBox}" Header="Amount" TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox"/>
