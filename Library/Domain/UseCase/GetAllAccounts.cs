@@ -62,15 +62,15 @@ namespace Library.Domain.UseCase
 
             public void OnResponseError(BException response)
             {
-                GetAllAccounts.GetAllAccountsResponse.OnError(response);
+                GetAllAccounts.GetAllAccountsResponse?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<GetAllAccountsResponse> response)
             {
-                GetAllAccounts.GetAllAccountsResponse.OnFailure(response);
+                GetAllAccounts.GetAllAccountsResponse?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<GetAllAccountsResponse> response)
             {
-                GetAllAccounts.GetAllAccountsResponse.OnSuccess(response);
+                GetAllAccounts.GetAllAccountsResponse?.OnSuccess(response);
 
             }
         }

@@ -107,6 +107,8 @@ namespace Library.Data.DataManager
 
         double GetTotalBalnceOfUser(string userId);
 
+        Dictionary<String, double> GetAllAccountBalance(string userId);
+
     }
     public interface INetHandler
     {

@@ -21,8 +21,14 @@
                 <Setter Property="CornerRadius" Value="5"></Setter>
                 <Setter Property="Background" Value="White"></Setter>
             </Style>
+            <Style TargetType="FlyoutPresenter" x:Key="FlyoutPresenterStyle">
+                <Setter Property="MinWidth" Value="350"></Setter>
+                <Setter Property="CornerRadius" Value="5"></Setter>
+                <Setter Property="Background" Value="White"></Setter>
+            </Style>
 
-          
+
+
 
             <Style TargetType="GridViewItem" x:Key="AllAccountsPreviewGridView">
                 <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
@@ -725,6 +731,11 @@
             </Style>
 
             <Style TargetType="MenuFlyoutPresenter" x:Key="DropDownMenuFlyoutStyle">
+                <Setter Property="MinWidth" Value="350"></Setter>
+                <Setter Property="CornerRadius" Value="5"></Setter>
+                <Setter Property="Background" Value="Black"></Setter>
+            </Style>
+            <Style TargetType="FlyoutPresenter" x:Key="FlyoutPresenterStyle">
                 <Setter Property="MinWidth" Value="350"></Setter>
                 <Setter Property="CornerRadius" Value="5"></Setter>
                 <Setter Property="Background" Value="Black"></Setter>
