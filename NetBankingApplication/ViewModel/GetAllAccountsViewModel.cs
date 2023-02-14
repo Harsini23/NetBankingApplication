@@ -55,6 +55,7 @@ namespace NetBankingApplication.ViewModel
         {
             var allAccounts = response.Data.allAccount;
             populateData(allAccounts);
+            populateBalanceData(response.Data.allAccountBalance);
             handleCallbackAsync();
            
             //GetAllAccountsViewModel.AllAccounts.Clear();
@@ -98,6 +99,26 @@ namespace NetBankingApplication.ViewModel
                   }
               });
         }
+
+        public async void populateBalanceData(List<AccountBalance> allBalances)
+        {
+            if (allBalances.Count == 1)
+            {
+                GetAllAccountsViewModel.SingleAccountBalance = allBalances[0].TotalBalance.ToString();
+            }
+       
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+              {
+                  GetAllAccountsViewModel.allBalances.Clear();
+                  foreach(var i in allBalances)
+                  {
+                      
+                      GetAllAccountsViewModel.allBalances.Add(i);
+                  }
+             
+              });
+        }    
     }
     public abstract class GetAllAccountsBaseViewModel : NotifyPropertyBase
     {
@@ -105,6 +126,7 @@ namespace NetBankingApplication.ViewModel
         public List<Account> AllAccounts = new List<Account>();
         public ObservableCollection<String> AllAccountNumbers = new ObservableCollection<string>();
         public ObservableCollection<Account> accounts= new ObservableCollection<Account>();
+        public ObservableCollection<AccountBalance> allBalances= new ObservableCollection<AccountBalance>();
         public ISwitchUserView TransferAmountView { get; set; }
 
         private  string _currentAccountSelection = String.Empty;
@@ -125,11 +147,42 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+        private string _singleAccountBalance = String.Empty;
+        public string SingleAccountBalance
+        {
+            get
+            {
+                return this._singleAccountBalance;
+            }
+            set
+            {
+                _singleAccountBalance = "₹ " + value;
+                OnPropertyChangedAsync(nameof(SingleAccountBalance));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+
+        private string _currentAccountBalance = "Choose Account";
+        public string CurrentAccountBalance
+        {
+            get
+            {
+                return this._currentAccountBalance;
+            }
+            set
+            {
+                _currentAccountBalance = "₹ "+value;
+                OnPropertyChangedAsync(nameof(CurrentAccountBalance));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+
         public static string PreviousSelection
         {
             get; set;
         }
-
 
     }
 

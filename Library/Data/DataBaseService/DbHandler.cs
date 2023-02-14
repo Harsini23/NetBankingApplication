@@ -299,6 +299,42 @@ namespace Library.Data.DataBaseService
             return allAccounts;
         }
 
+       public double GetTotalBalnceOfUser(string userId)
+        {
+            List<String> allAccounts = new List<String>();
+            double total = 0;  
+            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId);
+            foreach (var i in AllAccounts)
+            {
+                allAccounts.Add(i.AccountNumber);
+            }
+            foreach(var i in allAccounts)
+            {
+                var res = connection.Table<Account>().Where(j => j.AccountNumber == i).FirstOrDefault();
+                total += res.TotalBalance;
+            }
+            return total;
+        }
+
+        public Dictionary<String, double> GetAllAccountBalance(string userId)
+        {
+            var allAccountBalance = new Dictionary<String,double>();
+
+            List<String> allAccounts = new List<String>();
+            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId);
+            foreach (var i in AllAccounts)
+            {
+                allAccounts.Add(i.AccountNumber);
+            }
+            foreach (var i in allAccounts)
+            {
+                var res = connection.Table<Account>().Where(j => j.AccountNumber == i).FirstOrDefault();
+                allAccountBalance.Add(i, res.TotalBalance);
+            }
+
+            return allAccountBalance;
+        }
+
         #endregion
 
 

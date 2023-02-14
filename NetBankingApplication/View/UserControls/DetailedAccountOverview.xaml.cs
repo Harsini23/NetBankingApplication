@@ -37,6 +37,7 @@ namespace NetBankingApplication.View.UserControls
         PresenterService AccountTransactionsVMserviceProviderInstance;
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
         PresenterService GetAllAccountsVMserviceProviderInstance;
+        public static string UserId;
 
         private string currentUserId;
        // private string CurrentUserAccountNumber;
@@ -45,9 +46,10 @@ namespace NetBankingApplication.View.UserControls
         private static bool ItemSelected;
         private bool NarrowLayout;
 
-        public DetailedAccountOverview(User user)
+        public DetailedAccountOverview(String userId)
         {
             this.InitializeComponent();
+           
 
             AccountTransactionsVMserviceProviderInstance = PresenterService.GetInstance();
             AccountTransactionsViewModel = AccountTransactionsVMserviceProviderInstance.Services.GetService<AccountTransactionsBaseViewModel>();
@@ -57,12 +59,21 @@ namespace NetBankingApplication.View.UserControls
             GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
             GetAllAccountsViewModel.TransferAmountView = this;
 
-            GetAllAccountsViewModel.GetAllAccounts(user.UserId);
+            currentUserId = userId;
+            ItemSelected = false;
+
+            if (userId != null)
+            {
+                GetAllAccountsViewModel.GetAllAccounts(userId);
+            }
+            else
+            {
+                GetAllAccountsViewModel.GetAllAccounts(currentUserId);
+            }
             Bindings.Update();
 
 
-            currentUserId = user.UserId;
-            ItemSelected = false;
+          
 
 
        
@@ -112,6 +123,8 @@ namespace NetBankingApplication.View.UserControls
                 SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
             }
             AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, currentUserId);
+
+            SwitchBasedOnUserAccount();
             Bindings.Update();
 
 
@@ -165,7 +178,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 SingleAccountnumberTextblock.Visibility = Visibility.Visible;
             }
-            else
+            else if(GetAllAccountsViewModel.AllAccountNumbers.Count > 1)
             {
                 SelectAccountDropdown.Visibility = Visibility.Visible;
             }

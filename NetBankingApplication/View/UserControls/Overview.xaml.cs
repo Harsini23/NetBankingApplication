@@ -52,7 +52,7 @@ namespace NetBankingApplication.View.UserControls
             OverviewVMserviceProviderInstance = PresenterService.GetInstance();
             _overviewViewModel = OverviewVMserviceProviderInstance.Services.GetService<OverviewBaseViewModel>();
             _overviewViewModel.setUser(user.UserId);
-            _overviewViewModel.getData(user.UserId);
+            _overviewViewModel.getData(currentUser.UserId);
          
         }
         protected void OnPropertyChangedAsync(string propertyName)

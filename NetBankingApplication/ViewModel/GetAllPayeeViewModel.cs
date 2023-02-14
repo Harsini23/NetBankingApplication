@@ -62,11 +62,11 @@ namespace NetBankingApplication.ViewModel
         public  void OnSuccess(ZResponse<GetAllPayeeResponse> response)
         {
             var allPayee = response.Data.allRecipients;
-            populateData(allPayee);
+           var SortedPayee = allPayee.OrderBy(i => i.PayeeName);
+            populateData(SortedPayee);
         }
 
-
-        public async void populateData(List<Payee> allPayee)
+        public async void populateData(IEnumerable<Payee> allPayee)
         {
 
             await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
@@ -80,11 +80,8 @@ namespace NetBankingApplication.ViewModel
                       getAllPayeeViewModel.AllPayeeCollection.Add(i);
                       getAllPayeeViewModel.PayeeNames.Add(i.PayeeName);
                       getAllPayeeViewModel.AllPayee.Add(i);
-                      //Debug.WriteLine("/////////////////////////////////////////////////////////////////////////////////////////");
-                      //Debug.WriteLine(i.PayeeName);
-
                   }
-                      getAllPayeeViewModel?.ChangeVisibility?.ChangeVisibility(allPayee.Count <= 0);
+                  getAllPayeeViewModel?.ChangeVisibility?.ChangeVisibility(getAllPayeeViewModel.AllPayeeCollection.Count <= 0);
               });
         }
     }

@@ -124,7 +124,7 @@ namespace NetBankingApplication.View
             {
                 //_dashboardNavigationViewModel.SetBankAccount();
 
-                BankAccount bankAccount = new BankAccount(Currentuser);
+                BankAccount bankAccount = new BankAccount(Currentuser.UserId);
 
                 CurrentSelectedModule = bankAccount;
                 HeaderTitle = "Bank Account";

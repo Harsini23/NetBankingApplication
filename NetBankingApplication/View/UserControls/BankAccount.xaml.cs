@@ -24,12 +24,12 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class BankAccount : UserControl, INotifyPropertyChanged
     {
-        User currentUser;
+        public static string currentUser;
 
-        public BankAccount(User currentUser)
+        public BankAccount(string currentUser)
         {
             this.InitializeComponent();
-            this.currentUser = currentUser;
+            BankAccount.currentUser = currentUser;
 
         }
 
@@ -52,7 +52,7 @@ namespace NetBankingApplication.View.UserControls
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            CurrentSelectedItem = new AllAccountsPreview(currentUser.UserId);
+            CurrentSelectedItem = new AllAccountsPreview(currentUser);
             BankAccountNavigation.SelectedItem = AccountsPreview;
         }
 
@@ -62,7 +62,7 @@ namespace NetBankingApplication.View.UserControls
 
             if (args.SelectedItem == AccountsPreview)
             {
-                CurrentSelectedItem = new AllAccountsPreview(currentUser.UserId);
+                CurrentSelectedItem = new AllAccountsPreview(currentUser);
             }
             else if (args.SelectedItem == AccountDetails)
             {
@@ -70,7 +70,7 @@ namespace NetBankingApplication.View.UserControls
             }
             else
             {
-                CurrentSelectedItem = new AllAccountsPreview(currentUser.UserId);
+                CurrentSelectedItem = new AllAccountsPreview(currentUser);
             }
 
         }

@@ -5,7 +5,7 @@
     xmlns:local="using:NetBankingApplication.View.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:data="using:Library.Model"
+    xmlns:data="using:Library.Model" xmlns:Controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -26,26 +26,50 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Margin="20" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
-            <StackPanel Orientation="Horizontal">
+        <StackPanel BorderThickness="0.4" CornerRadius="5" BorderBrush="Black" Padding="20" Margin="20" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock CharacterSpacing="60" Text="Welcome," FontSize="24" FontWeight="Bold"></TextBlock>
                 <TextBlock Margin="5,0,0,0" CharacterSpacing="60" Text="{x:Bind user.UserName}" FontSize="24" FontWeight="Bold"></TextBlock>
             </StackPanel>
-            <TextBlock Text="{x:Bind user.EmailId}" FontSize="14" FontWeight="Light"></TextBlock>
+            <TextBlock Text="{x:Bind user.EmailId}" FontSize="14" HorizontalAlignment="Center" FontWeight="Light"></TextBlock>
         </StackPanel>
-        
-        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <StackPanel Orientation="Vertical" >
-                <!--get all accounts total balance - update with every transfer-->
-                <TextBlock Text="" FontSize="24" FontWeight="Bold"></TextBlock>
-                <TextBlock Text="Current Balance" FontSize="14" FontWeight="Light"></TextBlock>
-            </StackPanel>
-            <Button Content="Make a Transfer"></Button>
+
+        <StackPanel BorderThickness="0.4" CornerRadius="5" Margin="20" BorderBrush="Black" Padding="20" Grid.RowSpan="3" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="24" FontWeight="Normal"></TextBlock>
+                    <TextBlock Text="{x:Bind _overviewViewModel.TotalBalance,Mode=OneWay}" Margin="5,0,0,0" FontSize="24" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                      
+                </StackPanel>
+                <TextBlock Text="Total Balance" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Light"></TextBlock>
+                    <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Current month spendings:"></TextBlock>
+                        <TextBlock Text="23,45,000.99" Margin="10,0,0,0"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+
+                <Controls:RadialProgressBar  x:Name="RPBTest" HorizontalAlignment="Center" VerticalAlignment="Center" Value="20" Foreground="#ffbc11" Thickness="20" Minimum="0" Maximum="100" Width="120" Height="120" Outline="#0a837f"  Grid.Row="0" Grid.Column="0" />
+            </Grid>
+
         </StackPanel>
-        <TextBlock Text="Recent Transactions" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Margin="20"></TextBlock>
+        <TextBlock Text="Recent Transactions" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Margin="20,0,0,0"></TextBlock>
        
             <local:TransactionHistory Grid.Row="2" Margin="10" Grid.Column="0" UserId="{x:Bind UserId,Mode=OneWay}" ></local:TransactionHistory>
 
-       
+        <!--<local:AllAccountsPreview Grid.Row="2" Grid.Column="1"></local:AllAccountsPreview>-->
+      
+        <!--<Ellipse Grid.Column="1" Grid.Row="2" Fill="White" Height="60" Width="60" Stroke="Black" StrokeThickness="4" />-->
+      
+
     </Grid>
 </UserControl>

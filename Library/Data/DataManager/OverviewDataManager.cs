@@ -18,7 +18,25 @@ namespace Library.Data.DataManager
 
         public void GetOverviewData(OverviewRequest request, Overview.OverviewCallback response)
         {
-           //validate and get records
+            //validate and get records
+            try
+            {
+                ZResponse<OverviewResponse> Response = new ZResponse<OverviewResponse>();
+                OverviewResponse overViewResponse = new OverviewResponse();
+
+                var userId = request.UserId;
+               
+                overViewResponse.balance = DbHandler.GetTotalBalnceOfUser(userId).ToString();
+                Response.Data = overViewResponse;
+                var responseStatus = "Successfull";
+                Response.Response = responseStatus;
+
+                response.OnResponseSuccess(Response);
+            }
+            catch
+            {
+                //throw no such user exception
+            }
         }
     
     }
@@ -30,5 +48,9 @@ namespace Library.Data.DataManager
         public Account CurrentAccount;
         public Card Card;
         public Branch Branch;
+        public string balance;
+
+        public string PrimaryAccountBalance;
+        public Dictionary<String, double> AccountAndBalance = new Dictionary<string, double>();
     }
 }

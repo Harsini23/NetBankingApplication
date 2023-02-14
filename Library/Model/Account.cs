@@ -40,5 +40,11 @@ namespace Library.Model
         //        .HasConversion<string>();
         //}
     }
+    public class AccountBalance
+    {
+        public string AccountNumber { get; set; }
+        public double TotalBalance { get; set; }
+    }
+
 }
 

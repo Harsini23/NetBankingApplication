@@ -24,12 +24,26 @@ namespace Library.Data.DataManager
 
             var userId = request.UserId;
             var currentAccountForUser = DbHandler.GetAllAccountsForUser(userId);
+            var tempallAccountBalance = DbHandler.GetAllAccountBalance(userId);
             List<Account> allCurrentAccounts = new List<Account>();
+            List<AccountBalance> allCurrentAccountsBalance = new List<AccountBalance>();
+         
             foreach (var accNo in currentAccountForUser)
             {
                 allCurrentAccounts.Add(DbHandler.GetAccount(accNo));
             }
+            foreach(var i in tempallAccountBalance)
+            {
+                var temp = new AccountBalance
+                {
+                    AccountNumber = i.Key,
+                    TotalBalance = i.Value
+                };
+                allCurrentAccountsBalance.Add(temp);
 
+            }
+
+            GetAllAccountsResponse.allAccountBalance=allCurrentAccountsBalance;
             //var allCurrentAccounts = DbHandler.GetAllAccounts(userId);
 
             GetAllAccountsResponse.allAccount = allCurrentAccounts;
@@ -45,5 +59,6 @@ namespace Library.Data.DataManager
     public class GetAllAccountsResponse : ZResponse<Account>
     {
         public List<Account> allAccount;
+        public List<AccountBalance> allAccountBalance = new List<AccountBalance>();
     }
 }

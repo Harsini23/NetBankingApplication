@@ -1,5 +1,6 @@
 ﻿using Library.Model;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Uwp.UI;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -34,6 +36,7 @@ namespace NetBankingApplication.View.UserControls
         private double Amount;
         private string NewPayeeEnteredName;
         private string UserAccountNumber;
+        private string UserAccountBalance;
         private string _amount;
 
 
@@ -55,6 +58,9 @@ namespace NetBankingApplication.View.UserControls
 
         List<Account> allAccounts = new List<Account>();
         ObservableCollection<String> allAccountNumbers = new ObservableCollection<String>();
+
+       // List<AccountBalance> allBalances = new List<AccountBalance>();
+        ObservableCollection<AccountBalance> allAccountBalances = new ObservableCollection<AccountBalance>();
 
         public TransferAmount(string userId)
         {
@@ -171,6 +177,9 @@ namespace NetBankingApplication.View.UserControls
             allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
             allAccounts.Clear();
             allAccounts = GetAllAccountsViewModel.AllAccounts;
+            allAccountBalances.Clear();
+            allAccountBalances = GetAllAccountsViewModel.allBalances;
+
 
             AccountNumberTextBox.IsEnabled = false;
             AccountNumberTextBox.IsReadOnly = true;
@@ -253,11 +262,33 @@ namespace NetBankingApplication.View.UserControls
         private void AccountDropdown_Opening(object sender, object e)
         {
             selectAccountList = sender as MenuFlyout;
+           // AccountBalance.Children.Clear();
+
+            //foreach (var i in GetAllAccountsViewModel.allBalances)
+            //{
+            //    //var item = new MenuFlyoutItem();
+
+            //    var overallStackPanel = new StackPanel();
+            //    overallStackPanel.Name = i.AccountNumber;
+            //    overallStackPanel.Margin = new Thickness(5);
+            //    overallStackPanel.Tapped += Account_Selection;
+            //    overallStackPanel.Children.Add(new TextBlock { Text=i.AccountNumber, Name=i.AccountNumber});
+            //    var balanceSp = new StackPanel();
+            //    balanceSp.Orientation = Orientation.Horizontal;
+            //    balanceSp.Children.Add(new TextBlock { Text = "₹" , Padding=new Thickness(0,0,5,0)});
+            //    balanceSp.Children.Add(new TextBlock { Text = i.TotalBalance.ToString() });
+            //    overallStackPanel.Children.Add(balanceSp);
+            //    AccountBalance.Children.Add(overallStackPanel);
+
+            //}
+
+
             selectAccountList.Items.Clear();
-            foreach (var i in GetAllAccountsViewModel.AllAccountNumbers)
+            foreach (var i in GetAllAccountsViewModel.allBalances)
             {
                 var item = new MenuFlyoutItem();
-                item.Text = i;
+                item.Text = i.AccountNumber;
+                item.Name = i.TotalBalance.ToString();
                 item.Click += Account_Selection; ;
                 item.MinWidth = 150;
                 selectAccountList.Items.Add(item);
@@ -269,7 +300,9 @@ namespace NetBankingApplication.View.UserControls
             var selectedItem = sender as MenuFlyoutItem;
             FromAccount = selectedItem.Text;
             SelectAccount.Content = selectedItem.Text;
+            GetAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
             Debug.WriteLine(ToAccount);
+
         }
 
         private void NewPayeeName_TextChanged(object sender, TextChangedEventArgs e)
@@ -325,6 +358,7 @@ namespace NetBankingApplication.View.UserControls
                 if(allAccountNumbers.Count > 0)
                 UserAccountNumber = allAccountNumbers[0];
                 FromAccount = UserAccountNumber;
+             // allAccountBalances[0].TotalBalance.ToString();
             }
             else
             {
