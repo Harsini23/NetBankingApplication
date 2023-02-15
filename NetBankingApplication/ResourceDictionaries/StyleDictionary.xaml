@@ -10,7 +10,7 @@
             </Style>
 
             <Style TargetType="ContentPresenter" x:Key="GroupHeadder">
-                <Setter Property="Background" Value="#E9E9E9"></Setter>
+                <Setter Property="Background" Value="#efefef"></Setter>
                 <Setter Property="CornerRadius" Value="5"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
                 <Setter Property="Margin" Value="10"></Setter>

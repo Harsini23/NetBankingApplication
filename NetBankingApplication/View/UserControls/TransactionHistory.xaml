@@ -524,29 +524,29 @@
 
             <ListView.GroupStyle>
                 <GroupStyle >
-                    <!--<GroupStyle.HeaderContainerStyle>
+                    <GroupStyle.HeaderContainerStyle>
                         <Style TargetType="ListViewHeaderItem">
                             <Setter Property="Template" >
                                 <Setter.Value>
-                                    --><!--Remove default rectangle border--><!--
+                                    <!--Remove default rectangle border-->
                                     <ControlTemplate TargetType="ContentControl">
                                         <ContentPresenter Content="{Binding}"  Style="{ThemeResource GroupHeadder}"/>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </GroupStyle.HeaderContainerStyle>-->
+                    </GroupStyle.HeaderContainerStyle>
                     <GroupStyle.HeaderTemplate  >
                         <DataTemplate x:DataType="data:GroupInfosList" >
-                            <Grid VerticalAlignment="Stretch">
+                            <Grid VerticalAlignment="Stretch"  >
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="950"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <!--<ColumnDefinition Width="*"></ColumnDefinition>-->
                                 </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="{x:Bind Key,Mode=OneWay}"
-                              FontWeight="Bold"  FontSize="14"/>
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="{x:Bind Count,Mode=OneWay}"
-                               FontWeight="Bold"  FontSize="14" />
+                              FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#5c5c5c" FontSize="14"/>
+                            <!--<TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="{x:Bind Count,Mode=OneWay}"
+                               FontWeight="Bold"  FontSize="14" />-->
                             </Grid>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
