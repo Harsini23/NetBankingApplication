@@ -544,7 +544,7 @@
                                     <!--<ColumnDefinition Width="*"></ColumnDefinition>-->
                                 </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="{x:Bind Key,Mode=OneWay}"
-                              FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#5c5c5c" FontSize="14"/>
+                              FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#3e3e3e" FontSize="14"/>
                             <!--<TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="{x:Bind Count,Mode=OneWay}"
                                FontWeight="Bold"  FontSize="14" />-->
                             </Grid>
