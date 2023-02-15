@@ -13,4 +13,13 @@ namespace Library.Model.Enum
             Rejected
         }
 
+    public enum TransactionDateType
+    {
+        Today,
+        Yesterday,
+        Last7Days,
+        EarlierThisMonth,
+        PreviousTransactions
+    }
+
 }
