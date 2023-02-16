@@ -43,10 +43,27 @@ namespace Library.Domain.UseCase
 
         public class AddUserCallback:ZResponse<AddUserResponse>
         {
+            AddUser addUser;
             public AddUserCallback(AddUser addUser)
             {
+                this.addUser = addUser;
+            }
+
+
+            public void OnResponseError(BException response)
+            {
+                addUser.presenterAddUserCallback?.OnError(response);
+            }
+            public void OnResponseFailure(ZResponse<AddUserResponse> response)
+            {
+                addUser.presenterAddUserCallback?.OnFailure(response);
+            }
+            public void OnResponseSuccess(ZResponse<AddUserResponse> response)
+            {
+                addUser.presenterAddUserCallback?.OnSuccess(response);
 
             }
+
         }
     }
 

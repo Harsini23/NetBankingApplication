@@ -26,6 +26,8 @@ namespace NetBankingApplication.View.UserControls
         private string currentUserId;
         public static bool IsNarrowLayout;
         private TransactionHistoryBaseViewModel TransactionViewModel;
+        public double windowHeight;
+        public double windowWidth;
 
         PresenterService TransactionVMserviceProviderInstance;
 
@@ -65,13 +67,14 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            double windowHeight = e.NewSize.Height;
-            double windowWidth = e.NewSize.Width;
+             windowHeight = e.NewSize.Height;
+             windowWidth = e.NewSize.Width;
 
             if (windowHeight < 300 || windowWidth < 800)
             {
                 //VisualStateManager.GoToState(this, "Large", true);
                 IsNarrowLayout = true;
+
             }
             else
             {

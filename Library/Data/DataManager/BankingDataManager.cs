@@ -109,6 +109,8 @@ namespace Library.Data.DataManager
 
         Dictionary<String, double> GetAllAccountBalance(string userId);
 
+        void CreateDefaultAdminIfNotExists(Credentials credentials);
+
     }
     public interface INetHandler
     {

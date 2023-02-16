@@ -145,7 +145,7 @@ namespace NetBankingApplication.ViewModel
         //public string CurrentMonthExpenseTransactionCount { get; set; }
         //public string CurrentMonthIncomeTransactionCount { get; set; }
 
-        private string _currentMonthIncomeTransactionCount = String.Empty;
+        private string _currentMonthIncomeTransactionCount = "0";
         public string CurrentMonthIncomeTransactionCount
         {
             get { return this._currentMonthIncomeTransactionCount; }
@@ -157,7 +157,7 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
-        private string _currentMonthExpenseTransactionCount = String.Empty;
+        private string _currentMonthExpenseTransactionCount = "0";
         public string CurrentMonthExpenseTransactionCount
         {
             get { return this._currentMonthExpenseTransactionCount; }
@@ -172,7 +172,7 @@ namespace NetBankingApplication.ViewModel
 
         //public string LastTransactionDate { get; set; }
 
-        private string _lastTransactionDate = String.Empty;
+        private string _lastTransactionDate = "No transactions yet ;)";
         public string LastTransactionDate
         {
             get { return this._lastTransactionDate; }
@@ -185,9 +185,7 @@ namespace NetBankingApplication.ViewModel
         }
 
 
-
-
-        private string _currentMonthExpense = String.Empty;
+        private string _currentMonthExpense = "0";
         public string CurrentMonthExpense
         {
             get { return this._currentMonthExpense; }
@@ -199,7 +197,7 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
-        private string _currentMonthIncome = String.Empty;
+        private string _currentMonthIncome = "0";
         public string CurrentMonthIncome
         {
             get { return this._currentMonthIncome; }

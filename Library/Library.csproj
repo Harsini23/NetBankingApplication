@@ -130,6 +130,7 @@
     <Compile Include="Data\DataManager\AddPayeeDataManager.cs" />
     <Compile Include="Data\DataManager\AddUserDataManager.cs" />
     <Compile Include="Data\DataManager\BankingDataManager.cs" />
+    <Compile Include="Data\DataManager\DefaultAdminDataManager.cs" />
     <Compile Include="Data\DataManager\DeletePayeeDataManager.cs" />
     <Compile Include="Data\DataManager\GetAllAccountsDataManager.cs" />
     <Compile Include="Data\DataManager\GetAllPayeeDataManager.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Data\DataManager\TransactionHistoryDataManager.cs" />
     <Compile Include="Data\DataManager\TransferAmountDataManager.cs" />
     <Compile Include="Domain\BaseCase.cs" />
+    <Compile Include="Domain\DefaultAdmin.cs" />
     <Compile Include="Domain\IServiceProvider.cs" />
     <Compile Include="Domain\UseCase\AccountTransactions.cs" />
     <Compile Include="Domain\UseCase\AddPayee.cs" />

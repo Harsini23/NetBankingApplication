@@ -46,7 +46,7 @@ namespace Library.Domain.UseCase
             AddPayeeDataManager = serviceProviderInstance.Services.GetService<IAddPayeeDataManager>();
             AddPayeeRequest = request;
             AddPayeeResponse = responseCallback;
-        }
+        }   
 
         public override void Action()
         {

@@ -23,6 +23,7 @@ namespace NetBankingApplication.ViewModel
     {
 
         Login login;
+        DefaultAdmin defaultAdmin;
         ResetPassword resetPassword;
         public string userId, password, resetNewPassword;
         public static User user;
@@ -59,6 +60,12 @@ namespace NetBankingApplication.ViewModel
             this.password = password;
             //check password specification and UI logic is correct, or if needed - set binded value proceed to call use case or handle UI error
             CallUseCase();
+        }
+
+        public override void CreateAdminAccount()
+        {
+            defaultAdmin = new DefaultAdmin();
+            defaultAdmin.Execute();
         }
 
         public override void ResetPassword(string newPassword)

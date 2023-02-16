@@ -59,7 +59,7 @@
                           
 
                         </Grid>
-                        <NavigationViewItemSeparator Grid.Row="1"></NavigationViewItemSeparator>
+                        <!--<NavigationViewItemSeparator Grid.Row="1"></NavigationViewItemSeparator>-->
 
 
                         <!--<Grid Grid.Row="2" Margin="5" >

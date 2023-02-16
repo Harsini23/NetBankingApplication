@@ -24,11 +24,51 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Background="{ThemeResource SystemAltMediumColor}" Orientation="Horizontal">
-                <TextBlock  Style="{ThemeResource HeadderTheme}" FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE825;" FontSize="40" Margin="20"></TextBlock>
-                <TextBlock   HorizontalAlignment="Left" x:Name="HeaderTextBox" Style="{ThemeResource HeaderStyle }" Margin="10" Text="Banking Application" Grid.Column="0"></TextBlock>
+            <Grid Background="{ThemeResource SystemAltMediumColor}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock  Style="{ThemeResource HeadderTheme}" FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE825;" FontSize="40" Margin="20"></TextBlock>
+                    <TextBlock   HorizontalAlignment="Left" x:Name="HeaderTextBox" Style="{ThemeResource HeaderStyle }" Margin="10" Text="Banking Application" Grid.Column="0"></TextBlock>
+                </StackPanel>
+
+                <Button HorizontalAlignment="Center" Grid.Column="1" Content="Default Admin" Style="{ThemeResource ButtonStyling}" Margin="10" >
+                    <Button.Flyout  >
+                        <Flyout >
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter">
+                                    <Setter Property="MinWidth" Value="200"></Setter>
+                                    <Setter Property="CornerRadius" Value="5"></Setter>
+                                    <Setter Property="Background" Value="White"></Setter>
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <StackPanel Background="White">
+                                <TextBlock FontSize="16" FontWeight="Bold" Margin="10" Text="Haven't set up your account?"></TextBlock>
+                                <StackPanel Orientation="Horizontal" Margin="5" Padding="3">
+                                    <TextBlock  Text="UserId :"></TextBlock>
+                                    <TextBlock Margin="5,0,0,0" Text="Admin"></TextBlock>
+                                </StackPanel>  
+                                <Grid  Margin="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" Padding="3">
+                                        <TextBlock Text="Password :"></TextBlock>
+                                        <TextBlock Margin="5,0,0,0" Text="UserAdmin@1"></TextBlock>
+                                    </StackPanel>
+                                    <Button Width="25" Name="copy" Height="25" FontSize="15" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Margin="0" Grid.Column="1" FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="copy_Click" ></Button>
+                                    </Grid>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+
+
+                </Button>
                 <!--<TextBlock Style="{ThemeResource HeaderStyle }" Grid.Column="1">Welcome to ZBank</TextBlock>-->
-            </StackPanel>
+            </Grid>
             
             <controls:DropShadowPanel Color="Black"
                           OffsetX="-25"
