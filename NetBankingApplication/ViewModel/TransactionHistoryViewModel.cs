@@ -238,6 +238,18 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+        private Visibility _dataTemplateChanged = Visibility.Collapsed;
+        public Visibility DataTemplateChanged
+        {
+            get { return _dataTemplateChanged; }
+            set
+            {
+                _dataTemplateChanged = value;
+                OnPropertyChangedAsync(nameof(DataTemplateChanged));
+
+            }
+        }
+
 
 
     }

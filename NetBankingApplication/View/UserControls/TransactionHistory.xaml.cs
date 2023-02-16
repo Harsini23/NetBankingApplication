@@ -70,53 +70,55 @@ namespace NetBankingApplication.View.UserControls
              windowHeight = e.NewSize.Height;
              windowWidth = e.NewSize.Width;
 
-            if (windowHeight < 300 || windowWidth < 800)
+            if (windowHeight < 300 || windowWidth < 700)
             {
-                //VisualStateManager.GoToState(this, "Large", true);
+                AllTransactionListView.ItemTemplate = (DataTemplate)Resources["NarrowTemplate"];
+                AllTransactionListView.HeaderTemplate = (DataTemplate)Resources["NarrowHeader"];
                 IsNarrowLayout = true;
 
             }
             else
             {
-                //VisualStateManager.GoToState(this, "Small", true);
-                IsNarrowLayout=false;
+                AllTransactionListView.ItemTemplate = (DataTemplate)Resources["WideTemplate"];
+                AllTransactionListView.HeaderTemplate = (DataTemplate)Resources["WideHeader"];
+                IsNarrowLayout = false;
             }
         }
 
       
     }
 
-    public class AlternatingColorTemplateSelector : DataTemplateSelector
-    {
-        public DataTemplate EvenTemplate { get; set; }
-        public DataTemplate OddTemplate { get; set; }
+    //public class AlternatingColorTemplateSelector : DataTemplateSelector
+    //{
+    //    public DataTemplate EvenTemplate { get; set; }
+    //    public DataTemplate OddTemplate { get; set; }
 
-        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
-        {
+    //    protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+    //    {
 
-            //TransactionBObj t = item as TransactionBObj;
-            //var listViewItem = (ListViewItem)container;
-            //var listView2 = ItemsControl.ItemsControlFromItemContainer(listViewItem);
-            //if (t.Index % 2 == 0)
-            //{
-            //    return EvenTemplate;
-            //}
-            //else
-            //{
-            //    return OddTemplate;
-            //}
-            var element = container as FrameworkElement;
-            if (TransactionHistory.IsNarrowLayout)
-            {
-                return OddTemplate;
-            }
-            else
-            {
-                return EvenTemplate;
-            }
-          //  return EvenTemplate;
+    //        //TransactionBObj t = item as TransactionBObj;
+    //        //var listViewItem = (ListViewItem)container;
+    //        //var listView2 = ItemsControl.ItemsControlFromItemContainer(listViewItem);
+    //        //if (t.Index % 2 == 0)
+    //        //{
+    //        //    return EvenTemplate;
+    //        //}
+    //        //else
+    //        //{
+    //        //    return OddTemplate;
+    //        //}
+    //        var element = container as FrameworkElement;
+    //        if (TransactionHistory.IsNarrowLayout)
+    //        {
+    //            return OddTemplate;
+    //        }
+    //        else
+    //        {
+    //            return EvenTemplate;
+    //        }
+    //      //  return EvenTemplate;
 
-        }
-    }
+    //    }
+    //}
 
 }

@@ -5,7 +5,13 @@
    
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Name="Light" >
-            
+
+            <Style TargetType="Grid" x:Key="TransactionHeadder">
+                <Setter Property="Background" Value="#efefef"></Setter>
+                <Setter Property="CornerRadius" Value="5"></Setter>
+                <Setter Property="Padding" Value="10"></Setter>
+                <Setter Property="Margin" Value="10,10,10,0"></Setter>
+            </Style>
             
             <Style TargetType="TextBox" x:Key="AutoSuggestTesting">
                 <Setter Property="CornerRadius" Value="30"></Setter>
@@ -599,7 +605,15 @@
         </ResourceDictionary>
         
         <ResourceDictionary x:Name="Dark">
-           <Style TargetType="TextBlock" x:Key="HeaderStyle">
+
+            <Style TargetType="Grid" x:Key="TransactionHeadder">
+                <Setter Property="Background" Value="#4d4d4d"></Setter>
+                <Setter Property="CornerRadius" Value="5"></Setter>
+                <Setter Property="Padding" Value="10"></Setter>
+                <Setter Property="Margin" Value="10,10,10,0"></Setter>
+            </Style>
+            
+            <Style TargetType="TextBlock" x:Key="HeaderStyle">
                 <Setter Target="VerticalAlignment" Value="Center"></Setter>
                 <Setter Target="HorizontalAlignment" Value="Center"></Setter>
                 <Setter Target="FontSize" Value="24"></Setter>

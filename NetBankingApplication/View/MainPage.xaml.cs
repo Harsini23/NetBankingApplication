@@ -18,6 +18,7 @@ using NetBankingApplication.View;
 using System.ComponentModel;
 using System.Diagnostics;
 using Library.Model;
+using Library;
 
 namespace NetBankingApplication
 {
@@ -25,9 +26,11 @@ namespace NetBankingApplication
     {
         private LoginBaseViewModel LoginViewModel;
         PresenterService LoginVMserviceProviderInstance;
+        LibraryInitialization libraryInitialization;
         public MainPage()
         {
-            Debug.WriteLine(Application.Current.Resources);
+            libraryInitialization = LibraryInitialization.GetInstance();
+            libraryInitialization.InitializeDb();
             this.InitializeComponent();
             LoginVMserviceProviderInstance = PresenterService.GetInstance();
             LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
@@ -45,12 +48,12 @@ namespace NetBankingApplication
             LoadContentFrame.Navigate(typeof(LoginPage));
             //User user = new User
             //{
-            //    UserId = "UID19ff174c",
+            //    UserId = "UID6df59172",
             //    UserName = "Rachel",
-            //    MobileNumber = 9873891130,
-            //    EmailId = "rach@gmail.com",
+            //    MobileNumber = 9872634150,
+            //    EmailId = "rachelgreeen@gmail.com",
             //    IsBlocked = false,
-            //    PAN = "D132GB892W"
+            //    PAN = "18DF34D34S"
             //};
             //LoadContentFrame.Navigate(typeof(DashBoard), user);
         }

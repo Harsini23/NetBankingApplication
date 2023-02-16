@@ -22,19 +22,19 @@ namespace Library.Data.DataManager
        private int AccessDeniedCount = 5;
    
        //BankingDataManager bankingDataManager;
-       CreateTables createTableInstance;
+     //  CreateTables createTableInstance;
       
         // BankingDataManager Handler;
         public LoginDataManager():base(new DbHandler(),new NetHandler())
         {
            
             //  Handler = new BankingDataManager(dbHandler, netHandler);
-            if (createTableInstance==null)
-            {
-                createTableInstance = CreateTables.GetInstance();
-                createTableInstance.InstantiateAllTables();
+            //if (createTableInstance==null)
+            //{
+            //    createTableInstance = CreateTables.GetInstance();
+            //    createTableInstance.InstantiateAllTables();
               
-            }
+            //}
        
         }
         private void InvalidLogin()

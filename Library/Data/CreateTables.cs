@@ -27,6 +27,7 @@ namespace Library.Data
             if (_instance == null)
             {
                 _instance = new CreateTables();
+                _instance.InstantiateAllTables();
             }
             return _instance;
         }

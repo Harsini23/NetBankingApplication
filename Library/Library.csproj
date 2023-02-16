@@ -156,6 +156,7 @@
     <Compile Include="Domain\UseCase\ResetPassword.cs" />
     <Compile Include="Domain\UseCase\TransactionHistoryUseCase.cs" />
     <Compile Include="Domain\UseCase\TransferAmountUseCase.cs" />
+    <Compile Include="LibraryInitialization.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\AccountTransactionBObj.cs" />
     <Compile Include="Model\Admin.cs" />
