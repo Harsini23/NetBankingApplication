@@ -5,6 +5,8 @@
    
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Name="Light" >
+            
+            
             <Style TargetType="TextBox" x:Key="AutoSuggestTesting">
                 <Setter Property="CornerRadius" Value="30"></Setter>
             </Style>
@@ -27,7 +29,49 @@
                 <Setter Property="Background" Value="White"></Setter>
             </Style>
 
+            <Style x:Key="FixedHeaderListViewStyle"
+       TargetType="ListView">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListView">
+                            <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <ContentControl Content="{TemplateBinding Header}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        ContentTransitions="{TemplateBinding HeaderTransitions}"/>
+                                    <ScrollViewer AutomationProperties.AccessibilityView="Raw"
+                                      BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
+                                      Grid.Row="1"
+                                      HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                      HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                      IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                      IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                      IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
+                                      IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                      IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
+                                      x:Name="ScrollViewer"
+                                      TabNavigation="{TemplateBinding TabNavigation}"
+                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                      VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                      ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                        <ItemsPresenter Footer="{TemplateBinding Footer}"
+                                            FooterTemplate="{TemplateBinding FooterTemplate}"
+                                            FooterTransitions="{TemplateBinding FooterTransitions}"
+                                            Padding="{TemplateBinding Padding}"/>
+                                    </ScrollViewer>
 
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
 
             <Style TargetType="GridViewItem" x:Key="AllAccountsPreviewGridView">

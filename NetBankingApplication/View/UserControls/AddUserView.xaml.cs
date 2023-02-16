@@ -8,6 +8,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -50,19 +52,21 @@ namespace NetBankingApplication.View.UserControls
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            if (UserNameTextBox.Text==String.Empty||MobileNumberTextBox.Text==String.Empty||EmailIdTextBox.Text==String.Empty||UserAccountNumberTextBox.Text==String.Empty|| BalanceTextBox.Text==String.Empty|| BranchIdTextBox.Text==String.Empty|| AccountTypeBox.SelectedItem==null|| CurrencyValues.SelectedItem==null)
+           
+            if (UserNameTextBox.Text == String.Empty || MobileNumberTextBox.Text == String.Empty || EmailIdTextBox.Text == String.Empty  || BalanceTextBox.Text == String.Empty || BranchIdTextBox.Text == String.Empty || AccountTypeBox.SelectedItem == null || CurrencyValues.SelectedItem == null)
             {
                 AddUserViewModel.ErrorMessage = "All fields are required*";
             }
 
-            else if (MobileNumberTextBox.Text.Length!=10)
+            else if (MobileNumberTextBox.Text.Length != 10)
             {
                 AddUserViewModel.ErrorMessage = "Enter a valid mobile number";
             }
-            else if(!this.EmailIdTextBox.Text.Contains('@') || !this.EmailIdTextBox.Text.Contains('.')|| !this.EmailIdTextBox.Text.Contains("com")){
+            else if (!this.EmailIdTextBox.Text.Contains('@') || !this.EmailIdTextBox.Text.Contains('.') || !this.EmailIdTextBox.Text.Contains("com"))
+            {
                 AddUserViewModel.ErrorMessage = "Enter a valid email id";
             }
-            else if (PANTextBox.Text.Length!=10)
+            else if (PANTextBox.Text.Length != 10)
             {
                 AddUserViewModel.ErrorMessage = "Enter valid PAN number";
             }
@@ -73,12 +77,11 @@ namespace NetBankingApplication.View.UserControls
                     UserName = UserNameTextBox.Text,
                     MobileNumber = long.Parse(MobileNumberTextBox.Text),
                     EmailId = EmailIdTextBox.Text,
-                    AccountNumber = UserAccountNumberTextBox.Text,
                     AccountType = Enum.Parse<AccountType>(AccountTypeBox.SelectedItem.ToString()),
                     TotalBalance = Double.Parse(BalanceTextBox.Text),
                     Currency = Enum.Parse<Currency>(CurrencyValues.SelectedItem.ToString()),
                     BId = BranchIdTextBox.Text.ToString(),
-                    PAN = PANTextBox.Text.ToString()     
+                    PAN = PANTextBox.Text.ToString()
                 };
 
 
@@ -90,14 +93,23 @@ namespace NetBankingApplication.View.UserControls
                 EmailIdTextBox.Text = String.Empty;
                 BranchIdTextBox.Text = String.Empty;
                 BalanceTextBox.Text = String.Empty;
-                UserAccountNumberTextBox.Text = String.Empty;
                 AccountTypeBox.SelectedItem = null;
                 CurrencyValues.SelectedItem = null;
                 AddUserViewModel.ErrorMessage = String.Empty;
                 PANTextBox.Text = String.Empty;
-            }
-        
 
+                ShowContentDialogueAsync();
+
+            }
+
+
+
+        }
+
+        public async Task ShowContentDialogueAsync()
+        {
+            var result = await ContentDialog.ShowAsync();
+            Bindings.Update();  
         }
 
         private void PanNumberTextBox_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
@@ -106,5 +118,20 @@ namespace NetBankingApplication.View.UserControls
         }
 
      
+        private void Idcopy_Click(object sender, RoutedEventArgs e)
+        {
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.SetText(AddUserViewModel.UserId.ToString());
+            Clipboard.SetContent(dataPackage);
+        }
+        private void Passwordcopy_Click(object sender, RoutedEventArgs e)
+        {
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.SetText(AddUserViewModel.Password.ToString());
+            Clipboard.SetContent(dataPackage);
+        }
+
+
+
     }
 }

@@ -42,7 +42,9 @@ namespace NetBankingApplication.ViewModel
 
         public void OnSuccess(ZResponse<AddUserResponse> response)
         {
-          
+            addUserViewModel.UserId = response.Data.credentials.UserId;
+            addUserViewModel.Password = response.Data.credentials.Password;
+            addUserViewModel.AccountNo = response.Data.account.AccountNumber;
         }
     }
 
@@ -59,6 +61,57 @@ namespace NetBankingApplication.ViewModel
                 //SetProperty(ref _response, value);
             }
         }
+
+
+
+        private string _userId = String.Empty;
+        public string UserId
+        {
+            get { return this._userId; }
+            set
+            {
+                _userId = value;
+                OnPropertyChangedAsync(nameof(UserId));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+
+        private string _password = String.Empty;
+        public string Password
+        {
+            get { return this._password; }
+            set
+            {
+                _password = value;
+                OnPropertyChangedAsync(nameof(Password));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+        private string _accountNo = String.Empty;
+        public string AccountNo
+        {
+            get { return this._accountNo; }
+            set
+            {
+                _accountNo = value;
+                OnPropertyChangedAsync(nameof(AccountNo));
+                //SetProperty(ref _response, value);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         public abstract void AddUser(UserAccountDetails userDetails);
     }
 }

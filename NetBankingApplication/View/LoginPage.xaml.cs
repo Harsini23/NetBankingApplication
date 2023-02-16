@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -181,5 +182,11 @@ namespace NetBankingApplication.View
             }
         }
 
+        private void copy_Click(object sender, RoutedEventArgs e)
+        {
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.SetText("UserAdmin@1");
+            Clipboard.SetContent(dataPackage);
+        }
     }
 }

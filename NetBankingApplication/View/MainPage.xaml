@@ -12,5 +12,6 @@
     
     <Grid>
         <Frame x:Name="LoadContentFrame"></Frame>
+
     </Grid>
 </Page>

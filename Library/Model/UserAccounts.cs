@@ -23,4 +23,15 @@ namespace Library.Model
 
         }
     }
+
+    public class DefaultAdminBObj
+    {
+        public string UserId { get; set; }
+        public string Password { get; set; }
+        public DefaultAdminBObj(string userId, string password)
+        {
+            UserId = userId;
+            Password = password;
+        }
+    }
 }

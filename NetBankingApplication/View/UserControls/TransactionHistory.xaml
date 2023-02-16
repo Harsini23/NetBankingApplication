@@ -17,8 +17,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-      
-        <Style TargetType="ListViewItem" x:Key="TransactionItemContainer">
+            <!--<Style TargetType="ListViewHeaderItem" x:Key="TransactionHeaderContaier">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+            </Style>-->
+            <Style TargetType="ListViewItem" x:Key="TransactionItemContainer">
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
             <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
             <Setter Property="BorderBrush" Value="{x:Null}" />
@@ -397,57 +399,43 @@
                 </Setter.Value>
             </Setter>
         </Style>
+          
         <DataTemplate x:Key="EvenTemplate" x:DataType="data:TransactionBObj">
-            <Grid Margin="5" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="5" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <!--Background="{Binding Converter={StaticResource AlternatingColorConverter}}"-->
+            <Grid Margin="10,0,0,0" x:Name="DetailedTransactionListTemplate" CornerRadius="5" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Stretch">
+              
                 <Grid.ColumnDefinitions>
 
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <!--<ColumnDefinition Width="1*"></ColumnDefinition>-->
+                 
                 </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition  Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
 
 
-                <TextBlock  Grid.Column="0" Text="{x:Bind Name,Mode=OneWay}" TextWrapping="Wrap" FontWeight="Bold" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                <TextBlock Grid.Row="1" Margin="0,0,0,5" Grid.Column="0" Text="Recipient" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock  Grid.Column="0" Text="{x:Bind Name,Mode=OneWay}" TextWrapping="Wrap"  VerticalAlignment="Center" HorizontalAlignment="Left" ></TextBlock>
 
-
-                <TextBlock Margin="5"  Grid.Column="1" TextWrapping="Wrap" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind Remark,Mode=OneWay}"  ></TextBlock>
-                <TextBlock Text="Remark" Margin="0,0,0,5"  Grid.Column="1" Grid.Row="1" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-
-                <TextBlock  Grid.Column="2" Text="{x:Bind Time,Mode=OneWay}" TextWrapping="Wrap" Margin="5" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock  Grid.Column="2" Margin="0,0,0,5" TextWrapping="Wrap" Grid.Row="1" Text="Date of transaction" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-                <!--seperate-->
-                    <StackPanel Orientation="Horizontal" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
-                        <TextBlock x:Name="Amount"  Margin="5" TextWrapping="NoWrap" Text="{x:Bind Amount,Mode=OneWay}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" ></TextBlock>
+                        <TextBlock x:Name="Amount"  TextWrapping="NoWrap" Text="{x:Bind Amount,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     </StackPanel>
 
-             
-                <TextBlock x:Name="AmountTextBlock" Grid.Column="3" Margin="0,0,0,5" Grid.Row="1" Text="Amount" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock  Grid.Column="1" TextWrapping="Wrap"  VerticalAlignment="Center" HorizontalAlignment="Left" Text="{x:Bind Remark,Mode=OneWay}"  ></TextBlock>
 
-                <TextBlock x:Name="TransactionType" Grid.Column="4" Margin="5" TextWrapping="NoWrap" Text="{x:Bind TransactionType,Mode=OneWay}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock x:Name="TransacctionTypeTextBlock" Grid.Column="4" Margin="0,0,0,5" Grid.Row="1" TextWrapping="Wrap" Text="Transaction Type" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-
-                <!--<TextBlock x:Name="Status" Grid.Column="5" Margin="10" TextWrapping="NoWrap" Text="{x:Bind Status}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                        <TextBlock x:Name="StatusTextBlock" Grid.Column="5" Margin="0,0,0,5" TextWrapping="Wrap" Grid.Row="1" Text="Status" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>-->
+                    <TextBlock x:Name="TransactionType" Grid.Column="3" TextWrapping="NoWrap" Text="{x:Bind TransactionType,Mode=OneWay}"  VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
 
 
-            </Grid>
+                    <TextBlock  Grid.Column="4" Text="{x:Bind Time,Mode=OneWay}" TextWrapping="Wrap"  VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+
+                    <!--<NavigationViewItemSeparator Margin="0" Grid.ColumnSpan="5" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontWeight="SemiLight"></NavigationViewItemSeparator>-->
+                </Grid>
         </DataTemplate>
+            
         <DataTemplate x:Key="OddTemplate" x:DataType="data:TransactionBObj" >
                 <Grid 
                      
@@ -473,54 +461,53 @@
 
 
                     <TextBlock  Grid.Column="0" Text="{x:Bind Name,Mode=OneWay}" TextWrapping="Wrap"  Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-                
-
-                    <TextBlock  Grid.Column="3" Text="{x:Bind Time,Mode=OneWay}" TextWrapping="Wrap" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                 
-
-                    <!--seperate-->
                     <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Text="₹" HorizontalAlignment="Left" Padding="0,0,5,0" FontSize="20" FontWeight="Normal"></TextBlock>
                         <TextBlock x:Name="Amount" TextWrapping="NoWrap" Text="{x:Bind Amount,Mode=OneWay}"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     </StackPanel>
-             
+
                     <TextBlock x:Name="TransactionType" Grid.Column="2" Margin="10" TextWrapping="NoWrap" Text="{x:Bind TransactionType,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+                    <TextBlock  Grid.Column="3" Text="{x:Bind Time,Mode=OneWay}" TextWrapping="Wrap" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <!--seperate-->
+                 
                  
                 </Grid>
         </DataTemplate>
 
-        <local:AlternatingColorTemplateSelector x:Key="AlternatingColorTemplateSelector"
+        <!--<local:AlternatingColorTemplateSelector x:Key="AlternatingColorTemplateSelector"
                                               EvenTemplate="{StaticResource EvenTemplate}"
-                                              OddTemplate="{StaticResource OddTemplate}" />
-
-
+                                              OddTemplate="{StaticResource OddTemplate}" />-->
         <CollectionViewSource x:Name="TransactionSource" Source="{x:Bind TransactionViewModel.FinalSortedIndexedTransactions,Mode=OneWay}" IsSourceGrouped="true" />
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid ScrollViewer.HorizontalScrollMode="Enabled">
+    <Grid ScrollViewer.HorizontalScrollMode="Enabled" HorizontalAlignment="Stretch">
+
         <TextBlock Visibility="{x:Bind TransactionViewModel.TextBoxVisibility,Mode=OneWay}" Name="EmptyDataDisplay" Text="No Transactions yet ;)"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled"  ItemsSource="{Binding Source={StaticResource TransactionSource}}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView"  ItemTemplateSelector="{StaticResource AlternatingColorTemplateSelector}" ItemContainerStyle="{StaticResource TransactionItemContainer}">
-           
-            <!--<ListView.HeaderTemplate>
-                <DataTemplate>
-                    <Grid Margin="20" BorderBrush="Gray" BorderThickness="0.3"  >
+
+        <ListView HorizontalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled"  ItemsSource="{Binding Source={StaticResource TransactionSource}}" IsItemClickEnabled="True"  SelectionMode="Single"  x:Name="AllTransactionListView"  ItemTemplate="{StaticResource EvenTemplate}" ItemContainerStyle="{StaticResource TransactionItemContainer}" >
+            <!--ItemTemplateSelect="{StaticResiurce AlternatingTemplateSelector}-->
+
+
+            <ListView.HeaderTemplate  >
+                <DataTemplate >
+                    <Grid Margin="10,10,10,0" Padding="10" CornerRadius="5" Background="#efefef" HorizontalAlignment="Stretch" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition  Width="Auto" MinWidth="100" ></ColumnDefinition>
-                            <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
-                            <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
-                            <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
-                            <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
-                          
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock  Grid.Column="0"  Style="{ThemeResource BaseTextBlockStyle}" Text="Recipent"></TextBlock>
-                        <TextBlock Grid.Column="1" Style="{ThemeResource BaseTextBlockStyle}" Text="Remark"></TextBlock>
-                        <TextBlock Grid.Column="2"  Style="{ThemeResource BaseTextBlockStyle}" Text="Date of Transaction"></TextBlock>
-                        <TextBlock Grid.Column="3"  Style="{ThemeResource BaseTextBlockStyle}" Text="Amount"></TextBlock>
-                        <TextBlock Grid.Column="4"  Style="{ThemeResource BaseTextBlockStyle}" Text="Transaction Type"></TextBlock>
+                        <TextBlock Opacity="100" Grid.Column="0" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20" Text="Recipent" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock Grid.Column="1"  HorizontalAlignment="Left" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"   Style="{ThemeResource BaseTextBlockStyle}" Text="Remark"></TextBlock>
+                        <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16"  CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Amount"></TextBlock>
+                        <TextBlock Grid.Column="3"  HorizontalAlignment="Left" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Status"></TextBlock>
+                        <TextBlock Grid.Column="4"  HorizontalAlignment="Left"  Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Date"></TextBlock>
                     </Grid>
                 </DataTemplate>
-            </ListView.HeaderTemplate>-->
+            </ListView.HeaderTemplate>
 
             <ListView.GroupStyle>
                 <GroupStyle >
@@ -534,6 +521,7 @@
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
                         </Style>
                     </GroupStyle.HeaderContainerStyle>
                     <GroupStyle.HeaderTemplate  >
@@ -544,7 +532,7 @@
                                     <!--<ColumnDefinition Width="*"></ColumnDefinition>-->
                                 </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="{x:Bind Key,Mode=OneWay}"
-                              FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#5c5c5c" FontSize="14"/>
+                              FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="#3e3e3e" FontSize="14"/>
                             <!--<TextBlock Grid.Column="1" HorizontalAlignment="Right" Text="{x:Bind Count,Mode=OneWay}"
                                FontWeight="Bold"  FontSize="14" />-->
                             </Grid>
@@ -554,5 +542,5 @@
             </ListView.GroupStyle>
 
         </ListView>
-    </Grid>
+    </Grid> 
 </UserControl>

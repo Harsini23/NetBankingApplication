@@ -96,20 +96,31 @@ namespace NetBankingApplication.ViewModel
                       if (date.Date == DateTime.Now.Date)
                       {
                           transactionDateType = TransactionDateType.Today;
-                      }else if (date.Date== DateTime.Now.AddDays(-1))
+                          var a = DateTime.Now.AddDays(-1);
+                      }else if (date.Date== DateTime.Now.AddDays(-1).Date)
                       {
                           transactionDateType = TransactionDateType.Yesterday;
-                      }else if (date.Date >= DateTime.Now.AddDays(-7))
+                          var tDate=DateTime.ParseExact(i.Date, "d-M-yyyy h:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                          finaltime = tDate.ToString("ddd MMM dd");
+                      }
+                      else if (date.Date >= DateTime.Now.AddDays(-7).Date)
                       {
                           transactionDateType = TransactionDateType.Last7Days;
+                          var tDate = DateTime.ParseExact(i.Date, "d-M-yyyy h:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                          finaltime = tDate.ToString("ddd MMM dd");
+
                       }
                       else if (date.Month == DateTime.Now.Month)
                       {
                           transactionDateType = TransactionDateType.EarlierThisMonth;
+                          var tDate = DateTime.ParseExact(i.Date, "d-M-yyyy h:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                          finaltime = tDate.ToString("ddd MMM dd");
                       }
                       else
                       {
                           transactionDateType = TransactionDateType.PreviousTransactions;
+                          var tDate = DateTime.ParseExact(i.Date, "d-M-yyyy h:mm tt", System.Globalization.CultureInfo.InvariantCulture);
+                          finaltime = tDate.ToString("ddd MMM dd");
                       }
                       TransactionBObj t = new TransactionBObj
                       {

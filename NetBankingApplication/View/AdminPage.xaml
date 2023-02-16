@@ -37,7 +37,6 @@
         </NavigationView>
     </Grid>
 
-
     <VisualStateManager.VisualStateGroups>
         <VisualStateGroup>
             <VisualState>

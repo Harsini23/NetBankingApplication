@@ -346,6 +346,21 @@ namespace Library.Data.DataBaseService
         #endregion
 
 
+       public void CreateDefaultAdminIfNotExists(Credentials credential)
+        {
+            var user = new User
+            {
+                UserId = credential.UserId,
+                UserName = "Admin",
+                MobileNumber = 0,
+                EmailId = "-",
+                IsBlocked = false,
+                PAN = "NA"
+            };
+            connection.Insert(user);
+            connection.Insert(credential);
+        }
+
 
 
     }

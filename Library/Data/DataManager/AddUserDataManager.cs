@@ -15,6 +15,7 @@ namespace Library.Data.DataManager
 {
     public class AddUserDataManager : BankingDataManager, IAddUserDataManager
     {
+        private string password;
         public static string UserID {get;set;}
         public AddUserDataManager() : base(new DbHandler(), new NetHandler())
         {
@@ -22,22 +23,42 @@ namespace Library.Data.DataManager
 
         public void AddNewUser(AddUserRequest request, AddUser.AddUserCallback response)
         {
+            ZResponse<AddUserResponse> Response = new ZResponse<AddUserResponse>();
+            AddUserResponse addUserResponse = new AddUserResponse();
+
             var credentials= CreateUserCredentials();
             var user =CreateUser(request.newUser.UserName,request.newUser.MobileNumber,request.newUser.EmailId,request.newUser.PAN);
-            var account= CreateAccount(request.newUser.AccountNumber,request.newUser.AccountType,request.newUser.TotalBalance,request.newUser.BId,request.newUser.Currency);
-            var userAccount= CreateUserAccounts(request.newUser.AccountNumber);
+            var GeneratedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 1000000000).ToString();
+            var account= CreateAccount(GeneratedAccountNumber,request.newUser.AccountType,request.newUser.TotalBalance,request.newUser.BId,request.newUser.Currency);
+            var userAccount= CreateUserAccounts(GeneratedAccountNumber);
 
             DbHandler.AddUser(user);
             DbHandler.AddAccount(account);
             DbHandler.AddAccountForUser(userAccount);
             DbHandler.CreateCredential(credentials);
             Debug.WriteLine("Created and added new account and user details");
+
+            addUserResponse.credentials = new Credentials
+            {
+                UserId = credentials.UserId,
+                Password=password,
+                IsAdmin=credentials.IsAdmin,
+                NewUser=credentials.NewUser,
+            };
+            addUserResponse.user=user;
+            addUserResponse.account = account;
+            Response.Data = addUserResponse;
+            var responseStatus = "Successfull got all data";
+            Response.Response = responseStatus;
+
+            response.OnResponseSuccess(Response);
         }
 
         private Credentials CreateUserCredentials()
         {
             UserID = GenerateUniqueId.GetUniqueId("UID");
-            var password = GenerateUniqueId.GeneratePassword();
+            
+            password = GenerateUniqueId.GeneratePassword();
             Debug.WriteLine("Password for the created account: ",password);
             var GeneratedPassword = PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(password));
 

@@ -46,6 +46,7 @@ namespace Library.Domain
             services.AddSingleton<IDeletePayeeDataManager, DeletePayeeDataManager>();
             services.AddSingleton<IGetBranchDetailsDataManager, GetBranchDetailsDataManager>();
             services.AddSingleton<IOverviewDataManager, OverviewDataManager>();
+            services.AddSingleton<IDefaultAdminDataManager, DefaultAdminDataManager>();
 
             return services.BuildServiceProvider();
         }
