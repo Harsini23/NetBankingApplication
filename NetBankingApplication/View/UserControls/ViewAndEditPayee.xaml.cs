@@ -26,11 +26,7 @@ namespace NetBankingApplication.View.UserControls
     {
         private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
 
-        PresenterService GetAllPayeeVMserviceProviderInstance;
-
         private DeletePayeeBaseViewModel DeletePayeeViewModel;
-
-        PresenterService DeletePayeeVMserviceProviderInstance;
 
         public ObservableCollection<Payee> PayeeCollection = new ObservableCollection<Payee>();
         public ObservableCollection<Payee> SelctionPayeeCollection = new ObservableCollection<Payee>();
@@ -42,11 +38,8 @@ namespace NetBankingApplication.View.UserControls
         {
             this.InitializeComponent();
             currentUserId = userId;
-            GetAllPayeeVMserviceProviderInstance = PresenterService.GetInstance();
-            GetAllPayeeViewModel = GetAllPayeeVMserviceProviderInstance.Services.GetService<GetAllPayeeBaseViewModel>();
-
-            DeletePayeeVMserviceProviderInstance = PresenterService.GetInstance();
-            DeletePayeeViewModel = DeletePayeeVMserviceProviderInstance.Services.GetService<DeletePayeeBaseViewModel>();
+            GetAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
+            DeletePayeeViewModel = PresenterService.GetInstance().Services.GetService<DeletePayeeBaseViewModel>();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

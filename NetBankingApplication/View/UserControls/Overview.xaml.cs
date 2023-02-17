@@ -40,17 +40,14 @@ namespace NetBankingApplication.View.UserControls
         }
 
         private OverviewBaseViewModel _overviewViewModel;
-     
-        PresenterService OverviewVMserviceProviderInstance;
-
+    
         public Overview(User currentUser)
         {
          
             user = currentUser;
             UserId = currentUser.UserId;
             this.InitializeComponent();
-            OverviewVMserviceProviderInstance = PresenterService.GetInstance();
-            _overviewViewModel = OverviewVMserviceProviderInstance.Services.GetService<OverviewBaseViewModel>();
+            _overviewViewModel = PresenterService.GetInstance().Services.GetService<OverviewBaseViewModel>();
             _overviewViewModel.setUser(user.UserId);
             _overviewViewModel.getData(currentUser.UserId);
          

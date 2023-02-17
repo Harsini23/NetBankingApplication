@@ -25,22 +25,16 @@ namespace NetBankingApplication.View.UserControls
     {
         private string currentUserId;
         private AddPayeeBaseViewModel AddPayeeViewModel;
-     
-        PresenterService AddPayeeVMserviceProviderInstance;
-      
+   
         public AddPayeeView(string userId)
         {
             this.InitializeComponent();
-            AddPayeeVMserviceProviderInstance = PresenterService.GetInstance();
-            AddPayeeViewModel = AddPayeeVMserviceProviderInstance.Services.GetService<AddPayeeBaseViewModel>();
+            AddPayeeViewModel = PresenterService.GetInstance().Services.GetService<AddPayeeBaseViewModel>();
             currentUserId = userId;
             Result.Text = "";
 
         }
-        public AddPayeeView()
-        {
-
-        }
+        public AddPayeeView() { }
         private void AddPayee_Click(object sender, RoutedEventArgs e)
         {
             if (AccountHolderName.Text==String.Empty|| Accountnumber.Text==String.Empty|| IfscCode.Text==String.Empty|| BankName.Text==String.Empty|| PayeeName.Text==String.Empty)
@@ -66,11 +60,5 @@ namespace NetBankingApplication.View.UserControls
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
         }
-
-        //private void Testing_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //PayeeTemplate.PayeeNameProperty
-        //    PayeeTemplate p = new PayeeTemplate();
-        //}
     }
 }

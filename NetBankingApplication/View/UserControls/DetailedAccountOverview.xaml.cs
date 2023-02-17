@@ -34,9 +34,7 @@ namespace NetBankingApplication.View.UserControls
         public AccountTransactionBObj SelectedItem;
 
         private AccountTransactionsBaseViewModel AccountTransactionsViewModel;
-        PresenterService AccountTransactionsVMserviceProviderInstance;
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
-        PresenterService GetAllAccountsVMserviceProviderInstance;
         public static string UserId;
 
         private string currentUserId;
@@ -49,14 +47,8 @@ namespace NetBankingApplication.View.UserControls
         public DetailedAccountOverview(String userId)
         {
             this.InitializeComponent();
-           
-
-            AccountTransactionsVMserviceProviderInstance = PresenterService.GetInstance();
-            AccountTransactionsViewModel = AccountTransactionsVMserviceProviderInstance.Services.GetService<AccountTransactionsBaseViewModel>();
-
-
-            GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
-            GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
+            AccountTransactionsViewModel = PresenterService.GetInstance().Services.GetService<AccountTransactionsBaseViewModel>();
+            GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
             GetAllAccountsViewModel.TransferAmountView = this;
 
             currentUserId = userId;
@@ -71,12 +63,6 @@ namespace NetBankingApplication.View.UserControls
                 GetAllAccountsViewModel.GetAllAccounts(currentUserId);
             }
             Bindings.Update();
-
-
-          
-
-
-       
 
            // SwitchBasedOnUserAccount();
 

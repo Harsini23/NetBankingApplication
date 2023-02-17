@@ -31,21 +31,14 @@ namespace NetBankingApplication.View
     /// </summary>
     public sealed partial class AdminPage : Page, INotifyPropertyChanged
     {
-        //private AddUserBaseViewModel AddUserViewModel;
-
-        //PresenterService AddUserVMserviceProviderInstance;
-
-
+       
         private LoginBaseViewModel LoginViewModel;
-        PresenterService LoginVMserviceProviderInstance;
+
         public AdminPage()
         {
             this.InitializeComponent();
-
-            LoginVMserviceProviderInstance = PresenterService.GetInstance();
-            LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
-            //AddUserVMserviceProviderInstance = PresenterService.GetInstance();
-            //AddUserViewModel = AddUserVMserviceProviderInstance.Services.GetService<AddUserBaseViewModel>();
+            LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+         
         }
 
         private void AdminPageNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -55,10 +48,6 @@ namespace NetBankingApplication.View
                 AddUserView addUserView = new AddUserView();
                 CurrentSelectedModule = addUserView;
                 HeaderTitle = "Add user";
-            }
-            else
-            {
-
             }
         }
 

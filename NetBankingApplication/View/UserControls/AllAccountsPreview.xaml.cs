@@ -31,13 +31,10 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class AllAccountsPreview : UserControl, ICloseAllWindows
     {
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
-
-        PresenterService GetAllAccountsVMserviceProviderInstance;
         private string userId;
        static Dictionary<int, AppWindow> appWindows = new Dictionary<int, AppWindow>();
 
         private LoginBaseViewModel LoginViewModel;
-        PresenterService LoginVMserviceProviderInstance;
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -54,12 +51,8 @@ namespace NetBankingApplication.View.UserControls
         {
             this.InitializeComponent();
             this.userId = userId;
-            GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
-            GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
-            //LoginVMserviceProviderInstance = PresenterService.GetInstance();
-            //LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
-            ////setting login view value for callback
-            //LoginViewModel.CloseAllWindowsCallback=this;
+            GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
+         
             GetAllAccountsViewModel.GetAllAccounts(userId);
             Bindings.Update();
         }

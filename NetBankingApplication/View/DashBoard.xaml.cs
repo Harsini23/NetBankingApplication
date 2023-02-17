@@ -33,21 +33,15 @@ namespace NetBankingApplication.View
     {
 
         private LoginBaseViewModel LoginViewModel;
-        PresenterService LoginVMserviceProviderInstance;
-        //private String OppositeTheme="Light mode";
-        //private string OppositeThemeIcon = "";
-       // Windows.UI.Xaml.ApplicationTheme currentTheme;
+     
         public DashBoard()
         {
             this.InitializeComponent();
             UISettings uiSettings = new UISettings();
             uiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged; ;
 
-            // currentTheme = Application.Current.RequestedTheme;
             SwitchThemeUIValues();
-            LoginVMserviceProviderInstance = PresenterService.GetInstance();
-            LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
-
+            LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
         }
 
         private void SwitchThemeUIValues()
@@ -65,15 +59,9 @@ namespace NetBankingApplication.View
         }
         private void UiSettings_ColorValuesChanged(UISettings sender, object args)
         {
-            
-            if((ThemeSwitch.CurrentTheme == ElementTheme.Light))
-            {
-                ThemeSwitch.CurrentTheme = ElementTheme.Dark;
-            }
-            else
-            {
-                ThemeSwitch.CurrentTheme = ElementTheme.Light;
-            }
+
+            ThemeSwitch.CurrentTheme = ThemeSwitch.CurrentTheme == ElementTheme.Light ? ElementTheme.Dark : ElementTheme.Light;
+
             SwitchThemeUIValues();
 
         }
@@ -100,14 +88,6 @@ namespace NetBankingApplication.View
 
         private void DashBoardNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-        //    FrameNavigationOptions navOptions = new FrameNavigationOptions();
-        //    navOptions.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
-        //    if (sender.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
-        //    {
-        //        navOptions.IsNavigationStackEnabled = false;
-        //    }
-
-            Type pageType;
 
             if (args.SelectedItem == Overview)
             {
@@ -117,42 +97,30 @@ namespace NetBankingApplication.View
                 CurrentSelectedModule = overview;
                 HeaderTitle = "Overview";
                 DashBoardNavigation.AlwaysShowHeader = false;
-
-                //_dashboardNavigationViewModel.SetOverview();
-                //  pageType = typeof(Overview);
             }
             else if (args.SelectedItem == BankAccount)
             {
-                //_dashboardNavigationViewModel.SetBankAccount();
-
                 BankAccount bankAccount = new BankAccount(Currentuser.UserId);
-
                 CurrentSelectedModule = bankAccount;
                 HeaderTitle = "Account Details";
                 DashBoardNavigation.AlwaysShowHeader = true;
-                //  pageType = typeof(BankAccount);
             }
             else if (args.SelectedItem == PaymentsAndTransfer)
             {
                 PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer(Currentuser);
                 CurrentSelectedModule = paymentsAndTransfer;
-                // pageType = typeof(PaymentsAndTransfer);
                 HeaderTitle = "Payment and Transfer";
                 DashBoardNavigation.AlwaysShowHeader = true;
             }
             else if (args.SelectedItem == Settings)
             {
                 HeaderTitle = "Settings";
-              //  pageType = typeof(CardAndLoans);
             }
             else
             {
                 HeaderTitle = "Overview";
                 DashBoardNavigation.AlwaysShowHeader = false;
-                //   pageType = typeof(Overview);
             }
-
-            //SelectedDashboardContentFrame.NavigateToType(pageType, null, navOptions);
 
         }
 
