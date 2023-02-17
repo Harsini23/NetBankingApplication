@@ -5,12 +5,24 @@
    
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Name="Light" >
+            <Style x:Key="CornerRadiusChange" TargetType="TextBox">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+            <!--<Style x:Key="BigAutoSuggestBoxTextBoxStyle" 
+       TargetType="TextBox" 
+       BasedOn="{StaticResource AutoSuggestBoxTextBoxStyle}">
+                <Setter Target="BorderBrush" Value="Gray"></Setter>
+                <Setter Target="FontSize" Value="16"></Setter>
+                <Setter Target="BorderThickness" Value="0.6"></Setter>
+                <Setter Target="CornerRadius" Value="10"></Setter>
+                <Setter Target="Margin" Value="5"></Setter>
+            </Style>-->
 
             <Style TargetType="Grid" x:Key="TransactionHeadder">
                 <Setter Property="Background" Value="#efefef"></Setter>
                 <Setter Property="CornerRadius" Value="5"></Setter>
-                <Setter Property="Padding" Value="10"></Setter>
-                <Setter Property="Margin" Value="10,10,10,0"></Setter>
+                <Setter Property="Padding" Value="5"></Setter>
+                <Setter Property="Margin" Value="0"></Setter>
             </Style>
             
             <Style TargetType="TextBox" x:Key="AutoSuggestTesting">
@@ -485,6 +497,7 @@
                 <Setter Target="BorderThickness" Value="0.3"></Setter>
                 <Setter Target="CornerRadius" Value="5"></Setter>
                 <Setter Target="Margin" Value="5"></Setter>
+                
             </Style>
 
             <Style TargetType="TextBlock" x:Key="InputFieldTextBlock">
@@ -589,18 +602,17 @@
 
 
             <Style TargetType="TextBox"
-       x:Key="CustomSuggestBoxStyle">
-                <Setter Property="CornerRadius" Value="20" />
+       x:Key="BigAutoSuggestBoxTextBoxStyle">
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="BorderThickness" Value="0.8"></Setter>
             </Style>
-            <Style TargetType="AutoSuggestBox" x:Key="BasicSearchBoxStyle">
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="BorderThickness" Value="0"/>
-               
-                <Setter Property="QueryIcon" Value="Find"/>
-                <Setter Target="Margin" Value="5"></Setter>
+            <Style TargetType="AutoSuggestBox" x:Key="AutosuggestBasicSearchBoxStyle">
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="BorderThickness" Value="0.4"/>
+                <Setter Property="QueryIcon" Value="Find"></Setter>
                 <Setter Target="MinWidth" Value="300"></Setter>
 
-                <Setter Property="TextBoxStyle" Value="{StaticResource CustomSuggestBoxStyle}" />
+                <Setter Property="TextBoxStyle" Value="{ThemeResource BigAutoSuggestBoxTextBoxStyle}" />
             </Style>
         </ResourceDictionary>
         

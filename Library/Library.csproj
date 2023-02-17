@@ -125,6 +125,7 @@
     <Compile Include="Data\DatabaseConnection.cs" />
     <Compile Include="Data\DataBasePath.cs" />
     <Compile Include="Data\DataBaseService\DbHandler.cs" />
+    <Compile Include="Data\DataBaseService\IDbHandler.cs" />
     <Compile Include="Data\DataBaseService\NetHandler.cs" />
     <Compile Include="Data\DataManager\AccountTransactionsDataManager.cs" />
     <Compile Include="Data\DataManager\AddPayeeDataManager.cs" />

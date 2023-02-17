@@ -46,8 +46,6 @@ namespace NetBankingApplication.ViewModel
         public abstract void Logout();
 
         public abstract void CreateAdminAccount();
-
-    
     }
 
     public interface ILoginViewModel

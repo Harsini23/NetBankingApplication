@@ -15,18 +15,62 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="AutoSuggestBoxTextBoxStyle" TargetType="TextBox">
+                <Setter Property="CornerRadius" Value="5"></Setter>
+                <Setter Property="BorderBrush" Value="Black"></Setter>
+                <Setter Property="BorderThickness" Value="0.3"></Setter>
+              
+            </Style>
+            <Style x:Key="AutoSuggestBoxStyle1" TargetType="AutoSuggestBox">
+                <Setter Property="CornerRadius" Value="5"></Setter>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="IsTabStop" Value="False"/>
+                <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxTextBoxStyle}"/>
+                <Setter Property="UseSystemFocusVisuals" Value="{ThemeResource IsApplicationFocusVisualKindReveal}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="AutoSuggestBox">
+                            <Grid x:Name="LayoutRoot">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="Orientation">
+                                        <VisualState x:Name="Landscape"/>
+                                        <VisualState x:Name="Portrait"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <TextBox x:Name="TextBox" ScrollViewer.BringIntoViewOnFocusChange="False" DesiredCandidateWindowAlignment="BottomEdge" Description="{TemplateBinding Description}" Header="{TemplateBinding Header}" Margin="0" PlaceholderText="{TemplateBinding PlaceholderText}" Style="{TemplateBinding TextBoxStyle}" UseSystemFocusVisuals="{TemplateBinding UseSystemFocusVisuals}" Width="{TemplateBinding Width}" Canvas.ZIndex="0"/>
+                                <Popup x:Name="SuggestionsPopup">
+                                    <Border x:Name="SuggestionsContainer">
+                                        <ListView x:Name="SuggestionsList" Background="{ThemeResource AutoSuggestBoxSuggestionsListBackground}" BorderBrush="{ThemeResource AutoSuggestBoxSuggestionsListBorderBrush}" BorderThickness="{ThemeResource AutoSuggestListBorderThemeThickness}" DisplayMemberPath="{TemplateBinding DisplayMemberPath}" ItemTemplate="{TemplateBinding ItemTemplate}" ItemContainerStyle="{TemplateBinding ItemContainerStyle}" ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsItemClickEnabled="True" Margin="{ThemeResource AutoSuggestListMargin}" MaxHeight="{ThemeResource AutoSuggestListMaxHeight}" Padding="{ThemeResource AutoSuggestListPadding}"/>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <ScrollViewer>
+        <Grid Background="#f7f7f7" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="20">
-            <TextBlock Text="Search Payee" Margin="0,10,10,10" Style="{ThemeResource BasicTextBlock}"></TextBlock>
-            <AutoSuggestBox Margin="10" x:Name="SuggestboxPayeeChange" QueryIcon="Find" TextChanged="SuggestboxPayeeChange_TextChanged" Width="200"
-              >
+            <TextBlock Text="Added Beneficiaries" Margin="0,10,10,10" Style="{ThemeResource BasicTextBlock}"></TextBlock>
+            <!--<AutoSuggestBox Style="{StaticResource AutoSuggestBoxStyle1}"  x:Name="SuggestboxPayeeChange" TextChanged="SuggestboxPayeeChange_TextChanged" MinWidth="200"
+              QueryIcon="Find" >
+            </AutoSuggestBox>-->
+            <AutoSuggestBox x:Name="SuggestboxPayeeChange" TextChanged="SuggestboxPayeeChange_TextChanged" MinWidth="200"
+              QueryIcon="Find" CornerRadius="5" Style="{StaticResource AutoSuggestBoxStyle1}">
+             
             </AutoSuggestBox>
             <!--Style="{ThemeResource BasicSearchBoxStyle}" TextBoxStyle="{ThemeResource FormTextBox}"-->
         </StackPanel>
@@ -485,5 +529,6 @@
             </ListView.ItemContainerStyle>
         </ListView>
         <TextBlock Visibility="Collapsed" Text="No records found!" Name="EmptyList" Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"></TextBlock>
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

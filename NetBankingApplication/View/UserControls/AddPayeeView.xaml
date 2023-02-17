@@ -17,8 +17,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <ScrollViewer>
-        <StackPanel>
+    <ScrollViewer> 
+       
             <StackPanel>
                 <Grid Width="300" HorizontalAlignment="Center" Margin="20" VerticalAlignment="Center">
                     <Grid.RowDefinitions>
@@ -51,8 +51,7 @@
             <!--<local:PayeeTemplate Margin="10" PayeeNameTextBox="Harsh"  Name="PayeeTemplateHolder"></local:PayeeTemplate>-->
             <!--<Button Content="Testing" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Testing" Click="Testing_Click"></Button>-->
             
-        </StackPanel>
-
+     
     </ScrollViewer>
   
 </UserControl>

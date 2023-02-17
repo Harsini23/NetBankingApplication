@@ -12,12 +12,12 @@
     d:DesignWidth="400">
 
 
-    <Grid x:Name="BankAccountOuterGrid" Margin="15">
-        <NavigationView x:Name="BankAccountNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top"
+    <Grid x:Name="BankAccountOuterGrid" >
+        <NavigationView x:Name="BankAccountNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top" Style="{StaticResource NavigationViewTitleHeaderContentControlTextStyle}"
     SelectionFollowsFocus="Enabled" IsBackButtonVisible="Collapsed" SelectionChanged="BankAccountNavigation_SelectionChanged"  CornerRadius="20">
             <NavigationView.MenuItems>
-                <NavigationViewItem  Content="Account Preview" x:Name="AccountsPreview" />
-                <NavigationViewItem x:Name="AccountDetails" Content="Account Transactions" />
+                <NavigationViewItem  Content=" Preview" x:Name="AccountsPreview" />
+                <NavigationViewItem x:Name="AccountDetails" Content="Transactions" />
                 <!--<NavigationViewItem Content="Open an Account" x:Name="CreateAccount"/>-->
             </NavigationView.MenuItems>
 

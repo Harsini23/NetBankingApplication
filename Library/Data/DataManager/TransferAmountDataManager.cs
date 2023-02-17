@@ -40,7 +40,6 @@ namespace Library.Data.DataManager
                         Currency = currentAccount.Currency,
                         TotalBalance = deductedValue
                     };
-                    //Debug.WriteLine(deductedValue.ToString());
                     var res = DbHandler.UpdateBalance(account);
                     return res;
                 }

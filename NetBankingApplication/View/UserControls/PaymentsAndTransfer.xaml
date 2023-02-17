@@ -31,17 +31,17 @@
         </VisualStateGroup>
     </VisualStateManager.VisualStateGroups>-->
     
-    <Grid x:Name="PaymentandTransferNavigation" Margin="15">
-            <NavigationView x:Name="PaymentsAndTransferNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top"
-    SelectionFollowsFocus="Enabled" IsBackButtonVisible="Collapsed" SelectionChanged="PaymentsAndTransferNavigation_SelectionChanged"  CornerRadius="20">
-            <NavigationView.MenuItems>
-                <NavigationViewItem  Content="Transfer" x:Name="Transfer" />
-                <NavigationViewItem  Content="View Transactions" x:Name="ViewTransactions" />
+    <Grid x:Name="PaymentandTransferNavigation" >
+            <NavigationView  x:Name="PaymentsAndTransferNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top"
+    SelectionFollowsFocus="Enabled" IsBackButtonVisible="Collapsed" SelectionChanged="PaymentsAndTransferNavigation_SelectionChanged"  Style="{StaticResource NavigationViewTitleHeaderContentControlTextStyle}">
+            <NavigationView.MenuItems >
+                <NavigationViewItem   Content="Transfer" x:Name="Transfer" />
+                <NavigationViewItem  Content="Transactions" x:Name="ViewTransactions" />
                 <NavigationViewItem  Content="Add Payee" x:Name="AddPayee" />
-                <NavigationViewItem  Content="Delete Payee" x:Name="ViewAndEditPayee"/>
+                <NavigationViewItem  Content="Edit Payee" x:Name="ViewAndEditPayee"/>
             </NavigationView.MenuItems>
 
-           <ContentControl Margin="10" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedItem,Mode=OneWay}" CornerRadius="30" />
+           <ContentControl Margin="10" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedItem,Mode=OneWay}" CornerRadius="70" />
         </NavigationView>
     </Grid>
 </UserControl>

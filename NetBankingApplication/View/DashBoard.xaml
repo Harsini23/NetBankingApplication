@@ -16,6 +16,9 @@
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/DataTemplateModules"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="NavigationViewItemHeader">
+                <Setter Property="Margin" Value="100,0,0,0"></Setter>
+            </Style>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -25,22 +28,23 @@
 
         <!--Header="{x:Bind HeaderTitle,Mode=OneWay}"-->
 
-        <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.IsVerticalRailEnabled="False">
-          
+        <NavigationView IsBackEnabled="False" Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.IsVerticalRailEnabled="False"  Padding="0">
+           
             <NavigationView.Resources>
                 <!--<SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="{ThemeResource SystemAccentColorLight1}" />-->
                 <!--<SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SystemAccentColorDark1}" />-->
+                <!--<SolidColorBrush x:Key="NavigationViewItemBackground" Color="Pink" />-->
             </NavigationView.Resources>
             
             <NavigationView.MenuItems>
 
                 <NavigationViewItem Icon="Home" x:Name="Overview" Content="Overview" Tag="Overview" />
-                <NavigationViewItem  x:Name="BankAccount" Content="Bank Account" Tag="BankAccount" >
+                <NavigationViewItem  x:Name="BankAccount" Content="Account" Tag="BankAccount" >
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE825;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Name="PaymentsAndTransfer"  Content="Payments and Transfer"  >
+                <NavigationViewItem x:Name="PaymentsAndTransfer"  Content="Payments and Transfer"   >
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE724;"></FontIcon>
                     </NavigationViewItem.Icon>
@@ -55,8 +59,6 @@
 
             <NavigationView.PaneFooter>
                 <StackPanel>
-
-
                     <NavigationViewItem  Tapped="ThemeChange_Tapped"  Name="ThemeChange" Content="{x:Bind OppositeTheme,Mode=OneWay}">
                         <NavigationViewItem.Icon>
                             <FontIcon x:Name="IconImg" Glyph="{x:Bind OppositeThemeIcon}"></FontIcon>

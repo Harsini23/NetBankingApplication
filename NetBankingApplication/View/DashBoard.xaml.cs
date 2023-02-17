@@ -116,6 +116,7 @@ namespace NetBankingApplication.View
 
                 CurrentSelectedModule = overview;
                 HeaderTitle = "Overview";
+                DashBoardNavigation.AlwaysShowHeader = false;
 
                 //_dashboardNavigationViewModel.SetOverview();
                 //  pageType = typeof(Overview);
@@ -127,7 +128,8 @@ namespace NetBankingApplication.View
                 BankAccount bankAccount = new BankAccount(Currentuser.UserId);
 
                 CurrentSelectedModule = bankAccount;
-                HeaderTitle = "Bank Account";
+                HeaderTitle = "Account Details";
+                DashBoardNavigation.AlwaysShowHeader = true;
                 //  pageType = typeof(BankAccount);
             }
             else if (args.SelectedItem == PaymentsAndTransfer)
@@ -136,6 +138,7 @@ namespace NetBankingApplication.View
                 CurrentSelectedModule = paymentsAndTransfer;
                 // pageType = typeof(PaymentsAndTransfer);
                 HeaderTitle = "Payment and Transfer";
+                DashBoardNavigation.AlwaysShowHeader = true;
             }
             else if (args.SelectedItem == Settings)
             {
@@ -145,7 +148,8 @@ namespace NetBankingApplication.View
             else
             {
                 HeaderTitle = "Overview";
-             //   pageType = typeof(Overview);
+                DashBoardNavigation.AlwaysShowHeader = false;
+                //   pageType = typeof(Overview);
             }
 
             //SelectedDashboardContentFrame.NavigateToType(pageType, null, navOptions);

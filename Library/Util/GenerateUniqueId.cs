@@ -23,7 +23,6 @@ namespace Library.Util
                 int length = Convert.ToInt32(objlength);
                 number = rng.NextDouble().ToString("0.000000000000").Substring(2, length);
             }
-          //  Debug.WriteLine(number.ToString());
             return number.ToString();
         }
 
