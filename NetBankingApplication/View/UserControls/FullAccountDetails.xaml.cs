@@ -43,21 +43,14 @@ namespace NetBankingApplication.View.UserControls
         public Account CurrentSelectedAccount;
 
         private AccountTransactionsBaseViewModel AccountTransactionsViewModel;
-        PresenterService AccountTransactionsVMserviceProviderInstance;
 
         private GetBranchDetailsBaseViewModel GetBranchDetailsViewModel;
-        PresenterService GetBranchDetailsVMserviceProviderInstance;
-
 
         public FullAccountDetails()
         {
             this.InitializeComponent();
-            AccountTransactionsVMserviceProviderInstance = PresenterService.GetInstance();
-            AccountTransactionsViewModel = AccountTransactionsVMserviceProviderInstance.Services.GetService<AccountTransactionsBaseViewModel>();
-
-            GetBranchDetailsVMserviceProviderInstance = PresenterService.GetInstance();
-            GetBranchDetailsViewModel = GetBranchDetailsVMserviceProviderInstance.Services.GetService<GetBranchDetailsBaseViewModel>();
-
+            AccountTransactionsViewModel = PresenterService.GetInstance().Services.GetService<AccountTransactionsBaseViewModel>();
+            GetBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
             Bindings.Update();
          
         }

@@ -30,7 +30,6 @@ namespace NetBankingApplication.View
     {
         private LoginBaseViewModel LoginViewModel;
         public string NewPassword;
-        PresenterService LoginVMserviceProviderInstance;
 
         public LoginPage()
         {
@@ -38,8 +37,7 @@ namespace NetBankingApplication.View
             var coreWindow = Window.Current.CoreWindow;
             coreWindow.KeyDown += CoreWindow_KeyDown;
 
-            LoginVMserviceProviderInstance = PresenterService.GetInstance();
-            LoginViewModel = LoginVMserviceProviderInstance.Services.GetService<LoginBaseViewModel>();
+            LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             //setting login view value for callback
             LoginViewModel.LoginViewModelCallback = this;
             LoginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();

@@ -28,16 +28,12 @@ namespace NetBankingApplication.View.UserControls
     {
 
         private AddUserBaseViewModel AddUserViewModel;
-        PresenterService AddUserVMserviceProviderInstance;
-
-
         IEnumerable<AccountType> _AccountTypeValues;
         IEnumerable<Currency> _CurrencyValues;
         public AddUserView()
         {
             this.InitializeComponent();
-            AddUserVMserviceProviderInstance = PresenterService.GetInstance();
-            AddUserViewModel = AddUserVMserviceProviderInstance.Services.GetService<AddUserBaseViewModel>();
+            AddUserViewModel = PresenterService.GetInstance().Services.GetService<AddUserBaseViewModel>();
             _AccountTypeValues = Enum.GetValues(typeof(AccountType)).Cast<AccountType>();
             _CurrencyValues = Enum.GetValues(typeof(Currency)).Cast<Currency>();
         }
@@ -101,9 +97,6 @@ namespace NetBankingApplication.View.UserControls
                 ShowContentDialogueAsync();
 
             }
-
-
-
         }
 
         public async Task ShowContentDialogueAsync()

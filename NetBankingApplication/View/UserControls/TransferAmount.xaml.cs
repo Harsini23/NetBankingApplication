@@ -42,15 +42,12 @@ namespace NetBankingApplication.View.UserControls
 
         private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
 
-        PresenterService GetAllPayeeVMserviceProviderInstance;
 
         private TransferAmountBaseViewModel TransferAmountViewModel;
 
-        PresenterService TransferAmountVMserviceProviderInstance;
 
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
 
-        PresenterService GetAllAccountsVMserviceProviderInstance;
 
 
         List<String> allRecipientNames = new List<String>();
@@ -69,14 +66,9 @@ namespace NetBankingApplication.View.UserControls
 
             _currentUserId = userId;
 
-            GetAllPayeeVMserviceProviderInstance = PresenterService.GetInstance();
-            GetAllPayeeViewModel = GetAllPayeeVMserviceProviderInstance.Services.GetService<GetAllPayeeBaseViewModel>();
-
-            TransferAmountVMserviceProviderInstance = PresenterService.GetInstance();
-            TransferAmountViewModel = TransferAmountVMserviceProviderInstance.Services.GetService<TransferAmountBaseViewModel>();
-
-            GetAllAccountsVMserviceProviderInstance = PresenterService.GetInstance();
-            GetAllAccountsViewModel = GetAllAccountsVMserviceProviderInstance.Services.GetService<GetAllAccountsBaseViewModel>();
+            GetAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
+            TransferAmountViewModel = PresenterService.GetInstance().Services.GetService<TransferAmountBaseViewModel>();
+            GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
 
             GetAllAccountsViewModel.TransferAmountView = this;
 

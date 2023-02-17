@@ -29,20 +29,16 @@ namespace NetBankingApplication.View.UserControls
         public double windowHeight;
         public double windowWidth;
 
-        PresenterService TransactionVMserviceProviderInstance;
-
         public TransactionHistory(string userId)
         {
-            TransactionVMserviceProviderInstance = PresenterService.GetInstance();
-            TransactionViewModel = TransactionVMserviceProviderInstance.Services.GetService<TransactionHistoryBaseViewModel>();
+            TransactionViewModel = PresenterService.GetInstance().Services.GetService<TransactionHistoryBaseViewModel>();
             this.InitializeComponent();
             currentUserId = userId;
             IsNarrowLayout = false;
         }
         public TransactionHistory()
         {
-            TransactionVMserviceProviderInstance = PresenterService.GetInstance();
-            TransactionViewModel = TransactionVMserviceProviderInstance.Services.GetService<TransactionHistoryBaseViewModel>();
+            TransactionViewModel = PresenterService.GetInstance().Services.GetService<TransactionHistoryBaseViewModel>();
             currentUserId = UserId;
             this.InitializeComponent();
             IsNarrowLayout = false;
