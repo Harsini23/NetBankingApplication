@@ -123,6 +123,7 @@
     <Compile Include="ViewModel\AddPayeeViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\DeletePayeeViewModel.cs" />
+    <Compile Include="ViewModel\DispatcherExtensionMethod.cs" />
     <Compile Include="ViewModel\GetAllAccountsViewModel.cs" />
     <Compile Include="ViewModel\GetAllPayeeViewModel.cs" />
     <Compile Include="ViewModel\GetBranchDetailsViewModel.cs" />
@@ -200,12 +201,18 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\bankicon.png" />
+    <Content Include="Assets\bankingFrontPage.jpg" />
+    <Content Include="Assets\bg.jpg" />
+    <Content Include="Assets\bgfinal.jpg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
+    <Content Include="Assets\login.jpg" />
     <Content Include="Assets\loginlogo.png" />
+    <Content Include="Assets\loginpage.jpg" />
     <Content Include="Assets\logo.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
@@ -243,6 +250,7 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\testbg.jpg" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />

@@ -16,25 +16,34 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-        <Grid Style="{ThemeResource LoginGrid}">
+        <Grid Style="{ThemeResource LoginGrid}" >
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                
             </Grid.RowDefinitions>
-            <Grid Background="{ThemeResource SystemAltMediumColor}" >
+            <Image Grid.RowSpan="2" Stretch="Fill">
+                <Image.Source>
+                    <BitmapImage UriSource="/Assets/bgfinal.jpg" />
+                </Image.Source>
+
+            </Image>
+
+            <Grid Background="Transparent" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="7*"></ColumnDefinition>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock  Style="{ThemeResource HeadderTheme}" FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE825;" FontSize="40" Margin="20"></TextBlock>
-                    <TextBlock   HorizontalAlignment="Left" x:Name="HeaderTextBox" Style="{ThemeResource HeaderStyle }" Margin="10" Text="Banking Application" Grid.Column="0"></TextBlock>
-                </StackPanel>
+             
+                <!--<StackPanel Orientation="Horizontal">
+                <Image Source="ms-appx:///Assets/bankicon.png" MaxHeight="50" MaxWidth="50"  Stretch="Fill"></Image>
+                    <TextBlock   HorizontalAlignment="Left" x:Name="HeaderTextBox" Style="{ThemeResource HeaderStyle }" Margin="10" Text="Zoho Financial" Grid.Column="0"></TextBlock>
+                </StackPanel>-->
 
-                <Button HorizontalAlignment="Center" Grid.Column="1" Content="Default Admin" Style="{ThemeResource ButtonStyling}" Margin="10" >
+                <!--<Button HorizontalAlignment="Center" Grid.Column="1" Content="Default Admin" Style="{ThemeResource ButtonStyling}" Margin="10" >
                     <Button.Flyout  >
                         <Flyout >
                             <Flyout.FlyoutPresenterStyle>
@@ -66,7 +75,7 @@
                     </Button.Flyout>
 
 
-                </Button>
+                </Button>-->
                 <!--<TextBlock Style="{ThemeResource HeaderStyle }" Grid.Column="1">Welcome to ZBank</TextBlock>-->
             </Grid>
             
@@ -82,7 +91,8 @@
                                       Padding="30"
                                       Name="LoginContainerShadow"
                         >
-                <Grid  x:Name="LoginContainer" Style="{ThemeResource FormBackground}" Grid.Row="1">
+         
+                <Grid  x:Name="LoginContainer" Style="{ThemeResource FormBackground}" Background="{ThemeResource MyAcrylicBrush}" Padding="30"  Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" ></RowDefinition>
                         <RowDefinition Height="1*"></RowDefinition>
@@ -93,36 +103,75 @@
                         <RowDefinition Height="1*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock Foreground="White" Grid.Row="0" FontFamily="Segoe MDL2 Assets"  VerticalAlignment="Center" Text="&#xE825;" FontSize="30" Margin="20"></TextBlock>
-                        <TextBlock Text="Banking Application"  Style="{ThemeResource BasicTextBlock}" FontWeight="SemiBold" FontSize="20"></TextBlock>
+                    <StackPanel  Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <Image Source="ms-appx:///Assets/bankicon.png" MaxHeight="50" MaxWidth="50"  Stretch="Fill"></Image>
+                    <TextBlock Margin="15,0,0,0" Text="Zoho Financial" FontSize="24" Style="{ThemeResource BasicTextBlock}" FontWeight="SemiBold" CharacterSpacing="20"></TextBlock>
                     </StackPanel>
-                    <TextBlock Grid.Row="1" Margin="20,10,10,10" Text="Login to the portal" Style="{ThemeResource BasicTextBlock}"  Grid.ColumnSpan="2" HorizontalAlignment="Left"></TextBlock>
-                    <TextBox MaxWidth="220"  Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="User ID"  x:Name="UserId"/>
-                    <PasswordBox MaxLength="100" MaxWidth="220" CornerRadius="5" Header="Password" IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" Background="White" PasswordChanged="Password_PasswordChanged"  Grid.Row="3"  Style="{ThemeResource FormPasswordBox}" x:Name="Password" >
-                        <ToolTipService.ToolTip>
-                            <ToolTip Content="Must be mininum of 9 characters with one lowercase, uppercase and special charater." VerticalOffset="-80"/>
-                        </ToolTipService.ToolTip>
-                    </PasswordBox>
-                    <CheckBox Grid.Row="4"  HorizontalAlignment="Left" Margin="20,0,0,0" Name="revealModeCheckBox" Content="Show password" IsChecked="False"
+                
+                    <TextBlock HorizontalAlignment="Left" Grid.Row="1"  Padding="40,0,0,0" Text="Log in to your account" Margin="10,15,10,10" Style="{ThemeResource BasicTextBlock}"  Grid.ColumnSpan="2" ></TextBlock>
+                      
+                            <TextBox MaxWidth="220"  Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="User ID"  x:Name="UserId"/>
+
+                        <StackPanel  Grid.Row="3">
+                            <PasswordBox MaxLength="100" MaxWidth="220" CornerRadius="5" Header="Password" IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" Background="White" PasswordChanged="Password_PasswordChanged"   Style="{ThemeResource FormPasswordBox}" x:Name="Password" >
+                                <ToolTipService.ToolTip >
+                                    <ToolTip Background="White" CornerRadius="15" FontSize="12" CharacterSpacing="20" Content="Must be mininum of 9 characters with one lowercase, uppercase and special charater." VerticalOffset="-80"/>
+                                </ToolTipService.ToolTip>
+                            </PasswordBox>
+                            <CheckBox Margin="50,0,0,0" Name="revealModeCheckBox" Content="Show password" IsChecked="False"
     Checked="RevealModeCheckbox_Changed" Unchecked="RevealModeCheckbox_Changed"/>
-                    <TextBlock Style="{ThemeResource FailureText}" Grid.Row="5" Grid.ColumnSpan="2" Text="{x:Bind LoginViewModel.LoginResponseValue,Mode=OneWay }" x:Name="ResultText" ></TextBlock>
+                        </StackPanel>
+                         
+
+                   
+                
+                  
+                  
+                    <TextBlock Style="{ThemeResource FailureText}" Grid.Row="4" Grid.ColumnSpan="2" Text="{x:Bind LoginViewModel.LoginResponseValue,Mode=OneWay }" x:Name="ResultText" ></TextBlock>
 
 
-                    <StackPanel Grid.ColumnSpan="2"  Grid.Row="6" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button Name="SubmitLoginDetails" MinWidth="300" IsEnabled="False" Style="{ThemeResource ButtonStyling}" Content="Submit" Click="Verify_Click"></Button>
+                    <StackPanel Grid.ColumnSpan="2"  Grid.Row="5" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Name="SubmitLoginDetails"  MinWidth="300" IsEnabled="False" Style="{ThemeResource ButtonStyling}" Content="Submit" Click="Verify_Click"></Button>
                     </StackPanel>
+                    
+                        <Button  Background="Transparent" BorderBrush="Transparent" BorderThickness="0" FontStyle="Italic" HorizontalAlignment="Center" Grid.Row="6" Content="Default Admin" Style="{ThemeResource ButtonStyling}" Margin="10" >
+                            <Button.Flyout  >
+                                <Flyout >
+                                    <Flyout.FlyoutPresenterStyle>
+                                        <Style TargetType="FlyoutPresenter">
+                                            <Setter Property="MinWidth" Value="200"></Setter>
+                                            <Setter Property="CornerRadius" Value="5"></Setter>
+                                            <Setter Property="Background" Value="White"></Setter>
+                                        </Style>
+                                    </Flyout.FlyoutPresenterStyle>
+                                    <StackPanel Background="White">
+                                        <TextBlock FontSize="16" FontWeight="Bold" Margin="10" Text="Haven't set up your account?"></TextBlock>
+                                        <StackPanel Orientation="Horizontal" Margin="5" Padding="3">
+                                            <TextBlock  Text="UserId :"></TextBlock>
+                                            <TextBlock Margin="5,0,0,0" Text="Admin"></TextBlock>
+                                        </StackPanel>
+                                        <Grid  Margin="5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Horizontal" Padding="3">
+                                                <TextBlock Text="Password :"></TextBlock>
+                                                <TextBlock Margin="5,0,0,0" Text="UserAdmin@1"></TextBlock>
+                                            </StackPanel>
+                                            <Button Width="25" Name="copy" Height="25" FontSize="15" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Margin="0" Grid.Column="1" FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="copy_Click" ></Button>
+                                        </Grid>
+                                    </StackPanel>
+                                </Flyout>
+                            </Button.Flyout>
 
 
-                    <Image MaxHeight="300" MaxWidth="300" Grid.RowSpan="7" Grid.Column="1" Source="ms-appx:///Assets/loginlogo.png"></Image>
+                        </Button>
+
+                        <!--<Image MaxHeight="300" MaxWidth="300" Grid.RowSpan="7" Grid.Column="1" Source="ms-appx:///Assets/loginlogo.png"></Image>-->
                 </Grid>
-            </controls:DropShadowPanel>
+        
+        </controls:DropShadowPanel>
 
             <Grid Grid.Row="1" Style="{ThemeResource FormBackground}" Visibility="Collapsed" Name="ResetPasswordcontainer" MinWidth="400"  >
                 <Grid.RowDefinitions>
@@ -160,6 +209,6 @@
                 <!--<TextBlock Grid.Row="4" Text="{x:Bind LoginViewModel.ResetPasswordResponseValue,Mode=OneWay}"></TextBlock>-->
             </Grid>
         </Grid>
-          
     </ScrollViewer>
+
 </Page>

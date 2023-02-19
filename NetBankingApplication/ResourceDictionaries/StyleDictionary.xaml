@@ -5,6 +5,12 @@
    
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Name="Light" >
+            <AcrylicBrush x:Key="MyAcrylicBrush"
+            BackgroundSource="Backdrop"
+            TintColor="#eaf3fa"
+            TintOpacity="0.8"
+            FallbackColor="#eaf3fa"/>
+
             <Style x:Key="CornerRadiusChange" TargetType="TextBox">
                 <Setter Property="CornerRadius" Value="10"></Setter>
             </Style>
