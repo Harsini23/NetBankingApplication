@@ -70,7 +70,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<TransferAmountResponse> response)
             {
-                transferAmountUseCase.TransferAmountResponse?.OnSuccess(response);
+                transferAmountUseCase.TransferAmountResponse?.OnSuccessAsync(response);
             }
         }
     }

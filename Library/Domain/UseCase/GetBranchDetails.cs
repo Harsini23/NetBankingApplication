@@ -56,7 +56,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<GetBranchDetailsResponse> response)
             {
-                GetBranchDetails.BranchDetailsResponse.OnSuccess(response);
+                GetBranchDetails.BranchDetailsResponse.OnSuccessAsync(response);
 
             }
         }

@@ -60,7 +60,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<AddUserResponse> response)
             {
-                addUser.presenterAddUserCallback?.OnSuccess(response);
+                addUser.presenterAddUserCallback?.OnSuccessAsync(response);
 
             }
 

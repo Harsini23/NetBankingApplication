@@ -48,16 +48,14 @@ namespace NetBankingApplication.ViewModel
 
         }
 
-        public void OnSuccess(ZResponse<String> response)
+    
+        public void OnSuccessAsync(ZResponse<string> response)
         {
             //show payee added successfully to user -> UI
-            Debug.WriteLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxxx");
-            Debug.WriteLine(response.Response.ToString());
-           // addPayeeViewModel.AddPayeeResponseValue = response.Response.ToString();
+            //Debug.WriteLine("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxxx");
+            //Debug.WriteLine(response.Response.ToString());
+            // addPayeeViewModel.AddPayeeResponseValue = response.Response.ToString();
         }
-
-
-       
     }
 
 

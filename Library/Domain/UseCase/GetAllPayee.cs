@@ -69,7 +69,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<GetAllPayeeResponse> response)
             {
-                GetAllPayee.GetAllPayeeResponse.OnSuccess(response);
+                GetAllPayee.GetAllPayeeResponse.OnSuccessAsync(response);
 
             }
         }

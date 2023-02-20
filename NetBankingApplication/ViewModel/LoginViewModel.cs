@@ -113,7 +113,7 @@ namespace NetBankingApplication.ViewModel
                 loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
             }
 
-            public async void OnSuccess(ZResponse<bool> response)
+            public async void OnSuccessAsync(ZResponse<bool> response)
             {
                 loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
                 //
@@ -157,44 +157,7 @@ namespace NetBankingApplication.ViewModel
             }
 
             //Presenter call back methods -----------------------------------------------------------------------------------------------------------
-            public async void OnSuccess(ZResponse<LoginResponse> response)
-            {
-                LoginViewModel.IsAdmin = response.Data.IsAdmin;
-                LoginViewModel.user = response.Data.currentUser;
-                if (response.Data.IsAdmin)
-                {
-                    if (response.Data.NewUser)
-                    {
-                        //in vm base hv interface.. in abstract class hv the property of I and set it from view by passing this acces from VM by I so only interface functionalities are visibles
-                      await  handleCallbackAsync();
-                    }
-                    else
-                    {
-                       await handleAdminAccess();
-                    }
-                }
-                else
-                {
-                    // loginViewModel.LoginResponseValue = response.Response.ToString();
-                    //redirect to next page with user details
-                    if (response.Data.NewUser)
-                    {
-                        //in vm base hv interface.. in abstract class hv the property of I and set it from view by passing this acces from VM by I so only interface functionalities are visibles
-                      await  handleCallbackAsync();
-                    }
-                    else
-                    {
-                        //then continue with user profile details display //pass user and id
-                      
-                        //Debug.WriteLine(LoginViewModel.user.EmailId);
-                       await LoadDashBoard(LoginViewModel.user);
-                    }
-
-                }
-
-            }
-
-         
+       
             public void OnFailure(ZResponse<LoginResponse> response)
             {
                 loginViewModel.LoginResponseValue = response.Response.ToString();
@@ -204,6 +167,46 @@ namespace NetBankingApplication.ViewModel
             {
                 //Block account
                 loginViewModel.LoginResponseValue = errorMessage.ToString();
+            }
+
+            public async void OnSuccessAsync(ZResponse<LoginResponse> response)
+            {
+                await SwitchToMainUIThread.SwitchToMainThread(() =>
+                {
+                    LoginViewModel.IsAdmin = response.Data.IsAdmin;
+                    LoginViewModel.user = response.Data.currentUser;
+                    if (response.Data.IsAdmin)
+                    {
+                        if (response.Data.NewUser)
+                        {
+                            //in vm base hv interface.. in abstract class hv the property of I and set it from view by passing this acces from VM by I so only interface functionalities are visibles
+                            handleCallbackAsync();
+                        }
+                        else
+                        {
+                            handleAdminAccess();
+                        }
+                    }
+                    else
+                    {
+                        // loginViewModel.LoginResponseValue = response.Response.ToString();
+                        //redirect to next page with user details
+                        if (response.Data.NewUser)
+                        {
+                            //in vm base hv interface.. in abstract class hv the property of I and set it from view by passing this acces from VM by I so only interface functionalities are visibles
+                            handleCallbackAsync();
+                        }
+                        else
+                        {
+                            //then continue with user profile details display //pass user and id
+
+                            //Debug.WriteLine(LoginViewModel.user.EmailId);
+                            LoadDashBoard(LoginViewModel.user);
+                        }
+
+                    }
+                });
+
             }
         }
     }

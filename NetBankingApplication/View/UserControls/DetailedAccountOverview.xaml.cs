@@ -24,9 +24,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+   
     public sealed partial class DetailedAccountOverview : Page, ISwitchUserView
     {
 
@@ -38,8 +36,6 @@ namespace NetBankingApplication.View.UserControls
         public static string UserId;
 
         private string currentUserId;
-       // private string CurrentUserAccountNumber;
-       // private ObservableCollection<String> AllAccounts;
 
         private static bool ItemSelected;
         private bool NarrowLayout;
@@ -64,7 +60,11 @@ namespace NetBankingApplication.View.UserControls
             }
             Bindings.Update();
 
-           // SwitchBasedOnUserAccount();
+            //--------------------------------------
+
+         
+
+            // SwitchBasedOnUserAccount();
 
             //if (user.HasSingleAccount)
             //{
@@ -76,6 +76,25 @@ namespace NetBankingApplication.View.UserControls
             //}
             //currentAccount = accountNo;
         }
+
+        //public void ExecuteAfterOnSuccess()
+        //{
+        //    if (GetAllAccountsBaseViewModel.PreviousSelection != null)
+        //    {
+        //        GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsBaseViewModel.PreviousSelection;
+        //        SelectAccountDropdown.Content = GetAllAccountsViewModel.CurrentAccountSelection;
+        //    }
+        //    else if (GetAllAccountsViewModel.AllAccountNumbers.Count() > 0)
+        //    {
+        //        GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsViewModel.AllAccountNumbers[0];
+        //        SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
+        //    }
+
+        //    AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, currentUserId);
+
+        //    SwitchBasedOnUserAccount();
+        //    Bindings.Update();
+        //}
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             //AllAccounts = GetAllAccountsViewModel.AllAccountNumbers;
@@ -97,24 +116,6 @@ namespace NetBankingApplication.View.UserControls
 
 
             //AllAccounts = GetAllAccountsViewModel.AllAccountNumbers;
-            if (GetAllAccountsBaseViewModel.PreviousSelection != null)
-            {
-                GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsBaseViewModel.PreviousSelection;
-                SelectAccountDropdown.Content = GetAllAccountsViewModel.CurrentAccountSelection;
-
-            }
-            else if (GetAllAccountsViewModel.AllAccountNumbers.Count() > 0)
-            {
-                GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsViewModel.AllAccountNumbers[0];
-                SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
-            }
-            AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, currentUserId);
-
-            SwitchBasedOnUserAccount();
-            Bindings.Update();
-
-
-
 
             //take current accountnumber and userid
             // GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
@@ -128,6 +129,11 @@ namespace NetBankingApplication.View.UserControls
             //}
             //AccountTransactionsViewModel.GetAllTransactions(CurrentUserAccountNumber, currentUserId);
 
+        }
+
+        private void DefaultDisplayWideLayout()
+        {
+          
         }
 
         MenuFlyout selectAccountList;
@@ -160,6 +166,21 @@ namespace NetBankingApplication.View.UserControls
 
         public void SwitchBasedOnUserAccount()
         {
+
+            if (GetAllAccountsBaseViewModel.PreviousSelection != null)
+            {
+                GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsBaseViewModel.PreviousSelection;
+                SelectAccountDropdown.Content = GetAllAccountsViewModel.CurrentAccountSelection;
+            }
+            else if (GetAllAccountsViewModel.AllAccountNumbers.Count() > 0)
+            {
+                GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsViewModel.AllAccountNumbers[0];
+                SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
+            }
+
+            AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, currentUserId);
+
+
             if (GetAllAccountsViewModel.AllAccountNumbers.Count == 1)
             {
                 SingleAccountnumberTextblock.Visibility = Visibility.Visible;
@@ -191,11 +212,12 @@ namespace NetBankingApplication.View.UserControls
             double windowHeight = e.NewSize.Height;
             double windowWidth = e.NewSize.Width;
 
-            if (windowHeight < 300 || windowWidth < 800)
+            if (windowHeight < 300 || windowWidth < 850)
             {
                 NarrowLayout = true;
                 if (ItemSelected)
                 {
+
                     TransactionGridSplitter.Visibility = Visibility.Collapsed;
                     TransactionListings.Visibility = Visibility.Collapsed;
                     TransactionDetailGrid.Visibility = Visibility.Visible;
@@ -229,6 +251,7 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
+
         private void AllTransactionsOnAccountListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             ItemSelected = true;
@@ -255,7 +278,7 @@ namespace NetBankingApplication.View.UserControls
                 TransactionGridSplitter.Visibility = Visibility.Visible;
                 TransactionDetailGrid.Visibility = Visibility.Visible;
             }
-            CurrentSelectedTransaction = e.ClickedItem as AccountTransactionBObj;
+                CurrentSelectedTransaction = e.ClickedItem as AccountTransactionBObj;
             TransactionDetails.DataContext = CurrentSelectedTransaction;
          
         }

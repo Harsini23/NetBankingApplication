@@ -73,7 +73,7 @@ namespace Library.Domain
             }
             public void OnResponseSuccess(ZResponse<LoginResponse> response)
             {
-                login.LoginResponseCallback?.OnSuccess(response);
+                login.LoginResponseCallback?.OnSuccessAsync(response);
             }
         }
     }

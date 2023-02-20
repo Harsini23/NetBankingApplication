@@ -39,11 +39,15 @@ namespace NetBankingApplication.ViewModel
           
         }
 
-        public void OnSuccess(ZResponse<GetBranchDetailsResponse> response)
+        public async void OnSuccessAsync(ZResponse<GetBranchDetailsResponse> response)
         {
-            GetBranchDetailsViewModel.City= response.Data.Data.BCity;
-            GetBranchDetailsViewModel.BName= response.Data.Data.BName;
-            GetBranchDetailsViewModel.IfscCode = response.Data.Data.IfscCode;
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                GetBranchDetailsViewModel.City = response.Data.Data.BCity;
+                GetBranchDetailsViewModel.BName = response.Data.Data.BName;
+                GetBranchDetailsViewModel.IfscCode = response.Data.Data.IfscCode;
+            });
+
         }
     }
 

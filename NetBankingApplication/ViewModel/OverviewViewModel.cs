@@ -48,9 +48,14 @@ namespace NetBankingApplication.ViewModel
                 throw new NotImplementedException();
             }
 
-            public void OnSuccess(ZResponse<OverviewResponse> response)
+            public async void OnSuccessAsync(ZResponse<OverviewResponse> response)
             {
-                OverviewViewModel.TotalBalance = response.Data.balance;
+                await SwitchToMainUIThread.SwitchToMainThread(() =>
+                {
+                    OverviewViewModel.TotalBalance = response.Data.balance;
+
+                });
+
             }
         }
     }

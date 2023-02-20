@@ -21,6 +21,9 @@ namespace NetBankingApplication.ViewModel
      public class AccountTransactionsViewModel : AccountTransactionsBaseViewModel
     {
         AccountTransactions Transaction;
+        private static string Accountnumber;
+      //  public delegate void OnSuccessHandling(Action action);
+
         public AccountTransactionsViewModel()
         {
             PresenterTransferAmountCallback.ValueChanged += TransferAmountViewModel_ValueChanged;
@@ -28,6 +31,7 @@ namespace NetBankingApplication.ViewModel
 
         private void TransferAmountViewModel_ValueChanged(string value,string user)
         {
+         
             GetAllTransactions(value,user);
         }
 
@@ -42,6 +46,7 @@ namespace NetBankingApplication.ViewModel
     public class PresenterAccountTransactionsCallback : IPresenterAccountTransactionsCallback
     {
         private AccountTransactionsViewModel AccountTransactionsViewModel;
+        //ZResponse<AccountTransactionsResponse> response;
         public PresenterAccountTransactionsCallback()
         {
                 
@@ -60,15 +65,16 @@ namespace NetBankingApplication.ViewModel
            
         }
 
-        public void OnSuccess(ZResponse<AccountTransactionsResponse> response)
+        public async void OnSuccessAsync(ZResponse<AccountTransactionsResponse> response)
         {
-          var TransactionList = response.Data.allTransactions;
-            AccountTransactionsViewModel.AccountDetails = response.Data.account;
-          populateData(TransactionList);
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                AccountTransactionsViewModel.AccountDetails = response.Data.account;
+                populateData(response.Data.allTransactions);
+            });
         }
 
-     
-        public async void populateData( List<AccountTransactionBObj> TransactionList)
+        public  void populateData( List<AccountTransactionBObj> TransactionList)
         {
           
             double income = 0, expense = 0;
@@ -94,18 +100,19 @@ namespace NetBankingApplication.ViewModel
                     incomeCount++;
                 }
             }
+            AccountTransactionsViewModel.AllSortedAccountTransactions.Clear();
 
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-              {
-                  if (TransactionList.Count <= 0)
+            if (TransactionList.Count <= 0)
                   {
                       AccountTransactionsViewModel.TextBoxVisibility = Visibility.Visible;
+                AccountTransactionsViewModel.GridSplitterVisibility = Visibility.Collapsed;  
                       return;
                   }
                   AccountTransactionsViewModel.TextBoxVisibility = Visibility.Collapsed;
 
-                  AccountTransactionsViewModel.AllSortedAccountTransactions.Clear();
+            //
+                  //AccountTransactionsViewModel.GridSplitterVisibility = Visibility.Collapsed;
+
                 
                   foreach (var i in SortedTransactionList)
                   {
@@ -116,10 +123,9 @@ namespace NetBankingApplication.ViewModel
                   AccountTransactionsViewModel.CurrentMonthIncomeTransactionCount = incomeCount.ToString();
                   AccountTransactionsViewModel.LastTransactionDate = recentTransactionDate.ToString();
 
-              });
-
-
         }
+
+     
     }
 
     public abstract class AccountTransactionsBaseViewModel : NotifyPropertyBase
@@ -220,6 +226,19 @@ namespace NetBankingApplication.ViewModel
             {
                 _textBoxVisibility = value;
                 OnPropertyChangedAsync(nameof(TextBoxVisibility));
+
+            }
+        }
+
+
+        private Visibility _gridSplitterVisibility = Visibility.Collapsed;
+        public Visibility GridSplitterVisibility
+        {
+            get { return _gridSplitterVisibility; }
+            set
+            {
+                _gridSplitterVisibility = value;
+                OnPropertyChangedAsync(nameof(GridSplitterVisibility));
 
             }
         }

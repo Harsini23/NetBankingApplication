@@ -59,11 +59,15 @@ namespace NetBankingApplication.ViewModel
 
         }
 
-        public  void OnSuccess(ZResponse<GetAllPayeeResponse> response)
+        public async void OnSuccessAsync(ZResponse<GetAllPayeeResponse> response)
         {
-            var allPayee = response.Data.allRecipients;
-           var SortedPayee = allPayee.OrderBy(i => i.PayeeName);
-            populateData(SortedPayee);
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                var allPayee = response.Data.allRecipients;
+                var SortedPayee = allPayee.OrderBy(i => i.PayeeName);
+                populateData(SortedPayee);
+            });
+               
         }
 
         public async void populateData(IEnumerable<Payee> allPayee)

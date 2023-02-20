@@ -45,7 +45,7 @@ namespace Library.Domain.UseCase
 
             public void OnResponseSuccess(ZResponse<bool> response)
             {
-                _resetPassword.ResetPasswordResponse?.OnSuccess(response);
+                _resetPassword.ResetPasswordResponse?.OnSuccessAsync(response);
             }
             public void OnResponseFailure(ZResponse<bool> response)
             {

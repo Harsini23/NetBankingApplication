@@ -70,7 +70,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<String> response)
             {
-                DeletePayee.DeletePayeeResponse.OnSuccess(response);
+                DeletePayee.DeletePayeeResponse.OnSuccessAsync(response);
 
             }
         }

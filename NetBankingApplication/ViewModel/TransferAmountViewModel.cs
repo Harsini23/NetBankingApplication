@@ -54,27 +54,32 @@ namespace NetBankingApplication.ViewModel
         {
         }
 
-        public void OnSuccess(ZResponse<TransferAmountResponse> response)
+        public async void OnSuccessAsync(ZResponse<TransferAmountResponse> response)
         {
-            //TransferAmountViewModel.ResultText = response.Response.ToString();
-            var currentTransaction = response.Data.transaction;
-            TransferAmountViewModel.ResultStatus = response.Response;
-            TransferAmountViewModel.AmountTransfered = currentTransaction.Amount;
-            TransferAmountViewModel.TransactionIdValue = currentTransaction.TransactionId;
-            TransferAmountViewModel.DateTime = currentTransaction.Date;
-            TransferAmountViewModel.FromAccountNumber = currentTransaction.FromAccount;
-            TransferAmountViewModel.ToAccountNumber = currentTransaction.ToAccount;
-            TransferAmountViewModel.ToName = currentTransaction.Name;
-            TransferAmountViewModel.Remark = currentTransaction.Remark;
-            if (currentTransaction.Status)
+
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                TransferAmountViewModel.Status = "Success";
-                ValueChanged?.Invoke(currentTransaction.FromAccount, TransferAmountViewModel.userId);
-            }
-            else
-            {
-                TransferAmountViewModel.Status = "Failed";
-            }
+                var currentTransaction = response.Data.transaction;
+                TransferAmountViewModel.ResultStatus = response.Response;
+                TransferAmountViewModel.AmountTransfered = currentTransaction.Amount;
+                TransferAmountViewModel.TransactionIdValue = currentTransaction.TransactionId;
+                TransferAmountViewModel.DateTime = currentTransaction.Date;
+                TransferAmountViewModel.FromAccountNumber = currentTransaction.FromAccount;
+                TransferAmountViewModel.ToAccountNumber = currentTransaction.ToAccount;
+                TransferAmountViewModel.ToName = currentTransaction.Name;
+                TransferAmountViewModel.Remark = currentTransaction.Remark;
+                if (currentTransaction.Status)
+                {
+                    TransferAmountViewModel.Status = "Success";
+                    ValueChanged?.Invoke(currentTransaction.FromAccount, TransferAmountViewModel.userId);
+                }
+                else
+                {
+                    TransferAmountViewModel.Status = "Failed";
+                }
+            });
+                //TransferAmountViewModel.ResultText = response.Response.ToString();
+             
             //Debug.WriteLine(response.Data.transaction.Name, response.Data.transaction.ToAccount);
         }
 

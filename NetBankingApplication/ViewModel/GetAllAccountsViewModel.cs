@@ -51,12 +51,16 @@ namespace NetBankingApplication.ViewModel
 
         }
 
-        public void OnSuccess(ZResponse<GetAllAccountsResponse> response)
+        public async void OnSuccessAsync(ZResponse<GetAllAccountsResponse> response)
         {
-            var allAccounts = response.Data.allAccount;
-            populateData(allAccounts);
-            populateBalanceData(response.Data.allAccountBalance);
-            handleCallbackAsync();
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                var allAccounts = response.Data.allAccount;
+                populateData(allAccounts);
+                populateBalanceData(response.Data.allAccountBalance);
+                handleCallbackAsync();
+            });
+             
            
             //GetAllAccountsViewModel.AllAccounts.Clear();
             //GetAllAccountsViewModel.AllAccountNumbers.Clear();

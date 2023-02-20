@@ -29,8 +29,9 @@ namespace Library.Domain.UseCase
         }
     }
 
-    public interface IPresenterAccountTransactionsCallback: IResponseCallbackBaseCase<AccountTransactionsResponse>
+    public interface IPresenterAccountTransactionsCallback : IResponseCallbackBaseCase<AccountTransactionsResponse>
     {
+       // void ExectueInMainThread(ZResponse<AccountTransactionsResponse> response);
     }
     public class AccountTransactions: UseCaseBase<AccountTransactionsResponse>
     {
@@ -72,7 +73,8 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<AccountTransactionsResponse> response)
             {
-                AccountTransactions.AccountTransactionsResponse?.OnSuccess(response);
+               AccountTransactions.AccountTransactionsResponse?.OnSuccessAsync(response);
+              //  AccountTransactions.AccountTransactionsResponse?.ExectueInMainThread(response);
 
             }
         }

@@ -52,10 +52,13 @@ namespace NetBankingApplication.ViewModel
            
         }
 
-        public void OnSuccess(ZResponse<TransactionHistoryResponse> response)
+        public async void OnSuccessAsync(ZResponse<TransactionHistoryResponse> response)
         {
-          var TransctionList=response.Data.allTransactions;
-          populateData(TransctionList);
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                populateData(response.Data.allTransactions);
+            });
+           
         }
 
         //newContacts = Contacts.OrderBy(c => c.FirstName);

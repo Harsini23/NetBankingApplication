@@ -69,7 +69,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<OverviewResponse> response)
             {
-                overview.presenterOverviewCallback?.OnSuccess(response);
+                overview.presenterOverviewCallback?.OnSuccessAsync(response);
             }
         }
     }

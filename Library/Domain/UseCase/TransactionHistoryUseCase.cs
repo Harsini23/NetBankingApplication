@@ -71,7 +71,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<TransactionHistoryResponse> response)
             {
-                transactionHistory.TransactionHistoryResponse?.OnSuccess(response);
+                transactionHistory.TransactionHistoryResponse?.OnSuccessAsync(response);
 
             }
         }

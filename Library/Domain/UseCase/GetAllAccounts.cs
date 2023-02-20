@@ -70,7 +70,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<GetAllAccountsResponse> response)
             {
-                GetAllAccounts.GetAllAccountsResponse?.OnSuccess(response);
+                GetAllAccounts.GetAllAccountsResponse?.OnSuccessAsync(response);
 
             }
         }

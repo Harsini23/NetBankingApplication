@@ -73,7 +73,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<String> response)
             {
-                addPayee.AddPayeeResponse?.OnSuccess(response);
+                addPayee.AddPayeeResponse?.OnSuccessAsync(response);
 
             }
         }

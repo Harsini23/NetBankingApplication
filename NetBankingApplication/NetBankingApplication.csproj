@@ -123,7 +123,7 @@
     <Compile Include="ViewModel\AddPayeeViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\DeletePayeeViewModel.cs" />
-    <Compile Include="ViewModel\DispatcherExtensionMethod.cs" />
+    <Compile Include="ViewModel\SwitchToMainUIThread.cs" />
     <Compile Include="ViewModel\GetAllAccountsViewModel.cs" />
     <Compile Include="ViewModel\GetAllPayeeViewModel.cs" />
     <Compile Include="ViewModel\GetBranchDetailsViewModel.cs" />

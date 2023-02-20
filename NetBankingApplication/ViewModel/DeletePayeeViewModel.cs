@@ -47,12 +47,14 @@ namespace NetBankingApplication.ViewModel
 
         }
 
-        public void OnSuccess(ZResponse<String> response)
+        async void IResponseCallbackBaseCase<string>.OnSuccessAsync(ZResponse<string> response)
         {
-            deletePayeeViewModel.ResponseValue = response.Data.ToString();
-            ValueChanged?.Invoke(DeletePayeeViewModel.userId);
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                deletePayeeViewModel.ResponseValue = response.Data.ToString();
+                ValueChanged?.Invoke(DeletePayeeViewModel.userId);
+            });
         }
-
     }
     public abstract class DeletePayeeBaseViewModel : NotifyPropertyBase
     {

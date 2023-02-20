@@ -40,11 +40,14 @@ namespace NetBankingApplication.ViewModel
           
         }
 
-        public void OnSuccess(ZResponse<AddUserResponse> response)
+        public async void OnSuccessAsync(ZResponse<AddUserResponse> response)
         {
-            addUserViewModel.UserId = response.Data.credentials.UserId;
-            addUserViewModel.Password = response.Data.credentials.Password;
-            addUserViewModel.AccountNo = response.Data.account.AccountNumber;
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                addUserViewModel.UserId = response.Data.credentials.UserId;
+                addUserViewModel.Password = response.Data.credentials.Password;
+                addUserViewModel.AccountNo = response.Data.account.AccountNumber;
+            });
         }
     }
 
