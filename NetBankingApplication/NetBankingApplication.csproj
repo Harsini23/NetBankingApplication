@@ -201,6 +201,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\bank.png" />
     <Content Include="Assets\bankicon.png" />
     <Content Include="Assets\bankingFrontPage.jpg" />
     <Content Include="Assets\bg.jpg" />
