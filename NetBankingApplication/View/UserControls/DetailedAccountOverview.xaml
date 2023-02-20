@@ -574,7 +574,7 @@
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                    
-                    <TextBlock Margin="10" Text=" Recent Transactions " HorizontalAlignment="Left" FontSize="16 "  FontWeight="SemiBold" Name="asdf"></TextBlock>
+                    <TextBlock Margin="10" Text="Transactions " HorizontalAlignment="Left" FontSize="16 "  FontWeight="SemiBold" Name="asdf"></TextBlock>
                 </StackPanel>
 
                 <TextBlock Grid.Row="1" Visibility="{x:Bind AccountTransactionsViewModel.TextBoxVisibility,Mode=OneWay}" Text="No Transactions yet ;)" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
