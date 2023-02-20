@@ -115,45 +115,36 @@ namespace NetBankingApplication.ViewModel
 
             public async void OnSuccessAsync(ZResponse<bool> response)
             {
-                loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
-                //
-                if (IsAdmin)
+                await SwitchToMainUIThread.SwitchToMainThread(() =>
                 {
-                   await handleAdminAccess();
-                }
-                else
-                {
-                  await  LoadDashBoard(LoginViewModel.user);
-                }
+                    loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
+                    //
+                    if (IsAdmin)
+                    {
+                         handleAdminAccess();
+                    }
+                    else
+                    {
+                         LoadDashBoard(LoginViewModel.user);
+                    }
+                });
+                 
             }
        
         
-            private async Task LoadDashBoard(User user)
-            {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-            Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            private void LoadDashBoard(User user)
             {
                 loginViewModel.mainPageNavigation.NavigateToDashBoard(LoginViewModel.user);
-            });
-
             }
 
            
-            private async Task handleCallbackAsync()
+            private void handleCallbackAsync()
             {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-              {
                   loginViewModel.loginViewCallback.SwitchToResetPasswordContainer();
-              });
             }
-            private async Task handleAdminAccess()
+            private void handleAdminAccess()
             {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-              {
                   loginViewModel.mainPageNavigation.NavigateToAdminDashBoard(LoginViewModel.user);
-              });
             }
 
             //Presenter call back methods -----------------------------------------------------------------------------------------------------------

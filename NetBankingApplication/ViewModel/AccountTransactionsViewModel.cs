@@ -22,8 +22,6 @@ namespace NetBankingApplication.ViewModel
     {
         AccountTransactions Transaction;
         private static string Accountnumber;
-      //  public delegate void OnSuccessHandling(Action action);
-
         public AccountTransactionsViewModel()
         {
             PresenterTransferAmountCallback.ValueChanged += TransferAmountViewModel_ValueChanged;
@@ -46,7 +44,6 @@ namespace NetBankingApplication.ViewModel
     public class PresenterAccountTransactionsCallback : IPresenterAccountTransactionsCallback
     {
         private AccountTransactionsViewModel AccountTransactionsViewModel;
-        //ZResponse<AccountTransactionsResponse> response;
         public PresenterAccountTransactionsCallback()
         {
                 
@@ -105,15 +102,11 @@ namespace NetBankingApplication.ViewModel
             if (TransactionList.Count <= 0)
                   {
                       AccountTransactionsViewModel.TextBoxVisibility = Visibility.Visible;
-                AccountTransactionsViewModel.GridSplitterVisibility = Visibility.Collapsed;  
+                //AccountTransactionsViewModel.GridSplitterVisibility = Visibility.Collapsed;  
                       return;
                   }
                   AccountTransactionsViewModel.TextBoxVisibility = Visibility.Collapsed;
 
-            //
-                  //AccountTransactionsViewModel.GridSplitterVisibility = Visibility.Collapsed;
-
-                
                   foreach (var i in SortedTransactionList)
                   {
                       AccountTransactionsViewModel.AllSortedAccountTransactions.Add(i);
@@ -143,7 +136,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _accountDetails= value;
-                OnPropertyChangedAsync(nameof(AccountDetails));
+                OnPropertyChanged(nameof(AccountDetails));
             }
         }
         //public string CurrentMonthExpense { get; set; }
@@ -158,7 +151,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _currentMonthIncomeTransactionCount = value;
-                OnPropertyChangedAsync(nameof(CurrentMonthIncomeTransactionCount));
+                OnPropertyChanged(nameof(CurrentMonthIncomeTransactionCount));
                 //SetProperty(ref _response, value);
             }
         }
@@ -170,8 +163,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _currentMonthExpenseTransactionCount = value;
-                OnPropertyChangedAsync(nameof(CurrentMonthExpenseTransactionCount));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(CurrentMonthExpenseTransactionCount));
             }
         }
 
@@ -185,8 +177,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _lastTransactionDate = value;
-                OnPropertyChangedAsync(nameof(LastTransactionDate));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(LastTransactionDate));
             }
         }
 
@@ -198,8 +189,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _currentMonthExpense = value;
-                OnPropertyChangedAsync(nameof(CurrentMonthExpense));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(CurrentMonthExpense));
             }
         }
 
@@ -210,8 +200,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _currentMonthIncome = value;
-                OnPropertyChangedAsync(nameof(CurrentMonthIncome));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(CurrentMonthIncome));
             }
         }
 
@@ -225,23 +214,23 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _textBoxVisibility = value;
-                OnPropertyChangedAsync(nameof(TextBoxVisibility));
+                OnPropertyChanged(nameof(TextBoxVisibility));
 
             }
         }
 
 
-        private Visibility _gridSplitterVisibility = Visibility.Collapsed;
-        public Visibility GridSplitterVisibility
-        {
-            get { return _gridSplitterVisibility; }
-            set
-            {
-                _gridSplitterVisibility = value;
-                OnPropertyChangedAsync(nameof(GridSplitterVisibility));
+        //private Visibility _gridSplitterVisibility = Visibility.Collapsed;
+        //public Visibility GridSplitterVisibility
+        //{
+        //    get { return _gridSplitterVisibility; }
+        //    set
+        //    {
+        //        _gridSplitterVisibility = value;
+        //        OnPropertyChanged(nameof(GridSplitterVisibility));
 
-            }
-        }
+        //    }
+        //}
 
 
 

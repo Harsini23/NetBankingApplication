@@ -67,8 +67,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _response = value;
-                OnPropertyChangedAsync(nameof(ResponseValue));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(ResponseValue));
             }
         }
 

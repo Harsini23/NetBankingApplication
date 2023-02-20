@@ -73,22 +73,15 @@ namespace NetBankingApplication.ViewModel
 
             //}
         }
-            private async Task handleCallbackAsync()
+            private void handleCallbackAsync()
             {
-                await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-              {
+           
                   GetAllAccountsViewModel?.TransferAmountView?.SwitchBasedOnUserAccount();
-              });
             }
 
-        public async void populateData(List<Account> allAccounts)
+        public  void populateData(List<Account> allAccounts)
         {
-
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-              {
-
+       
                   GetAllAccountsViewModel.AllAccounts.Clear();
                   GetAllAccountsViewModel.accounts.Clear();
 
@@ -101,27 +94,22 @@ namespace NetBankingApplication.ViewModel
                       GetAllAccountsViewModel.accounts.Add(i);
 
                   }
-              });
+
         }
 
-        public async void populateBalanceData(List<AccountBalance> allBalances)
+        public  void populateBalanceData(List<AccountBalance> allBalances)
         {
             if (allBalances.Count == 1)
             {
                 GetAllAccountsViewModel.SingleAccountBalance = allBalances[0].TotalBalance.ToString();
             }
-       
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-              {
                   GetAllAccountsViewModel.allBalances.Clear();
                   foreach(var i in allBalances)
                   {
                       
                       GetAllAccountsViewModel.allBalances.Add(i);
                   }
-             
-              });
+           
         }    
     }
     public abstract class GetAllAccountsBaseViewModel : NotifyPropertyBase
@@ -146,8 +134,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _currentAccountSelection = value;
-                OnPropertyChangedAsync(nameof(CurrentAccountSelection));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(CurrentAccountSelection));
             }
         }
 
@@ -161,8 +148,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _singleAccountBalance = "₹ " + value;
-                OnPropertyChangedAsync(nameof(SingleAccountBalance));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(SingleAccountBalance));
             }
         }
 
@@ -177,8 +163,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _currentAccountBalance = "₹ "+value;
-                OnPropertyChangedAsync(nameof(CurrentAccountBalance));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(CurrentAccountBalance));
             }
         }
 

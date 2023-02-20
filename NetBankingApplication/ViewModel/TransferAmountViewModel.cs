@@ -94,8 +94,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _response = value;
-                OnPropertyChangedAsync(nameof(ResultText));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(ResultText));
             }
         }
 
@@ -106,8 +105,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _transactionIdValue = value;
-                OnPropertyChangedAsync(nameof(TransactionIdValue));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(TransactionIdValue));
             }
         }
 
@@ -118,8 +116,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _datetime = value;
-                OnPropertyChangedAsync(nameof(DateTime));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(DateTime));
             }
         }
 
@@ -130,8 +127,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _fromAccount = value;
-                OnPropertyChangedAsync(nameof(FromAccountNumber));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(FromAccountNumber));
             }
         }
         private string _toAccountNumber = String.Empty;
@@ -141,8 +137,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _toAccountNumber = value;
-                OnPropertyChangedAsync(nameof(ToAccountNumber));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(ToAccountNumber));
             }
         }
         private string _toName = String.Empty;
@@ -152,8 +147,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _toName = value;
-                OnPropertyChangedAsync(nameof(ToName));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(ToName));
             }
         }
 
@@ -164,8 +158,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _amountTransfered = value;
-                OnPropertyChangedAsync(nameof(AmountTransfered));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(AmountTransfered));
             }
         }
 
@@ -176,8 +169,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _remark = value;
-                OnPropertyChangedAsync(nameof(Remark));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(Remark));
             }
         }
         private string _status = String.Empty;
@@ -187,11 +179,9 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _status = value;
-                OnPropertyChangedAsync(nameof(Status));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(Status));
             }
         }
-
 
         private string _resultStatus = String.Empty;
         public string ResultStatus
@@ -200,8 +190,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _resultStatus = value;
-                OnPropertyChangedAsync(nameof(ResultStatus));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(ResultStatus));
             }
         }
 

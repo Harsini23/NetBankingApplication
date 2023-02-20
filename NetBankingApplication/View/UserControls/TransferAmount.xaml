@@ -61,9 +61,9 @@
                         </DropDownButton.Flyout>
                     </DropDownButton>
                     <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBlock Text="Available Balance :" FontWeight="Light"></TextBlock>
+                        <TextBlock Text="Available Balance :" FontSize="16" FontWeight="Light"></TextBlock>
                         
-                            <TextBlock Margin="5,0,0,0" FontWeight="Light" Text="{x:Bind  GetAllAccountsViewModel.CurrentAccountBalance,Mode=OneWay}" ></TextBlock>
+                            <TextBlock Margin="5,0,0,0" FontSize="16" FontWeight="Light" Text="{x:Bind  GetAllAccountsViewModel.CurrentAccountBalance,Mode=OneWay}" ></TextBlock>
                      
                     </StackPanel>
 
