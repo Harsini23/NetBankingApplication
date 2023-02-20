@@ -17,7 +17,6 @@ namespace NetBankingApplication.ViewModel
 
     public class OverviewViewModel : OverviewBaseViewModel
     {
-        static int Flag = 0;
         public Overview overview;
         public override void getData(string userId)
         {
@@ -69,7 +68,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _userId = value;
-                OnPropertyChangedAsync(nameof(UserId));
+                OnPropertyChanged(nameof(UserId));
             }
         }
 
@@ -81,7 +80,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _totalBalance = value;
-                OnPropertyChangedAsync(nameof(TotalBalance));
+                OnPropertyChanged(nameof(TotalBalance));
             }
         }
 

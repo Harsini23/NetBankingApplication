@@ -62,8 +62,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _city = value;
-                OnPropertyChangedAsync(nameof(City));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(City));
             }
         }
 
@@ -74,8 +73,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _bName = value;
-                OnPropertyChangedAsync(nameof(BName));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(BName));
             }
         }
 
@@ -86,8 +84,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _ifscCode = value;
-                OnPropertyChangedAsync(nameof(IfscCode));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(IfscCode));
             }
         }
 

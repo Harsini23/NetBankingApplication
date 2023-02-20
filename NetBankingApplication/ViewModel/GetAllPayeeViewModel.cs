@@ -73,9 +73,7 @@ namespace NetBankingApplication.ViewModel
         public async void populateData(IEnumerable<Payee> allPayee)
         {
 
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-              {
+         
                   getAllPayeeViewModel.AllPayeeCollection.Clear();
                   getAllPayeeViewModel.PayeeNames.Clear();
                   getAllPayeeViewModel.AllPayee.Clear();
@@ -86,7 +84,7 @@ namespace NetBankingApplication.ViewModel
                       getAllPayeeViewModel.AllPayee.Add(i);
                   }
                   getAllPayeeViewModel?.ChangeVisibility?.ChangeVisibility(getAllPayeeViewModel.AllPayeeCollection.Count <= 0);
-              });
+             
         }
     }
 

@@ -60,7 +60,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _errorMessage = value;
-                OnPropertyChangedAsync(nameof(ErrorMessage));
+                OnPropertyChanged(nameof(ErrorMessage));
                 //SetProperty(ref _response, value);
             }
         }
@@ -74,7 +74,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _userId = value;
-                OnPropertyChangedAsync(nameof(UserId));
+                OnPropertyChanged(nameof(UserId));
                 //SetProperty(ref _response, value);
             }
         }
@@ -87,7 +87,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _password = value;
-                OnPropertyChangedAsync(nameof(Password));
+                OnPropertyChanged(nameof(Password));
                 //SetProperty(ref _response, value);
             }
         }
@@ -99,7 +99,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _accountNo = value;
-                OnPropertyChangedAsync(nameof(AccountNo));
+                OnPropertyChanged(nameof(AccountNo));
                 //SetProperty(ref _response, value);
             }
         }

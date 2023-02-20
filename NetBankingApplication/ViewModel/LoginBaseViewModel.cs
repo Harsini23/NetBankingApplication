@@ -21,8 +21,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                  _response = value;
-                OnPropertyChangedAsync(nameof(LoginResponseValue));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(LoginResponseValue));
             }
         }
 
@@ -32,8 +31,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _response = value;
-                OnPropertyChangedAsync(nameof(ResetPasswordResponseValue));
-                //SetProperty(ref _response, value);
+                OnPropertyChanged(nameof(ResetPasswordResponseValue));
             }
         }
 
@@ -51,15 +49,12 @@ namespace NetBankingApplication.ViewModel
     public interface ILoginViewModel
     {
         void SwitchToResetPasswordContainer();
-
         //set iloginview instance to service provider
     }
     public interface IMainPageNavigation
     {
         void NavigateToDashBoard(User user);
-
         void NavigateToAdminDashBoard(User user);
-
         void NavigateToLoginPage();
         //future logout change frame
     }

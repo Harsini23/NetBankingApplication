@@ -171,6 +171,7 @@ namespace NetBankingApplication.View.UserControls
             allAccounts = GetAllAccountsViewModel.AllAccounts;
             allAccountBalances.Clear();
             allAccountBalances = GetAllAccountsViewModel.allBalances;
+            SwitchBasedOnUserAccount();
 
 
             AccountNumberTextBox.IsEnabled = false;

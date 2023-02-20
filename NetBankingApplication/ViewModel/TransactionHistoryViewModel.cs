@@ -69,9 +69,7 @@ namespace NetBankingApplication.ViewModel
         {
           
             int temp = 0;
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-              Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-              {
+            
                   if (TransactionList.Count <= 0)
                   {
                       transactionHistoryViewModel.TextBoxVisibility = Visibility.Visible;
@@ -212,8 +210,6 @@ namespace NetBankingApplication.ViewModel
                       }
                       transactionHistoryViewModel.FinalSortedIndexedTransactions.Add(info);
                   }
-              });
-
         }
     }
 
@@ -236,7 +232,7 @@ namespace NetBankingApplication.ViewModel
         {
             get { return _textBoxVisibility; }
             set { _textBoxVisibility = value;
-                OnPropertyChangedAsync(nameof(TextBoxVisibility));
+                OnPropertyChanged(nameof(TextBoxVisibility));
 
             }
         }
@@ -248,7 +244,7 @@ namespace NetBankingApplication.ViewModel
             set
             {
                 _dataTemplateChanged = value;
-                OnPropertyChangedAsync(nameof(DataTemplateChanged));
+                OnPropertyChanged(nameof(DataTemplateChanged));
 
             }
         }
