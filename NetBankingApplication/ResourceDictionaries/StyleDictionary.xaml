@@ -13,6 +13,19 @@
             FallbackColor="#eaf3fa"/>
 
 
+            <LinearGradientBrush x:Key="NavigationViewExpandedPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
+                <GradientStop Color="#faf6fc" Offset="0.40" />
+                <GradientStop Color="#e9ddfe" Offset="0.50" />
+                <GradientStop Color="#f07c8e" Offset="0.85" />
+                <GradientStop Color="#f64f52" Offset="1.0" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="NavigationViewDefaultPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
+                <GradientStop Color="#faf6fc" Offset="0.40" />
+                <GradientStop Color="#e9ddfe" Offset="0.50" />
+                <GradientStop Color="#f07c8e" Offset="0.85" />
+                <GradientStop Color="#f64f52" Offset="1.0" />
+            </LinearGradientBrush>
+
             <AcrylicBrush x:Key="DaskBoardBrush"
             BackgroundSource="HostBackdrop"
             TintColor="#f07c8e"
@@ -830,6 +843,26 @@
                 <Setter Property="Background" Value="Black"></Setter>
             </Style>
 
+
+            <LinearGradientBrush x:Key="NavigationViewExpandedPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
+                <GradientStop Color="#2b3349" Offset="0.40" />
+                <GradientStop Color="#212a3b" Offset="0.50" />
+                <GradientStop Color="#0c0f15" Offset="0.85" />
+                <GradientStop Color="#161123" Offset="1.0" />
+            </LinearGradientBrush>
+            
+            <LinearGradientBrush x:Key="NavigationViewDefaultPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
+                <GradientStop Color="#2b3349" Offset="0.40" />
+                <GradientStop Color="#212a3b" Offset="0.50" />
+                <GradientStop Color="#0c0f15" Offset="0.85" />
+                <GradientStop Color="#161123" Offset="1.0" />
+            </LinearGradientBrush>
+
+            <AcrylicBrush x:Key="MyAcrylicBrush"
+            BackgroundSource="Backdrop"
+            TintColor="#2a4589"
+            TintOpacity="0.8"
+            FallbackColor="#eaf3fa"/>
 
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
