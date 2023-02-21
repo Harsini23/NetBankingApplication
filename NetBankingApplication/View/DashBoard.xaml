@@ -1027,7 +1027,7 @@
                 <!--<acrylicbrush x:key="navigationviewexpandedpanebackground"
               backgroundsource="backdrop" tintcolor="" tintopacity=".6"/>-->
 
-                <LinearGradientBrush x:Key="NavigationViewExpandedPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
+                <!--<LinearGradientBrush x:Key="NavigationViewExpandedPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
                     <GradientStop Color="#faf6fc" Offset="0.40" />
                     <GradientStop Color="#e9ddfe" Offset="0.50" />
                     <GradientStop Color="#f07c8e" Offset="0.85" />
@@ -1038,7 +1038,7 @@
                     <GradientStop Color="#e9ddfe" Offset="0.50" />
                     <GradientStop Color="#f07c8e" Offset="0.85" />
                     <GradientStop Color="#f64f52" Offset="1.0" />
-                </LinearGradientBrush>
+                </LinearGradientBrush>-->
                 <!--<SolidColorBrush x:Key="NavigationViewItemBackground" Color="Pink" />-->
             </NavigationView.Resources>
 
