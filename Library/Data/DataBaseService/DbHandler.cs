@@ -262,7 +262,7 @@ namespace Library.Data.DataBaseService
             return query;
         }
 
-       public double GetTotalBalnceOfUser(string userId)
+       public double GetTotalBalanceOfUser(string userId)
         {
             double total = 0;  
             var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
@@ -312,7 +312,60 @@ namespace Library.Data.DataBaseService
             connection.Insert(credential);
         }
 
+        #region "Overview"
+        public double GetTotalIncome(string userId)
+        {
+            double income=0.0;
+            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            foreach (var i in AllAccounts)
+            {
+                 income = connection.Table<Transaction>().Where(c => c.UserId == userId && c.ToAccount == i).Sum(c => c.Amount);
+            }
+            return income;
+        }
 
+        public double GetTotalExpense(string userId)
+        {
+            double income = 0.0;
+            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            foreach (var i in AllAccounts)
+            {
+                var singleAccountExpense = connection.Table<Transaction>().Where(c => c.UserId == userId && c.FromAccount == i).Sum(c => c.Amount);
+                income += singleAccountExpense;
+            }
+            return income;
+        }
 
+        public List<Transaction> GetCurrentMonthIncome(string userId)
+        {
+           
+            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            List<Transaction> monthlyincome=new List<Transaction>();
+            foreach (var i in AllAccounts)
+            {
+                var singleAccountTransaction = connection.Table<Transaction>().Where(c => c.UserId == userId && c.ToAccount == i).ToList();
+                foreach (var j in singleAccountTransaction)
+                {
+                    monthlyincome.Add(j);
+                }
+            }
+            return monthlyincome;
+        }
+
+        public List<Transaction> GetCurrentMonthExpense(string userId)
+        {
+            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            List<Transaction> monthlyexpense = new List<Transaction>();
+            foreach (var i in AllAccounts)
+            {
+                var singleAccountTransaction = connection.Table<Transaction>().Where(c => c.UserId == userId && c.FromAccount == i).ToList();
+                foreach (var j in singleAccountTransaction)
+                {
+                    monthlyexpense.Add(j);
+                }
+            }
+            return monthlyexpense;
+        }
+        #endregion
     }
 }

@@ -63,7 +63,7 @@
                     <StackPanel Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Available Balance :" FontSize="16" FontWeight="Light"></TextBlock>
                         
-                            <TextBlock Margin="5,0,0,0" FontSize="16" FontWeight="Light" Text="{x:Bind  GetAllAccountsViewModel.CurrentAccountBalance,Mode=OneWay}" ></TextBlock>
+                            <TextBlock x:Name="BalanceText" Margin="5,0,0,0" FontSize="16" FontWeight="Light" Text="{x:Bind  GetAllAccountsViewModel.CurrentAccountBalance,Mode=OneWay}" ></TextBlock>
                      
                     </StackPanel>
 
@@ -86,8 +86,8 @@
                 </Grid>
                
 
-                <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}" Header="Remark" x:Name="RemarkTextBox" />
-                <TextBox Grid.Row="6" Style="{ThemeResource InputFieldTextBox}" Header="Amount" TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox"/>
+                <TextBox Grid.Row="6" Style="{ThemeResource InputFieldTextBox}" Header="Remark" x:Name="RemarkTextBox" />
+                <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}" Header="Amount" TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox"/>
 
                 <TextBlock Grid.Row="7" Text="{x:Bind TransferAmountViewModel.ResultText,Mode=OneWay}" x:Name="ErrorMessage" Style="{ThemeResource FailureText}"></TextBlock>
                 

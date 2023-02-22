@@ -151,6 +151,7 @@ namespace NetBankingApplication.View.UserControls
             // TransactionResult.Text = String.Empty;
             //MakeTransaction.IsEnabled = false;
             ErrorMessage.Text = String.Empty;
+            BalanceText.Text = "Choose Account";
 
         }
 
@@ -310,6 +311,18 @@ namespace NetBankingApplication.View.UserControls
             var amountBox = (TextBox)sender;
             ErrorMessage.Text = String.Empty;
              _amount = amountBox.Text.ToString();
+            double val = 0.0;
+            if(amountBox.Text.Length > 0)
+            {
+                val = double.Parse(AmountTextBox.Text);
+                if (Math.Abs(val % 1) >= 0.01)
+                {
+                    AmountTextBox.Text = Math.Round(val, 2).ToString();
+                    AmountTextBox.SelectionStart = AmountTextBox.Text.Length;
+                }
+            }
+
+         
             if (_amount == String.Empty)
             {
                 ErrorMessage.Text = String.Empty;

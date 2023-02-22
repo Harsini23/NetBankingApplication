@@ -51,7 +51,12 @@ namespace NetBankingApplication.ViewModel
             {
                 await SwitchToMainUIThread.SwitchToMainThread(() =>
                 {
-                    OverviewViewModel.TotalBalance = response.Data.balance;
+                    OverviewViewModel.TotalBalance = response.Data.Balance;
+                    OverviewViewModel.Income = response.Data.Income;
+                    OverviewViewModel.Expense = response.Data.Expense;
+                    OverviewViewModel.CurrentMonthExpense = response.Data.CurrentMonthExpense;
+                    OverviewViewModel.CurrentMonthIncome = response.Data.CurrentMonthIncome;
+                    
 
                 });
 
@@ -83,6 +88,54 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChanged(nameof(TotalBalance));
             }
         }
+
+
+
+        private string _income = String.Empty;
+        public string Income
+        {
+            get { return _income; }
+            set
+            {
+                _income = value;
+                OnPropertyChanged(nameof(Income));
+            }
+        }
+
+        private string _expense = String.Empty;
+        public string Expense
+        {
+            get { return _expense; }
+            set
+            {
+                _expense = value;
+                OnPropertyChanged(nameof(Expense));
+            }
+        }
+
+        private string _currentMonthIncome = String.Empty;
+        public string CurrentMonthIncome
+        {
+            get { return _currentMonthIncome; }
+            set
+            {
+                _currentMonthIncome = value;
+                OnPropertyChanged(nameof(CurrentMonthIncome));
+            }
+        }
+
+        private string __currentMonthExpense = String.Empty;
+        public string CurrentMonthExpense
+        {
+            get { return __currentMonthExpense; }
+            set
+            {
+                __currentMonthExpense = value;
+                OnPropertyChanged(nameof(CurrentMonthExpense));
+            }
+        }
+
+
 
         public abstract void getData(string userId);
         public abstract void setUser(string userId);

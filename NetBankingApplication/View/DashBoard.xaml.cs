@@ -76,10 +76,10 @@ namespace NetBankingApplication.View
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Overview overview = new Overview(Currentuser);
+            //Overview overview = new Overview(Currentuser);
           
-            CurrentSelectedModule = overview;
-            HeaderTitle = "Overview";
+            //CurrentSelectedModule = overview;
+            //HeaderTitle = "Overview";
             DashBoardNavigation.SelectedItem = Overview;
             //_dashboardNavigationViewModel.SetOverview();
             // SelectedDashboardContentFrame.Navigate(typeof(Overview), Currentuser);

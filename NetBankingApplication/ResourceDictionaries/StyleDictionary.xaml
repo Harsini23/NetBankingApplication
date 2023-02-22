@@ -14,16 +14,20 @@
 
 
             <LinearGradientBrush x:Key="NavigationViewExpandedPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
-                <GradientStop Color="#faf6fc" Offset="0.40" />
-                <GradientStop Color="#e9ddfe" Offset="0.50" />
-                <GradientStop Color="#f07c8e" Offset="0.85" />
-                <GradientStop Color="#f64f52" Offset="1.0" />
+                <GradientStop Color="#cfd6df" Offset="0.10" />
+                <GradientStop Color="#cfd6df" Offset="0.40" />
+                <GradientStop Color="#cfd6df" Offset="0.85" />
+                <GradientStop Color="#cfd6df" Offset="1.0" />
             </LinearGradientBrush>
             <LinearGradientBrush x:Key="NavigationViewDefaultPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
-                <GradientStop Color="#faf6fc" Offset="0.40" />
+                <GradientStop Color="#cfd6df" Offset="0.10" />
+                <GradientStop Color="#cfd6df" Offset="0.40" />
+                <GradientStop Color="#cfd6df" Offset="0.85" />
+                <GradientStop Color="#cfd6df" Offset="1.0" />
+                <!--<GradientStop Color="#faf6fc" Offset="0.40" />
                 <GradientStop Color="#e9ddfe" Offset="0.50" />
                 <GradientStop Color="#f07c8e" Offset="0.85" />
-                <GradientStop Color="#f64f52" Offset="1.0" />
+                <GradientStop Color="#f64f50" Offset="1.0" />-->
             </LinearGradientBrush>
 
             <AcrylicBrush x:Key="DaskBoardBrush"

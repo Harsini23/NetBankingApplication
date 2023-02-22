@@ -43,11 +43,15 @@ namespace Library.Data.DataBaseService
 
         Branch GetBranchDetails(String BId);
 
-        double GetTotalBalnceOfUser(string userId);
+        double GetTotalBalanceOfUser(string userId);
 
         Dictionary<String, double> GetAllAccountBalance(string userId);
 
         void CreateDefaultAdminIfNotExists(Credentials credentials);
+        double GetTotalIncome(string userId);
+        double GetTotalExpense(string userId);
+        List<Transaction> GetCurrentMonthIncome(string userId);
+        List<Transaction> GetCurrentMonthExpense(string userId);
     }
 
     public interface INetHandler
