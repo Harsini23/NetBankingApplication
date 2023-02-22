@@ -32,7 +32,8 @@ namespace NetBankingApplication.View.UserControls
     {
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
         private string userId;
-       static Dictionary<int, AppWindow> appWindows = new Dictionary<int, AppWindow>();
+        private string currentUserId;
+        static Dictionary<int, AppWindow> appWindows = new Dictionary<int, AppWindow>();
 
         private LoginBaseViewModel LoginViewModel;
 
@@ -45,17 +46,34 @@ namespace NetBankingApplication.View.UserControls
         }
         public AllAccountsPreview()
         {
-
+          
+            //this.InitializeComponent();
+            //GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
+            //currentUserId = UserId;
+            //GetAllAccountsViewModel.GetAllAccounts("UID6df59172");
+            //Bindings.Update();
         }
         public AllAccountsPreview(string userId)
         {
             this.InitializeComponent();
-            this.userId = userId;
             GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
-         
-            GetAllAccountsViewModel.GetAllAccounts(userId);
+            currentUserId = userId;
+            GetAllAccountsViewModel.GetAllAccounts(currentUserId);
             Bindings.Update();
         }
+       
+        public string UserId
+        {
+            get { return (string)GetValue(UserIdProperty); }
+            set
+            {
+                SetValue(UserIdProperty, value);
+                currentUserId = UserId;
+            }
+        }
+
+        public static readonly DependencyProperty UserIdProperty =
+            DependencyProperty.Register("UserId", typeof(string), typeof(TransactionHistory), new PropertyMetadata(null));
         private async void DisplayFullAccountDetails_Click_1(object sender, RoutedEventArgs e)
         {
 

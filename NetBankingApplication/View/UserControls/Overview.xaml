@@ -14,75 +14,273 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Button" x:Key="TestingButton">
+                <Setter Property="Background" Value="{ThemeResource ButtonBackground}" />
+                <Setter Property="BackgroundSizing" Value="OuterBorderEdge" />
+                <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderBrush}" />
+                <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
+                <Setter Property="Padding" Value="{StaticResource ButtonPadding}" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+                <Setter Property="FontWeight" Value="Normal" />
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+                <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+                <Setter Property="FocusVisualMargin" Value="-3" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter x:Name="ContentPresenter"
+              Background="{TemplateBinding Background}"
+              BackgroundSizing="{TemplateBinding BackgroundSizing}"
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}"
+              Content="{TemplateBinding Content}"
+              ContentTemplate="{TemplateBinding ContentTemplate}"
+              ContentTransitions="{TemplateBinding ContentTransitions}"
+              CornerRadius="{TemplateBinding CornerRadius}"
+              Padding="{TemplateBinding Padding}"
+              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+              AutomationProperties.AccessibilityView="Raw">
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
+                                            </Storyboard>
+                                        </VisualState>
+
+                                    </VisualStateGroup>
+
+                                </VisualStateManager.VisualStateGroups>
+                            </ContentPresenter>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
+    <ScrollViewer>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ColumnTwo.Width" Value="0"/>
+                        <Setter Target="RowFour.Height" Value="*"/>
+                        <Setter Target="RowFive.Height" Value="*"/>
+                        <Setter Target="MonthlySummaryCard.(Grid.Row)" Value="3"/>
+                        <Setter Target="MonthlySummaryCard.(Grid.Column)" Value="0"/>
+                        <Setter Target="MonthlySummaryCard.Margin" Value="50,10,30,10"/>
+                        <Setter Target="AccountDetailsCard.(Grid.Row)" Value="4"/>
+                        <Setter Target="AccountDetailsCard.(Grid.Column)" Value="0"/>
+                        <Setter Target="AccountDetailsCard.Margin" Value="50,10,30,10"/>
+                        <Setter Target="OverallBalanceCard.Margin" Value="50,10,30,10"/>
+                        <Setter Target="TransactionsCard.Margin" Value="50,10,30,10"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="WideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1050"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ColumnTwo.Width" Value="*"/>
+                        <Setter Target="RowFour.Height" Value="0"/>
+                        <Setter Target="RowFive.Height" Value="0"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        
+        <Grid x:Name="OverviewGrid">
+
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="ColumnOne" Width="1.5*"></ColumnDefinition>
+            <ColumnDefinition x:Name="ColumnTwo" Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition x:Name="RowFour" Height="0"/>
+            <RowDefinition x:Name="RowFive" Height="0"/>
         </Grid.RowDefinitions>
-        <StackPanel BorderThickness="0.4" CornerRadius="5" BorderBrush="Black" Padding="20" Margin="20" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock CharacterSpacing="60" Text="Welcome," FontSize="24" FontWeight="Bold"></TextBlock>
-                <TextBlock Margin="5,0,0,0" CharacterSpacing="60" Text="{x:Bind user.UserName}" FontSize="24" FontWeight="Bold"></TextBlock>
-            </StackPanel>
-            <TextBlock Text="{x:Bind user.EmailId}" FontSize="14" HorizontalAlignment="Center" FontWeight="Light"></TextBlock>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  Margin="50,30,10,10" Padding="10,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+            <TextBlock Text="Welcome," Foreground="#808080" FontSize="32"></TextBlock>
+            <TextBlock Margin="5,0,0,0" Text="Rachel Green" FontSize="32"></TextBlock>
         </StackPanel>
 
-        <StackPanel BorderThickness="0.4" CornerRadius="5" Margin="20" BorderBrush="Black" Padding="20" Grid.RowSpan="3" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid Grid.Row="1"  x:Name="OverallBalanceCard"  Background="White" CornerRadius="10" Margin="50,10,10,10" Padding="10" Grid.Column="0">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="24" FontWeight="Normal"></TextBlock>
-                    <TextBlock Text="{x:Bind _overviewViewModel.TotalBalance,Mode=OneWay}" Margin="5,0,0,0" FontSize="24" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-                      
-                </StackPanel>
-                <TextBlock Text="Total Balance" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Light"></TextBlock>
-                    <StackPanel Margin="10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="Current month spendings:"></TextBlock>
-                        <TextBlock Text="23,45,000.99" Margin="10,0,0,0"></TextBlock>
+                <StackPanel Padding="20" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="Current Total balance "></TextBlock>
+                    <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                        <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="30" FontWeight="Bold"></TextBlock>
+                        <TextBlock FontWeight="Bold" Text="{x:Bind _overviewViewModel.TotalBalance,Mode=OneWay}" Margin="5,0,0,0" FontSize="30" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                 </StackPanel>
 
-                <Controls:RadialProgressBar PointerEntered="RPBTest_PointerEntered"  x:Name="RPBTest" HorizontalAlignment="Center" VerticalAlignment="Center" Value="20" Foreground="#ffbc11" Thickness="20" Minimum="0" Maximum="100" Width="120" Height="120" Outline="#0a837f"  Grid.Row="0" Grid.Column="0" >
+                <Grid Grid.Row="1" Padding="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" >
+                        <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,4,8,4" FontSize="16" FontWeight="ExtraBold" Background="#80cd60" FontFamily="Segoe MDL2 Assets" Content="&#xE742;" >
+                        </Button>
+                        <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                            <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" ></TextBlock>
+                            <TextBlock  Text="{x:Bind _overviewViewModel.Income,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20,0,0,0">
+                        <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,2,8,4"  FontSize="16" FontWeight="ExtraBold"  Background="#f07180" FontFamily="Segoe MDL2 Assets" Content="&#xE741;" >
+                        </Button>
+                        <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                            <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" ></TextBlock>
+                            <TextBlock  Text="{x:Bind _overviewViewModel.Expense,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <Controls:RadialProgressBar Grid.Column="1" Grid.RowSpan="2"  x:Name="RPBTest" HorizontalAlignment="Center" VerticalAlignment="Center" Value="20" Foreground="#f07180" Thickness="20" Minimum="0" Maximum="100" Width="120" Height="120" Outline="#80cd60"  Grid.Row="0"  >
                     <ToolTipService.ToolTip>
                         <ToolTip x:Name="MyToolTip" >
                             <ToolTip.Content>
                                 <StackPanel>
-                                    <TextBlock Text="Expense"></TextBlock>
-                                    <TextBlock Text="Income"></TextBlock>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Fill="#80cd60" Width="10" Height="10"></Ellipse>
+                                        <TextBlock Text="Income" Margin="5,0,0,0"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Fill="#f07180" Width="10" Height="10"></Ellipse>
+                                        <TextBlock Text="Expense" Margin="5,0,0,0"></TextBlock>
+                                    </StackPanel>
                                 </StackPanel>
                             </ToolTip.Content>
                         </ToolTip>
                     </ToolTipService.ToolTip>
                 </Controls:RadialProgressBar>
+
             </Grid>
 
-      
+        </Grid>
 
-        </StackPanel>
-        <TextBlock Text="Transactions" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontSize="14" FontWeight="Bold" Margin="20,0,0,0"></TextBlock>
-       
-            <local:TransactionHistory Grid.Row="2" Margin="10" Grid.Column="0" UserId="{x:Bind UserId,Mode=OneWay}" ></local:TransactionHistory>
+        <Grid Grid.Row="2" MaxHeight="370" VerticalAlignment="Top" Name="TransactionsCard" Background="White" CornerRadius="10" Margin="50,10,10,10" Padding="10" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Transactions" Grid.Row="0" Margin="10" FontSize="16" FontWeight="SemiBold"></TextBlock>
+            <local:TransactionHistory Grid.Row="1" UserId="{x:Bind UserId,Mode=OneWay}" ></local:TransactionHistory>
 
-        <!--<local:AllAccountsPreview Grid.Row="2" Grid.Column="1"></local:AllAccountsPreview>-->
-      
-        <!--<Ellipse Grid.Column="1" Grid.Row="2" Fill="White" Height="60" Width="60" Stroke="Black" StrokeThickness="4" />-->
-      
+        </Grid>
+
+
+        <Grid Grid.Row="1" Name="MonthlySummaryCard" Background="White" CornerRadius="10" Margin="10,10,30,10" Padding="10" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock  Padding="20" VerticalAlignment="Center" HorizontalAlignment="Left" Text="This month summary" FontWeight="Medium"></TextBlock>
+
+
+                <Grid Grid.Row="1" Padding="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="Income" Margin="5"></TextBlock>
+                        <StackPanel Orientation="Horizontal" >
+                            <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,4,8,4" FontSize="16" FontWeight="ExtraBold" Background="#80cd60" FontFamily="Segoe MDL2 Assets" Content="&#xE742;" >
+                            </Button>
+                            <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" ></TextBlock>
+                                <TextBlock  Text="{x:Bind _overviewViewModel.CurrentMonthIncome,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="20,0,0,0">
+                        <TextBlock Text="Expense" Margin="5"></TextBlock>
+                        <StackPanel Orientation="Horizontal" >
+                            <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,2,8,4"  FontSize="16" FontWeight="ExtraBold"  Background="#f07180" FontFamily="Segoe MDL2 Assets" Content="&#xE741;" >
+                            </Button>
+                            <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" ></TextBlock>
+                                <TextBlock  Text="{x:Bind _overviewViewModel.CurrentMonthExpense,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+                
+            <Grid Grid.Row="2"  MaxHeight="370" VerticalAlignment="Top" Grid.Column="1" Background="White" x:Name="AccountDetailsCard"  CornerRadius="10" Margin="10,10,30,10" Padding="10" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Account Details" FontSize="16" FontWeight="SemiBold" Margin="10"></TextBlock>
+            <FlipView Background="Transparent" Padding="10" ItemsSource="{x:Bind _getAllAccountsViewModel.accounts,Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                <FlipView.ItemTemplate>
+                    <DataTemplate  x:DataType="data:Account">
+                        <Grid Background="#cfd6df" CornerRadius="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.75*"></RowDefinition>
+                                <RowDefinition Height="1*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="{x:Bind AccountType,Mode=OneWay}" FontSize="16" Margin="10"></TextBlock>
+
+
+
+                            <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{x:Bind AccountNumber,Mode=OneWay}" FontSize="24" FontWeight="SemiBold" CharacterSpacing="10" ></TextBlock>
+
+                            <StackPanel Grid.Row="1" VerticalAlignment="Top" Margin="0,10,0,0" HorizontalAlignment="Center" >
+                                <TextBlock Text="Current Balance" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="28" ></TextBlock>
+                                    <TextBlock CharacterSpacing="30" Text="{x:Bind TotalBalance.ToString(),Mode=OneWay}" Margin="5,0,0,0" FontSize="28" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+
+
+
+
+                        </Grid>
+                    </DataTemplate>
+                </FlipView.ItemTemplate>
+
+            </FlipView>
+        </Grid>
 
     </Grid>
+    </ScrollViewer>
 </UserControl>

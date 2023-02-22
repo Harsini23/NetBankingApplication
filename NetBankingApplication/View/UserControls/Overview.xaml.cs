@@ -25,6 +25,8 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class Overview : UserControl,INotifyPropertyChanged
     {
+
+      
         private readonly User user;
         // private readonly string _userId;
 
@@ -41,6 +43,7 @@ namespace NetBankingApplication.View.UserControls
         }
 
         private OverviewBaseViewModel _overviewViewModel;
+        private GetAllAccountsBaseViewModel _getAllAccountsViewModel;
     
         public Overview(User currentUser)
         {
@@ -49,9 +52,10 @@ namespace NetBankingApplication.View.UserControls
             UserId = currentUser.UserId;
             this.InitializeComponent();
             _overviewViewModel = PresenterService.GetInstance().Services.GetService<OverviewBaseViewModel>();
+            _getAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
             _overviewViewModel.setUser(user.UserId);
             _overviewViewModel.getData(currentUser.UserId);
-         
+            _getAllAccountsViewModel.GetAllAccounts(user.UserId);
         }
         protected void OnPropertyChangedAsync(string propertyName)
         {
@@ -63,6 +67,17 @@ namespace NetBankingApplication.View.UserControls
         private void RPBTest_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
           
+        }
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+          var  windowHeight = e.NewSize.Height;
+           var windowWidth = e.NewSize.Width;
+
+            if (windowHeight > 640)
+                VisualStateManager.GoToState(this, "WideLayout", false);
+            else
+                VisualStateManager.GoToState(this, "NarrowLayout", false);
         }
     }
 }

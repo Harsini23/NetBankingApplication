@@ -92,7 +92,7 @@
                                             </Storyboard>
                                         </VisualState>
 
-                                        <VisualState x:Name="Pressed">
+                                        <!--<VisualState x:Name="Pressed">
 
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="BorderBackground"
@@ -147,9 +147,9 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
                                             </Storyboard>
-                                        </VisualState>
+                                        </VisualState>-->
 
-                                        <VisualState x:Name="PointerOverSelected">
+                                        <!--<VisualState x:Name="PointerOverSelected">
 
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetName="MultiSelectCheck"
@@ -207,7 +207,7 @@
                                                 </ObjectAnimationUsingKeyFrames>
                                                 <PointerDownThemeAnimation TargetName="ContentPresenter" />
                                             </Storyboard>
-                                        </VisualState>
+                                        </VisualState>-->
 
                                     </VisualStateGroup>
 
@@ -632,7 +632,7 @@
                             <ColumnDefinition Width="2*"></ColumnDefinition>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Opacity="100" Grid.Column="0" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20" Text="Recipent" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock Opacity="100" Grid.Column="0" Margin="15,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20" Text="Recipent" HorizontalAlignment="Left" ></TextBlock>
                         <TextBlock Grid.Column="1"  HorizontalAlignment="Left" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"   Style="{ThemeResource BaseTextBlockStyle}" Text="Remark"></TextBlock>
                         <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16"  CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Amount"></TextBlock>
                         <TextBlock Grid.Column="3"  HorizontalAlignment="Left" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Status"></TextBlock>
@@ -646,12 +646,12 @@
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Opacity="100" Grid.Column="0" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20" Text="Recipent" HorizontalAlignment="Left"></TextBlock>
-                    <TextBlock Grid.Column="1"  HorizontalAlignment="Left" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16"  CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Amount"></TextBlock>
-                    <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Status"></TextBlock>
-                    <TextBlock Grid.Column="3"  HorizontalAlignment="Left"  Margin="5,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Date"></TextBlock>
+                    <TextBlock Opacity="100" Grid.Column="0" Margin="0,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20" Text="Recipent" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="1"  HorizontalAlignment="Left" Margin="25,0,0,0" FontWeight="SemiBold" FontSize="16"  CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Amount"></TextBlock>
+                    <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Margin="25,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Status"></TextBlock>
+                    <TextBlock Grid.Column="3"  HorizontalAlignment="Left"  Margin="0,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Date"></TextBlock>
                 </Grid>
             </DataTemplate>
 
