@@ -162,7 +162,14 @@ namespace NetBankingApplication.ViewModel
             }
             set
             {
-                _currentAccountBalance = "₹ "+value;
+                if(value == "Choose Account")
+                {
+                    _currentAccountBalance = value;
+                }
+                else
+                {
+                    _currentAccountBalance = "₹ " + value;
+                }
                 OnPropertyChanged(nameof(CurrentAccountBalance));
             }
         }

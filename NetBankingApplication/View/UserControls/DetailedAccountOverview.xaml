@@ -20,7 +20,7 @@
                 <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
                 <Setter Property="BorderBrush" Value="{x:Null}" />
                 <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Background" Value="Transparent" />
+                <!--<Setter Property="Background" Value="Transparent" />-->
                 <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
                 <Setter Property="TabNavigation" Value="Local" />
                 <Setter Property="IsHoldingEnabled" Value="True" />
@@ -543,7 +543,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="{ThemeResource AppBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -559,7 +559,7 @@
             <TextBlock FontSize="16" x:Name="SingleAccountnumberTextblock" Visibility="Collapsed" Margin="5" Text="{x:Bind  GetAllAccountsViewModel.CurrentAccountSelection,Mode=OneWay}"></TextBlock>  
         </StackPanel>
    
-        <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition  MinWidth="400" MaxWidth="520" />
                 <ColumnDefinition Width="5" />
@@ -648,7 +648,7 @@
                     <TextBlock Margin="5,0,0,0" Text="Transaction Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20" ></TextBlock>
                 </StackPanel>
                 <NavigationViewItemSeparator Grid.Row="1"></NavigationViewItemSeparator>
-                <local:TransactionDetailView Grid.Row="2"  x:Name="TransactionDetails" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></local:TransactionDetailView>
+                <local:TransactionDetailView ScrollViewer.VerticalScrollMode="Enabled" Grid.Row="2"  x:Name="TransactionDetails" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></local:TransactionDetailView>
             </Grid>
 
     </Grid>

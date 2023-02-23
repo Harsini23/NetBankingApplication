@@ -33,11 +33,11 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Add new Payee" Style="{ThemeResource InputFieldTextBox}" Margin="5" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
-                    <TextBox Grid.Row="1" Style="{ThemeResource InputFieldTextBox}" Header="Enter Payee Name" PlaceholderText="Payee name" x:Name="PayeeName" />
-                    <TextBox Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="Account Holder name" PlaceholderText="Account holder name" x:Name="AccountHolderName"/>
-                    <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" Header="Bank Name" PlaceholderText="Bank name" x:Name="BankName"/>
-                    <TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" InputScope="Number" Header="Enter Account Number" PlaceholderText="Account number" x:Name="Accountnumber" BeforeTextChanging="TextBox_OnBeforeTextChanging" />
-                    <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}" Header="IFSC Code" PlaceholderText="IFSC code" x:Name="IfscCode" />
+                    <TextBox Grid.Row="1" Style="{ThemeResource InputFieldTextBox}" Header="Payee Name" x:Name="PayeeName" />
+                    <TextBox Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="Account Holder name" x:Name="AccountHolderName"/>
+                    <TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" Header="Bank Name"  x:Name="BankName"/>
+                    <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" InputScope="Number" Header="Account Number"  x:Name="Accountnumber" BeforeTextChanging="TextBox_OnBeforeTextChanging" />
+                    <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}" Header="IFSC Code"  x:Name="IfscCode" />
 
                     <TextBlock Grid.Row="6" x:Name="ErrorMessage" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <Button  Grid.Row="7" x:Name="AddPayee" Content="Add Payee" Style="{ThemeResource ButtonStyling}" Click="AddPayee_Click"></Button>

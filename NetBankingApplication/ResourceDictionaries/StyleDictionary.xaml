@@ -11,14 +11,27 @@
             TintColor="#eaf3fa"
             TintOpacity="0.8"
             FallbackColor="#eaf3fa"/>
+      
+            
+            <SolidColorBrush x:Key="AppBackground" Color="#f5f6f9"></SolidColorBrush>
+
+            <SolidColorBrush x:Key="AppForegroundBg" Color="White"></SolidColorBrush>
+
+            <SolidColorBrush x:Key="SupportingColour" Color="#cfd6df"></SolidColorBrush>
 
 
+            <SolidColorBrush x:Key="Positive" Color="#70b454"></SolidColorBrush>
+            <SolidColorBrush x:Key="Negative" Color="#c24c5a"></SolidColorBrush>
+            
             <LinearGradientBrush x:Key="NavigationViewExpandedPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
                 <GradientStop Color="#cfd6df" Offset="0.10" />
                 <GradientStop Color="#cfd6df" Offset="0.40" />
                 <GradientStop Color="#cfd6df" Offset="0.85" />
                 <GradientStop Color="#cfd6df" Offset="1.0" />
             </LinearGradientBrush>
+
+            <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="#cfd6df"></SolidColorBrush>
+            
             <LinearGradientBrush x:Key="NavigationViewDefaultPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
                 <GradientStop Color="#cfd6df" Offset="0.10" />
                 <GradientStop Color="#cfd6df" Offset="0.40" />
@@ -36,13 +49,13 @@
             TintOpacity="0.8"
             FallbackColor="#e9ddfe"></AcrylicBrush>
 
-            <!--<Color x:Key="DashboardBg" >
-             
-            </Color>-->
-         
+       
 
             <Style x:Key="CornerRadiusChange" TargetType="TextBox">
                 <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+            <Style x:Key="GroupTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#4d4d4d"></Setter>
             </Style>
             <!--<Style x:Key="BigAutoSuggestBoxTextBoxStyle" 
        TargetType="TextBox" 
@@ -66,10 +79,10 @@
             </Style>
 
             <Style TargetType="ContentPresenter" x:Key="GroupHeadder">
-                <Setter Property="Background" Value="#efefef"></Setter>
+                <Setter Property="Background" Value="#edeff2"></Setter>
                 <Setter Property="CornerRadius" Value="5"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
-                <Setter Property="Margin" Value="10"></Setter>
+                <Setter Property="Margin" Value="0,10,0,10"></Setter>
             </Style>
 
             <Style TargetType="MenuFlyoutPresenter" x:Key="DropDownMenuFlyoutStyle">
@@ -514,8 +527,8 @@
             <Style TargetType="TextBlock" x:Key="FailureText">
                 <Setter Target="HorizontalAlignment" Value="Center"></Setter>
                 <Setter Target="VerticalAlignment" Value="Center"></Setter>
-                <Setter Target="Foreground" Value="Red"></Setter>
-                <Setter Target="CharacterSpacing" Value="-18"></Setter>
+                <Setter Target="Foreground" Value="#ec463f"></Setter>
+                <Setter Target="CharacterSpacing" Value="18"></Setter>
                 <Setter Target="Margin" Value="5"></Setter>
                 <Setter Target="FontSize" Value="16"></Setter>
 
@@ -533,6 +546,7 @@
                 <Setter Target="BorderThickness" Value="0.3"></Setter>
                 <Setter Target="CornerRadius" Value="5"></Setter>
                 <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="Background" Value="Transparent"></Setter>
                 
             </Style>
 
@@ -654,11 +668,13 @@
         
         <ResourceDictionary x:Name="Dark">
 
+            <Style TargetType="TextBlock" x:Key="TransactionGroupHeadder"></Style>
+
             <Style TargetType="Grid" x:Key="TransactionHeadder">
-                <Setter Property="Background" Value="#4d4d4d"></Setter>
+                <Setter Property="Background" Value="#1c2028"></Setter>
                 <Setter Property="CornerRadius" Value="5"></Setter>
                 <Setter Property="Padding" Value="10"></Setter>
-                <Setter Property="Margin" Value="10,10,10,0"></Setter>
+                <Setter Property="Margin" Value="0,10,0,0"></Setter>
             </Style>
             
             <Style TargetType="TextBlock" x:Key="HeaderStyle">
@@ -709,8 +725,8 @@
             <Style TargetType="TextBlock" x:Key="FailureText">
                 <Setter Target="HorizontalAlignment" Value="Center"></Setter>
                 <Setter Target="VerticalAlignment" Value="Center"></Setter>
-                <Setter Target="Foreground" Value="Red"></Setter>
-                <Setter Target="CharacterSpacing" Value="-18"></Setter>
+                <Setter Target="Foreground" Value="#ff5b54"></Setter>
+                <Setter Target="CharacterSpacing" Value="18"></Setter>
                 <Setter Target="Margin" Value="5"></Setter>
                 <Setter Target="FontSize" Value="16"></Setter>
 
@@ -728,6 +744,8 @@
                 <Setter Target="BorderThickness" Value="0.3"></Setter>
                 <Setter Target="CornerRadius" Value="5"></Setter>
                 <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="Background" Value="Transparent"></Setter>
+
             </Style>
 
             <Style TargetType="TextBlock" x:Key="InputFieldTextBlock">
@@ -830,10 +848,10 @@
             </Style>
 
             <Style TargetType="ContentPresenter" x:Key="GroupHeadder">
-                <Setter Property="Background" Value="#2A2A2A"></Setter>
+                <Setter Property="Background" Value="#1c2028"></Setter>
                 <Setter Property="CornerRadius" Value="5"></Setter>
                 <Setter Property="Padding" Value="5"></Setter>
-                <Setter Property="Margin" Value="10"></Setter>
+                <Setter Property="Margin" Value="0,10,0,10"></Setter>
             </Style>
 
             <Style TargetType="MenuFlyoutPresenter" x:Key="DropDownMenuFlyoutStyle">
@@ -849,8 +867,8 @@
 
 
             <LinearGradientBrush x:Key="NavigationViewExpandedPaneBackground" StartPoint="1,0" EndPoint="0.25,1">
-                <GradientStop Color="#2b3349" Offset="0.40" />
-                <GradientStop Color="#212a3b" Offset="0.50" />
+                <GradientStop Color="#2b3349" Offset="0.20" />
+                <GradientStop Color="#1e232b" Offset="0.50" />
                 <GradientStop Color="#0c0f15" Offset="0.85" />
                 <GradientStop Color="#161123" Offset="1.0" />
             </LinearGradientBrush>
@@ -868,6 +886,22 @@
             TintOpacity="0.8"
             FallbackColor="#eaf3fa"/>
 
+
+            <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="#272e40"></SolidColorBrush>
+
+
+            <SolidColorBrush x:Key="AppBackground" Color="#1e232b"></SolidColorBrush>
+
+            <SolidColorBrush x:Key="AppForegroundBg" Color="#1a1a1a"></SolidColorBrush>
+            <SolidColorBrush x:Key="SupportingColour" Color="#212732"></SolidColorBrush>
+
+            <SolidColorBrush x:Key="Positive" Color="#0e8153"></SolidColorBrush>
+            <SolidColorBrush x:Key="Negative" Color="#a72523"></SolidColorBrush>
+            <Style x:Key="GroupTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#a0a0a0"></Setter>
+            </Style>
+            <!--<SolidColorBrush x:Key="Positive" Color="#14b474"></SolidColorBrush>
+            <SolidColorBrush x:Key="Negative" Color="#fd3a36"></SolidColorBrush>-->
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 

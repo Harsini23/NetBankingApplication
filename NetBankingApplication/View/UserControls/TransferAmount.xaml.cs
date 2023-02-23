@@ -134,9 +134,11 @@ namespace NetBankingApplication.View.UserControls
                 {
                     TransferAmountViewModel.SendTransaction(amountTransfer, amountTransfer.UserId);
                 }
-                ResetUI();
 
+                ResetUI();
                 await ContentDialog.ShowAsync();
+                GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
+
                 // TransferAmountViewModel.SendTransaction(currentTransaction);
             }
 
@@ -152,6 +154,7 @@ namespace NetBankingApplication.View.UserControls
             //MakeTransaction.IsEnabled = false;
             ErrorMessage.Text = String.Empty;
             BalanceText.Text = "Choose Account";
+            GetAllAccountsViewModel.CurrentAccountBalance = "Choose Account";
 
         }
 

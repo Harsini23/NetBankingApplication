@@ -1017,7 +1017,7 @@
 
         <!--Header="{x:Bind HeaderTitle,Mode=OneWay}"-->
 
-        <NavigationView Background="#f5f6f9" IsBackEnabled="False" Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.IsVerticalRailEnabled="False"  Padding="0" ScrollViewer.HorizontalScrollMode="Disabled" >
+        <NavigationView Background="{ThemeResource AppBackground}" IsBackEnabled="False" Header="{x:Bind HeaderTitle,Mode=OneWay}" x:Name="DashBoardNavigation" SelectionChanged="DashBoardNavigation_SelectionChanged" IsBackButtonVisible="Collapsed" IsSettingsVisible="False"  IsPaneToggleButtonVisible="True" IsPaneOpen="False" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.IsVerticalRailEnabled="False"  Padding="0" ScrollViewer.HorizontalScrollMode="Disabled" >
             <NavigationView.PaneHeader>
                 <TextBlock Margin="5" FontSize="19" Text="Zoho Financial"></TextBlock>
             </NavigationView.PaneHeader>

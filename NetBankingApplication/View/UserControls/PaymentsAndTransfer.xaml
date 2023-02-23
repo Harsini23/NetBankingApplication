@@ -9,7 +9,13 @@
     Loaded="UserControl_Loaded"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <!--<VisualStateManager.VisualStateGroups>
         <VisualStateGroup>
             <VisualState x:Name="NarrowLayout">
@@ -34,6 +40,7 @@
     <Grid x:Name="PaymentandTransferNavigation" >
             <NavigationView  x:Name="PaymentsAndTransferNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top"
     SelectionFollowsFocus="Enabled" IsBackButtonVisible="Collapsed" SelectionChanged="PaymentsAndTransferNavigation_SelectionChanged"  Style="{StaticResource NavigationViewTitleHeaderContentControlTextStyle}">
+        
             <NavigationView.MenuItems >
                 <NavigationViewItem   Content="Transfer" x:Name="Transfer" />
                 <NavigationViewItem  Content="Transactions" x:Name="ViewTransactions" />

@@ -26,7 +26,7 @@
             <GridView.ItemTemplate>
           
                 <DataTemplate x:Name="TransactionListViewTemplate" x:DataType="data:Account">
-                    <Grid Padding="30" Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MinWidth="400">
+                    <Grid Padding="30" Margin="10" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MinWidth="400" Background="{ThemeResource AppForegroundBg}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
