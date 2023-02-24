@@ -7,13 +7,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.Overview;
 using Microsoft.Extensions.DependencyInjection;
-
+using Library.Model;
 
 namespace Library.Domain.UseCase
 {
     public interface IOverviewDataManager
     {
-        void GetOverviewData(OverviewRequest request, OverviewCallback response);//call back
+        void GetOverviewData(OverviewRequest request, IUsecaseCallbackBaseCase<OverviewResponse> response);//call back
     }
 
     public class OverviewRequest : IRequest
@@ -49,7 +49,7 @@ namespace Library.Domain.UseCase
             this.overviewDataManager.GetOverviewData(overviewRequest, new OverviewCallback(this));   
         }
 
-        public class OverviewCallback : ZResponse<OverviewResponse>
+        public class OverviewCallback : IUsecaseCallbackBaseCase<OverviewResponse>
         {
             private Overview overview;
             public OverviewCallback(Overview overview)
@@ -59,10 +59,11 @@ namespace Library.Domain.UseCase
 
             public string Response { get; set; }
 
-            public void OnResponseError(ZResponse<OverviewResponse> response)
+            public void OnResponseError(BException response)
             {
-                
+               
             }
+
             public void OnResponseFailure(ZResponse<OverviewResponse> response)
             {
                
@@ -71,6 +72,24 @@ namespace Library.Domain.UseCase
             {
                 overview.presenterOverviewCallback?.OnSuccessAsync(response);
             }
+        }
+
+        public class OverviewResponse : ZResponse<User>
+        {
+            public User CurrentUser;
+            public bool NewUser;
+            public Account CurrentAccount;
+            public Card Card;
+            public Branch Branch;
+            public string Balance;
+
+            public string Income;
+            public string Expense;
+            public string CurrentMonthIncome;
+            public string CurrentMonthExpense;
+
+            public string PrimaryAccountBalance;
+            public Dictionary<String, double> AccountAndBalance = new Dictionary<string, double>();
         }
     }
 }

@@ -528,7 +528,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <TextBlock Visibility="Collapsed" Text="No records found!" Name="EmptyList" Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"></TextBlock>
+        <TextBlock Visibility="Collapsed" Text="No records found!" Name="EmptyList" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"></TextBlock>
         </Grid>
     </ScrollViewer>
 </UserControl>

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using static Library.Domain.UseCase.TransactionHistoryUseCase;
 
 namespace NetBankingApplication.ViewModel
 {

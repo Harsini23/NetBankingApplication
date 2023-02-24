@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Library.Domain.UseCase.GetAllAccounts;
 
 namespace Library.Data.DataManager
 {
@@ -16,7 +17,7 @@ namespace Library.Data.DataManager
         {
         }
 
-        void IGetAllAccountsDataManager.GetAllAccounts(GetAllAccountsRequest request, GetAllAccounts.GetAllAccountsCallback response)
+        void IGetAllAccountsDataManager.GetAllAccounts(GetAllAccountsRequest request, IUsecaseCallbackBaseCase<GetAllAccountsResponse> response)
         {
             //get it frm db
             ZResponse<GetAllAccountsResponse> Response = new ZResponse<GetAllAccountsResponse>();
@@ -54,11 +55,4 @@ namespace Library.Data.DataManager
         }
     }
 
-
-
-    public class GetAllAccountsResponse : ZResponse<Account>
-    {
-        public List<Account> allAccount;
-        public List<AccountBalance> allAccountBalance = new List<AccountBalance>();
-    }
 }

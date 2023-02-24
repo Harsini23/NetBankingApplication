@@ -13,7 +13,7 @@ namespace Library.Domain
 {
     public interface ILoginDataManager
     {
-        void ValidateUserLogin(UserLoginRequest request, UserLoginCallback response);//call back
+        void ValidateUserLogin(UserLoginRequest request, IUsecaseCallbackBaseCase<LoginResponse> response);//call back
     }
     public class UserLoginRequest : IRequest
     {
@@ -52,7 +52,7 @@ namespace Library.Domain
         {
             return false;
         }
-        public class UserLoginCallback : ZResponse<LoginResponse>
+        public class UserLoginCallback : IUsecaseCallbackBaseCase<LoginResponse>
         {
             private Login login;
             public UserLoginCallback(Login login)
@@ -75,6 +75,14 @@ namespace Library.Domain
             {
                 login.LoginResponseCallback?.OnSuccessAsync(response);
             }
+        }
+
+        public class LoginResponse : ZResponse<User>
+        {
+            public User currentUser;
+            public bool NewUser;
+            public bool IsAdmin;
+
         }
     }
 

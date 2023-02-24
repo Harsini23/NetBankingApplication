@@ -1,4 +1,5 @@
 ﻿using Library.Data.DataManager;
+using Library.Model;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Library.Domain.UseCase
 
     public interface IGetBranchDetailsDataManager
     {
-        void GetBranchDetails(String request, GetBranchDetailsCallback response);
+        void GetBranchDetails(String request, IUsecaseCallbackBaseCase<GetBranchDetailsResponse> response);
     }
 
     public interface IPresenterGetBranchDetailsCallback: IResponseCallbackBaseCase<GetBranchDetailsResponse>
@@ -21,14 +22,14 @@ namespace Library.Domain.UseCase
     public class GetBranchDetails : UseCaseBase<GetBranchDetailsResponse>
     {
         private IGetBranchDetailsDataManager BranchDetailsDataManager;
-        IPresenterGetBranchDetailsCallback BranchDetailsResponse;
+        IPresenterGetBranchDetailsCallback BranchDetailsResponseCallback;
         String Request;
         public GetBranchDetails(String request, IPresenterGetBranchDetailsCallback responseCallback)
         {
             var serviceProviderInstance = ServiceProvider.GetInstance();
             BranchDetailsDataManager = serviceProviderInstance.Services.GetService<IGetBranchDetailsDataManager>();
             Request = request;
-            BranchDetailsResponse = responseCallback;
+            BranchDetailsResponseCallback = responseCallback;
         }
 
         public override void Action()
@@ -37,7 +38,7 @@ namespace Library.Domain.UseCase
             this.BranchDetailsDataManager.GetBranchDetails(Request, new GetBranchDetailsCallback(this));
         }
 
-        public class GetBranchDetailsCallback : ZResponse<GetBranchDetailsResponse>
+        public class GetBranchDetailsCallback : IUsecaseCallbackBaseCase<GetBranchDetailsResponse>
         {
             private GetBranchDetails GetBranchDetails;
             public GetBranchDetailsCallback(GetBranchDetails GetBranchDetails)
@@ -48,17 +49,22 @@ namespace Library.Domain.UseCase
 
             public void OnResponseError(BException response)
             {
-                GetBranchDetails.BranchDetailsResponse.OnError(response);
+                GetBranchDetails.BranchDetailsResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<GetBranchDetailsResponse> response)
             {
-                GetBranchDetails.BranchDetailsResponse.OnFailure(response);
+                GetBranchDetails.BranchDetailsResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<GetBranchDetailsResponse> response)
             {
-                GetBranchDetails.BranchDetailsResponse.OnSuccessAsync(response);
+                GetBranchDetails.BranchDetailsResponseCallback?.OnSuccessAsync(response);
 
             }
+        }
+
+        public class GetBranchDetailsResponse : ZResponse<Branch>
+        {
+
         }
     }
 }

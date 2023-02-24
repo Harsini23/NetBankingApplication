@@ -14,7 +14,7 @@ namespace Library.Domain.UseCase
 
     public interface IGetAllAccountsDataManager
     {
-        void GetAllAccounts(GetAllAccountsRequest request, GetAllAccountsCallback response);//call back
+        void GetAllAccounts(GetAllAccountsRequest request, IUsecaseCallbackBaseCase<GetAllAccountsResponse> response);//call back
     }
 
     public class GetAllAccountsRequest : IRequest
@@ -37,13 +37,13 @@ namespace Library.Domain.UseCase
      
         private IGetAllAccountsDataManager GetAllAccountsDataManager;
         private GetAllAccountsRequest GetAllAccountsRequest;
-        IPresenterGetAllAccountsCallback GetAllAccountsResponse;
+        IPresenterGetAllAccountsCallback GetAllAccountsResponseCallback;
         public GetAllAccounts(GetAllAccountsRequest request, IPresenterGetAllAccountsCallback responseCallback)
         {
             var serviceProviderInstance = ServiceProvider.GetInstance();
             GetAllAccountsDataManager = serviceProviderInstance.Services.GetService<IGetAllAccountsDataManager>();
             GetAllAccountsRequest = request;
-            GetAllAccountsResponse = responseCallback;
+            GetAllAccountsResponseCallback = responseCallback;
         }
         public override void Action()
         {
@@ -51,7 +51,7 @@ namespace Library.Domain.UseCase
             this.GetAllAccountsDataManager.GetAllAccounts(GetAllAccountsRequest, new GetAllAccountsCallback(this));
         }
 
-        public class GetAllAccountsCallback : ZResponse<GetAllAccountsResponse>
+        public class GetAllAccountsCallback : IUsecaseCallbackBaseCase<GetAllAccountsResponse>
         {
             private GetAllAccounts GetAllAccounts;
             public GetAllAccountsCallback(GetAllAccounts GetAllAccounts)
@@ -62,17 +62,22 @@ namespace Library.Domain.UseCase
 
             public void OnResponseError(BException response)
             {
-                GetAllAccounts.GetAllAccountsResponse?.OnError(response);
+                GetAllAccounts.GetAllAccountsResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<GetAllAccountsResponse> response)
             {
-                GetAllAccounts.GetAllAccountsResponse?.OnFailure(response);
+                GetAllAccounts.GetAllAccountsResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<GetAllAccountsResponse> response)
             {
-                GetAllAccounts.GetAllAccountsResponse?.OnSuccessAsync(response);
+                GetAllAccounts.GetAllAccountsResponseCallback?.OnSuccessAsync(response);
 
             }
+        }
+        public class GetAllAccountsResponse : ZResponse<Account>
+        {
+            public List<Account> allAccount;
+            public List<AccountBalance> allAccountBalance = new List<AccountBalance>();
         }
     }
 }

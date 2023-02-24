@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Library.Domain.UseCase.GetAllPayee;
 
 namespace Library.Data.DataManager
 {
@@ -16,7 +17,7 @@ namespace Library.Data.DataManager
         {
         }
 
-        void IGetAllPayeeDataManager.GetAllPayee(GetAllPayeeRequest request, GetAllPayee.GetAllPayeeCallback response)
+        void IGetAllPayeeDataManager.GetAllPayee(GetAllPayeeRequest request, IUsecaseCallbackBaseCase<GetAllPayeeResponse> response)
         {
             //get it frm db
             ZResponse<GetAllPayeeResponse> Response = new ZResponse<GetAllPayeeResponse>();
@@ -34,8 +35,5 @@ namespace Library.Data.DataManager
         }
     }
 
-    public class GetAllPayeeResponse : ZResponse<Payee>
-    {
-        public List<Payee> allRecipients;
-    }
+   
 }

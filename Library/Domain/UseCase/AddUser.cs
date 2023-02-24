@@ -12,7 +12,7 @@ namespace Library.Domain.UseCase
 {
     public interface IAddUserDataManager
     {
-        void AddNewUser(AddUserRequest request, AddUserCallback response);
+        void AddNewUser(AddUserRequest request, IUsecaseCallbackBaseCase<AddUserResponse> response);
     }
 
     public class AddUserRequest
@@ -41,7 +41,7 @@ namespace Library.Domain.UseCase
             this.AddUserDataManager.AddNewUser(addUserRequest, new AddUserCallback(this));
         }
 
-        public class AddUserCallback:ZResponse<AddUserResponse>
+        public class AddUserCallback: IUsecaseCallbackBaseCase<AddUserResponse>
         {
             AddUser addUser;
             public AddUserCallback(AddUser addUser)
@@ -69,5 +69,13 @@ namespace Library.Domain.UseCase
 
     public interface IPresenterAddUserCallback: IResponseCallbackBaseCase<AddUserResponse>
     {
+    }
+
+
+    public class AddUserResponse : ZResponse<User>
+    {
+        public User user;
+        public Credentials credentials;
+        public Account account;
     }
 }

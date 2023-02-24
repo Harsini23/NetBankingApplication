@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Library.Domain.UseCase.TransactionHistoryUseCase;
 
 namespace Library.Data.DataManager
 {
@@ -16,7 +17,7 @@ namespace Library.Data.DataManager
         {
         }
 
-        public void GetAllTransactions(TransactionHistoryRequest request, TransactionHistoryUseCase.TransactionHistoryCallback response)
+        public void GetAllTransactions(TransactionHistoryRequest request, IUsecaseCallbackBaseCase<TransactionHistoryResponse> response)
         {
             //get it frm db
             ZResponse<TransactionHistoryResponse> Response = new ZResponse<TransactionHistoryResponse>();
@@ -34,8 +35,5 @@ namespace Library.Data.DataManager
         }
     }
 
-    public class TransactionHistoryResponse : ZResponse<Transaction>
-    {
-        public List<Transaction> allTransactions;
-    }
+   
 }

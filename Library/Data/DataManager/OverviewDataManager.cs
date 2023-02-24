@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Library.Domain.UseCase.Overview;
 
 namespace Library.Data.DataManager
 {
@@ -16,7 +17,7 @@ namespace Library.Data.DataManager
         {
         }
 
-        public void GetOverviewData(OverviewRequest request, Overview.OverviewCallback response)
+        public void GetOverviewData(OverviewRequest request, IUsecaseCallbackBaseCase<OverviewResponse> response)
         {
             //validate and get records
             try
@@ -61,21 +62,5 @@ namespace Library.Data.DataManager
     
     }
 
-    public class OverviewResponse : ZResponse<User>
-    {
-        public User CurrentUser;
-        public bool NewUser;
-        public Account CurrentAccount;
-        public Card Card;
-        public Branch Branch;
-        public string Balance;
-
-        public string Income;
-        public string Expense;
-        public string CurrentMonthIncome;
-        public string CurrentMonthExpense;
-
-        public string PrimaryAccountBalance;
-        public Dictionary<String, double> AccountAndBalance = new Dictionary<string, double>();
-    }
+  
 }

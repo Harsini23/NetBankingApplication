@@ -20,6 +20,14 @@ namespace Library.Domain
         void OnError(BException errorMessage);
         void OnFailure(ZResponse<R> response);
     }
+
+
+    public interface IUsecaseCallbackBaseCase<R>
+    {
+        void OnResponseError(BException response);
+        void OnResponseFailure(ZResponse<R> response);
+       void OnResponseSuccess(ZResponse<R> response);
+    }
     public interface IResponseType
     {
         string Response { get; set; }

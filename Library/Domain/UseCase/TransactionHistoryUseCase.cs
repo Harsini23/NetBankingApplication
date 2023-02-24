@@ -1,4 +1,5 @@
 ﻿using Library.Data.DataManager;
+using Library.Model;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Library.Domain.UseCase
 
     public interface ITransactionHistoryDataManager
     {
-        void GetAllTransactions(TransactionHistoryRequest request, TransactionHistoryCallback response);//call back
+        void GetAllTransactions(TransactionHistoryRequest request, IUsecaseCallbackBaseCase<TransactionHistoryResponse> response);//call back
     }
 
     public class TransactionHistoryRequest : IRequest
@@ -37,13 +38,13 @@ namespace Library.Domain.UseCase
 
         private ITransactionHistoryDataManager TransactionHistoryDataManager;
         private TransactionHistoryRequest TransactionHistoryRequest;
-        IPresenterTransactionHistoryCallback TransactionHistoryResponse;
+        IPresenterTransactionHistoryCallback TransactionHistoryResponseCallback;
         public TransactionHistoryUseCase(TransactionHistoryRequest request, IPresenterTransactionHistoryCallback responseCallback)
         {
             var serviceProviderInstance = ServiceProvider.GetInstance();
             TransactionHistoryDataManager = serviceProviderInstance.Services.GetService<ITransactionHistoryDataManager>();
             TransactionHistoryRequest = request;
-            TransactionHistoryResponse = responseCallback;
+            TransactionHistoryResponseCallback = responseCallback;
         }
         public override void Action()
         {
@@ -52,7 +53,7 @@ namespace Library.Domain.UseCase
            // this.TransactionHistoryDataManager.ValidateUserLogin(TransactionHistoryRequest, new TransactionHistoryCallback(this));
         }
 
-        public class TransactionHistoryCallback : ZResponse<TransactionHistoryResponse>
+        public class TransactionHistoryCallback : IUsecaseCallbackBaseCase<TransactionHistoryResponse>
         {
             private TransactionHistoryUseCase transactionHistory;
             public TransactionHistoryCallback(TransactionHistoryUseCase transactionHistory)
@@ -63,17 +64,22 @@ namespace Library.Domain.UseCase
 
             public void OnResponseError(BException response)
             {
-                transactionHistory.TransactionHistoryResponse?.OnError(response);
+                transactionHistory.TransactionHistoryResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<TransactionHistoryResponse> response)
             {
-                transactionHistory.TransactionHistoryResponse?.OnFailure(response);
+                transactionHistory.TransactionHistoryResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<TransactionHistoryResponse> response)
             {
-                transactionHistory.TransactionHistoryResponse?.OnSuccessAsync(response);
+                transactionHistory.TransactionHistoryResponseCallback?.OnSuccessAsync(response);
 
             }
+        }
+
+        public class TransactionHistoryResponse : ZResponse<Transaction>
+        {
+            public List<Transaction> allTransactions;
         }
     }
 }

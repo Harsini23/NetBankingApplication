@@ -1,4 +1,5 @@
 ﻿using Library.Data.DataManager;
+using Library.Model;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Library.Domain.UseCase
 {
     public interface IAccountTransactionsDataManager
     {
-        void GetAllTransactions(AccountTransactionsRequest request, AccountTransactionsCallback response);//call back
+        void GetAllTransactions(AccountTransactionsRequest request, IUsecaseCallbackBaseCase<AccountTransactionsResponse> response);//call back
     }
 
     public class AccountTransactionsRequest : IRequest
@@ -50,11 +51,12 @@ namespace Library.Domain.UseCase
         public override void Action()
         {
             //use call back
+       
             this.AccountTransactionsDataManager.GetAllTransactions(AccountTransactionsRequest, new AccountTransactionsCallback(this));
             // this.AccountTransactionsDataManager.ValidateUserLogin(AccountTransactionsRequest, new AccountTransactionsCallback(this));
         }
 
-        public class AccountTransactionsCallback : ZResponse<AccountTransactionsResponse>
+        public class AccountTransactionsCallback : IUsecaseCallbackBaseCase<AccountTransactionsResponse>
         {
             private AccountTransactions AccountTransactions;
             public AccountTransactionsCallback(AccountTransactions AccountTransactions)
@@ -78,5 +80,12 @@ namespace Library.Domain.UseCase
 
             }
         }
+    }
+
+
+    public class AccountTransactionsResponse : ZResponse<AccountTransactionBObj>
+    {
+        public List<AccountTransactionBObj> allTransactions;
+        public Account account;
     }
 }

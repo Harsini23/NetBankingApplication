@@ -1,4 +1,5 @@
 ﻿using Library.Data.DataManager;
+using Library.Model;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Library.Domain.UseCase
 {
     public interface IGetAllPayeeDataManager
     {
-        void GetAllPayee(GetAllPayeeRequest request, GetAllPayeeCallback response);//call back
+        void GetAllPayee(GetAllPayeeRequest request, IUsecaseCallbackBaseCase<GetAllPayeeResponse> response);//call back
     }
 
     public class GetAllPayeeRequest : IRequest
@@ -35,13 +36,13 @@ namespace Library.Domain.UseCase
 
         private IGetAllPayeeDataManager GetAllPayeeDataManager;
         private GetAllPayeeRequest GetAllPayeeRequest;
-        IPresenterGetAllPayeeCallback GetAllPayeeResponse;
+        IPresenterGetAllPayeeCallback GetAllPayeeResponseCallback;
         public GetAllPayee(GetAllPayeeRequest request, IPresenterGetAllPayeeCallback responseCallback)
         {
             var serviceProviderInstance = ServiceProvider.GetInstance();
             GetAllPayeeDataManager = serviceProviderInstance.Services.GetService<IGetAllPayeeDataManager>();
             GetAllPayeeRequest = request;
-            GetAllPayeeResponse = responseCallback;
+            GetAllPayeeResponseCallback = responseCallback;
         }
         public override void Action()
         {
@@ -50,7 +51,7 @@ namespace Library.Domain.UseCase
             // this.GetAllPayeeDataManager.ValidateUserLogin(GetAllPayeeRequest, new GetAllPayeeCallback(this));
         }
 
-        public class GetAllPayeeCallback : ZResponse<GetAllPayeeResponse>
+        public class GetAllPayeeCallback : IUsecaseCallbackBaseCase<GetAllPayeeResponse>
         {
             private GetAllPayee GetAllPayee;
             public GetAllPayeeCallback(GetAllPayee GetAllPayee)
@@ -61,17 +62,22 @@ namespace Library.Domain.UseCase
 
             public void OnResponseError(BException response)
             {
-                GetAllPayee.GetAllPayeeResponse.OnError(response);
+                GetAllPayee.GetAllPayeeResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<GetAllPayeeResponse> response)
             {
-                GetAllPayee.GetAllPayeeResponse.OnFailure(response);
+                GetAllPayee.GetAllPayeeResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<GetAllPayeeResponse> response)
             {
-                GetAllPayee.GetAllPayeeResponse.OnSuccessAsync(response);
+                GetAllPayee.GetAllPayeeResponseCallback?.OnSuccessAsync(response);
 
             }
+        }
+
+        public class GetAllPayeeResponse : ZResponse<Payee>
+        {
+            public List<Payee> allRecipients;
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Library.Domain.UseCase.GetBranchDetails;
 
 namespace NetBankingApplication.ViewModel
 {

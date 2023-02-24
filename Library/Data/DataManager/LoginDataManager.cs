@@ -14,6 +14,7 @@ using System.Security.Cryptography;
 using System.Diagnostics;
 using Library.Util;
 using Library.Model.Enum;
+using static Library.Domain.Login;
 
 namespace Library.Data.DataManager
 {
@@ -43,7 +44,7 @@ namespace Library.Data.DataManager
             //call back implementation to view model
         }
 
-        public void ValidateUserLogin(UserLoginRequest request, Login.UserLoginCallback response)
+        public void ValidateUserLogin(UserLoginRequest request, IUsecaseCallbackBaseCase<LoginResponse> response)
         {
           
             var UserId= request.UserId;
@@ -147,11 +148,5 @@ namespace Library.Data.DataManager
         }
     }
 
-    public class LoginResponse :ZResponse<User>
-    {
-        public User currentUser;
-        public bool NewUser;
-        public bool IsAdmin;
-
-    }
+  
 }

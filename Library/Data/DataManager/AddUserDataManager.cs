@@ -20,8 +20,7 @@ namespace Library.Data.DataManager
         public AddUserDataManager() : base(new DbHandler(), new NetHandler())
         {
         }
-
-        public void AddNewUser(AddUserRequest request, AddUser.AddUserCallback response)
+        public void AddNewUser(AddUserRequest request, IUsecaseCallbackBaseCase<AddUserResponse> response)
         {
             ZResponse<AddUserResponse> Response = new ZResponse<AddUserResponse>();
             AddUserResponse addUserResponse = new AddUserResponse();
@@ -104,10 +103,5 @@ namespace Library.Data.DataManager
         }
     }
 
-    public class AddUserResponse : ZResponse<User>
-    {
-        public User user;
-        public Credentials credentials;
-        public Account account;
-    }
+
 }

@@ -17,8 +17,7 @@ namespace Library.Data.DataManager
         }
 
 
-
-        public void GetAllTransactions(AccountTransactionsRequest request, AccountTransactions.AccountTransactionsCallback response)
+        public void GetAllTransactions(AccountTransactionsRequest request, IUsecaseCallbackBaseCase<AccountTransactionsResponse> response)
         {
             List<AccountTransactionBObj> allAccountTransactions = new List<AccountTransactionBObj>();
             var Alltransactions=DbHandler.GetTransactionsForAccount(request.AccountNumber);
@@ -70,9 +69,5 @@ namespace Library.Data.DataManager
         }
     }
 
-    public class AccountTransactionsResponse : ZResponse<AccountTransactionBObj>
-    {
-        public List<AccountTransactionBObj> allTransactions;
-        public Account account;
-    }
+    
 }

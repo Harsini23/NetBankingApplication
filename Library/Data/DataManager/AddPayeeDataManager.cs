@@ -15,9 +15,9 @@ namespace Library.Data.DataManager
         {
         }
 
-        public void AddNewPayee(AddPayeeRequest request, AddPayee.AddPayeeCallback response)
+        public void AddNewPayee(AddPayeeRequest request, IUsecaseCallbackBaseCase<String> response)
         {
-            ZResponse<String> Response = new AddPayeeResponse();
+            ZResponse<String> Response = new ZResponse<String>();
 
             var res = DbHandler.AddNewPayee(request.NewPayee);
             if (res)
@@ -32,8 +32,5 @@ namespace Library.Data.DataManager
         }
     }
 
-    public class AddPayeeResponse : ZResponse<String>
-    {
-
-    }
+   
 }

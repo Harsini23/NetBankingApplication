@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Library.Domain.UseCase.GetBranchDetails;
 
 namespace Library.Data.DataManager
 {
@@ -17,7 +18,7 @@ namespace Library.Data.DataManager
         }
 
     
-        public void GetBranchDetails(string request, GetBranchDetails.GetBranchDetailsCallback response)
+        public void GetBranchDetails(string request, IUsecaseCallbackBaseCase<GetBranchDetailsResponse> response)
         {
             var result =DbHandler.GetBranchDetails(request);
             GetBranchDetailsResponse getBranchDetailsResponse = new GetBranchDetailsResponse();
@@ -30,8 +31,5 @@ namespace Library.Data.DataManager
         }
     }
 
-    public class GetBranchDetailsResponse : ZResponse<Branch>
-    {
-        
-    }
+ 
 }

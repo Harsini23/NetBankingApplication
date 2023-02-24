@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Library.Domain.UseCase.TransferAmountUseCase;
 
 namespace Library.Data.DataManager
 {
@@ -48,7 +49,7 @@ namespace Library.Data.DataManager
             return false;
         }
 
-        public void AddTransaction(TransferAmountRequest request, TransferAmountUseCase.TransferAmountCallback response)
+        public void AddTransaction(TransferAmountRequest request, IUsecaseCallbackBaseCase<TransferAmountResponse> response)
         {
             ZResponse<TransferAmountResponse> Response = new ZResponse<TransferAmountResponse>();
             //conversion of amountTransfer to transaction
@@ -104,9 +105,5 @@ namespace Library.Data.DataManager
         }
     }
 
-    public class TransferAmountResponse : ZResponse<Transaction>
-    {
-        public Transaction transaction;
-        public string Status { get; set; }
-    }
+   
 }
