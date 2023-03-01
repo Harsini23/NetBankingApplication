@@ -39,7 +39,7 @@
                     <DropDownButton Name="SelectPayee" Content="Select payee" MinWidth="350"   Style="{ThemeResource DropdownStyle}" >
                         <DropDownButton.Flyout >
                             <MenuFlyout  Opening="MenuFlyout_Opened" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
-                             
+                                <MenuFlyoutItem CornerRadius="10"></MenuFlyoutItem>
                             </MenuFlyout>
                           
                         </DropDownButton.Flyout>

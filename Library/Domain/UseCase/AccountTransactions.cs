@@ -43,8 +43,7 @@ namespace Library.Domain.UseCase
         IPresenterAccountTransactionsCallback AccountTransactionsResponse;
         public AccountTransactions(AccountTransactionsRequest request, IPresenterAccountTransactionsCallback responseCallback)
         {
-            var serviceProviderInstance = ServiceProvider.GetInstance();
-            AccountTransactionsDataManager = serviceProviderInstance.Services.GetService<IAccountTransactionsDataManager>();
+            AccountTransactionsDataManager = ServiceProvider.GetInstance().Services.GetService<IAccountTransactionsDataManager>();
             AccountTransactionsRequest = request;
             AccountTransactionsResponse = responseCallback;
         }

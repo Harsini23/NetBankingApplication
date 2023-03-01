@@ -19,6 +19,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using Library.Model;
 using Library;
+using Microsoft.UI;           // Needed for WindowId.
+using Windows.UI.ViewManagement;
+using Microsoft.Toolkit.Uwp.Helpers;
+using Windows.UI.WindowManagement;
+//using Microsoft.UI.Windowing; // Needed for AppWindow.
+//using WinRT.Interop;          // Needed for XAML/HWND interop
 
 namespace NetBankingApplication
 {
@@ -26,6 +32,7 @@ namespace NetBankingApplication
     {
         private LoginBaseViewModel LoginViewModel;
         LibraryInitialization libraryInitialization;
+        private AppWindow m_AppWindow;
         public MainPage()
         {
             libraryInitialization = LibraryInitialization.GetInstance();
@@ -34,8 +41,22 @@ namespace NetBankingApplication
             LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             LoginViewModel.MainPageNavigationCallback = this;
             LoginViewModel.CreateAdminAccount();
-        }
 
+
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+            //ApplicationView.GetForCurrentView().Title = "TEST";
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            Windows.UI.Color color = ColorHelper.ToColor("#cfd6df");
+            titleBar.BackgroundColor = color;
+
+            //IntPtr hWnd = WindowNative.GetWindowHandle(this);
+            //WindowId wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
+            //var m_AppWindow= AppWindow.GetFromWindowId(wndId);
+
+            //m_AppWindow.Title = "App title";
+            //m_AppWindow.TitleBar.BackgroundColor = color;
+        }
+      
         public void NavigateToDashBoard(User user)
         {
             LoadContentFrame.Navigate(typeof(DashBoard),user);

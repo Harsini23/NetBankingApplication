@@ -15,26 +15,27 @@ namespace Library.Data
 
         public SQLiteConnection connection;
         DatabaseConnection conn;
-        private CreateTables()
+        public CreateTables(DatabaseConnection dbConn)
         {
-            conn = DatabaseConnection.GetInstance();
-           // InstantiateAllTables();
+            conn = dbConn;
+            InstantiateAllTables();
+            // InstantiateAllTables();
         }
 
-       
-        public static CreateTables GetInstance()
-        {
-            if (_instance == null)
-            {
-                _instance = new CreateTables();
-                _instance.InstantiateAllTables();
-            }
-            return _instance;
-        }
+
+        //public static CreateTables GetInstance()
+        //{
+        //    if (_instance == null)
+        //    {
+        //        _instance = new CreateTables();
+        //        _instance.InstantiateAllTables();
+        //    }
+        //    return _instance;
+        //}
 
         public void InstantiateAllTables()
         {
-            connection = conn.DbConnection;
+            connection = conn.GetDbConnection();
   
             connection.CreateTable<Credentials>();
             connection.CreateTable<User>();

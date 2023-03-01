@@ -65,7 +65,7 @@ namespace NetBankingApplication.View.UserControls
           
             AccountTransactionsViewModel.GetAllTransactions(selectedAccountNumber, selectedUserId);
 
-            GetBranchDetailsViewModel.FetchBranchDetails("B001");
+            GetBranchDetailsViewModel.FetchBranchDetails(selectedAccount.Account.BId);
             Bindings.Update();
 
         }

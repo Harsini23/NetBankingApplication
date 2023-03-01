@@ -13,7 +13,7 @@ namespace Library.Data.DataManager
 {
     public class GetAllPayeeDataManager : BankingDataManager, IGetAllPayeeDataManager
     {
-        public GetAllPayeeDataManager() : base(new DbHandler(), new NetHandler())
+        public GetAllPayeeDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
 

@@ -1,4 +1,6 @@
-﻿using Library.Data.DataManager;
+﻿using Library.Data;
+using Library.Data.DataBaseService;
+using Library.Data.DataManager;
 using Library.Domain.UseCase;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -47,6 +49,14 @@ namespace Library.Domain
             services.AddSingleton<IGetBranchDetailsDataManager, GetBranchDetailsDataManager>();
             services.AddSingleton<IOverviewDataManager, OverviewDataManager>();
             services.AddSingleton<IDefaultAdminDataManager, DefaultAdminDataManager>();
+
+            services.AddSingleton<IDbHandler, DbHandler>();
+            services.AddSingleton<INetHandler, NetHandler>();
+
+            services.AddSingleton<DataBasePath>();
+            services.AddSingleton<DatabaseConnection>();
+            services.AddSingleton<CreateTables>();
+            services.AddSingleton<DbHandler>();
 
             return services.BuildServiceProvider();
         }

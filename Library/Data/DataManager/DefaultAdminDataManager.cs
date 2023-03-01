@@ -16,7 +16,7 @@ namespace Library.Data.DataManager
         {
             
         }
-        public DefaultAdminDataManager() : base(new DbHandler(), new NetHandler())
+        public DefaultAdminDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
             if (!DbHandler.CheckIfUserExists("Admin"))
             {
@@ -27,9 +27,56 @@ namespace Library.Data.DataManager
                     IsAdmin = true,
                     NewUser = false
                 });
+                List<Branch> branches = new List<Branch>();
+                populateBranch(ref branches);
+                
+
+                DbHandler.InsertBankBranchDetails(branches);
             }
+           
           
         }
+
+        private void populateBranch(ref List<Branch> branches)
+        {
+            branches.Add(new Branch
+            {
+                BId = "B001",
+                BName = "Chennai-Tambaram",
+                BCity = "Chennai",
+                IfscCode = "Zoho001"
+            });
+            branches.Add(new Branch
+            {
+                BId = "B002",
+                BName = "Chennai-Annanagar",
+                BCity = "Chennai",
+                IfscCode = "Zoho002"
+            });
+            branches.Add(new Branch
+            {
+                BId = "B003",
+                BName = "Trichy-Guduvanchery",
+                BCity = "Trichy",
+                IfscCode = "Zoho003"
+            });
+            branches.Add(new Branch
+            {
+                BId = "B004",
+                BName = "Madurai-Guduvanchery",
+                BCity = "Madurai",
+                IfscCode = "Zoho004"
+            });
+            branches.Add(new Branch
+            {
+                BId = "B005",
+                BName = "Tenkasi-Guduvanchery",
+                BCity = "Tenkasi",
+                IfscCode = "Zoho005"
+            });
+
+        }
+
 
     }
 

@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Library.Domain;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +9,41 @@ using System.Threading.Tasks;
 namespace Library.Data
 {
    
-    internal class DatabaseConnection
+    public class DatabaseConnection
     {
-        private static DatabaseConnection _instance;
+        //private static DatabaseConnection _instance;
 
         public static string DbPath;
-       public SQLiteConnection DbConnection;
-
-        private DatabaseConnection()
+        static SQLiteConnection DbConnection;
+        DataBasePath dbPathConnection;
+        public DatabaseConnection(DataBasePath _dbpath)
         {
             //setting connection
-            var dbPathConnection = DataBasePath.GetInstance();
-            DbPath = dbPathConnection.GetDatabasePath();
+            //var dbPathConnection = DataBasePath.GetInstance();
+            dbPathConnection = _dbpath;
+            EstablishConnection();
+            //var sp = ServiceProvider.GetInstance().services.BuildServiceProvider();
+            //var dbPathConnectionString = ServiceProvider.GetInstance().Services.GetService(DataBasePath);
+            //var dbPathConnection = dbPathConnectionString.GetConnection();
+
+        }
+        public void EstablishConnection()
+        {
+            DbPath = dbPathConnection.GetConnection();
             DbConnection = new SQLiteConnection(DbPath);
         }
-        public static DatabaseConnection GetInstance()
+
+        public SQLiteConnection GetDbConnection()
         {
-            if (_instance == null)
-            {
-                _instance = new DatabaseConnection();
-            }
-            return _instance;
+            return DbConnection;
         }
+        //public static DatabaseConnection GetInstance()
+        //{
+        //    if (_instance == null)
+        //    {
+        //        _instance = new DatabaseConnection();
+        //    }
+        //    return _instance;
+        //}
     }
 }

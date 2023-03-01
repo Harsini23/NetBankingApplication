@@ -16,29 +16,29 @@ namespace Library.Data
     {
 
         //get the string from local folder--> save the value in local folder if not present
-        private static DataBasePath _instance;
+        //private static DataBasePath _instance;
 
         static string databasename ;
         private static string databasePath;
 
-        public string GetDatabasePath()
-        {
-            return databasePath;
-        }
-        private DataBasePath()
-        {
-             GetConnection();
-        }
-        public static DataBasePath GetInstance()
-        {
-            if (_instance == null)
-            {
-                _instance = new DataBasePath();
-            }
-            return _instance;
-        }
+        //public string GetDatabasePath()
+        //{
+        //    return databasePath;
+        //}
+        //private DataBasePath()
+        //{
+        //    GetConnection();
+        //}
+        //public static DataBasePath GetInstance()
+        //{
+        //    if (_instance == null)
+        //    {
+        //        _instance = new DataBasePath();
+        //    }
+        //    return _instance;
+        //}
 
-        private  void GetConnection()
+        public string GetConnection()
         {
             databasename = "Banking.db";
             //folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -52,6 +52,7 @@ namespace Library.Data
             ////  Connection = new SqliteConnection($"Filename={dbPath}");
             ///
              databasePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, databasename);
+            return databasePath;
 
         }
     }

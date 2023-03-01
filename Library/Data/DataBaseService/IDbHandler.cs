@@ -52,6 +52,10 @@ namespace Library.Data.DataBaseService
         double GetTotalExpense(string userId);
         List<Transaction> GetCurrentMonthIncome(string userId);
         List<Transaction> GetCurrentMonthExpense(string userId);
+
+        void InsertBankBranchDetails(List<Branch> branches);
+
+        List<Branch> GetAllBranches();
     }
 
     public interface INetHandler

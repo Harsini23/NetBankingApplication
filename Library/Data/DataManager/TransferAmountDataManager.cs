@@ -16,7 +16,7 @@ namespace Library.Data.DataManager
 {
     public class TransferAmountDataManager : BankingDataManager, ITransferAmountDataManager
     {
-        public TransferAmountDataManager() : base(new DbHandler(), new NetHandler())
+        public TransferAmountDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
         private TransactionType transactionType;

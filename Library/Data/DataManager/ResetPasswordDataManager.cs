@@ -16,7 +16,7 @@ namespace Library.Data.DataManager
     public class ResetPasswordDataManager :BankingDataManager, IResetPasswordDataManager
     {   
 
-        public ResetPasswordDataManager() : base(new DbHandler(), new NetHandler())
+        public ResetPasswordDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
           
         }

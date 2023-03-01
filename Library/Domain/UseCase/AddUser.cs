@@ -30,8 +30,7 @@ namespace Library.Domain.UseCase
         IPresenterAddUserCallback presenterAddUserCallback;
         public AddUser(AddUserRequest request, IPresenterAddUserCallback responseCallback)
         {
-            var serviceProviderInstance = ServiceProvider.GetInstance();
-            AddUserDataManager = serviceProviderInstance.Services.GetService<IAddUserDataManager>();
+            AddUserDataManager = ServiceProvider.GetInstance().Services.GetService<IAddUserDataManager>();
             addUserRequest = request;
             presenterAddUserCallback = responseCallback;
         }

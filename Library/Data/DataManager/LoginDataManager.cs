@@ -26,7 +26,7 @@ namespace Library.Data.DataManager
      //  CreateTables createTableInstance;
       
         // BankingDataManager Handler;
-        public LoginDataManager():base(new DbHandler(),new NetHandler())
+        public LoginDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
            
             //  Handler = new BankingDataManager(dbHandler, netHandler);

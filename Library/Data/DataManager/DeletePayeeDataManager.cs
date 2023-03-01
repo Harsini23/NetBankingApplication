@@ -11,7 +11,7 @@ namespace Library.Data.DataManager
 {
     public class DeletePayeeDataManager : BankingDataManager, IDeletePayeeDataManager
     {
-        public DeletePayeeDataManager() : base(new DbHandler(), new NetHandler())
+        public DeletePayeeDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
 

@@ -13,7 +13,7 @@ namespace Library.Data.DataManager
 {
     public class GetAllAccountsDataManager : BankingDataManager, IGetAllAccountsDataManager
     {
-        public GetAllAccountsDataManager() : base(new DbHandler(), new NetHandler())
+        public GetAllAccountsDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
 

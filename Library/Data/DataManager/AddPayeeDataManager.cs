@@ -11,7 +11,7 @@ namespace Library.Data.DataManager
 {
     public class AddPayeeDataManager : BankingDataManager, IAddPayeeDataManager
     {
-        public AddPayeeDataManager() : base(new DbHandler(), new NetHandler())
+        public AddPayeeDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
 

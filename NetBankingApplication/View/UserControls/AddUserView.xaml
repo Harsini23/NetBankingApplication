@@ -60,8 +60,22 @@
                 <ComboBox x:Name="CurrencyValues" Header="Currency" MinWidth="200" CornerRadius="5" Margin="5" Grid.Row="2" ItemsSource="{x:Bind _CurrencyValues}">
             </ComboBox>
                 <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" Header="Balance" BeforeTextChanging="TextBox_OnBeforeTextChanging"  InputScope="Number"  x:Name="BalanceTextBox"/>   
-            <TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" Header="Branch Id"  x:Name="BranchIdTextBox"/>
-        </Grid>
+            <!--<TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" Header="Branch Id"  x:Name="BranchIdTextBox"/>-->
+
+                <StackPanel  Grid.Row="4" Margin="5" >
+                    <TextBlock Text="Branch" FontSize="15" Padding="5"></TextBlock>
+                    <DropDownButton HorizontalContentAlignment="Left"   Name="SelectBranch" Content="Branch" MinWidth="350"   Style="{ThemeResource DropdownStyle}" >
+                        <DropDownButton.Flyout >
+                            <MenuFlyout  Opening="MenuFlyout_Opening" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
+                                <MenuFlyoutItem CornerRadius="10"></MenuFlyoutItem>
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
+                </StackPanel>
+              
+            
+            
+            </Grid>
 
         <Grid Grid.Row="2">
                 <Grid.RowDefinitions>

@@ -17,7 +17,7 @@ namespace Library.Data.DataManager
     {
         private string password;
         public static string UserID {get;set;}
-        public AddUserDataManager() : base(new DbHandler(), new NetHandler())
+        public AddUserDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
         public void AddNewUser(AddUserRequest request, IUsecaseCallbackBaseCase<AddUserResponse> response)

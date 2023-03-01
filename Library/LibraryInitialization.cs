@@ -1,4 +1,6 @@
 ﻿using Library.Data;
+using Library.Domain;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +27,10 @@ namespace Library
         }
         public void InitializeDb()
         {
+            CreateTables createTables =  Library.Domain.ServiceProvider.GetInstance().Services.GetService<CreateTables>();
             if (createTableInstance == null)
             {
-                createTableInstance = CreateTables.GetInstance();
+                createTableInstance = createTables;
             }
         }
     }

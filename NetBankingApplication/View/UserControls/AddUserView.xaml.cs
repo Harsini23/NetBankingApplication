@@ -30,10 +30,16 @@ namespace NetBankingApplication.View.UserControls
         private AddUserBaseViewModel AddUserViewModel;
         IEnumerable<AccountType> _AccountTypeValues;
         IEnumerable<Currency> _CurrencyValues;
+        private GetBranchDetailsBaseViewModel GetBranchDetailsViewModel;
+
+        private string SelectedBranch;
+
         public AddUserView()
         {
             this.InitializeComponent();
             AddUserViewModel = PresenterService.GetInstance().Services.GetService<AddUserBaseViewModel>();
+            GetBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
+            GetBranchDetailsViewModel.FetchBranchDetails();
             _AccountTypeValues = Enum.GetValues(typeof(AccountType)).Cast<AccountType>();
             _CurrencyValues = Enum.GetValues(typeof(Currency)).Cast<Currency>();
         }
@@ -49,7 +55,7 @@ namespace NetBankingApplication.View.UserControls
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
            
-            if (UserNameTextBox.Text == String.Empty || MobileNumberTextBox.Text == String.Empty || EmailIdTextBox.Text == String.Empty  || BalanceTextBox.Text == String.Empty || BranchIdTextBox.Text == String.Empty || AccountTypeBox.SelectedItem == null || CurrencyValues.SelectedItem == null)
+            if (UserNameTextBox.Text == String.Empty || MobileNumberTextBox.Text == String.Empty || EmailIdTextBox.Text == String.Empty  || BalanceTextBox.Text == String.Empty || SelectBranch.Content == String.Empty || SelectedBranch==null|| AccountTypeBox.SelectedItem == null || CurrencyValues.SelectedItem == null)
             {
                 AddUserViewModel.ErrorMessage = "All fields are required*";
             }
@@ -64,7 +70,7 @@ namespace NetBankingApplication.View.UserControls
             }
             else if (PANTextBox.Text.Length != 10)
             {
-                AddUserViewModel.ErrorMessage = "Enter valid PAN number";
+                AddUserViewModel.ErrorMessage = "PAN number must be of 10 values";
             }
             else
             {
@@ -76,7 +82,7 @@ namespace NetBankingApplication.View.UserControls
                     AccountType = Enum.Parse<AccountType>(AccountTypeBox.SelectedItem.ToString()),
                     TotalBalance = Double.Parse(BalanceTextBox.Text),
                     Currency = Enum.Parse<Currency>(CurrencyValues.SelectedItem.ToString()),
-                    BId = BranchIdTextBox.Text.ToString(),
+                    BId = SelectedBranch,
                     PAN = PANTextBox.Text.ToString()
                 };
 
@@ -87,7 +93,7 @@ namespace NetBankingApplication.View.UserControls
                 UserNameTextBox.Text = String.Empty;
                 MobileNumberTextBox.Text = String.Empty;
                 EmailIdTextBox.Text = String.Empty;
-                BranchIdTextBox.Text = String.Empty;
+                //BranchIdTextBox.Text = String.Empty;
                 BalanceTextBox.Text = String.Empty;
                 AccountTypeBox.SelectedItem = null;
                 CurrencyValues.SelectedItem = null;
@@ -124,6 +130,32 @@ namespace NetBankingApplication.View.UserControls
             Clipboard.SetContent(dataPackage);
         }
 
+
+
+        MenuFlyout allBranches;
+        private void MenuFlyout_Opening(object sender, object e)
+        {
+            allBranches = sender as MenuFlyout;
+            allBranches.Items.Clear();
+            foreach (var i in GetBranchDetailsViewModel.allBranchDetails)
+            {
+                var item = new MenuFlyoutItem();
+                item.Text = i.BId+" - "+i.BCity;
+                item.Name = i.BId.ToString();
+                item.Click += Account_Selection; ;
+                item.MinWidth = 150;
+                //item.HorizontalContentAlignment = HorizontalAlignment.Left;
+                allBranches.Items.Add(item);
+            }
+        }
+        private void Account_Selection(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = sender as MenuFlyoutItem;
+            SelectedBranch = selectedItem.Text;
+            SelectBranch.Content = selectedItem.Text;
+           // GetAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
+           
+        }
 
 
     }

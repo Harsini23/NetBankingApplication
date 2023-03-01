@@ -13,7 +13,7 @@ namespace Library.Data.DataManager
 {
     public class TransactionHistoryDataManager : BankingDataManager, ITransactionHistoryDataManager
     {
-        public TransactionHistoryDataManager() : base(new DbHandler(), new NetHandler())
+        public TransactionHistoryDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
 

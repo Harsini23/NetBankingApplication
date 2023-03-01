@@ -13,7 +13,7 @@ namespace Library.Data.DataManager
 {
     public class OverviewDataManager : BankingDataManager,IOverviewDataManager
     {
-        public OverviewDataManager() : base(new DbHandler(), new NetHandler())
+        public OverviewDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
 

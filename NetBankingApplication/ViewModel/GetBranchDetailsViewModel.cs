@@ -2,8 +2,10 @@
 using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
+using Library.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -18,10 +20,18 @@ namespace NetBankingApplication.ViewModel
         
         public override void FetchBranchDetails(string BId)
         {
-          getBranchDetails= new GetBranchDetails("B001",new PresenterGetBranchDetailsCallback(this));
+          getBranchDetails= new GetBranchDetails(new BranchDetailsRequest() { BranchId=BId},new PresenterGetBranchDetailsCallback(this));
+            getBranchDetails.Execute();
+        }
+
+        public override void FetchBranchDetails()
+        {
+            getBranchDetails = new GetBranchDetails(new BranchDetailsRequest(), new PresenterGetBranchDetailsCallback(this));
             getBranchDetails.Execute();
         }
     }
+
+  
 
     public class PresenterGetBranchDetailsCallback : IPresenterGetBranchDetailsCallback
     {
@@ -44,9 +54,17 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                GetBranchDetailsViewModel.City = response.Data.Data.BCity;
-                GetBranchDetailsViewModel.BName = response.Data.Data.BName;
-                GetBranchDetailsViewModel.IfscCode = response.Data.Data.IfscCode;
+                if (response.Data.Data != null)
+                {
+                    GetBranchDetailsViewModel.City = response.Data.Data.BCity;
+                    GetBranchDetailsViewModel.BName = response.Data.Data.BName;
+                    GetBranchDetailsViewModel.IfscCode = response.Data.Data.IfscCode;
+                }
+                if(response.Data.allBranchDetails != null)
+                {
+                    GetBranchDetailsViewModel.allBranchDetails = response.Data.allBranchDetails;
+                }
+               
             });
 
         }
@@ -55,6 +73,8 @@ namespace NetBankingApplication.ViewModel
     public abstract class GetBranchDetailsBaseViewModel : NotifyPropertyBase
     {
         public abstract void FetchBranchDetails(String BId);
+        public abstract void FetchBranchDetails();
+        public ObservableCollection<Branch> allBranchDetails;
 
         private string _city = String.Empty;
         public string City

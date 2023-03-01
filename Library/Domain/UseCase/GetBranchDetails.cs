@@ -3,8 +3,10 @@ using Library.Model;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using static Library.Domain.UseCase.GetBranchDetails;
 
@@ -13,8 +15,9 @@ namespace Library.Domain.UseCase
 
     public interface IGetBranchDetailsDataManager
     {
-        void GetBranchDetails(String request, IUsecaseCallbackBaseCase<GetBranchDetailsResponse> response);
+        void GetBranchDetails(BranchDetailsRequest request, IUsecaseCallbackBaseCase<GetBranchDetailsResponse> response);
     }
+
 
     public interface IPresenterGetBranchDetailsCallback: IResponseCallbackBaseCase<GetBranchDetailsResponse>
     {
@@ -23,8 +26,8 @@ namespace Library.Domain.UseCase
     {
         private IGetBranchDetailsDataManager BranchDetailsDataManager;
         IPresenterGetBranchDetailsCallback BranchDetailsResponseCallback;
-        String Request;
-        public GetBranchDetails(String request, IPresenterGetBranchDetailsCallback responseCallback)
+        BranchDetailsRequest Request;
+        public GetBranchDetails(BranchDetailsRequest request, IPresenterGetBranchDetailsCallback responseCallback)
         {
             var serviceProviderInstance = ServiceProvider.GetInstance();
             BranchDetailsDataManager = serviceProviderInstance.Services.GetService<IGetBranchDetailsDataManager>();
@@ -62,9 +65,26 @@ namespace Library.Domain.UseCase
             }
         }
 
+        public class BranchDetailsRequest : IRequest
+        {
+            public string UserId { get; set; }
+            public string BranchId { get; set; }
+            public CancellationTokenSource CtsSource { get; set; }
+
+            public BranchDetailsRequest(string userId, string branchId, CancellationTokenSource cts)
+            {
+                UserId = userId;
+                BranchId = branchId;
+                CtsSource = cts;
+            }
+
+            public BranchDetailsRequest()
+            {
+            }
+        }
         public class GetBranchDetailsResponse : ZResponse<Branch>
         {
-
+          public  ObservableCollection<Branch> allBranchDetails { get; set; }
         }
     }
 }

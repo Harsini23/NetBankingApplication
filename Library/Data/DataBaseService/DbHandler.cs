@@ -16,12 +16,12 @@ namespace Library.Data.DataBaseService
 
         public static SQLiteConnection connection;
 
-        public DbHandler()
+        public DbHandler(DatabaseConnection dbConn)
         {
             if (connection == null)
             {
-                var conn = DatabaseConnection.GetInstance();
-                connection = conn.DbConnection;
+                var conn = dbConn;
+                connection = conn.GetDbConnection();
             }
 
         }
@@ -365,6 +365,19 @@ namespace Library.Data.DataBaseService
                 }
             }
             return monthlyexpense;
+        }
+        #endregion
+
+
+        #region "branches"
+        public void InsertBankBranchDetails(List<Branch> branches)
+        {
+            connection.InsertAll(branches);
+        }
+
+        public List<Branch> GetAllBranches()
+        {
+            return connection.Table<Branch>().ToList();
         }
         #endregion
     }
