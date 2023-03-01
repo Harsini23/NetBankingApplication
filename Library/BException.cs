@@ -14,6 +14,15 @@ namespace Library
         {
            
         }
+        public BException(String message)
+        {
+            exceptionMessage=message;
+        }
+        public BException()
+        {
+
+        }
+       
     }
 
     [Serializable]

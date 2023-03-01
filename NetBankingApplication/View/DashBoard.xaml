@@ -284,7 +284,7 @@
 
                                 <Grid
                             x:Name="PaneToggleButtonGrid"
-                            Margin="0,0,0,8"
+                            Margin="0,0,0,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             Canvas.ZIndex="100">
@@ -1044,18 +1044,18 @@
 
             <NavigationView.MenuItems >
            
-                <NavigationViewItem  ScrollViewer.VerticalScrollMode="Disabled" Icon="Home" x:Name="Overview" Content="Overview" Tag="Overview" />
-                <NavigationViewItem  ScrollViewer.VerticalScrollMode="Disabled" x:Name="BankAccount" Content="Account" Tag="BankAccount" >
+                <NavigationViewItem Margin="-1.5,0,0,0"  ScrollViewer.VerticalScrollMode="Disabled" Icon="Home" x:Name="Overview" Content="Overview" Tag="Overview" />
+                <NavigationViewItem Margin="-1.5,0,0,0" ScrollViewer.VerticalScrollMode="Disabled" x:Name="BankAccount" Content="Account" Tag="BankAccount" >
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE825;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem  ScrollViewer.VerticalScrollMode="Disabled" x:Name="PaymentsAndTransfer"  Content="Payments and Transfer"   >
+                <NavigationViewItem Margin="-1.5,0,0,0" ScrollViewer.VerticalScrollMode="Disabled" x:Name="PaymentsAndTransfer"  Content="Payments and Transfer"   >
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE724;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem  ScrollViewer.VerticalScrollMode="Disabled" x:Name="Settings" Content="Settings" Tag="Settings" >
+                <NavigationViewItem Margin="-1.5,0,0,0" ScrollViewer.VerticalScrollMode="Disabled" x:Name="Settings" Content="Settings" Tag="Settings" >
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE115;"></FontIcon>
                     </NavigationViewItem.Icon>

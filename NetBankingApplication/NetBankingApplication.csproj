@@ -148,7 +148,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\PresenterService.cs" />
-    <Compile Include="View\ThemeSwitch.cs" />
+    <Compile Include="ThemeSwitch.cs" />
     <Compile Include="View\TransactionReceiptContentDialog.xaml.cs">
       <DependentUpon>TransactionReceiptContentDialog.xaml</DependentUpon>
     </Compile>

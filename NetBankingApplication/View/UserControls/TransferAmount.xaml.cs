@@ -315,9 +315,10 @@ namespace NetBankingApplication.View.UserControls
             ErrorMessage.Text = String.Empty;
              _amount = amountBox.Text.ToString();
             double val = 0.0;
-            if(amountBox.Text.Length > 0)
+            if(amountBox.Text.Length > 0 )
             {
-                val = double.Parse(AmountTextBox.Text);
+                var parsable = double.TryParse(AmountTextBox.Text,out val);
+              
                 if (Math.Abs(val % 1) >= 0.01)
                 {
                     AmountTextBox.Text = Math.Round(val, 2).ToString();

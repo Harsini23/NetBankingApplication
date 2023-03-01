@@ -108,9 +108,12 @@ namespace NetBankingApplication.ViewModel
 
             }
    
-            public void OnFailure(ZResponse<bool> response)
+            public async void OnFailure(ZResponse<bool> response)
             {
-                loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
+                await SwitchToMainUIThread.SwitchToMainThread(() =>
+                {
+                    loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
+                });
             }
 
             public async void OnSuccessAsync(ZResponse<bool> response)
@@ -149,15 +152,21 @@ namespace NetBankingApplication.ViewModel
 
             //Presenter call back methods -----------------------------------------------------------------------------------------------------------
        
-            public void OnFailure(ZResponse<LoginResponse> response)
+            public async void OnFailure(ZResponse<LoginResponse> response)
             {
-                loginViewModel.LoginResponseValue = response.Response.ToString();
+                await SwitchToMainUIThread.SwitchToMainThread(() =>
+                {
+                    loginViewModel.LoginResponseValue = response.Response.ToString();
+                });
             }
 
-            public void OnError(BException errorMessage)
+            public async void OnError(BException errorMessage)
             {
-                //Block account
-                loginViewModel.LoginResponseValue = errorMessage.ToString();
+                await SwitchToMainUIThread.SwitchToMainThread(() =>
+                {
+                    //Block account
+                    loginViewModel.LoginResponseValue = errorMessage.exceptionMessage.ToString();
+                });
             }
 
             public async void OnSuccessAsync(ZResponse<LoginResponse> response)

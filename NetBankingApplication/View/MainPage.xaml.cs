@@ -46,8 +46,15 @@ namespace NetBankingApplication
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
             //ApplicationView.GetForCurrentView().Title = "TEST";
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            Windows.UI.Color color = ColorHelper.ToColor("#cfd6df");
-            titleBar.BackgroundColor = color;
+           // Windows.UI.Color color = ColorHelper.ToColor(Application.Current.Resources["SupportingColour"].ToString());
+
+            //var brush = this.Resources["SupportingColour"];
+            Windows.UI.Color colorFromBrush;
+            if (this.Resources["SupportingColour"] is SolidColorBrush)
+                colorFromBrush = (this.Resources["SupportingColour"] as SolidColorBrush).Color;
+
+            titleBar.BackgroundColor = colorFromBrush;
+            titleBar.ButtonBackgroundColor = colorFromBrush;
 
             //IntPtr hWnd = WindowNative.GetWindowHandle(this);
             //WindowId wndId = Win32Interop.GetWindowIdFromWindow(hWnd);

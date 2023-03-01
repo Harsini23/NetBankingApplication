@@ -126,8 +126,8 @@ namespace Library.Data.DataManager
                         responseStatus = "Invalid password";
                         Response.Response = responseStatus;
                         Response.Data = null;
-                        response.OnResponseFailure(Response);
-
+                        //response.OnResponseError(Response);
+                        response.OnResponseError(new BException { exceptionMessage=Response.Response });
                     }
                     else
                     {

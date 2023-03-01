@@ -45,6 +45,7 @@ namespace Library.Domain
                 {
                     Debug.WriteLine("Exception has been caught:");
                     Debug.WriteLine(ex.ToString());
+                    //thread marshalled exception --
                     responseCallback?.OnError((BException)ex);
                 }
             }, _token);

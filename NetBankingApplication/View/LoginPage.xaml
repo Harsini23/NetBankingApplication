@@ -136,15 +136,15 @@
                     
                         <Button  Background="Transparent" BorderBrush="Transparent" BorderThickness="0" FontStyle="Italic" HorizontalAlignment="Center" Grid.Row="6" Content="Default Admin" Style="{ThemeResource ButtonStyling}" Margin="10" >
                             <Button.Flyout  >
-                                <Flyout >
-                                    <Flyout.FlyoutPresenterStyle>
+                            <Flyout  FlyoutPresenterStyle="{ThemeResource FlyoutPresenterStyle}">
+                                    <!--<Flyout.FlyoutPresenterStyle>
                                         <Style TargetType="FlyoutPresenter">
                                             <Setter Property="MinWidth" Value="200"></Setter>
                                             <Setter Property="CornerRadius" Value="5"></Setter>
                                             <Setter Property="Background" Value="White"></Setter>
                                         </Style>
-                                    </Flyout.FlyoutPresenterStyle>
-                                    <StackPanel Background="White">
+                                    </Flyout.FlyoutPresenterStyle>-->
+                                    <StackPanel>
                                         <TextBlock FontSize="16" FontWeight="Bold" Margin="10" Text="Haven't set up your account?"></TextBlock>
                                         <StackPanel Orientation="Horizontal" Margin="5" Padding="3">
                                             <TextBlock  Text="UserId :"></TextBlock>

@@ -38,7 +38,20 @@ namespace NetBankingApplication.View
         {
             this.InitializeComponent();
             LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
-         
+            SwitchThemeUIValues();
+        }
+        private void SwitchThemeUIValues()
+        {
+            if (ThemeSwitch.CurrentTheme == ElementTheme.Light)
+            {
+                OppositeTheme = "Dark mode";
+                OppositeThemeIcon = "";
+            }
+            else if (ThemeSwitch.CurrentTheme == ElementTheme.Dark)
+            {
+                OppositeTheme = "Light mode";
+                OppositeThemeIcon = "";
+            }
         }
 
         private void AdminPageNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -58,7 +71,20 @@ namespace NetBankingApplication.View
             CurrentSelectedModule = addUserView;
             HeaderTitle = "Add user";
         }
-
+        private async void ThemeChange_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (ThemeSwitch.CurrentTheme == ElementTheme.Dark)
+            {
+                await ThemeSwitch.ChangeTheme(ElementTheme.Light);
+                ThemeSwitch.CurrentTheme = ElementTheme.Light;
+            }
+            else
+            {
+                await ThemeSwitch.ChangeTheme(ElementTheme.Dark);
+                ThemeSwitch.CurrentTheme = ElementTheme.Dark;
+            }
+            SwitchThemeUIValues();
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -92,6 +118,27 @@ namespace NetBankingApplication.View
         {
             //logout logic
             LoginViewModel.Logout();
+        }
+
+        private String _oppositeTheme;
+        public String OppositeTheme
+        {
+            get { return _oppositeTheme; }
+            set
+            {
+                _oppositeTheme = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private String _oppositeThemeIcon;
+        public String OppositeThemeIcon
+        {
+            get { return _oppositeThemeIcon; }
+            set
+            {
+                _oppositeThemeIcon = value;
+                NotifyPropertyChanged();
+            }
         }
 
     }

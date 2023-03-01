@@ -6,13 +6,23 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Microsoft.Toolkit.Uwp.Helpers;
 
-namespace NetBankingApplication.View
+namespace NetBankingApplication
 {
-    internal static class ThemeSwitch
+    internal class ThemeSwitch
     {
+       
+        public ThemeSwitch()
+        {
+       
+
+        }
+
         private static Dictionary<UIContext, FrameworkElement> XamlRootCollections { get; } = new Dictionary<UIContext, FrameworkElement>();
         public static ElementTheme? CurrentTheme { get; set; }
 
@@ -86,6 +96,27 @@ namespace NetBankingApplication.View
                 await rootCollection.Value.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, (() =>
                 {
                     rootCollection.Value.RequestedTheme = CurrentTheme.GetValueOrDefault();
+
+                    //if(rootCollection.Value.RequestedTheme == ElementTheme.Light)
+                    //{
+                    //    //ApplicationViewTitleBar titleBar;
+                    //    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+                    //    //titleBar = ApplicationView.GetForCurrentView().TitleBar;
+
+                    //    ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                    //    Windows.UI.Color color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor("#cfd6df");
+                    //    titleBar.BackgroundColor = color;
+                    //}
+                    //else
+                    //{
+                    //    //ApplicationViewTitleBar titleBar;
+                    //    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+                    //    //titleBar = ApplicationView.GetForCurrentView().TitleBar;
+
+                    //    ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                    //    Windows.UI.Color color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor("#212732");
+                    //    titleBar.BackgroundColor = color;
+                    //}
 
                 }));
             }
