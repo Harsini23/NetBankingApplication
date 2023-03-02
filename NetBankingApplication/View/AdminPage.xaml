@@ -17,7 +17,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="{ThemeResource AppBackground}">
         <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" SelectionChanged="AdminPageNavigation_SelectionChanged"  x:Name="AdminPageNavigation" IsBackButtonVisible="Collapsed"  IsSettingsVisible="False" OpenPaneLength="200">
             <NavigationView.MenuItems>
                 <NavigationViewItem Name="AddUser" Icon="Edit" Content="Add User" Tag="Add User"  />

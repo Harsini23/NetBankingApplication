@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
+    SizeChanged="Page_SizeChanged"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <ResourceDictionary>
@@ -15,21 +16,21 @@
         </ResourceDictionary>
     </Page.Resources>
     <ScrollViewer>
-        <Grid>
+        <Grid Background="{ThemeResource AppBackground}">
         <!--<TextBlock VerticalAlignment="Center" Text="{x:Bind expense,Mode=OneWay}"></TextBlock>
         <TextBlock Text="{x:Bind CurrentSelectedAccount.AccountNumber}"></TextBlock>-->
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <!--<RowDefinition Height="Auto"></RowDefinition>-->
         </Grid.RowDefinitions>
 
         <TextBlock Text="Detailed Account Overview" Grid.Row="0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Padding="10"></TextBlock>
         
         <controls:DropShadowPanel Color="Black" OffsetX="10" OffsetY="10" BlurRadius="20" ShadowOpacity=".2" Grid.Row="1" HorizontalAlignment="Center" Margin="5" Name="ContainerShadow">
-         
-                <Grid x:Name="AccountOverviewDetails" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{ThemeResource FormBackground}">
+
+                <Grid x:Name="AccountOverviewDetails" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{ThemeResource FormBackground}" Background="{ThemeResource AppForegroundBg}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -40,24 +41,34 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <StackPanel MinWidth="500" Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock Text="Account No: " HorizontalAlignment="Left" FontSize="20" FontWeight="ExtraBold" FontFamily="CascadiaMono"></TextBlock>
-                        <TextBlock FontFamily="CascadiaMono" Margin="5,0,0,0" FontSize="20" FontWeight="ExtraBold"  Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountNumber,Mode=OneWay}"></TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                    <StackPanel Grid.Row="0" Name="AccountDetailsBlock">
+                        <StackPanel MinWidth="500"  Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="Account No: " HorizontalAlignment="Left" FontSize="20" FontWeight="ExtraBold" FontFamily="CascadiaMono"></TextBlock>
+                            <TextBlock FontFamily="CascadiaMono" Margin="5,0,0,0" FontSize="20" FontWeight="ExtraBold"  Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountNumber,Mode=OneWay}"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Grid.Column="0">
                         <TextBlock Text="Your last transaction was on :" FontSize="16" FontWeight="Light"></TextBlock>
-                        <TextBlock Margin="5,0,0,0" Text="{x:Bind AccountTransactionsViewModel.LastTransactionDate,Mode=OneWay}" TextWrapping="Wrap" FontSize="16" FontWeight="Light"></TextBlock>
+                        <TextBlock Margin="5,0,0,0" Text="{x:Bind AccountTransactionsViewModel.LastTransactionDate,Mode=OneWay}" TextWrapping="Wrap" FontSize="16" FontWeight="Light">
+                            </TextBlock>
+                        </StackPanel>
+
                     </StackPanel>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Total Balance" FontSize="16" FontWeight="Light"></TextBlock>
-                    <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" >
-                        <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
-                        <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.TotalBalance,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Name="BalanceBlock">
+                        <StackPanel Orientation="Horizontal"  >
+                            <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
+                            <TextBlock Text="{x:Bind AccountTransactionsViewModel.AccountDetails.TotalBalance,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
+                        </StackPanel>
+                        <TextBlock   Text="Current Balance" FontSize="16" FontWeight="Light"></TextBlock>
+                       
                     </StackPanel>
+             
                     
                 <!--showing details-->
 
@@ -94,50 +105,47 @@
                         <TextBlock  Grid.Row="7" Grid.Column="1" FontSize="16" Margin="5" Text="{x:Bind AccountTransactionsViewModel.AccountDetails.Currency,Mode=OneWay}"></TextBlock>
                 </StackPanel>
 
+                    <StackPanel Grid.ColumnSpan="2" Grid.Row="9" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,5,5,5"  >
+                        
+                        <Grid  BorderThickness="0.4" BorderBrush="Black" Name="SpendingsColumn" CornerRadius="20" Style="{ThemeResource FormBackground}"  HorizontalAlignment="Stretch" Background="{ThemeResource SupportingColour}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Spendings this month" FontSize="14" FontWeight="Light"></TextBlock>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" >
+                                <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
+                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthExpense,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0">
+                                <TextBlock Text="No of Transactions" FontSize="16"></TextBlock>
+                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthExpenseTransactionCount,Mode=OneWay}"  Margin="5,0,0,0"  FontSize="16"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                        <Grid  BorderThickness="0.4" BorderBrush="Black" HorizontalAlignment="Stretch"   Name="IncomeColumn" Style="{ThemeResource FormBackground}"  Background="{ThemeResource SupportingColour}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Income this month" FontSize="14" FontWeight="Light"></TextBlock>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" >
+                                <TextBlock Text="₹" Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
+                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthIncome,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="2"  Margin="0,10,0,0">
+                                <TextBlock Text="No of Transactions" FontSize="16"></TextBlock>
+                                <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthIncomeTransactionCount,Mode=OneWay}"  Margin="5,0,0,0"  FontSize="16"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
 
-
-            </Grid>
+                </Grid>
         </controls:DropShadowPanel>
        
 
-        <Grid Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" MaxWidth="700" Margin="5"  Padding="30" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" BorderThickness="0.4" BorderBrush="Black" Name="SpendingsColumn" CornerRadius="20" Style="{ThemeResource FormBackground}"  HorizontalAlignment="Stretch" MaxWidth="400">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Spendings this month" FontSize="14" FontWeight="Light"></TextBlock>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" >
-                        <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
-                    <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthExpense,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0">
-                    <TextBlock Text="No of Transactions" FontSize="16"></TextBlock>
-                    <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthExpenseTransactionCount,Mode=OneWay}"  Margin="5,0,0,0"  FontSize="16"></TextBlock>
-                </StackPanel>
-            </Grid>
-                <Grid BorderThickness="0.4" BorderBrush="Black" HorizontalAlignment="Stretch" MaxWidth="400" Grid.Column="1" Name="IncomeColumn" Style="{ThemeResource FormBackground}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Income this month" FontSize="14" FontWeight="Light"></TextBlock>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" >
-                    <TextBlock Text="₹" Padding="0,0,5,0" FontSize="20" FontWeight="Bold"></TextBlock>
-                    <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthIncome,Mode=OneWay}" FontSize="20" FontWeight="Bold"></TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2"  Margin="0,10,0,0">
-                    <TextBlock Text="No of Transactions" FontSize="16"></TextBlock>
-                    <TextBlock Text="{x:Bind AccountTransactionsViewModel.CurrentMonthIncomeTransactionCount,Mode=OneWay}"  Margin="5,0,0,0"  FontSize="16"></TextBlock>
-                </StackPanel>
-            </Grid>
-        </Grid>
+       
     </Grid>
     </ScrollViewer>
 </Page>

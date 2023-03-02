@@ -88,6 +88,7 @@ namespace Library.Domain.UseCase
             public string CurrentMonthIncome;
             public string CurrentMonthExpense;
 
+            public string CurrentMonth;
             public string PrimaryAccountBalance;
             public Dictionary<String, double> AccountAndBalance = new Dictionary<string, double>();
         }

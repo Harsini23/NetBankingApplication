@@ -47,6 +47,7 @@ namespace Library.Data.DataManager
                 }
                 overViewResponse.CurrentMonthIncome = monthlyIncome.ToString("0.00");
                 overViewResponse.CurrentMonthExpense = monthlyExpense.ToString("0.00");
+                overViewResponse.CurrentMonth = DateTime.Now.ToString("MMMM yyyy");
 
                 Response.Data = overViewResponse;
                 var responseStatus = "Successfull";

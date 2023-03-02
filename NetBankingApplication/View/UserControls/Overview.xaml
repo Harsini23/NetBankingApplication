@@ -8,6 +8,7 @@
     xmlns:data="using:Library.Model" xmlns:Controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
+    SizeChanged="UserControl_SizeChanged"
     d:DesignWidth="400">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -70,9 +71,9 @@
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="NarrowLayout">
-                    <VisualState.StateTriggers>
+                    <!--<VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
+                    </VisualState.StateTriggers>-->
                     <VisualState.Setters>
                         <Setter Target="ColumnTwo.Width" Value="0"/>
                         <Setter Target="RowFour.Height" Value="*"/>
@@ -86,21 +87,53 @@
                         <Setter Target="OverallBalanceCard.Margin" Value="30,10,30,10"/>
                         <Setter Target="TransactionsCard.Margin" Value="30,10,30,10"/>
                         <Setter Target="WelcomeGrid.Margin" Value="30,10,30,10"/>
+
+                        <Setter Target="OverallIcomeBlock.(Grid.Row)" Value="0"></Setter>
+                        <Setter Target="OverallIcomeBlock.(Grid.Column)" Value="0"></Setter>
+                        <Setter Target="OverallIcomeBlock.(Grid.ColumnSpan)" Value="1"></Setter>
+                        <Setter Target="OverallExpenseBlock.(Grid.Row)" Value="0"></Setter>
+                        <Setter Target="OverallExpenseBlock.(Grid.Column)" Value="1"></Setter>
+                        <Setter Target="OverallExpenseBlock.(Grid.ColumnSpan)" Value="1"></Setter>
+                        <Setter Target="OverallExpenseBlock.Margin" Value="10,10,0,10"></Setter>
+
                     </VisualState.Setters>
                 </VisualState>
 
                 <VisualState x:Name="WideLayout">
-                    <VisualState.StateTriggers>
+                    <!--<VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1050"/>
-                    </VisualState.StateTriggers>
+                    </VisualState.StateTriggers>-->
                     <VisualState.Setters>
                         <Setter Target="ColumnTwo.Width" Value="*"/>
                         <Setter Target="RowFour.Height" Value="0"/>
                         <Setter Target="RowFive.Height" Value="0"/>
+
+                        <Setter Target="OverallIcomeBlock.(Grid.Row)" Value="0"></Setter>
+                        <Setter Target="OverallIcomeBlock.(Grid.Column)" Value="0"></Setter>
+                        <Setter Target="OverallIcomeBlock.(Grid.ColumnSpan)" Value="1"></Setter>
+                        <Setter Target="OverallExpenseBlock.(Grid.Row)" Value="0"></Setter>
+                        <Setter Target="OverallExpenseBlock.(Grid.Column)" Value="1"></Setter>
+                        <Setter Target="OverallExpenseBlock.(Grid.ColumnSpan)" Value="1"></Setter>
+                        <Setter Target="OverallExpenseBlock.Margin" Value="10,10,0,10"></Setter>
+
                     </VisualState.Setters>
                 </VisualState>
-
             </VisualStateGroup>
+            <VisualStateGroup>
+                <VisualState x:Name="Intermediate">
+                    <VisualState.Setters>
+                        <Setter Target="OverallExpenseBlock.(Grid.Row)" Value="1"></Setter>
+                        <Setter Target="OverallExpenseBlock.(Grid.Column)" Value="0"></Setter>
+                        <Setter Target="OverallExpenseBlock.(Grid.ColumnSpan)" Value="2"></Setter>
+                        <Setter Target="OverallIcomeBlock.(Grid.Row)" Value="0"></Setter>
+                        <Setter Target="OverallIcomeBlock.(Grid.Column)" Value="0"></Setter>
+                        <Setter Target="OverallIcomeBlock.(Grid.ColumnSpan)" Value="2"></Setter>
+                        <Setter Target="OverallExpenseBlock.Margin" Value="0,10,0,10"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            
+            
         </VisualStateManager.VisualStateGroups>
         
         
@@ -124,7 +157,7 @@
         </StackPanel>
 
             <Grid Grid.Row="1"  x:Name="OverallBalanceCard" Background="{ThemeResource AppForegroundBg}" CornerRadius="10" Margin="50,10,10,10" Padding="10" Grid.Column="0">
-            <Grid>
+            
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
@@ -143,30 +176,34 @@
                 </StackPanel>
 
                 <Grid Grid.Row="1" Padding="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Horizontal" >
+                    <StackPanel x:Name="OverallIcomeBlock" Orientation="Horizontal" >
                         <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,4,8,4" FontSize="16" FontWeight="ExtraBold" Background="{ThemeResource Positive}" FontFamily="Segoe MDL2 Assets" Content="&#xE742;" >
                         </Button>
                         <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
                             <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" ></TextBlock>
-                            <TextBlock  Text="{x:Bind _overviewViewModel.Income,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock TextTrimming="CharacterEllipsis" Text="{x:Bind _overviewViewModel.Income,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="20,0,0,0">
+                    <StackPanel x:Name="OverallExpenseBlock" Orientation="Horizontal" Grid.Column="1" Margin="20,0,0,0">
                         <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,2,8,4"  FontSize="16" FontWeight="ExtraBold"  Background="{ThemeResource Negative}" FontFamily="Segoe MDL2 Assets" Content="&#xE741;" >
                         </Button>
                         <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
                             <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" ></TextBlock>
-                            <TextBlock  Text="{x:Bind _overviewViewModel.Expense,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock TextTrimming="CharacterEllipsis"  Text="{x:Bind _overviewViewModel.Expense,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
 
-                <Controls:RadialProgressBar Grid.Column="1" Grid.RowSpan="2"  x:Name="RPBTest" HorizontalAlignment="Center" VerticalAlignment="Center" Value="20" Foreground="{ThemeResource Negative}" Thickness="20" Minimum="0" Maximum="100" Width="120" Height="120" Outline="{ThemeResource Positive}"  Grid.Row="0"  >
+                    <Controls:RadialProgressBar Grid.Column="1" Grid.RowSpan="2"  x:Name="RPBTest" HorizontalAlignment="Center" VerticalAlignment="Center" Value="{x:Bind _overviewViewModel.ExpensePercentage,Mode=OneWay}"  Foreground="{ThemeResource Positive}" Thickness="20" Minimum="0" Maximum="100" Width="120" Height="120" Outline="{ThemeResource Negative}"  Grid.Row="0"  >
                     <ToolTipService.ToolTip>
                         <ToolTip x:Name="MyToolTip" >
                             <ToolTip.Content>
@@ -185,7 +222,7 @@
                     </ToolTipService.ToolTip>
                 </Controls:RadialProgressBar>
 
-            </Grid>
+           
 
         </Grid>
 
@@ -206,8 +243,11 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
+                    <StackPanel Padding="0,10,0,10">
+                        <TextBlock Text="{x:Bind _overviewViewModel.Month,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="24" FontWeight="Bold" Padding="20,0,0,0"></TextBlock>
 
-                <TextBlock  Padding="20" VerticalAlignment="Center" HorizontalAlignment="Left" Text="This month summary" FontWeight="Medium"></TextBlock>
+                        <TextBlock  Padding="20,10,10,0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="Monthly summary" FontWeight="Medium"></TextBlock>
+                    </StackPanel>
 
 
                 <Grid Grid.Row="1" Padding="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -217,8 +257,8 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel>
-                        <TextBlock Text="Income" Margin="5"></TextBlock>
-                        <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="Income" Padding="0,5,5,5"></TextBlock>
+                            <StackPanel Orientation="Horizontal" >
                                 <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,4,8,4" FontSize="16" FontWeight="ExtraBold" Background="{ThemeResource Positive}" FontFamily="Segoe MDL2 Assets" Content="&#xE742;" >
                             </Button>
                             <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
@@ -228,7 +268,7 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="20,0,0,0">
-                        <TextBlock Text="Expense" Margin="5"></TextBlock>
+                        <TextBlock Text="Expense" Padding="0,5,5,5"></TextBlock>
                         <StackPanel Orientation="Horizontal" >
                                 <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,2,8,4"  FontSize="16" FontWeight="ExtraBold"  Background="{ThemeResource Negative}" FontFamily="Segoe MDL2 Assets" Content="&#xE741;" >
                             </Button>

@@ -4,6 +4,7 @@ using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -73,11 +74,31 @@ namespace NetBankingApplication.View.UserControls
         {
           var  windowHeight = e.NewSize.Height;
            var windowWidth = e.NewSize.Width;
+            Debug.WriteLine("Width & height : "+windowWidth + " " + windowHeight);
 
-            if (windowHeight > 640)
-                VisualStateManager.GoToState(this, "WideLayout", false);
+           
+             if(windowWidth<=1000 && windowWidth >= 900)
+            {
+                VisualStateManager.GoToState(this, "Intermediate", false);
+            }
+           else if (windowWidth < 900 || windowHeight <= 440)
+            {
+                if (windowWidth < 550)
+                {
+                    VisualStateManager.GoToState(this, "Intermediate", false);
+
+                }
+                else
+                {
+                    VisualStateManager.GoToState(this, "NarrowLayout", false);
+
+                }
+            }
+           
             else
-                VisualStateManager.GoToState(this, "NarrowLayout", false);
+            {
+                VisualStateManager.GoToState(this, "WideLayout", false);
+            }
         }
     }
 }

@@ -50,6 +50,8 @@ namespace NetBankingApplication.ViewModel
 
             public async void OnSuccessAsync(ZResponse<OverviewResponse> response)
             {
+                double total = double.Parse(response.Data.Income) + double.Parse(response.Data.Expense);
+                double expense =double.Parse( response.Data.Expense)/total*100;
                 await SwitchToMainUIThread.SwitchToMainThread(() =>
                 {
                     OverviewViewModel.TotalBalance = response.Data.Balance;
@@ -57,8 +59,8 @@ namespace NetBankingApplication.ViewModel
                     OverviewViewModel.Expense = response.Data.Expense;
                     OverviewViewModel.CurrentMonthExpense = response.Data.CurrentMonthExpense;
                     OverviewViewModel.CurrentMonthIncome = response.Data.CurrentMonthIncome;
-                    
-
+                    OverviewViewModel.Month = response.Data.CurrentMonth;
+                    OverviewViewModel.ExpensePercentage = expense;
                 });
 
             }
@@ -124,6 +126,16 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChanged(nameof(CurrentMonthIncome));
             }
         }
+        private double _expensePercentage = 0;
+        public double ExpensePercentage
+        {
+            get { return _expensePercentage; }
+            set
+            {
+                _expensePercentage = value;
+                OnPropertyChanged(nameof(ExpensePercentage));
+            }
+        }
 
         private string __currentMonthExpense = String.Empty;
         public string CurrentMonthExpense
@@ -136,7 +148,16 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
-
+        private string _month = String.Empty;
+        public string Month
+        {
+            get { return _month; }
+            set
+            {
+                _month = value;
+                OnPropertyChanged(nameof(Month));
+            }
+        }
 
         public abstract void getData(string userId);
         public abstract void setUser(string userId);

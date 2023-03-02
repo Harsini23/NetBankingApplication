@@ -69,6 +69,33 @@ namespace NetBankingApplication.View.UserControls
             Bindings.Update();
 
         }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double windowHeight = e.NewSize.Height;
+            double windowWidth = e.NewSize.Width;
+
+            if (windowHeight < 300 || windowWidth < 850)
+            {
+                //NarrowLayout 
+
+                Grid.SetRow(BalanceBlock, 1);
+                Grid.SetColumn(BalanceBlock, 0);
+                Grid.SetColumnSpan(BalanceBlock, 2);
+                Grid.SetColumnSpan(AccountDetailsBlock, 2);
+                BalanceBlock.HorizontalAlignment = HorizontalAlignment.Left;
+            }
+            else
+            {
+                Grid.SetRow(BalanceBlock, 0);
+                Grid.SetColumn(BalanceBlock, 1);
+                Grid.SetColumnSpan(BalanceBlock, 1);
+                Grid.SetColumnSpan(AccountDetailsBlock, 1);
+                BalanceBlock.HorizontalAlignment = HorizontalAlignment.Center;
+
+
+            }
+        }
     }
 
 

@@ -319,7 +319,8 @@ namespace Library.Data.DataBaseService
             var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                 income = connection.Table<Transaction>().Where(c => c.UserId == userId && c.ToAccount == i).Sum(c => c.Amount);
+                double totalIncome = connection.Table<Transaction>().Where(c => c.UserId == userId && c.ToAccount == i).Sum(c => c.Amount);
+                income += totalIncome;
             }
             return income;
         }
