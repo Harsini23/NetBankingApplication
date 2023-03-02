@@ -36,13 +36,12 @@ namespace Library.Domain.UseCase
     {
         private IDeletePayeeDataManager DeletePayeeDataManager;
         private DeletePayeeRequest DeletePayeeRequest;
-        IPresenterDeletePayeeCallback DeletePayeeResponse;
+        IPresenterDeletePayeeCallback DeletePayeeResponseCallback;
         public DeletePayee(DeletePayeeRequest request, IPresenterDeletePayeeCallback responseCallback)
         {
-            var serviceProviderInstance = ServiceProvider.GetInstance();
-            DeletePayeeDataManager = serviceProviderInstance.Services.GetService<IDeletePayeeDataManager>();
+            DeletePayeeDataManager = ServiceProvider.GetInstance().Services.GetService<IDeletePayeeDataManager>();
             DeletePayeeRequest = request;
-            DeletePayeeResponse = responseCallback;
+            DeletePayeeResponseCallback = responseCallback;
         }
         public override void Action()
         {
@@ -62,15 +61,15 @@ namespace Library.Domain.UseCase
 
             public void OnResponseError(BException response)
             {
-                DeletePayee.DeletePayeeResponse.OnError(response);
+                DeletePayee.DeletePayeeResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<String> response)
             {
-                DeletePayee.DeletePayeeResponse.OnFailure(response);
+                DeletePayee.DeletePayeeResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<String> response)
             {
-                DeletePayee.DeletePayeeResponse.OnSuccessAsync(response);
+                DeletePayee.DeletePayeeResponseCallback?.OnSuccessAsync(response);
 
             }
         }

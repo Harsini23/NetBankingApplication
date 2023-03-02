@@ -49,6 +49,7 @@ namespace Library.Domain
             services.AddSingleton<IGetBranchDetailsDataManager, GetBranchDetailsDataManager>();
             services.AddSingleton<IOverviewDataManager, OverviewDataManager>();
             services.AddSingleton<IDefaultAdminDataManager, DefaultAdminDataManager>();
+            services.AddSingleton<IEditPayeeDataManager, EditPayeeDataManager>();
 
             services.AddSingleton<IDbHandler, DbHandler>();
             services.AddSingleton<INetHandler, NetHandler>();

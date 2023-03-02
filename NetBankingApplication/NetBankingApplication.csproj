@@ -123,6 +123,7 @@
     <Compile Include="ViewModel\AddPayeeViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\DeletePayeeViewModel.cs" />
+    <Compile Include="ViewModel\EditPayeeViewModel.cs" />
     <Compile Include="ViewModel\SwitchToMainUIThread.cs" />
     <Compile Include="ViewModel\GetAllAccountsViewModel.cs" />
     <Compile Include="ViewModel\GetAllPayeeViewModel.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="ViewModel\OverviewViewModel.cs" />
     <Compile Include="ViewModel\TransactionHistoryViewModel.cs" />
     <Compile Include="ViewModel\TransferAmountViewModel.cs" />
+    <Compile Include="ViewModel\UpdateChangesMediator.cs" />
     <Compile Include="View\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
@@ -166,9 +168,6 @@
     </Compile>
     <Compile Include="View\UserControls\DetailedAccountOverview.xaml.cs">
       <DependentUpon>DetailedAccountOverview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UserControls\EditPayee.xaml.cs">
-      <DependentUpon>EditPayee.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\FullAccountDetails.xaml.cs">
       <DependentUpon>FullAccountDetails.xaml</DependentUpon>
@@ -314,10 +313,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\DetailedAccountOverview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserControls\EditPayee.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

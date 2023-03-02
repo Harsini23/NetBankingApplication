@@ -286,6 +286,15 @@ namespace Library.Data.DataBaseService
             return allAccountBalance;
         }
 
+
+        public bool EditPayee(Payee payee)
+        {
+            connection.InsertOrReplace(payee);
+            var ReCheckingquery = connection.Table<Payee>().Where(c => c.AccountNumber == payee.AccountNumber && c.AccountHolderName == payee.AccountHolderName).FirstOrDefault();
+            if (ReCheckingquery != null) return true;
+            return false;
+
+        }
         #endregion
 
 

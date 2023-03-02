@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:Library.Model"
     mc:Ignorable="d"
+    SizeChanged="UserControl_SizeChanged"
     Loaded="UserControl_Loaded"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -473,7 +474,7 @@
                         <StackPanel Grid.RowSpan="2" Orientation="Horizontal" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
                             <Button Style="{ThemeResource ButtonStyling}" MinHeight="35" MinWidth="35" Content="&#xE107;" FontFamily="Segoe MDL2 Assets"  Name="DeletePayee" Click="DeletePayee_Click"></Button>
 
-                            <Button Style="{ThemeResource ButtonStyling}"  MinHeight="35" MinWidth="35"  Content="&#xE104;" FontFamily="Segoe MDL2 Assets" ></Button>
+                            <Button Style="{ThemeResource ButtonStyling}"  MinHeight="35" MinWidth="35"  Content="&#xE104;" FontFamily="Segoe MDL2 Assets" Name="EditPayee" Click="EditPayee_Click" ></Button>
                         </StackPanel>
 
                      
@@ -888,6 +889,27 @@
             </ListView.ItemContainerStyle>
         </ListView>
         <TextBlock Visibility="Collapsed" Text="No records found!" Name="EmptyList" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"></TextBlock>
+
+            <Popup Height="Auto" Grid.Row="0" ScrollViewer.HorizontalScrollMode="Auto" Grid.RowSpan="2"  x:Name="EditPayeePopup"  IsLightDismissEnabled="True" LightDismissOverlayMode="on" >
+                <Grid CornerRadius="10" MinWidth="350" MinHeight="450" Background="{ThemeResource SupportingColour}" Padding="40" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Edit Payee Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Padding="20"></TextBlock>
+                    <TextBox  Grid.Row="1" Style="{ThemeResource InputFieldTextBox}" Header="Payee Name" x:Name="PayeeNameTextBox" />
+                    <TextBox  Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="Account Holder Name" x:Name="AccountHolderTextBox" />
+                    <TextBox  Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" Header="Account Number" x:Name="AccountNumberTextBox" />
+                    <TextBox  Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" Header="Bank Name" x:Name="BankNameTextBox" />
+                    <TextBox  Grid.Row="5" Style="{ThemeResource InputFieldTextBox}" Header="IFSC Code" x:Name="IFSCCodeTextBox" />
+                    <Button Margin="10,20,0,0" Padding="20,5,20,5" Style="{ThemeResource ButtonStyling}" Grid.Row="6" Content="Save" x:Name="EditPayeeDetails" Click="EditPayeeDetails_Click"></Button>
+                </Grid>
+            </Popup>
         </Grid>
     </ScrollViewer>
 </UserControl>

@@ -8,18 +8,36 @@ namespace NetBankingApplication.ViewModel
 {
     public class NotificationService
     {
-        public NotificationService()
+        private Action<string> _eventHandler;
+
+        public void Subscribe(INotificationServiceDeletePayee subscriber)
         {
-                
+            _eventHandler += subscriber.OnMyEvent;
         }
-        private void TransferAmountViewModel_ValueChanged(string value, string user)
+
+        public void Unsubscribe(INotificationServiceDeletePayee subscriber)
         {
-            //GetAllTransactions(value, user);
+            _eventHandler -= subscriber.OnMyEvent;
         }
+
+        public void RaiseEvent(string eventData)
+        {
+            _eventHandler?.Invoke(eventData);
+        }
+
     }
 
-    public interface INotificationService
+    public interface INotificationServiceDeletePayee
     {
-        void HandleTransfer();
+        void OnMyEvent(string eventData);
+    }
+
+    public class DeletionUpdate : INotificationServiceDeletePayee
+    {
+        public void OnMyEvent(string eventData)
+        {
+            GetAllPayeeViewModel GetAllPayeeVm = new GetAllPayeeViewModel();
+               GetAllPayeeVm.GetAllPayee(eventData);         
+        }
     }
 }
