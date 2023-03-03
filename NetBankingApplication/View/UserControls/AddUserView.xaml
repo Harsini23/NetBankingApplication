@@ -55,19 +55,19 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Account Details" Margin="10" FontWeight="Bold" FontSize="20" ></TextBlock>
 
-                <ComboBox x:Name="AccountTypeBox" Header="Account Type" MinWidth="200" CornerRadius="5" Margin="5" Grid.Row="1" ItemsSource="{x:Bind _AccountTypeValues}">
+                <ComboBox x:Name="AccountTypeBox" Header="Account Type" MinWidth="400" CornerRadius="5" Margin="5" Grid.Row="1" ItemsSource="{x:Bind _AccountTypeValues}">
             </ComboBox>
-                <ComboBox x:Name="CurrencyValues" Header="Currency" MinWidth="200" CornerRadius="5" Margin="5" Grid.Row="2" ItemsSource="{x:Bind _CurrencyValues}">
+                <ComboBox x:Name="CurrencyValues" Header="Currency" MinWidth="400" CornerRadius="5" Margin="5" Grid.Row="2" ItemsSource="{x:Bind _CurrencyValues}">
             </ComboBox>
                 <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" Header="Balance" BeforeTextChanging="TextBox_OnBeforeTextChanging"  InputScope="Number"  x:Name="BalanceTextBox"/>   
             <!--<TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" Header="Branch Id"  x:Name="BranchIdTextBox"/>-->
 
                 <StackPanel  Grid.Row="4" Margin="5" >
                     <TextBlock Text="Branch" FontSize="15" Padding="5"></TextBlock>
-                    <DropDownButton HorizontalContentAlignment="Left"   Name="SelectBranch" Content="Branch" MinWidth="350"   Style="{ThemeResource DropdownStyle}" >
+                    <DropDownButton HorizontalContentAlignment="Left" MinWidth='400'   Name="SelectBranch" Content="Branch"  Style="{ThemeResource DropdownStyle}" >
                         <DropDownButton.Flyout >
-                            <MenuFlyout  Opening="MenuFlyout_Opening" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
-                                <MenuFlyoutItem CornerRadius="10"></MenuFlyoutItem>
+                            <MenuFlyout  Opening="MenuFlyout_Opening" LightDismissOverlayMode="Auto" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
+                                <MenuFlyoutItem CornerRadius="10" MinWidth="400"></MenuFlyoutItem>
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>

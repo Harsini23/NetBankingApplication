@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using NetBankingApplication.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +12,12 @@ namespace NetBankingApplication.ViewModel
     {
         private Action<string> _eventHandler;
 
-        public void Subscribe(INotificationServiceDeletePayee subscriber)
+        public void Subscribe(INotificationServicePayee subscriber)
         {
             _eventHandler += subscriber.OnMyEvent;
         }
 
-        public void Unsubscribe(INotificationServiceDeletePayee subscriber)
+        public void Unsubscribe(INotificationServicePayee subscriber)
         {
             _eventHandler -= subscriber.OnMyEvent;
         }
@@ -27,17 +29,21 @@ namespace NetBankingApplication.ViewModel
 
     }
 
-    public interface INotificationServiceDeletePayee
+    public interface INotificationServicePayee
     {
         void OnMyEvent(string eventData);
     }
 
-    public class DeletionUpdate : INotificationServiceDeletePayee
+
+    public class PayeeUpdate : INotificationServicePayee
     {
         public void OnMyEvent(string eventData)
         {
-            GetAllPayeeViewModel GetAllPayeeVm = new GetAllPayeeViewModel();
-               GetAllPayeeVm.GetAllPayee(eventData);         
+            var GetAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
+            // GetAllPayeeViewModel GetAllPayeeVm = new GetAllPayeeViewModel();
+            GetAllPayeeViewModel.GetAllPayee(eventData);
         }
     }
+
+   
 }

@@ -2,6 +2,8 @@
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
+using Microsoft.Extensions.DependencyInjection;
+using NetBankingApplication.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace NetBankingApplication.ViewModel
     {
         DeletePayee deleteRecipient;
         public static String userId;
-        public delegate void ValueChangedEventHandler(string value);
+       // public delegate void ValueChangedEventHandler(string value);
         public override void DeletePayee(Payee payee)
         {
             userId = payee.UserID;
@@ -27,7 +29,10 @@ namespace NetBankingApplication.ViewModel
     public class PresenterDeletePayeeCallback : IPresenterDeletePayeeCallback
     {
         private DeletePayeeViewModel deletePayeeViewModel;
-        public static event DeletePayeeViewModel.ValueChangedEventHandler ValueChanged;
+       // public static event DeletePayeeViewModel.ValueChangedEventHandler ValueChanged;
+
+        NotificationService eventProvider = new NotificationService();
+
 
         public PresenterDeletePayeeCallback()
         {
@@ -52,9 +57,14 @@ namespace NetBankingApplication.ViewModel
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
                 deletePayeeViewModel.ResponseValue = response.Data.ToString();
-                ValueChanged?.Invoke(DeletePayeeViewModel.userId);
+                //ValueChanged?.Invoke(DeletePayeeViewModel.userId);
+
+                eventProvider.Subscribe(new PayeeUpdate());
+                eventProvider.RaiseEvent(DeletePayeeViewModel.userId);
             });
         }
+
+       
     }
     public abstract class DeletePayeeBaseViewModel : NotifyPropertyBase
     {
