@@ -14,8 +14,10 @@ namespace NetBankingApplication.ViewModel
     public class EditPayeeViewModel : EditPayeeBaseViewModel
     {
         EditPayee editPayee;
+       public Payee Currentpayee;
         public override void EditPayee(Payee payee)
         {
+            Currentpayee = payee;
             editPayee = new EditPayee(new EditPayeeRequest(payee.UserID,payee, new CancellationTokenSource()), new PresenterEditPayeeCallback(this));
             editPayee.Execute();
         }
@@ -24,6 +26,7 @@ namespace NetBankingApplication.ViewModel
     public class PresenterEditPayeeCallback : IPresenterEditPayeeCallback
     {
         private EditPayeeViewModel EditPayeeViewModel;
+        NotificationService eventProvider = new NotificationService();
         public PresenterEditPayeeCallback()
         {
 
@@ -45,8 +48,8 @@ namespace NetBankingApplication.ViewModel
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
                 //refresh list after updation!
-
-                var a = response;
+                eventProvider.Subscribe(new PayeeUpdate());
+                eventProvider.RaiseEvent(EditPayeeViewModel.Currentpayee.UserID);
             });
         }
     }

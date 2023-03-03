@@ -47,7 +47,7 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            GetAllPayeeViewModel.ChangeVisibility = this;
+            GetAllPayeeBaseViewModel.ChangeVisibility = this;
             PayeeCollection.Clear();
             GetAllPayeeViewModel.GetAllPayee(currentUserId);
             PayeeCollection = GetAllPayeeViewModel.AllPayeeCollection;
@@ -125,6 +125,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 EmptyList.Visibility = Visibility.Collapsed;
             }
+            Bindings.Update();
         }
 
         private void EditPayee_Click(object sender, RoutedEventArgs e)

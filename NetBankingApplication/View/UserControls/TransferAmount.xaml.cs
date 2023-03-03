@@ -212,12 +212,14 @@ namespace NetBankingApplication.View.UserControls
             var defaultItem = new MenuFlyoutItem();
             defaultItem.Text = "New Payee";
             defaultItem.Click += QuickTransaction_Click;
+            defaultItem.CornerRadius = new CornerRadius(5);
             selectPayeeList.Items.Add(defaultItem);
             foreach (var i in allRecipientNames)
             {
                 var item = new MenuFlyoutItem();
                 item.Text = i;
                 item.Click += Item_Click;
+                item.CornerRadius = new CornerRadius(5);
                 item.MinWidth = 150;
                 selectPayeeList.Items.Add(item);
             }
@@ -286,6 +288,7 @@ namespace NetBankingApplication.View.UserControls
                 var item = new MenuFlyoutItem();
                 item.Text = i.AccountNumber;
                 item.Name = i.TotalBalance.ToString();
+                item.CornerRadius = new CornerRadius(5);
                 item.Click += Account_Selection; ;
                 item.MinWidth = 150;
                 selectAccountList.Items.Add(item);

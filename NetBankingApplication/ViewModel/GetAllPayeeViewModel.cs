@@ -21,13 +21,12 @@ namespace NetBankingApplication.ViewModel
         public IViewAndEditPayeeVM viewAndEditPayeeVMCallback;
         public GetAllPayeeViewModel()
         {
-            PresenterDeletePayeeCallback.ValueChanged += PresenterDeletePayeeCallback_ValueChanged;
+            //PresenterDeletePayeeCallback.ValueChanged += PresenterDeletePayeeCallback_ValueChanged;
         }
-
-        private void PresenterDeletePayeeCallback_ValueChanged(string id)
-        {
-            GetAllPayee(id);
-        }
+        //private void PresenterDeletePayeeCallback_ValueChanged(string id)
+        //{
+        //    GetAllPayee(id);
+        //}
 
         public override void GetAllPayee(string userId)
         {
@@ -84,7 +83,7 @@ namespace NetBankingApplication.ViewModel
                       getAllPayeeViewModel.PayeeNames.Add(i.PayeeName);
                       getAllPayeeViewModel.AllPayee.Add(i);
                   }
-                  getAllPayeeViewModel?.ChangeVisibility?.ChangeVisibility(getAllPayeeViewModel.AllPayeeCollection.Count <= 0);
+            GetAllPayeeViewModel.ChangeVisibility?.ChangeVisibility(getAllPayeeViewModel.AllPayeeCollection.Count <= 0);
              
         }
     }
@@ -97,7 +96,7 @@ namespace NetBankingApplication.ViewModel
         public abstract void GetAllPayee(string userId);
         public List<Payee> AllPayee = new List<Payee>() { };
         public List<String> PayeeNames = new List<String>();
-        public IViewAndEditPayeeVM ChangeVisibility;
+        public static IViewAndEditPayeeVM ChangeVisibility;
     }
 
     public interface IViewAndEditPayeeVM

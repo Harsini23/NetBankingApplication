@@ -141,9 +141,12 @@ namespace NetBankingApplication.View.UserControls
             {
                 var item = new MenuFlyoutItem();
                 item.Text = i.BId+" - "+i.BCity;
+                item.HorizontalAlignment = HorizontalAlignment.Stretch;
+                item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+                item.CornerRadius = new CornerRadius(5);
+                item.MinWidth = 400;
                 item.Name = i.BId.ToString();
                 item.Click += Account_Selection; ;
-                item.MinWidth = 150;
                 //item.HorizontalContentAlignment = HorizontalAlignment.Left;
                 allBranches.Items.Add(item);
             }
