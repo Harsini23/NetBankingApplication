@@ -151,7 +151,7 @@
             <RowDefinition x:Name="RowFive" Height="0"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="WelcomeGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  Margin="50,30,10,10" Padding="10,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+        <StackPanel x:Name="WelcomeGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  Margin="40,5,10,10" Padding="10,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Welcome," Foreground="#808080" FontSize="32"></TextBlock>
             <TextBlock Margin="5,0,0,0" Text="Rachel Green" FontSize="32"></TextBlock>
         </StackPanel>
@@ -203,7 +203,7 @@
                     </StackPanel>
                 </Grid>
 
-                    <Controls:RadialProgressBar Grid.Column="1" Grid.RowSpan="2"  x:Name="RPBTest" HorizontalAlignment="Center" VerticalAlignment="Center" Value="{x:Bind _overviewViewModel.ExpensePercentage,Mode=OneWay}"  Foreground="{ThemeResource Positive}" Thickness="20" Minimum="0" Maximum="100" Width="120" Height="120" Outline="{ThemeResource Negative}"  Grid.Row="0"  >
+                    <Controls:RadialProgressBar Grid.Column="1" Grid.RowSpan="2"  x:Name="RPBTest" HorizontalAlignment="Center" VerticalAlignment="Center" Value="{x:Bind _overviewViewModel.ExpensePercentage,Mode=OneWay}"  Foreground="{ThemeResource Negative}" Thickness="20" Minimum="0" Maximum="100" Width="120" Height="120" Outline="{ThemeResource Positive}"  Grid.Row="0"  >
                     <ToolTipService.ToolTip>
                         <ToolTip x:Name="MyToolTip" >
                             <ToolTip.Content>
@@ -226,7 +226,7 @@
 
         </Grid>
 
-            <Grid Grid.Row="2" MaxHeight="370" VerticalAlignment="Top" Name="TransactionsCard" Background="{ThemeResource AppForegroundBg}" CornerRadius="10" Margin="50,10,10,10" Padding="10" Grid.Column="0">
+            <Grid MinHeight="370" Grid.Row="2" MaxHeight="370" VerticalAlignment="Top" Name="TransactionsCard" Background="{ThemeResource AppForegroundBg}" CornerRadius="10" Margin="50,10,10,10" Padding="10" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -288,11 +288,11 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="Account Details" FontSize="16" FontWeight="SemiBold" Margin="10"></TextBlock>
-            <FlipView Background="Transparent" Padding="10" ItemsSource="{x:Bind _getAllAccountsViewModel.accounts,Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <FlipView Background="Transparent" Padding="10" ItemsSource="{x:Bind _getAllAccountsViewModel.accounts,Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">
 
                 <FlipView.ItemTemplate>
                     <DataTemplate  x:DataType="data:Account">
-                            <Grid Background="{ThemeResource SupportingColour}" CornerRadius="10">
+                            <Grid Background="{ThemeResource SupportingColour}" CornerRadius="10" HorizontalAlignment="Stretch" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="0.75*"></RowDefinition>
                                 <RowDefinition Height="1*"></RowDefinition>

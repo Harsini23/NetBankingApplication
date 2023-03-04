@@ -50,8 +50,17 @@ namespace NetBankingApplication.ViewModel
 
             public async void OnSuccessAsync(ZResponse<OverviewResponse> response)
             {
-                double total = double.Parse(response.Data.Income) + double.Parse(response.Data.Expense);
-                double expense =double.Parse( response.Data.Expense)/total*100;
+                double expense=0.0;
+              double total = double.Parse(response.Data.Income) + double.Parse(response.Data.Expense);
+                if (total > 0)
+                {
+                     expense = (double.Parse(response.Data.Expense) / total) * 100;
+                }
+                else
+                {
+                    expense=double.Parse(response.Data.Balance);
+                }
+
                 await SwitchToMainUIThread.SwitchToMainThread(() =>
                 {
                     OverviewViewModel.TotalBalance = response.Data.Balance;
@@ -126,7 +135,7 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChanged(nameof(CurrentMonthIncome));
             }
         }
-        private double _expensePercentage = 0;
+        private double _expensePercentage = 0.0;
         public double ExpensePercentage
         {
             get { return _expensePercentage; }

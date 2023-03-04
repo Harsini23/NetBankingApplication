@@ -77,8 +77,12 @@ namespace Library.Data.DataManager
                 ToAccount = request.Transaction.ToAccount,
                 Status = status,
             };
-
-            var responseTransactions = DbHandler.AddTransaction(currentTransaction);
+            Transaction responseTransactions=new Transaction();
+            var TresponseStatus = DbHandler.AddTransaction(currentTransaction);
+            if (TresponseStatus)
+            {
+                responseTransactions = currentTransaction;
+            }
             // DeductBalance(request.Transaction.Amount);
             TransferAmountResponse transferAmountResponse = new TransferAmountResponse();
             if (status)

@@ -54,7 +54,6 @@ namespace Library.Data.DataManager
             LoginResponse loginResponse = new LoginResponse();
             ZResponse<LoginResponse> Response = new ZResponse<LoginResponse>();
             var password = PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(request.Password));
-            // credentialService.AddRecord(request.UserId, password,false);
 
             try {
 
@@ -95,20 +94,6 @@ namespace Library.Data.DataManager
                         responseStatus = "Sucessfully Loged in, Welcome User ";
                     }
                     user = DbHandler.GetUser(UserId);
-
-                    //DbHandler.AddTransaction(new Transaction
-                    //{
-                    //    TransactionId = "TIDc1f45b57",
-                    //    Date = "17-1-2023 12:38 AM",
-                    //    TransactionType = TransactionType.Credited,
-                    //Remark = "gift",
-                    //Amount = 900.90,
-                    //FromAccount = "1234567098",
-                    //ToAccount = "390102938345",
-                    //Status = true,
-                    //Name = "Enid",
-                    //UserId= "UIDaf913875"
-                    //});
 
                     loginResponse.currentUser = user;
                     loginResponse.NewUser = IsNewUser;

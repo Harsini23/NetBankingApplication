@@ -32,7 +32,7 @@ namespace NetBankingApplication.View.UserControls
         private string Name;
         private string FromAccount;
         private string ToAccount;
-        private string RemarkDescription;
+        private string RemarkDescription="-";
         private double Amount;
         private string NewPayeeEnteredName;
         private string UserAccountNumber;
@@ -87,11 +87,12 @@ namespace NetBankingApplication.View.UserControls
 
             //show the current transaction overview receipt
             //TransactionDetails.Visibility = Visibility.Visible;
-            if (String.IsNullOrEmpty(RemarkTextBox.Text))
-            {
-                ErrorMessage.Text = "Fill out remark field";
-            }
-            else if (String.IsNullOrEmpty(AccountNumberTextBox.Text))
+            //if (String.IsNullOrEmpty(RemarkTextBox.Text))
+            //{
+            //    ErrorMessage.Text = "Fill out remark field";
+            //}
+            //else
+            if (String.IsNullOrEmpty(AccountNumberTextBox.Text))
             {
                 ErrorMessage.Text = "Fill out account number field";
             }
@@ -119,7 +120,10 @@ namespace NetBankingApplication.View.UserControls
                 }
 
                 Amount = Double.Parse(AmountTextBox.Text);
-                RemarkDescription = RemarkTextBox.Text;
+                if (!string.IsNullOrWhiteSpace(RemarkTextBox.Text))
+                {
+                    RemarkDescription = RemarkTextBox.Text;
+                }
                 //get from account from using user id from datamanager
                 AmountTransfer amountTransfer = new AmountTransfer
                 {
@@ -150,6 +154,7 @@ namespace NetBankingApplication.View.UserControls
             NewPayeeName.Visibility = Visibility.Collapsed;
             AccountNumberTextBox.Text = ""; SelectAccount.Content = "Select From Account";
             RemarkTextBox.Text = ""; AmountTextBox.Text = "";
+            NewPayeeName.Text = "";
             // TransactionResult.Text = String.Empty;
             //MakeTransaction.IsEnabled = false;
             ErrorMessage.Text = String.Empty;

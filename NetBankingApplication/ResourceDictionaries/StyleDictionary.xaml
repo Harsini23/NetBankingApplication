@@ -702,7 +702,7 @@
                 <Setter Target="BorderThickness" Value="0.3"></Setter>
                 <Setter Target="CornerRadius" Value="5"></Setter>
                 <Setter Target="Margin" Value="5"></Setter>
-                
+                <Setter Target="Background" Value="White"></Setter>
             </Style>
 
             <Style TargetType="TextBlock" x:Key="InputFieldTextBlock">
@@ -899,6 +899,7 @@
                 <Setter Target="BorderThickness" Value="0.3"></Setter>
                 <Setter Target="CornerRadius" Value="5"></Setter>
                 <Setter Target="Margin" Value="5"></Setter>
+                <Setter Target="Background" Value="#1a1a1a"></Setter>
 
             </Style>
 

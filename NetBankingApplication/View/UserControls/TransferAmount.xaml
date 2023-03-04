@@ -35,7 +35,10 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Make a Transaction" Margin="10" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
                 <StackPanel Grid.Row="1" Margin="5" >
-                    <TextBlock FontSize="16" Text="Select Recipient" Margin="5" ></TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock FontSize="16" Text="Select Recipient" ></TextBlock>
+                        <TextBlock FontSize="16"   FontFamily="Segoe MDL2 Assets" Text="&#xEA21;" Foreground="red"  Padding="5,5,0,0"></TextBlock>
+                    </StackPanel>
                     <DropDownButton Name="SelectPayee" Content="Select payee" MinWidth="350"   Style="{ThemeResource DropdownStyle}" >
                         <DropDownButton.Flyout >
                             <MenuFlyout  Opening="MenuFlyout_Opened" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
@@ -46,12 +49,28 @@
                     </DropDownButton>
                 </StackPanel>
 
-                <TextBox Visibility="Collapsed" Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="Enter Name of Recipient"  x:Name="NewPayeeName" TextChanged="NewPayeeName_TextChanged"></TextBox>
+                <TextBox Visibility="Collapsed" Grid.Row="2" Style="{ThemeResource InputFieldTextBox}"  x:Name="NewPayeeName" TextChanged="NewPayeeName_TextChanged">
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="Enter Name of Recipient " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
 
-                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" InputScope="Number" Header="Account Number"  x:Name="AccountNumberTextBox" BeforeTextChanging="TextBox_OnBeforeTextChanging"/>
+                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" InputScope="Number"   x:Name="AccountNumberTextBox" BeforeTextChanging="TextBox_OnBeforeTextChanging">
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="Account Number " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
 
                 <StackPanel x:Name="MultipleAccounts" Grid.Row="4" Margin="5" Visibility="Collapsed">
-                    <TextBlock Text="Select Your Account" FontSize="16" Margin="5"></TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <TextBlock Text="Select Your Account" FontSize="16" ></TextBlock>
+                        <TextBlock FontSize="16"   FontFamily="Segoe MDL2 Assets" Text="&#xEA21;" Foreground="red"  Padding="5,5,0,0"></TextBlock>
+                    </StackPanel>
+                  
                     <DropDownButton HorizontalAlignment="Left" Name="SelectAccount"   Style="{ThemeResource DropdownStyle}" Content="Select From Account"  MinWidth="350" MinHeight="30" >
                         <DropDownButton.Flyout >
                             <MenuFlyout x:Name="AccountDropdown"   Opening="AccountDropdown_Opening" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
@@ -84,10 +103,17 @@
                         <TextBlock Text="{x:Bind GetAllAccountsViewModel.SingleAccountBalance,Mode=OneWay}" FontSize="16" Margin="5,0,0,0"></TextBlock>
                     </StackPanel>
                 </Grid>
-               
 
-                <TextBox  Grid.Row="6" Style="{ThemeResource InputFieldTextBox}" Header="Remark" x:Name="RemarkTextBox" />
-                <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}" Header="Amount" TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox"/>
+
+                <TextBox Header="Remark" Grid.Row="6" Style="{ThemeResource InputFieldTextBox}"  x:Name="RemarkTextBox" ></TextBox>
+
+                <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}"  TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox">
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="Amount " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
 
                 <TextBlock Grid.Row="7" Text="{x:Bind TransferAmountViewModel.ResultText,Mode=OneWay}" x:Name="ErrorMessage" Style="{ThemeResource FailureText}"></TextBlock>
                 
@@ -103,9 +129,9 @@
 
             <ContentDialog x:Name="ContentDialog"
         Title="Transaction Details"
-        CloseButtonText="Done"
+        CloseButtonText="Done" Background="{ThemeResource SupportingColour}" CornerRadius="10"
         DefaultButton="Close" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Grid  x:Name="TransactionDetails" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Grid  x:Name="TransactionDetails" HorizontalAlignment="Center" VerticalAlignment="Center"  Background="{ThemeResource SupportingColour}" CornerRadius="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>

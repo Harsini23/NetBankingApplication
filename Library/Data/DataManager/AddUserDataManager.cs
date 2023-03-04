@@ -30,11 +30,13 @@ namespace Library.Data.DataManager
             var GeneratedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 1000000000).ToString();
             var account= CreateAccount(GeneratedAccountNumber,request.newUser.AccountType,request.newUser.TotalBalance,request.newUser.BId,request.newUser.Currency);
             var userAccount= CreateUserAccounts(GeneratedAccountNumber);
+            Transaction currentTransation = AddInitialTransaction(user.UserId, user.UserName, userAccount.AccountNumber, request.newUser.TotalBalance);
 
             DbHandler.AddUser(user);
             DbHandler.AddAccount(account);
             DbHandler.AddAccountForUser(userAccount);
             DbHandler.CreateCredential(credentials);
+            DbHandler.AddTransaction(currentTransation);
             Debug.WriteLine("Created and added new account and user details");
 
             addUserResponse.credentials = new Credentials
@@ -100,6 +102,25 @@ namespace Library.Data.DataManager
                 UserId = UserID,
                 AccountNumber = accno,
             };
+        }
+
+        private Transaction AddInitialTransaction(string userId,string name,string ToAcc,double balance)
+        {
+            Transaction currentTransaction = new Transaction
+            {
+                UserId = userId,
+                Name = name,
+                TransactionId = GenerateUniqueId.GetUniqueId("TID"),
+                Date = CurrentDateTime.GetCurrentDate(),
+                TransactionType = TransactionType.Credited,
+                Remark ="Initial deposit",
+                Amount =balance ,
+                FromAccount = "0",
+                ToAccount = ToAcc,
+                Status = true,
+            };
+            return currentTransaction;
+
         }
     }
 

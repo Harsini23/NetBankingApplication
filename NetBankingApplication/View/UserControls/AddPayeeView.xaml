@@ -33,13 +33,43 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Add new Payee" Style="{ThemeResource InputFieldTextBox}" Margin="5" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
-                    <TextBox Grid.Row="1" Style="{ThemeResource InputFieldTextBox}" Header="Payee Name" x:Name="PayeeName" />
-                    <TextBox Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="Account Holder name" x:Name="AccountHolderName"/>
-                    <TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" Header="Bank Name"  x:Name="BankName"/>
-                    <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" InputScope="Number" Header="Account Number"  x:Name="Accountnumber" BeforeTextChanging="TextBox_OnBeforeTextChanging" />
-                    <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}" Header="IFSC Code"  x:Name="IfscCode" />
+                <TextBox Grid.Row="1" Style="{ThemeResource InputFieldTextBox}" x:Name="PayeeName" >
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="Payee Name " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
+                <TextBox Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" x:Name="AccountHolderName">
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="Account Holder name " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
+                <TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}"   x:Name="BankName">
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="Bank Name " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
+                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" InputScope="Number"  x:Name="Accountnumber" BeforeTextChanging="TextBox_OnBeforeTextChanging" >
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="Account Number " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
+                <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}"   x:Name="IfscCode" >
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="IFSC Code " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
 
-                    <TextBlock Grid.Row="6" x:Name="ErrorMessage" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="6" x:Name="ErrorMessage" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <Button  Grid.Row="7" x:Name="AddPayee" Content="Add Payee" Style="{ThemeResource ButtonStyling}" Click="AddPayee_Click"></Button>
 
                 </Grid>
