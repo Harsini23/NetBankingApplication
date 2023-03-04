@@ -1,6 +1,7 @@
 ﻿using Library.Data.DataBaseService;
 using Library.Domain;
 using Library.Domain.UseCase;
+using Library.Model;
 using Library.Util;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,8 @@ namespace Library.Data.DataManager
             ZResponse<bool> Response = new ZResponse<bool>();
 
             var IsAdmin = DbHandler.CheckIfAdmin(request.UserId);
-            var result= DbHandler.ResetPassword(request.UserId, PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword( request.NewPassword)),IsAdmin);
+            Credentials updatedCredential = new Credentials(request.UserId, PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(request.NewPassword)), false, IsAdmin);
+            var result= DbHandler.ResetPassword(updatedCredential);
             Response.Data = result;
             if (result)
             {

@@ -18,11 +18,8 @@ namespace Library.Data.DataBaseService
         bool CheckUserCredential(string userId, string password);
         bool CheckIfAdmin(string userId);
         bool CheckIfNewUser(string userId);
-        void AddRecord(String userId, string password, bool isAdmin);
-        bool ResetPassword(string userId, string password, bool IsAdmin);
-        void AddCredential(string userId, string password);
-        //bool GetAccount(string userId);
-        Transaction AddTransaction(Transaction transaction);
+        bool ResetPassword(Credentials newCredential);
+        bool AddTransaction(Transaction transaction);
         void AddAccount(Account account);
         List<Transaction> GetAllTransactions(string userId);
         bool AddNewPayee(Payee newPayee);
