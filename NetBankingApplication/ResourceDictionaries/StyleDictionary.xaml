@@ -5,7 +5,7 @@
    
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Name="Light" >
-            
+
             <AcrylicBrush x:Key="MyAcrylicBrush"
             BackgroundSource="Backdrop"
             TintColor="#eaf3fa"
@@ -247,7 +247,6 @@
                 <Setter Property="Background" Value="White"></Setter>
             </Style>
             <Style TargetType="FlyoutPresenter" x:Key="FlyoutPresenterStyle">
-                <Setter Property="MinWidth" Value="350"></Setter>
                 <Setter Property="CornerRadius" Value="5"></Setter>
                 <Setter Property="Background" Value="White"></Setter>
             </Style>
@@ -1056,7 +1055,6 @@
             </Style>
             
             <Style TargetType="FlyoutPresenter" x:Key="FlyoutPresenterStyle">
-                <Setter Property="MinWidth" Value="350"></Setter>
                 <Setter Property="CornerRadius" Value="5"></Setter>
                 <Setter Property="Background" Value="Black"></Setter>
             </Style>

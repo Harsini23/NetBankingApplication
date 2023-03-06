@@ -99,7 +99,7 @@ namespace NetBankingApplication.View.UserControls
                 CurrencyValues.SelectedItem = null;
                 AddUserViewModel.ErrorMessage = String.Empty;
                 PANTextBox.Text = String.Empty;
-
+                SelectBranch.Content = "";
                 ShowContentDialogueAsync();
 
             }

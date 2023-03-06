@@ -56,7 +56,7 @@ namespace NetBankingApplication.View.UserControls
             //allRecipients = GetAllPayeeViewModel.AllPayee;
         }
 
-        private void DeletePayee_Click(object sender, RoutedEventArgs e)
+        private async void DeletePayee_Click(object sender, RoutedEventArgs e)
         {
             //Button button = (Button)sender;
             //var listViewItem = button.Parent;
@@ -71,7 +71,17 @@ namespace NetBankingApplication.View.UserControls
             //AllTransactionListView.ItemsSource = PayeeCollection;
             //SuggestboxPayeeChange.Text = String.Empty;
             //EmptyList.Visibility = Visibility.Collapsed;
-           
+          
+
+            DeletePayeeAcknowledgementDialogue.ShowAsync();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += (s, args) =>
+            {
+                DeletePayeeAcknowledgementDialogue.Hide();
+                timer.Stop();
+            };
+            timer.Start();
 
         }
 
@@ -139,6 +149,7 @@ namespace NetBankingApplication.View.UserControls
             double verticalOffset = Window.Current.Bounds.Height / 2 - EditPayeePopup.ActualHeight / 2-110;
             EditPayeePopup.HorizontalOffset = horizontalOffset;
             EditPayeePopup.VerticalOffset = verticalOffset;
+            ErrorMessage.Visibility = Visibility.Collapsed;
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -157,19 +168,53 @@ namespace NetBankingApplication.View.UserControls
 
         private void EditPayeeDetails_Click(object sender, RoutedEventArgs e)
         {
-            Payee editedPayee = new Payee
+            if (string.IsNullOrEmpty(PayeeNameTextBox.Text) || string.IsNullOrWhiteSpace(PayeeNameTextBox.Text))
             {
-                UserID = currentUserId,
-                PayeeName = PayeeNameTextBox.Text,
-                AccountHolderName = AccountHolderTextBox.Text,
-                AccountNumber = AccountNumberTextBox.Text,
-                IfscCode = IFSCCodeTextBox.Text,
-                BankName = BankNameTextBox.Text,
-            };
-            EditPayeeViewModel.EditPayee(editedPayee);
+                ErrorMessage.Text = "Name cannot be empty";
+                ErrorMessage.Visibility = Visibility.Visible;
+            }
+           else if (string.IsNullOrEmpty(AccountHolderTextBox.Text) || string.IsNullOrWhiteSpace(AccountHolderTextBox.Text))
+            {
+                ErrorMessage.Text = "Account Holder name cannot be empty";
+                ErrorMessage.Visibility = Visibility.Visible;
+            }
+           else if (string.IsNullOrEmpty(IFSCCodeTextBox.Text) || string.IsNullOrWhiteSpace(IFSCCodeTextBox.Text))
+            {
+                ErrorMessage.Text = "IFSC code cannot be empty";
+                ErrorMessage.Visibility = Visibility.Visible;
+            }
+            else if (string.IsNullOrEmpty(BankNameTextBox.Text) || string.IsNullOrWhiteSpace(BankNameTextBox.Text))
+            {
+                ErrorMessage.Text = "Bank name cannot be empty";
+                ErrorMessage.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Payee editedPayee = new Payee
+                {
+                    UserID = currentUserId,
+                    PayeeName = PayeeNameTextBox.Text,
+                    AccountHolderName = AccountHolderTextBox.Text,
+                    AccountNumber = AccountNumberTextBox.Text,
+                    IfscCode = IFSCCodeTextBox.Text,
+                    BankName = BankNameTextBox.Text,
+                };
+                EditPayeeViewModel.EditPayee(editedPayee);
 
+
+                EditPayeePopup.IsOpen = false;
+
+                EditPayeeAcknowledgementDialogue.ShowAsync();
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(1);
+                timer.Tick += (s, args) =>
+                {
+                    EditPayeeAcknowledgementDialogue.Hide();
+                    timer.Stop();
+                };
+                timer.Start();
+            }
          
-            EditPayeePopup.IsOpen = false;
         }
     }
 }

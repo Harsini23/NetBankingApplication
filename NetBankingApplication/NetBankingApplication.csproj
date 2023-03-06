@@ -175,6 +175,12 @@
     <Compile Include="View\UserControls\PayeeTemplate.xaml.cs">
       <DependentUpon>PayeeTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\ResetPassword.xaml.cs">
+      <DependentUpon>ResetPassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\TransactionDetailView.xaml.cs">
       <DependentUpon>TransactionDetailView.xaml</DependentUpon>
     </Compile>
@@ -321,6 +327,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\PayeeTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\ResetPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

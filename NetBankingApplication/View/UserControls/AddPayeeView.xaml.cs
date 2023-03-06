@@ -31,7 +31,7 @@ namespace NetBankingApplication.View.UserControls
             this.InitializeComponent();
             AddPayeeViewModel = PresenterService.GetInstance().Services.GetService<AddPayeeBaseViewModel>();
             currentUserId = userId;
-            Result.Text = "";
+         //   Result.Text = "";
 
         }
         public AddPayeeView() { }
@@ -52,7 +52,19 @@ namespace NetBankingApplication.View.UserControls
                 BankName.Text = String.Empty;
                 ErrorMessage.Text= String.Empty;
 
+                AddPayeeDialog.ShowAsync();
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(1);
+                timer.Tick += (s, args) =>
+                {
+                    AddPayeeDialog.Hide();
+                    timer.Stop();
+                };
+                timer.Start();
+
             }
+
+           
         }
 
         private void TextBox_OnBeforeTextChanging(TextBox sender,

@@ -151,7 +151,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="NavigationView">
-                            <Grid x:Name="RootGrid">
+                            <Grid x:Name="RootGrid" >
 
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup x:Name="DisplayModeGroup">

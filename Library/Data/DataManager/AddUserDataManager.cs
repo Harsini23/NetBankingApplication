@@ -115,7 +115,7 @@ namespace Library.Data.DataManager
                 TransactionType = TransactionType.Credited,
                 Remark ="Initial deposit",
                 Amount =balance ,
-                FromAccount = "0",
+                FromAccount = "-",
                 ToAccount = ToAcc,
                 Status = true,
             };

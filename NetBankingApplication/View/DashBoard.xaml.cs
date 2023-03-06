@@ -93,7 +93,6 @@ namespace NetBankingApplication.View
             {
 
                 Overview overview = new Overview(Currentuser);
-
                 CurrentSelectedModule = overview;
                 HeaderTitle = "Overview";
                 DashBoardNavigation.AlwaysShowHeader = false;
@@ -114,7 +113,10 @@ namespace NetBankingApplication.View
             }
             else if (args.SelectedItem == Settings)
             {
+                SettingsView settings = new SettingsView(Currentuser);
+                CurrentSelectedModule = settings;
                 HeaderTitle = "Settings";
+                DashBoardNavigation.AlwaysShowHeader = true;
             }
             else
             {

@@ -14,7 +14,148 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="ComboBoxItem" x:Key="ComboBoxItemRevealStyle">
+                <Setter Property="Foreground" Value="{ThemeResource ComboBoxItemForeground}" />
+                <Setter Property="Background" Value="{ThemeResource ComboBoxItemRevealBackground}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource ComboBoxItemRevealBorderBrush}" />
+                <Setter Property="BorderThickness" Value="{ThemeResource ComboBoxItemRevealBorderThemeThickness}" />
+                <Setter Property="TabNavigation" Value="Local" />
+                <Setter Property="Padding" Value="{ThemeResource ComboBoxItemRevealThemePadding}" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBoxItem">
+                            <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" Control.IsTemplateFocusTarget="True">
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="LayoutRoot" />
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="LayoutRoot.(RevealBrush.State)" Value="PointerOver" />
+                                                <Setter Target="LayoutRoot.Background" Value="{ThemeResource ComboBoxItemRevealBackgroundPointerOver}" />
+                                                <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ComboBoxItemRevealBorderBrushPointerOver}" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ComboBoxItemForegroundPointerOver}" />
+                                            </VisualState.Setters>
+
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="LayoutRoot" />
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="Disabled">
+                                            <VisualState.Setters>
+                                                <Setter Target="LayoutRoot.Background" Value="{ThemeResource ComboBoxItemRevealBackgroundDisabled}" />
+                                                <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ComboBoxItemRevealBorderBrushDisabled}" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ComboBoxItemForegroundDisabled}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Target="LayoutRoot.Background" Value="{ThemeResource ComboBoxItemRevealBackgroundPressed}" />
+                                                <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ComboBoxItemRevealBorderBrushPressed}" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ComboBoxItemForegroundPressed}" />
+                                                <Setter Target="LayoutRoot.(RevealBrush.State)" Value="Pressed" />
+                                            </VisualState.Setters>
+
+                                            <Storyboard>
+                                                <PointerDownThemeAnimation Storyboard.TargetName="LayoutRoot" />
+                                            </Storyboard>
+                                        </VisualState>
+
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Target="LayoutRoot.Background" Value="{ThemeResource ComboBoxItemRevealBackgroundSelected}" />
+                                                <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ComboBoxItemRevealBorderBrushSelected}" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ComboBoxItemForegroundSelected}" />
+                                            </VisualState.Setters>
+
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="LayoutRoot" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="SelectedUnfocused">
+                                            <VisualState.Setters>
+                                                <Setter Target="LayoutRoot.Background" Value="{ThemeResource ComboBoxItemRevealBackgroundSelectedUnfocused}" />
+                                                <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ComboBoxItemRevealBorderBrushSelectedUnfocused}" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ComboBoxItemForegroundSelectedUnfocused}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="SelectedDisabled">
+                                            <VisualState.Setters>
+                                                <Setter Target="LayoutRoot.Background" Value="{ThemeResource ComboBoxItemRevealBackgroundSelectedDisabled}" />
+                                                <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ComboBoxItemRevealBorderBrushSelectedDisabled}" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ComboBoxItemForegroundSelectedDisabled}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="SelectedPointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="LayoutRoot.Background" Value="{ThemeResource ComboBoxItemRevealBackgroundSelectedPointerOver}" />
+                                                <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ComboBoxItemRevealBorderBrushSelectedPointerOver}" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ComboBoxItemForegroundSelectedPointerOver}" />
+                                                <Setter Target="LayoutRoot.(RevealBrush.State)" Value="PointerOver" />
+                                            </VisualState.Setters>
+
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="LayoutRoot" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="SelectedPressed">
+                                            <VisualState.Setters>
+                                                <Setter Target="LayoutRoot.Background" Value="{ThemeResource ComboBoxItemRevealBackgroundSelectedPressed}" />
+                                                <Setter Target="LayoutRoot.BorderBrush" Value="{ThemeResource ComboBoxItemRevealBorderBrushSelectedPressed}" />
+                                                <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ComboBoxItemForegroundSelectedPressed}" />
+                                                <Setter Target="LayoutRoot.(RevealBrush.State)" Value="Pressed" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="InputModeStates">
+                                        <VisualState x:Name="InputModeDefault" />
+                                        <VisualState x:Name="TouchInputMode">
+                                            <VisualState.Setters>
+                                                <Setter Target="ContentPresenter.Margin" Value="{ThemeResource ComboBoxItemRevealThemeTouchPadding}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="GameControllerInputMode">
+                                            <VisualState.Setters>
+                                                <Setter Target="ContentPresenter.Margin" Value="{ThemeResource ComboBoxItemRevealThemeGameControllerPadding}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                    </VisualStateGroup>
+
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentPresenter x:Name="ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Margin="{TemplateBinding Padding}" />
+
+                            </Grid>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="Button" x:Key="ContentDialogPrimaryButtonStyle">
+                <Setter Property="CornerRadius" Value="5"></Setter>
+               
+            </Style>
         </ResourceDictionary>
+        
     </UserControl.Resources>
     <ScrollViewer>
         <Grid x:Name="TransferAmountDetails" VerticalAlignment="Center" Margin="20" MinWidth="200" Background="Transparent" HorizontalAlignment="Center" >
@@ -37,11 +178,37 @@
 
             </Grid.RowDefinitions>
             
-            <TextBlock Text="User Details" Margin="10" FontWeight="Bold" FontSize="20" ></TextBlock>
-            <TextBox Grid.Row="1" Style="{ThemeResource InputFieldTextBox}" Header="User Name" x:Name="UserNameTextBox" />
-            <TextBox Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="Email ID"  x:Name="EmailIdTextBox" InputScope="EmailSmtpAddress"/>
-                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}"  BeforeTextChanging="TextBox_OnBeforeTextChanging" Header="Mobile Number"   x:Name="MobileNumberTextBox"  InputScope="TelephoneNumber"/>
-                <TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" Header="PAN"   x:Name="PANTextBox" />
+            <TextBlock Text="User Details" Margin="5,10,10,10" FontWeight="Bold" FontSize="20" >
+               
+            </TextBlock>
+                <TextBox Grid.Row="1" Style="{ThemeResource InputFieldTextBox}"  x:Name="UserNameTextBox" >
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="User Name " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
+                <TextBox Grid.Row="2" Style="{ThemeResource InputFieldTextBox}"   x:Name="EmailIdTextBox" InputScope="EmailSmtpAddress">
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="Email ID " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
+                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}"  BeforeTextChanging="TextBox_OnBeforeTextChanging"   x:Name="MobileNumberTextBox"  InputScope="TelephoneNumber">
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="Mobile Number " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
+                <TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}"   x:Name="PANTextBox" >
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="PAN " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
 
             </Grid>
 
@@ -53,18 +220,37 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Text="Account Details" Margin="10" FontWeight="Bold" FontSize="20" ></TextBlock>
+                <TextBlock Text="Account Details" Margin="5,10,10,10" FontWeight="Bold" FontSize="20" ></TextBlock>
 
-                <ComboBox x:Name="AccountTypeBox" Header="Account Type" MinWidth="400" CornerRadius="5" Margin="5" Grid.Row="1" ItemsSource="{x:Bind _AccountTypeValues}">
-            </ComboBox>
-                <ComboBox x:Name="CurrencyValues" Header="Currency" MinWidth="400" CornerRadius="5" Margin="5" Grid.Row="2" ItemsSource="{x:Bind _CurrencyValues}">
-            </ComboBox>
-                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" Header="Balance" BeforeTextChanging="TextBox_OnBeforeTextChanging"  InputScope="Number"  x:Name="BalanceTextBox"/>   
-            <!--<TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" Header="Branch Id"  x:Name="BranchIdTextBox"/>-->
+                <ComboBox Background="{ThemeResource AppForegroundBg}" BorderThickness="0.4" ItemContainerStyle="{StaticResource ComboBoxItemRevealStyle}" x:Name="AccountTypeBox"  MinWidth="400" CornerRadius="5" Margin="5" Grid.Row="1" ItemsSource="{x:Bind _AccountTypeValues}">
+                    <ComboBox.Header>
+                        <TextBlock FontSize="16">
+        <Run Text="Account Type " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </ComboBox.Header>
+                </ComboBox>
+                <ComboBox Background="{ThemeResource AppForegroundBg}" BorderThickness="0.4" ItemContainerStyle="{StaticResource ComboBoxItemRevealStyle}" x:Name="CurrencyValues"  MinWidth="400" CornerRadius="5" Margin="5" Grid.Row="2" ItemsSource="{x:Bind _CurrencyValues}">
+                    <ComboBox.Header>
+                        <TextBlock FontSize="16">
+        <Run Text="Currency " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </ComboBox.Header>
+                </ComboBox>
+                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}"  BeforeTextChanging="TextBox_OnBeforeTextChanging"  InputScope="Number"  x:Name="BalanceTextBox">
+                    <TextBox.Header>
+                        <TextBlock >
+        <Run Text="Balance " > </Run><Run  Foreground="Red">*</Run>
+                        </TextBlock>
+                    </TextBox.Header>
+                </TextBox>
+                <!--<TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" Header="Branch Id"  x:Name="BranchIdTextBox"/>-->
 
                 <StackPanel  Grid.Row="4" Margin="5" >
-                    <TextBlock Text="Branch" FontSize="15" Padding="5"></TextBlock>
-                    <DropDownButton HorizontalContentAlignment="Left" MinWidth='400'   Name="SelectBranch" Content="Branch"  Style="{ThemeResource DropdownStyle}" >
+                    <StackPanel Orientation="Horizontal" Padding="0,0,0,5">
+                        <TextBlock Text="Branch" FontSize="16"  ></TextBlock>
+                        <TextBlock FontSize="16"   FontFamily="Segoe MDL2 Assets" Text="&#xEA21;" Foreground="red"  Padding="5,5,0,0"></TextBlock>
+                    </StackPanel>
+                    <DropDownButton HorizontalContentAlignment="Left" MinWidth='400'   Name="SelectBranch" MinHeight="32" Background="{ThemeResource AppForegroundBg}" Style="{ThemeResource DropdownStyle}" >
                         <DropDownButton.Flyout >
                             <MenuFlyout  Opening="MenuFlyout_Opening" LightDismissOverlayMode="Auto" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
                                 <MenuFlyoutItem CornerRadius="10" MinWidth="400"></MenuFlyoutItem>
@@ -87,8 +273,9 @@
         </Grid>
 
 
-            <ContentDialog x:Name="ContentDialog" CornerRadius="5" MaxWidth="100" MaxHeight="10"  CloseButtonText="Done"
-        DefaultButton="Close" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ContentDialog x:Name="ContentDialog" CornerRadius="5"  CloseButtonText="Done"
+         CloseButtonStyle="{StaticResource ContentDialogPrimaryButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    
                 <Grid  x:Name="TransactionDetails" HorizontalAlignment="Center" VerticalAlignment="Center" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -96,22 +283,26 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBlock Margin="5" Text="Your Credentials" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5">
-                        <TextBlock Padding="3" Text="UserID :"></TextBlock>
-                        <TextBlock Padding="3" Text="{x:Bind AddUserViewModel.UserId,Mode=OneWay}"></TextBlock>
-                        <Button Width="25" Name="copy" Height="25" FontSize="15" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Margin="0" Grid.Column="1" FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="Idcopy_Click" ></Button>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="5">
-                        <TextBlock Padding="3" Text="Password :"></TextBlock>
-                        <TextBlock Padding="3" Text="{x:Bind AddUserViewModel.Password,Mode=OneWay}"></TextBlock>
-                        <Button Width="25" Height="25" FontSize="15" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Margin="0" Grid.Column="1" FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="Passwordcopy_Click" ></Button>
+                    <TextBlock Margin="10" Text="Your Credentials" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5,20,5,5" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                        <TextBlock  Text="UserID :" Padding="0,3,3,3" FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
+                        <TextBlock Margin="5,0,0,0" Padding="0,3,3,3" Text="{x:Bind AddUserViewModel.UserId,Mode=OneWay}"></TextBlock>
+                        <Button Width="25" Name="copy" Height="25" FontSize="12" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Margin="5,0,0,0" Grid.Column="1" FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="Idcopy_Click" ></Button>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="5">
-                        <TextBlock Text="Account Number"></TextBlock>
-                        <TextBlock Text="{x:Bind AddUserViewModel.AccountNo,Mode=OneWay}"></TextBlock>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBlock Text="Password :" Padding="0,3,3,3" FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
+                        <TextBlock Margin="5,0,0,0" Padding="0,3,3,3" Text="{x:Bind AddUserViewModel.Password,Mode=OneWay}"></TextBlock>
+                        <Button Margin="5,0,0,0" Width="25" Height="25" FontSize="12" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Grid.Column="1" FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="Passwordcopy_Click" ></Button>
                     </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBlock Text="Account Number : " FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
+                        <TextBlock Margin="5,0,0,0" Text="{x:Bind AddUserViewModel.AccountNo,Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    
+
                 </Grid>
             </ContentDialog>
 

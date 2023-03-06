@@ -22,7 +22,7 @@ namespace Library.Data.DataManager
             var res = DbHandler.AddNewPayee(request.NewPayee);
             if (res)
             {
-                Response.Response = "Sucessfully added payee now you can make tranfers to this account";
+                Response.Response = "Sucessfully added payee";
                 Response.Data = null;
                 response?.OnResponseSuccess(Response);
 

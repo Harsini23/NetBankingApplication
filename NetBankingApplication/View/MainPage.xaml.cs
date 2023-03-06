@@ -71,17 +71,17 @@ namespace NetBankingApplication
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-             LoadContentFrame.Navigate(typeof(LoginPage));
-            //User user = new User
-            //{
-            //    UserId = "UID6df59172",
-            //    UserName = "Rachel",
-            //    MobileNumber = 9872634150,
-            //    EmailId = "rachelgreeen@gmail.com",
-            //    IsBlocked = false,
-            //    PAN = "18DF34D34S"
-            //};
-            //LoadContentFrame.Navigate(typeof(DashBoard), user);
+             //LoadContentFrame.Navigate(typeof(LoginPage));
+            User user = new User
+            {
+                UserId = "UID6df59172",
+                UserName = "Rachel",
+                MobileNumber = 9872634150,
+                EmailId = "rachelgreeen@gmail.com",
+                IsBlocked = false,
+                PAN = "18DF34D34S"
+            };
+            LoadContentFrame.Navigate(typeof(DashBoard), user);
 
 
             //User user = new User

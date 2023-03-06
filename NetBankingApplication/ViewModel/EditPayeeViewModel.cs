@@ -47,6 +47,7 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
+                EditPayeeViewModel.ResponseValue = response.Response;
                 //refresh list after updation!
                 eventProvider.Subscribe(new PayeeUpdate());
                 eventProvider.RaiseEvent(EditPayeeViewModel.Currentpayee.UserID);

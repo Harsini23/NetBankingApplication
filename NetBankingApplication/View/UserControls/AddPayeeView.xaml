@@ -17,8 +17,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <ScrollViewer> 
-       
+    <ScrollViewer>
+        <Grid>
             <StackPanel>
                 <Grid Width="300" HorizontalAlignment="Center" Margin="20" VerticalAlignment="Center">
                     <Grid.RowDefinitions>
@@ -73,15 +73,22 @@
                     <Button  Grid.Row="7" x:Name="AddPayee" Content="Add Payee" Style="{ThemeResource ButtonStyling}" Click="AddPayee_Click"></Button>
 
                 </Grid>
-                <TextBlock  Text="{x:Bind AddPayeeViewModel.AddPayeeResponseValue,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" x:Name="Result"></TextBlock>
-            </StackPanel>
-           
-            <!--change-->
+                <!--<TextBlock  Text="{x:Bind AddPayeeViewModel.AddPayeeResponseValue,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" x:Name="Result"></TextBlock>-->
+        
+        </StackPanel>
 
-            <!--<local:PayeeTemplate Margin="10" PayeeNameTextBox="Harsh"  Name="PayeeTemplateHolder"></local:PayeeTemplate>-->
-            <!--<Button Content="Testing" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Testing" Click="Testing_Click"></Button>-->
-            
-     
+            <ContentDialog x:Name="AddPayeeDialog"
+       Background="{ThemeResource SupportingColour}" CornerRadius="10"
+       HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Margin="0" >
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock FontWeight="bold"  Text="&#xE001;" FontFamily="Segoe MDL2 Assets" Foreground="Green" FontSize="18"></TextBlock>
+                    <TextBlock  Text="{x:Bind AddPayeeViewModel.AddPayeeResponseValue,Mode=OneWay}" FontSize="18" Padding="5,0,0,0"></TextBlock>
+                </StackPanel>
+
+            </ContentDialog>
+        </Grid>
+
     </ScrollViewer>
   
 </UserControl>
