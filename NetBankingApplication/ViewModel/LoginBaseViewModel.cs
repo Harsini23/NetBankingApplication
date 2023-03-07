@@ -35,6 +35,19 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+
+
+        private bool _redirect = true;
+        public bool Redirect
+        {
+            get { return this._redirect; }
+            set
+            {
+                _redirect = value;
+                OnPropertyChanged(nameof(Redirect));
+            }
+        }
+
         public ILoginViewModel LoginViewModelCallback { get; set; }
         public IMainPageNavigation MainPageNavigationCallback { get; set; }
         public ICloseAllWindows CloseAllWindowsCallback { get; set; }

@@ -104,73 +104,16 @@ namespace NetBankingApplication.View
 
         public void SwitchToResetPasswordContainer()
         {
-            Debug.WriteLine(ResetPasswordcontainer.Visibility.ToString());
             LoginContainer.Visibility = Visibility.Collapsed;
             LoginContainerShadow.Visibility = Visibility.Collapsed;
-            ResetPasswordcontainer.Visibility = Visibility.Visible;
-            Debug.WriteLine(ResetPasswordcontainer.Visibility.ToString());
-          
-        }
-     
-        private void RevealModeCheckbox_ChangedReset(object sender, RoutedEventArgs e)
-        {
-            if (revealModeCheckBoxPassword.IsChecked == true)
-            {
-                PasswordReset.PasswordRevealMode = PasswordRevealMode.Visible;
-            }
-            else
-            {
-                PasswordReset.PasswordRevealMode = PasswordRevealMode.Hidden;
-            }
+            //ResetGrid.Visibility = Visibility.Visible;
+            ResetGrid.IsOpen = true;
+            double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetGrid.ActualWidth / 2+450;
+            double verticalOffset = Window.Current.Bounds.Height / 2 - ResetGrid.ActualHeight / 2 +50;
+            ResetGrid.HorizontalOffset = horizontalOffset;
+            ResetGrid.VerticalOffset = verticalOffset;
         }
 
-        private void RevealModeCheckbox_Changed_RePassword(object sender, RoutedEventArgs e)
-        {
-            if (revealModeCheckBox_RePassword.IsChecked == true)
-            {
-                RePasswordReset.PasswordRevealMode = PasswordRevealMode.Visible;
-            }
-            else
-            {
-                RePasswordReset.PasswordRevealMode = PasswordRevealMode.Hidden;
-            }
-        }
-
-        private void Password_PasswordChangedReset(object sender, RoutedEventArgs e)
-        {
-            var passwordBox = (PasswordBox)sender;
-            var password = passwordBox.Password.ToString();
-            if (password.Length > 8 && password.Length < 14 && password.Any(char.IsLower) && password.Any(char.IsUpper) && (!password.Contains(" ")) && CheckForSpecialCharacter(password))
-            {
-                RePasswordReset.IsEnabled = true;
-                NewPassword = password;
-            }
-            else
-            {
-                RePasswordReset.IsEnabled = false;
-            }
-        }
-
-        private void Password_Verify(object sender, RoutedEventArgs e)
-        {
-            var passwordBox = (PasswordBox)sender;
-            var password = passwordBox.Password.ToString();
-            if (password == NewPassword)
-            {
-                ReSetPassword.IsEnabled = true;
-            }
-            else
-            {
-                ReSetPassword.IsEnabled = false;
-            }
-        }
-
-        private void ResetPassword_Click(object sender, RoutedEventArgs e)
-        {
-            LoginViewModel.ResetPassword(RePasswordReset.Password);
-        }
-
-      
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
             if (args.VirtualKey == Windows.System.VirtualKey.Enter)

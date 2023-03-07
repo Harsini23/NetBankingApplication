@@ -121,15 +121,24 @@ namespace NetBankingApplication.ViewModel
                 await SwitchToMainUIThread.SwitchToMainThread(() =>
                 {
                     loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
+                    var redirectToLogin = loginViewModel.Redirect;
                     //
-                    if (IsAdmin)
+                    if (redirectToLogin)
                     {
-                         handleAdminAccess();
+                        if (IsAdmin)
+                        {
+                            handleAdminAccess();
+                        }
+                        else
+                        {
+                            LoadDashBoard(LoginViewModel.user);
+                        }
                     }
                     else
                     {
-                         LoadDashBoard(LoginViewModel.user);
+
                     }
+                  
                 });
                  
             }

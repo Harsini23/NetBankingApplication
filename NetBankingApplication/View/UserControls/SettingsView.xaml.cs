@@ -35,9 +35,40 @@ namespace NetBankingApplication.View.UserControls
             this.currentuser = currentuser; this.InitializeComponent();
         }
 
+
+        private void RevealModeCheckbox_Changed(object sender, RoutedEventArgs e)
+        {
+            if (revealModeCheckBox.IsChecked == true)
+            {
+                ResetPassword.PasswordRevealMode = PasswordRevealMode.Visible;
+            }
+            else
+            {
+                ResetPassword.PasswordRevealMode = PasswordRevealMode.Hidden;
+            }
+        }
+
         private void ResetPassword_Click(object sender, RoutedEventArgs e)
         {
+            //ResetPasswordGrid.Visibility = Visibility.Visible;
+            ResetPasswordGrid.IsOpen = true;
+            double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetPasswordGrid.ActualWidth / 2 ;
+            double verticalOffset = Window.Current.Bounds.Height / 2 - ResetPasswordGrid.ActualHeight / 2;
+            ResetPasswordGrid.HorizontalOffset = horizontalOffset;
+            ResetPasswordGrid.VerticalOffset = verticalOffset;
+        
+            //if ()
+            //{
 
+            //}else if ()
+            //{
+            //    ResetPasswordGrid.IsOpen = true;
+            //    double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetPasswordGrid.ActualWidth / 2 + 60;
+            //    double verticalOffset = Window.Current.Bounds.Height / 2 - ResetPasswordGrid.ActualHeight / 2;
+            //    ResetPasswordGrid.HorizontalOffset = horizontalOffset;
+            //    ResetPasswordGrid.VerticalOffset = verticalOffset;
+            //}
+         
         }
     }
 }

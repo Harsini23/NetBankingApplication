@@ -14,7 +14,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer>
+    <ScrollViewer >
 
 
     <Grid Padding="30,0,30,30" Background="{ThemeResource AppBackground}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  >
@@ -67,18 +67,27 @@
         <StackPanel CornerRadius="10" Grid.Row="1" Background="{ThemeResource AppForegroundBg}" Margin="0,30,0,0">
             <TextBlock Text="Reset password" FontSize="22" Padding="20" FontWeight="Normal"></TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Margin="20,0,0,20" Width="300" HorizontalAlignment="Left"  Style="{ThemeResource InputFieldTextBox}" x:Name="ResetPassword">
-                        <TextBox.Header >
+                    <PasswordBox Margin="20,0,0,5" Width="300" HorizontalAlignment="Left" Style="{ThemeResource FormPasswordBox}"  x:Name="ResetPassword">
+                        <PasswordBox.Header >
                             <TextBlock>
         <Run Text="Current Password " > </Run><Run  Foreground="Red">*</Run>
                             </TextBlock>
-                        </TextBox.Header>
-                    </TextBox>
-                    <Button Content="Verify" Name="ResetPasswordFromLogin" Click="ResetPassword_Click" Margin="10,0,0,0" Style="{ThemeResource ButtonStyling}"  Padding="10,5,10,5"></Button>
+                        </PasswordBox.Header>
+                    </PasswordBox>
+                    
+                    <Button Content="Verify" Name="ResetPasswordFromLogin" Click="ResetPassword_Click" Margin="10,20,0,0" Style="{ThemeResource ButtonStyling}"  Padding="10,5,10,5"></Button>
                 </StackPanel>
-        
-        </StackPanel>
-    </Grid>
+                <CheckBox Margin="20,0,0,20" Name="revealModeCheckBox" Content="Show password" IsChecked="False"
+    Checked="RevealModeCheckbox_Changed" Unchecked="RevealModeCheckbox_Changed"/>
+
+            </StackPanel>
+
+            <Popup IsLightDismissEnabled="True" LightDismissOverlayMode="on" Grid.RowSpan="2" Name="ResetPasswordGrid">
+                <local:ResetPassword redirect="False"></local:ResetPassword>
+            </Popup>
+
+        </Grid>
+      
 
     </ScrollViewer>
 </Page>

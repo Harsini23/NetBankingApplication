@@ -34,13 +34,27 @@
                 </Image.Source>
 
             </Image>
-            <Button Background="{ThemeResource MyAcrylicBrush}" CornerRadius="5" BorderThickness="0" FontStyle="Italic" HorizontalAlignment="Right"  Content="Default Admin" Style="{ThemeResource ButtonStyling}" Margin="10" >
+            <Button Foreground="White" CornerRadius="5" BorderThickness="0" FontStyle="Italic" HorizontalAlignment="Right"  Content="Default Admin" Style="{ThemeResource ButtonStyling}" Margin="10" >
+                <Button.Background>
+                    <AcrylicBrush
+            BackgroundSource="Backdrop"
+            TintColor="#2a4589"
+            TintOpacity="0.8"
+            FallbackColor="#eaf3fa"/>
+                </Button.Background>
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{ThemeResource MyAcrylicBrush}"
+                        <Border
                     BorderBrush="Transparent"
                     BorderThickness="0" Padding="10" CornerRadius="5"
                                 >
+                            <Border.Background>
+                                <AcrylicBrush
+            BackgroundSource="Backdrop"
+            TintColor="#2a4589"
+            TintOpacity="0.8"
+            FallbackColor="#eaf3fa"/>
+                            </Border.Background>
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"  />
                         </Border>
@@ -55,35 +69,21 @@
                                 <TextBlock Margin="5,0,0,0" Text="Admin"></TextBlock>
                             </StackPanel>
                             <StackPanel  Margin="5,0,0,0">
-                               
+
                                 <StackPanel Orientation="Horizontal" Padding="3">
                                     <TextBlock Text="Password :"></TextBlock>
                                     <TextBlock Margin="5,0,0,0" Text="UserAdmin@1"></TextBlock>
-                              
-                                <Button CornerRadius="5" Width="22" Name="copy" Height="22" Background="Transparent" FontSize="13" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Margin="10,0,0,0"  FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="copy_Click" ></Button>
+
+                                    <Button CornerRadius="5" Width="22" Name="copy" Height="22" Background="Transparent" FontSize="13" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Margin="10,0,0,0"  FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="copy_Click" ></Button>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
-
-
             </Button>
 
-
-            <controls:DropShadowPanel Color="Black"
-                          OffsetX="-25"
-                          OffsetY="25"
-                          BlurRadius="50"
-                          ShadowOpacity=".4"
-                                      Grid.Row="1"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      Margin="5"
-                                      Padding="30"
-                                      Name="LoginContainerShadow"
-                        >
-                <!--reset password grid-->
+            <controls:DropShadowPanel Color="Black" OffsetX="-25" OffsetY="25" BlurRadius="50" ShadowOpacity=".4" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5" Padding="30"  Name="LoginContainerShadow">
+           
          
                 <Grid  x:Name="LoginContainer" Style="{ThemeResource FormBackground}" Background="{ThemeResource MyAcrylicBrush}" Padding="30"  Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -122,47 +122,14 @@
                         <Button Name="SubmitLoginDetails"  MinWidth="300" IsEnabled="False" Style="{ThemeResource ButtonStyling}" Content="Submit" Click="Verify_Click"></Button>
 
                     </StackPanel>
-                    <Image MaxHeight="300" MaxWidth="300" Grid.RowSpan="7" Grid.Column="1" Source="ms-appx:///Assets/loginlogo.png"></Image>
+                    <!--<Image MaxHeight="300" MaxWidth="300" Grid.RowSpan="7" Grid.Column="1" Source="ms-appx:///Assets/loginlogo.png"></Image>-->
                 </Grid>
         
         </controls:DropShadowPanel>
-            <!--<data:ResetPassword></data:ResetPassword>-->
-
-            <Grid Grid.Row="1" Style="{ThemeResource FormBackground}" Visibility="Collapsed" Name="ResetPasswordcontainer" MinWidth="400"  >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                </Grid.RowDefinitions>
-
-           
-                <TextBlock Text="Reset Password"></TextBlock>
-                <StackPanel Grid.Row="1">
-                    <PasswordBox IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" PasswordChanged="Password_PasswordChangedReset"  Style="{ThemeResource FormPasswordBox}" x:Name="PasswordReset" >
-                        <ToolTipService.ToolTip>
-                            <ToolTip Content="Must be mininum of 9 characters with one lowercase, uppercase and special charater." VerticalOffset="-80"/>
-                        </ToolTipService.ToolTip>
-                    </PasswordBox>
-                    <CheckBox Height="5" HorizontalAlignment="Left" Margin="5" Name="revealModeCheckBoxPassword" Content="Show password" IsChecked="False"
-    Checked="RevealModeCheckbox_ChangedReset" Unchecked="RevealModeCheckbox_ChangedReset"/>
-                </StackPanel>
-
-                <StackPanel Grid.Row="2">
-                    <PasswordBox IsEnabled="False"  PlaceholderText="Re-type Password"  IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" PasswordChanged="Password_Verify"  Style="{ThemeResource FormPasswordBox}" x:Name="RePasswordReset" >
-                        <ToolTipService.ToolTip>
-                            <ToolTip Content="Must be mininum of 9 characters with one lowercase, uppercase and special charater." VerticalOffset="-80"/>
-                        </ToolTipService.ToolTip>
-                    </PasswordBox>
-                    <CheckBox  HorizontalAlignment="Left" Margin="5" Name="revealModeCheckBox_RePassword" Content="Show password" IsChecked="False"
-    Checked="RevealModeCheckbox_Changed_RePassword" Unchecked="RevealModeCheckbox_Changed_RePassword"/>
-                </StackPanel>
-                <Button Style="{ThemeResource ButtonStyling}" Click="ResetPassword_Click" Grid.Row="3" IsEnabled="False"  Name="ReSetPassword" Content="Reset Password"></Button>
-
-            
-                <!--<TextBlock Grid.Row="4" Text="{x:Bind LoginViewModel.ResetPasswordResponseValue,Mode=OneWay}"></TextBlock>-->
-            </Grid>
+            <Popup Grid.Row="1"  Name="ResetGrid">
+                <data:ResetPassword redirect="True"></data:ResetPassword>
+            </Popup>
+         
         </Grid>
     </ScrollViewer>
 
