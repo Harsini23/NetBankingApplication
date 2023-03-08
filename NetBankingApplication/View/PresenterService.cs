@@ -30,7 +30,7 @@ namespace NetBankingApplication.View
             var services = new ServiceCollection();
             //Services
             services.AddSingleton<LoginBaseViewModel, LoginViewModel>();
-            services.AddTransient<OverviewBaseViewModel, OverviewViewModel>();
+            services.AddSingleton<OverviewBaseViewModel, OverviewViewModel>();
             services.AddTransient<TransactionHistoryBaseViewModel, TransactionHistoryViewModel>();
             services.AddTransient<AddPayeeBaseViewModel,AddPayeeViewModel>();
             services.AddSingleton<GetAllPayeeBaseViewModel,GetAllPayeeViewModel>();
@@ -41,6 +41,9 @@ namespace NetBankingApplication.View
             services.AddTransient<DeletePayeeBaseViewModel, DeletePayeeViewModel>();
             services.AddTransient<GetBranchDetailsBaseViewModel, GetBranchDetailsViewModel>();
             services.AddTransient<EditPayeeBaseViewModel, EditPayeeViewModel>();
+            services.AddTransient<UpdateUserBaseViewModel, UpdateUserViewModel>();
+            services.AddSingleton<UserUpdate>();
+
 
             //services.AddSingleton<IUserProfileViewModel, UserProfileViewModel>();
             return services.BuildServiceProvider();

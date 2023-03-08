@@ -31,7 +31,7 @@ namespace NetBankingApplication.View.UserControls
             //setting login view value for callback
             //LoginViewModel.LoginViewModelCallback = this;
             LoginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
-
+            //LoginViewModel.ClosePopUp = new SettingsView();
             LoginViewModel.ResetPasswordResponseValue = String.Empty;
         }
 
@@ -103,6 +103,7 @@ namespace NetBankingApplication.View.UserControls
         {
             LoginViewModel.Redirect = redirect;
             LoginViewModel.ResetPassword(RePasswordReset.Password);
+            
         }
     }
 }

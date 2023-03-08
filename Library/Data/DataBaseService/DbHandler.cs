@@ -35,6 +35,12 @@ namespace Library.Data.DataBaseService
             return false;
         }
 
+        public bool UpdateUser(User UpdatedUser)
+        {
+            int check = connection.InsertOrReplace(UpdatedUser);
+            return (check != 0);
+        }
+
         public User GetUser(string userId)
         {
             User user = connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault();
@@ -91,15 +97,14 @@ namespace Library.Data.DataBaseService
         public bool CheckIfNewUser(string userId)
         {
             var query = connection.Table<Credentials>().Where(c => c.UserId == userId && c.NewUser).FirstOrDefault();
-            if (query != null) return true;
-            return false;
+            return (query != null);
         }
 
 
         public bool ResetPassword(Credentials newCredential)
         {
             int check=connection.InsertOrReplace(newCredential);
-            if (check != 0) return true; else return false;
+            return (check != 0);
         }
 
         public void CreateCredential(Credentials cred)
@@ -121,7 +126,7 @@ namespace Library.Data.DataBaseService
         {
 
            int check= connection.InsertOrReplace(account);
-            if (check != 0) return true; else return false;
+            return (check != 0) ; 
         }
 
         public void AddAccount(Account account)
@@ -135,7 +140,7 @@ namespace Library.Data.DataBaseService
         public bool AddTransaction(Transaction transaction)
         {
            var check= connection.Insert(transaction);
-            if (check != 0) return true; else return false;
+            return (check != 0) ;
         }
 
         public List<Transaction> GetAllTransactions(string userId)

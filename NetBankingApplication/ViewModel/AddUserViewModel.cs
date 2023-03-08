@@ -103,18 +103,6 @@ namespace NetBankingApplication.ViewModel
                 //SetProperty(ref _response, value);
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
         public abstract void AddUser(UserAccountDetails userDetails);
     }
 }

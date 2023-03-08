@@ -92,28 +92,28 @@ namespace NetBankingApplication.View
             if (args.SelectedItem == Overview)
             {
 
-                Overview overview = new Overview(Currentuser);
+                Overview overview = new Overview(LoginViewModel.CurrentUser);
                 CurrentSelectedModule = overview;
                 HeaderTitle = "Overview";
                 DashBoardNavigation.AlwaysShowHeader = false;
             }
             else if (args.SelectedItem == BankAccount)
             {
-                BankAccount bankAccount = new BankAccount(Currentuser.UserId);
+                BankAccount bankAccount = new BankAccount(LoginViewModel.CurrentUser.UserId);
                 CurrentSelectedModule = bankAccount;
                 HeaderTitle = "Account Details";
                 DashBoardNavigation.AlwaysShowHeader = true;
             }
             else if (args.SelectedItem == PaymentsAndTransfer)
             {
-                PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer(Currentuser);
+                PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer(LoginViewModel.CurrentUser);
                 CurrentSelectedModule = paymentsAndTransfer;
                 HeaderTitle = "Payment and Transfer";
                 DashBoardNavigation.AlwaysShowHeader = true;
             }
             else if (args.SelectedItem == Settings)
             {
-                SettingsView settings = new SettingsView(Currentuser);
+                SettingsView settings = new SettingsView(LoginViewModel.CurrentUser);
                 CurrentSelectedModule = settings;
                 HeaderTitle = "Settings";
                 DashBoardNavigation.AlwaysShowHeader = true;

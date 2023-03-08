@@ -43,6 +43,7 @@ namespace NetBankingApplication.View
             LoginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
 
             LoginViewModel.ResetPasswordResponseValue = String.Empty;
+            UserUpdate.LoginViewModelInstance = LoginViewModel;
 
         }
 

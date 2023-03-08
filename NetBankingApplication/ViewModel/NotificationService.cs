@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Library.Model;
+using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.View;
 using System;
 using System.Collections.Generic;
@@ -29,14 +30,41 @@ namespace NetBankingApplication.ViewModel
 
     }
 
+    public class NotificationServiceUser
+    {
+        private Action<User> _eventHandler;
+
+        public void Subscribe(INotificationServiceUser subscriber)
+        {
+            _eventHandler += subscriber.OnUserUpdate;
+        }
+
+        public void Unsubscribe(INotificationServiceUser subscriber)
+        {
+            _eventHandler -= subscriber.OnUserUpdate;
+        }
+
+        public void RaiseEvent(User eventData)
+        {
+            _eventHandler?.Invoke(eventData);
+        }
+
+    }
+
     public interface INotificationServicePayee
     {
         void OnMyEvent(string eventData);
     }
 
+    public interface INotificationServiceUser
+    {
+        void OnUserUpdate(User user);
+    }
+
 
     public class PayeeUpdate : INotificationServicePayee
     {
+       
         public void OnMyEvent(string eventData)
         {
             var GetAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
@@ -45,5 +73,19 @@ namespace NetBankingApplication.ViewModel
         }
     }
 
-   
+    public  class UserUpdate : INotificationServiceUser
+    {
+       public static LoginBaseViewModel LoginViewModelInstance { get; set; }
+        //public UserUpdate(OverviewBaseViewModel overViewViewModel)
+        //{
+        //    OverViewViewModelInstance = overViewViewModel;
+        //}
+        public void OnUserUpdate(User user)
+        {
+            LoginViewModelInstance.CurrentUser=user;
+        }
+    }
+
+
+
 }

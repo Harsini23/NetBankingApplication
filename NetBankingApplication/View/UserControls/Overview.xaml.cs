@@ -54,9 +54,10 @@ namespace NetBankingApplication.View.UserControls
             this.InitializeComponent();
             _overviewViewModel = PresenterService.GetInstance().Services.GetService<OverviewBaseViewModel>();
             _getAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
-            _overviewViewModel.setUser(user.UserId);
+            _overviewViewModel.setUser(currentUser);
             _overviewViewModel.getData(currentUser.UserId);
             _getAllAccountsViewModel.GetAllAccounts(user.UserId);
+            //UserUpdate.OverViewViewModelInstance = _overviewViewModel;
         }
         protected void OnPropertyChangedAsync(string propertyName)
         {

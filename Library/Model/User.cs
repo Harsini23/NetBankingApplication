@@ -28,4 +28,21 @@ namespace Library.Model
         }
         public User() { }
     }
+
+    public class UpdateUserBObj
+    {
+        public string EmailId { get; set; }
+        public long MobileNumber { get; set; }
+        public string UserName { get; set; }
+        public UpdateUserBObj(string emailId, long mobileNumber, string userName)
+        {
+            EmailId = emailId;
+            MobileNumber = mobileNumber;
+            UserName = userName;
+        }
+        public UpdateUserBObj()
+        {
+
+        }
+    }
 }

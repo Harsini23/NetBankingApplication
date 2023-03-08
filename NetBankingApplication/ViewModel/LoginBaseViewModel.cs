@@ -25,6 +25,17 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+        private User _currentUser;
+        public User CurrentUser
+        {
+            get { return this._currentUser; }
+            set
+            {
+               _currentUser = value;
+                OnPropertyChanged(nameof(_currentUser));
+            }
+        }
+
         public string ResetPasswordResponseValue
         {
             get { return this._response; }
@@ -51,6 +62,8 @@ namespace NetBankingApplication.ViewModel
         public ILoginViewModel LoginViewModelCallback { get; set; }
         public IMainPageNavigation MainPageNavigationCallback { get; set; }
         public ICloseAllWindows CloseAllWindowsCallback { get; set; }
+
+        public IClosePopUp ClosePopUp { get; set; }
         public abstract void ValidateUserInput(string userId, string password);
         public abstract void ResetPassword(string newPassword);
         public abstract void CallUseCase();
@@ -77,5 +90,11 @@ namespace NetBankingApplication.ViewModel
         void closeAllWindows();
     }
 
-   
+    public interface IClosePopUp
+    {
+        void closePopup();
+    }
+
+
+
 }

@@ -26,9 +26,9 @@ namespace NetBankingApplication.ViewModel
         }
 
 
-        public override void setUser(string userId)
+        public override void setUser(User user)
         {
-            UserId=userId;
+            User=user;
         }
 
         public class PresenterOverViewCallback : IPresenterOverviewCallback
@@ -78,14 +78,14 @@ namespace NetBankingApplication.ViewModel
         
     public abstract class OverviewBaseViewModel : NotifyPropertyBase
     {
-        private string _userId= String.Empty;
-        public string UserId
+        private User _user;
+        public User User
         {
-            get { return _userId; }
+            get { return _user; }
             set
             {
-                _userId = value;
-                OnPropertyChanged(nameof(UserId));
+                _user = value;
+                OnPropertyChanged(nameof(User));
             }
         }
 
@@ -169,7 +169,7 @@ namespace NetBankingApplication.ViewModel
         }
 
         public abstract void getData(string userId);
-        public abstract void setUser(string userId);
+        public abstract void setUser(User userId);
 
     }
 

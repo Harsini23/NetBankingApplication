@@ -44,6 +44,7 @@ namespace Library.Data.DataBaseService
         void InsertBankBranchDetails(List<Branch> branches);
         List<Branch> GetAllBranches();
         bool EditPayee(Payee payee);
+        bool UpdateUser(User updatedUser);
     }
 
     public interface INetHandler

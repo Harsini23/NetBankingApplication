@@ -26,7 +26,7 @@ namespace NetBankingApplication.ViewModel
         DefaultAdmin defaultAdmin;
         ResetPassword resetPassword;
         public string userId, password, resetNewPassword;
-        public static User user;
+       // public static User user;
         public static bool IsAdmin;
 
         ILoginViewModel loginViewCallback;
@@ -131,32 +131,38 @@ namespace NetBankingApplication.ViewModel
                         }
                         else
                         {
-                            LoadDashBoard(LoginViewModel.user);
+                            LoadDashBoard(loginViewModel.CurrentUser);
                         }
                     }
                     else
                     {
+                        HandleClosePopUp();
+                     }
 
-                    }
                   
                 });
                  
+            }
+
+            private void HandleClosePopUp()
+            {
+                loginViewModel.ClosePopUp?.closePopup();
             }
        
         
             private void LoadDashBoard(User user)
             {
-                loginViewModel.mainPageNavigation.NavigateToDashBoard(LoginViewModel.user);
+                loginViewModel.mainPageNavigation?.NavigateToDashBoard(loginViewModel.CurrentUser);
             }
 
            
             private void handleCallbackAsync()
             {
-                  loginViewModel.loginViewCallback.SwitchToResetPasswordContainer();
+                  loginViewModel.loginViewCallback?.SwitchToResetPasswordContainer();
             }
             private void handleAdminAccess()
             {
-                  loginViewModel.mainPageNavigation.NavigateToAdminDashBoard(LoginViewModel.user);
+                  loginViewModel.mainPageNavigation?.NavigateToAdminDashBoard(loginViewModel.CurrentUser);
             }
 
             //Presenter call back methods -----------------------------------------------------------------------------------------------------------
@@ -183,7 +189,8 @@ namespace NetBankingApplication.ViewModel
                 await SwitchToMainUIThread.SwitchToMainThread(() =>
                 {
                     LoginViewModel.IsAdmin = response.Data.IsAdmin;
-                    LoginViewModel.user = response.Data.currentUser;
+                    loginViewModel.CurrentUser = response.Data.currentUser;
+                    //LoginViewModel.user = response.Data.currentUser;
                     if (response.Data.IsAdmin)
                     {
                         if (response.Data.NewUser)
@@ -210,7 +217,7 @@ namespace NetBankingApplication.ViewModel
                             //then continue with user profile details display //pass user and id
 
                             //Debug.WriteLine(LoginViewModel.user.EmailId);
-                            LoadDashBoard(LoginViewModel.user);
+                            LoadDashBoard(loginViewModel.CurrentUser);
                         }
 
                     }

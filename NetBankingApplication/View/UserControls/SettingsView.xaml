@@ -23,12 +23,12 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel  Background="{ThemeResource AppForegroundBg}" VerticalAlignment="Center" HorizontalAlignment="Stretch"  Padding="10" CornerRadius="10">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Edit Profile" FontSize="22" Padding="20" FontWeight="Normal"></TextBlock>
-                    <Button Content="Save" Margin="106,0,0,0" Style="{ThemeResource ButtonStyling}" Padding="10,5,10,5"></Button>
+                <StackPanel Orientation="Horizontal" Margin="20,5,5,5" >
+                    <TextBlock Text="Edit Profile" Padding="0,0,100,0" FontSize="22" FontWeight="Normal"></TextBlock>
+                    <Button Content="Save" Name="SaveUserProfile" Click="SaveUserProfile_Click" Style="{ThemeResource ButtonStyling}" Padding="10,5,10,5"></Button>
                 </StackPanel>
 
-            <Grid >
+            <Grid Margin="20,5,5,5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2.5*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
@@ -41,21 +41,21 @@
                 <TextBlock HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="0" Grid.Column="1" Text="{x:Bind currentuser.UserName,Mode=OneWay}" FontSize="28" FontWeight="Normal"></TextBlock>
                 <TextBlock HorizontalAlignment="Left" Margin="5,0,0,10" Grid.Row="1" Grid.Column="1" Text="{x:Bind currentuser.EmailId,Mode=OneWay}" ></TextBlock>
             </Grid>
-            <TextBox  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}" x:Name="Name" Text="{x:Bind currentuser.UserName,Mode=OneWay}" >
+            <TextBox Margin="20,5,5,5"  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}" x:Name="Name" Text="{x:Bind currentuser.UserName,Mode=OneWay}" >
                 <TextBox.Header>
                     <TextBlock >
         <Run Text="Name " > </Run><Run  Foreground="Red">*</Run>
                     </TextBlock>
                 </TextBox.Header>
             </TextBox>
-            <TextBox  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}" x:Name="Phonenumber" Text="{x:Bind currentuser.MobileNumber,Mode=OneWay}">
+                <TextBox  Margin="20,5,5,5"  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}"  BeforeTextChanging="TextBox_OnBeforeTextChanging"  x:Name="Phonenumber" Text="{x:Bind currentuser.MobileNumber,Mode=OneWay}">
                 <TextBox.Header>
                     <TextBlock >
         <Run Text="Phone number " > </Run><Run  Foreground="Red">*</Run>
                     </TextBlock>
                 </TextBox.Header>
             </TextBox>
-            <TextBox  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}" x:Name="EmailId" Text="{x:Bind currentuser.EmailId,Mode=OneWay}" >
+                <TextBox  Margin="20,5,5,5"  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}" x:Name="EmailId" Text="{x:Bind currentuser.EmailId,Mode=OneWay}" >
                 <TextBox.Header>
                     <TextBlock >
         <Run Text="Email id " > </Run><Run  Foreground="Red">*</Run>
@@ -65,7 +65,7 @@
         </StackPanel>
 
         <StackPanel CornerRadius="10" Grid.Row="1" Background="{ThemeResource AppForegroundBg}" Margin="0,30,0,0">
-            <TextBlock Text="Reset password" FontSize="22" Padding="20" FontWeight="Normal"></TextBlock>
+            <TextBlock Text="Reset password" FontSize="22" Padding="20,20,20,10" FontWeight="Normal"></TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <PasswordBox Margin="20,0,0,5" Width="300" HorizontalAlignment="Left" Style="{ThemeResource FormPasswordBox}"  x:Name="ResetPassword">
                         <PasswordBox.Header >
@@ -77,15 +77,24 @@
                     
                     <Button Content="Verify" Name="ResetPasswordFromLogin" Click="ResetPassword_Click" Margin="10,20,0,0" Style="{ThemeResource ButtonStyling}"  Padding="10,5,10,5"></Button>
                 </StackPanel>
-                <CheckBox Margin="20,0,0,20" Name="revealModeCheckBox" Content="Show password" IsChecked="False"
+                <CheckBox Margin="20,0,0,10" Name="revealModeCheckBox" Content="Show password" IsChecked="False"
     Checked="RevealModeCheckbox_Changed" Unchecked="RevealModeCheckbox_Changed"/>
-
+                <TextBlock Visibility="Collapsed" Name="ErrorMessage" Text="Error" Style="{ThemeResource FailureText}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,10"></TextBlock>
             </StackPanel>
 
             <Popup IsLightDismissEnabled="True" LightDismissOverlayMode="on" Grid.RowSpan="2" Name="ResetPasswordGrid">
                 <local:ResetPassword redirect="False"></local:ResetPassword>
             </Popup>
+            <ContentDialog x:Name="AcknowledgementDialogue"
+       Background="{ThemeResource SupportingColour}" CornerRadius="10"
+       HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Margin="0" >
 
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock FontWeight="bold"  Text="&#xE001;" FontFamily="Segoe MDL2 Assets" Foreground="Green" FontSize="18"></TextBlock>
+                    <TextBlock Text="Password Updated" FontSize="18" Padding="5,0,0,0"></TextBlock>
+                </StackPanel>
+
+            </ContentDialog>
         </Grid>
       
 
