@@ -76,14 +76,14 @@ namespace NetBankingApplication.View.UserControls
             {
                 UserAccountDetails details = new UserAccountDetails
                 {
-                    UserName = UserNameTextBox.Text,
+                    UserName = UserNameTextBox.Text.Trim(),
                     MobileNumber = long.Parse(MobileNumberTextBox.Text),
-                    EmailId = EmailIdTextBox.Text,
+                    EmailId = EmailIdTextBox.Text.Trim(),
                     AccountType = Enum.Parse<AccountType>(AccountTypeBox.SelectedItem.ToString()),
                     TotalBalance = Double.Parse(BalanceTextBox.Text),
                     Currency = Enum.Parse<Currency>(CurrencyValues.SelectedItem.ToString()),
                     BId = SelectedBranch,
-                    PAN = PANTextBox.Text.ToString()
+                    PAN = PANTextBox.Text.Trim().ToString()
                 };
 
 

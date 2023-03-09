@@ -587,9 +587,9 @@
                         <ScrollViewer>
                             <Grid Padding="10" Margin="0,0,0,0" BorderBrush="Gray" x:Name="DetailedTransactionListTemplate"  BorderThickness="0.3" CornerRadius="10" ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.IsHorizontalRailEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
                                 <Grid.RowDefinitions>

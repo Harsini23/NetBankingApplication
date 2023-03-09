@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,27 +24,36 @@ namespace NetBankingApplication.View.UserControls
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SettingsView : Page, IClosePopUp
+    public sealed partial class SettingsView : Page, IClosePopUp, ISettingsView
     {
-        private User currentuser;
+       // private User currentuser;
+       // private char UserInitial;
         private LoginBaseViewModel LoginViewModel;
         private UpdateUserBaseViewModel updateViewModel;
+        private PasswordVerificationBaseViewModel passwordVerificationViewModel;
         public SettingsView()
         {
             this.InitializeComponent();
             LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+
             LoginViewModel.ClosePopUp = this;
-            ErrorMessage.Visibility = Visibility.Collapsed;
+            passwordVerificationViewModel.TextBoxVisibility = Visibility.Collapsed;
         }
 
 
         public SettingsView(User currentuser)
         {
-            this.currentuser = currentuser; this.InitializeComponent();
+            //this.currentuser = currentuser; 
+            this.InitializeComponent();
+          //  this.UserInitial = currentuser.UserName.Substring(0, 1)[0];
             LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             LoginViewModel.ClosePopUp = this;
 
             updateViewModel = PresenterService.GetInstance().Services.GetService<UpdateUserBaseViewModel>();
+            updateViewModel.CurrentUser = currentuser;
+            updateViewModel.CurrentUserInitial= currentuser.UserName.Substring(0, 1)[0];
+            passwordVerificationViewModel = PresenterService.GetInstance().Services.GetService<PasswordVerificationBaseViewModel>();
+            passwordVerificationViewModel.settingsView = this;
         }
 
 
@@ -61,28 +71,25 @@ namespace NetBankingApplication.View.UserControls
 
         private void ResetPassword_Click(object sender, RoutedEventArgs e)
         {
+
             //ResetPasswordGrid.IsOpen = true;
             //double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetPasswordGrid.ActualWidth / 2;
             //double verticalOffset = Window.Current.Bounds.Height / 2 - ResetPasswordGrid.ActualHeight / 2;
             //ResetPasswordGrid.HorizontalOffset = horizontalOffset;
             //ResetPasswordGrid.VerticalOffset = verticalOffset;
-
-            if (string.IsNullOrEmpty(ResetPassword.Password))
+            var password = ResetPassword.Password;
+           
+            if (string.IsNullOrEmpty(password))
             {
-                ErrorMessage.Visibility = Visibility.Visible;
-                ErrorMessage.Text = "Kindly enter old Password";
+                passwordVerificationViewModel.TextBoxVisibility = Visibility.Visible;
+                passwordVerificationViewModel.ResponseValue="Kindly enter old Password";
             }
-            else 
+            else
             {
                 //send and check if old password matches
-
-
-                ResetPasswordGrid.IsOpen = true;
-                double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetPasswordGrid.ActualWidth / 2 + 60;
-                double verticalOffset = Window.Current.Bounds.Height / 2 - ResetPasswordGrid.ActualHeight / 2;
-                ResetPasswordGrid.HorizontalOffset = horizontalOffset;
-                ResetPasswordGrid.VerticalOffset = verticalOffset;
+                passwordVerificationViewModel.CheckPassword(updateViewModel.CurrentUser.UserId,password);
             }
+         
 
         }
 
@@ -108,20 +115,86 @@ namespace NetBankingApplication.View.UserControls
 
         private void SaveUserProfile_Click(object sender, RoutedEventArgs e)
         {
-            if(Name.Text!=null && Phonenumber.Text!=null && EmailId.Text != null && Phonenumber.Text.Length==10 && EmailId.Text.Contains('@') && EmailId.Text.Contains('.') && EmailId.Text.Contains("com"))
+            var phonenumber = Phonenumber.Text.Trim();
+            if (string.IsNullOrWhiteSpace(Name.Text) || string.IsNullOrWhiteSpace(Phonenumber.Text) || string.IsNullOrWhiteSpace(EmailId.Text))
+            {
+                UserProfileError.Visibility = Visibility.Visible;
+                UserProfileError.Text = "Fields cannot be empty!";
+            }
+            else if (phonenumber.Length != 10)
+            {
+                UserProfileError.Visibility = Visibility.Visible;
+                UserProfileError.Text = "Check your phone number;)";
+            }
+            else if (!EmailId.Text.Contains('@') || !EmailId.Text.Contains('.') || !EmailId.Text.Contains("com"))
+            {
+                UserProfileError.Visibility = Visibility.Visible;
+                UserProfileError.Text = "Check your emaild id;)";
+            }
+            else if (EmailId.Text.Trim() == updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == updateViewModel.CurrentUser.MobileNumber)
+            {
+                UserProfileError.Visibility = Visibility.Visible;
+                UserProfileError.Text = "No changes to be saved;)";
+            }
+            else
             {
                 var updatedUserValue = new User
                 {
-                    UserId=currentuser.UserId,
-                    EmailId = EmailId.Text,
-                    UserName = Name.Text,
-                    MobileNumber = long.Parse(Phonenumber.Text),
-                    IsBlocked=currentuser.IsBlocked,
-                    PAN=currentuser.PAN
+                    UserId = updateViewModel.CurrentUser.UserId,
+                    EmailId = EmailId.Text.Trim(),
+                    UserName = Name.Text.Trim(),
+                    MobileNumber = long.Parse(Phonenumber.Text.Trim()),
+                    IsBlocked = updateViewModel.CurrentUser.IsBlocked,
+                    PAN = updateViewModel.CurrentUser.PAN
                 };
 
+                UpdateCurrentPage();
+
                 updateViewModel.UpdateUser(updatedUserValue);
+                UserProfileError.Visibility = Visibility.Collapsed;
+                AcknowledgementDialogue.ShowAsync();
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(1);
+                timer.Tick += (s, args) =>
+                {
+                    AcknowledgementDialogue.Hide();
+                    timer.Stop();
+                };
+                timer.Start();
             }
+        }
+        private void UpdateCurrentPage()
+        {
+            DisplayEmailId.Text = EmailId.Text.Trim();
+            Username.Text = Name.Text.Trim();
+            Initial.Initials = Name.Text.Trim()[0].ToString();
+        }
+
+        public void TriggerResetPasswordPopup()
+        {
+            ResetPasswordGrid.IsOpen = true;
+            double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetPasswordGrid.ActualWidth / 2 + 60;
+            double verticalOffset = Window.Current.Bounds.Height / 2 - ResetPasswordGrid.ActualHeight / 2;
+            ResetPasswordGrid.HorizontalOffset = horizontalOffset;
+            ResetPasswordGrid.VerticalOffset = verticalOffset;
+
+        }
+
+        private void Name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UserProfileError.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void ResetPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            passwordVerificationViewModel.TextBoxVisibility = Visibility.Collapsed;
+        }
+
+        public void RemoveErrors()
+        {
+            passwordVerificationViewModel.ResponseValue = "";
+            ResetPassword.Password = String.Empty;
         }
     }
 }

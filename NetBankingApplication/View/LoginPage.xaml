@@ -108,7 +108,10 @@
                     <StackPanel  Grid.Row="3">
                         <PasswordBox MaxLength="100" MaxWidth="220" CornerRadius="5" Header="Password" IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" Background="White" PasswordChanged="Password_PasswordChanged"   Style="{ThemeResource FormPasswordBox}" x:Name="Password" >
                             <ToolTipService.ToolTip >
-                                <ToolTip Background="White" CornerRadius="15" FontSize="12" CharacterSpacing="20" Content="Must be mininum of 9 characters with one lowercase, uppercase and special charater." VerticalOffset="-80"/>
+                                <!--<Border CornerRadius="5" BorderThickness="0" BorderBrush="Transparent">-->
+                                    <ToolTip Background="{ThemeResource AppForegroundBg}" CornerRadius="15" FontSize="12" CharacterSpacing="20" Content="Must be mininum of 9 characters with one lowercase, uppercase and special charater." VerticalOffset="-80">
+                                    </ToolTip>
+                                <!--</Border>-->
                             </ToolTipService.ToolTip>
                         </PasswordBox>
                         <CheckBox Margin="50,0,0,0" Name="revealModeCheckBox" Content="Show password" IsChecked="False"

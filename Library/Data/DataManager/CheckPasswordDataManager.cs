@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Library.Data.DataBaseService;
+using Library.Domain;
+using Library.Domain.UseCase;
+using Library.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +10,25 @@ using System.Threading.Tasks;
 
 namespace Library.Data.DataManager
 {
-    public class CheckPasswordDataManager
+    public class CheckPasswordDataManager : BankingDataManager, ICheckPasswordDataManager
     {
+        public CheckPasswordDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
+        {
+        }
+        public void VerifyPassword(CheckPasswordRequest request, IUsecaseCallbackBaseCase<bool> response)
+        {
+            ZResponse<bool> Response = new ZResponse<bool>();
+            var password = PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(request.CheckCredential.Password));
+            Response.Data = DbHandler.CheckUserCredential(request.CheckCredential.UserId, password);
+            if (Response.Data){
+                Response.Response = "Credential Validated";
+            }
+            else
+            {
+                Response.Response = "Password mismatch!";
+            }
+            response?.OnResponseSuccess(Response);
+           
+        }
     }
 }

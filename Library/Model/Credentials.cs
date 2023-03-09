@@ -24,5 +24,20 @@ namespace Library.Model
         }
         public Credentials() { }
     }
+
+    public class UserPasswordBObj
+    {
+        public string UserId { get; set; }
+        public string Password { get; set; }
+        public UserPasswordBObj(string userId, string password)
+        {
+            UserId = userId;
+            Password = password;
+        }
+        public UserPasswordBObj()
+        {
+
+        }
+    }
    
 }

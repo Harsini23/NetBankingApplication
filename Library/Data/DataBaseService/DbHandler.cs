@@ -34,6 +34,11 @@ namespace Library.Data.DataBaseService
             if (user.Count() > 0) return true;
             return false;
         }
+        public bool CheckPassword(UserPasswordBObj credential)
+        {
+            var check = connection.Table<Credentials>().Where(i => i.UserId == credential.UserId && i.Password == credential.Password).FirstOrDefault();
+            return check != null;
+        }
 
         public bool UpdateUser(User UpdatedUser)
         {

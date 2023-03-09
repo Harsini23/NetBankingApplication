@@ -51,6 +51,7 @@ namespace Library.Domain
             services.AddSingleton<IDefaultAdminDataManager, DefaultAdminDataManager>();
             services.AddSingleton<IEditPayeeDataManager, EditPayeeDataManager>();
             services.AddSingleton<IUpdateUserDataManager, UpdateUserDataManager>();
+            services.AddSingleton<ICheckPasswordDataManager, CheckPasswordDataManager>();
 
             services.AddSingleton<IDbHandler, DbHandler>();
             services.AddSingleton<INetHandler, NetHandler>();

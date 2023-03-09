@@ -37,37 +37,38 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <PersonPicture HorizontalAlignment="Left" MaxWidth="70" Margin="0,0,10,0" MaxHeight="70" Grid.RowSpan="2" Initials="H" Grid.Column="0" ></PersonPicture>
-                <TextBlock HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="0" Grid.Column="1" Text="{x:Bind currentuser.UserName,Mode=OneWay}" FontSize="28" FontWeight="Normal"></TextBlock>
-                <TextBlock HorizontalAlignment="Left" Margin="5,0,0,10" Grid.Row="1" Grid.Column="1" Text="{x:Bind currentuser.EmailId,Mode=OneWay}" ></TextBlock>
+                    <PersonPicture HorizontalAlignment="Left" MaxWidth="70" Margin="0,0,10,0" MaxHeight="70" Grid.RowSpan="2" Name="Initial" Initials="{x:Bind updateViewModel.CurrentUserInitial,Mode=OneWay}" Grid.Column="0" ></PersonPicture>
+                    <TextBlock HorizontalAlignment="Left" Margin="5,5,0,0" Grid.Row="0" Grid.Column="1" Name="Username" Text="{x:Bind updateViewModel.CurrentUser.UserName,Mode=OneWay}" FontSize="28" FontWeight="Normal"></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="5,0,0,10" Grid.Row="1" Name="DisplayEmailId" Grid.Column="1" Text="{x:Bind updateViewModel.CurrentUser.EmailId,Mode=OneWay}" ></TextBlock>
             </Grid>
-            <TextBox Margin="20,5,5,5"  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}" x:Name="Name" Text="{x:Bind currentuser.UserName,Mode=OneWay}" >
+                <TextBox TextChanged="Name_TextChanged" Margin="20,5,5,5"  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}" x:Name="Name" Text="{x:Bind updateViewModel.CurrentUser.UserName,Mode=OneWay}" >
                 <TextBox.Header>
                     <TextBlock >
         <Run Text="Name " > </Run><Run  Foreground="Red">*</Run>
                     </TextBlock>
                 </TextBox.Header>
             </TextBox>
-                <TextBox  Margin="20,5,5,5"  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}"  BeforeTextChanging="TextBox_OnBeforeTextChanging"  x:Name="Phonenumber" Text="{x:Bind currentuser.MobileNumber,Mode=OneWay}">
+                <TextBox TextChanged="Name_TextChanged" Margin="20,5,5,5"  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}"  BeforeTextChanging="TextBox_OnBeforeTextChanging"  x:Name="Phonenumber" Text="{x:Bind updateViewModel.CurrentUser.MobileNumber,Mode=OneWay}">
                 <TextBox.Header>
                     <TextBlock >
         <Run Text="Phone number " > </Run><Run  Foreground="Red">*</Run>
                     </TextBlock>
                 </TextBox.Header>
             </TextBox>
-                <TextBox  Margin="20,5,5,5"  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}" x:Name="EmailId" Text="{x:Bind currentuser.EmailId,Mode=OneWay}" >
+                <TextBox TextChanged="Name_TextChanged" Margin="20,5,5,5"  Width="300" HorizontalAlignment="Left" Style="{ThemeResource InputFieldTextBox}" x:Name="EmailId" Text="{x:Bind updateViewModel.CurrentUser.EmailId,Mode=OneWay}" >
                 <TextBox.Header>
                     <TextBlock >
         <Run Text="Email id " > </Run><Run  Foreground="Red">*</Run>
                     </TextBlock>
                 </TextBox.Header>
             </TextBox>
+                <TextBlock Visibility="Collapsed" Name="UserProfileError" Style="{ThemeResource FailureText}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,5,5,5"></TextBlock>
         </StackPanel>
 
         <StackPanel CornerRadius="10" Grid.Row="1" Background="{ThemeResource AppForegroundBg}" Margin="0,30,0,0">
             <TextBlock Text="Reset password" FontSize="22" Padding="20,20,20,10" FontWeight="Normal"></TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <PasswordBox Margin="20,0,0,5" Width="300" HorizontalAlignment="Left" Style="{ThemeResource FormPasswordBox}"  x:Name="ResetPassword">
+                    <PasswordBox PasswordChanged="ResetPassword_PasswordChanged" Margin="20,0,0,5" Width="300" HorizontalAlignment="Left" Style="{ThemeResource FormPasswordBox}"  x:Name="ResetPassword">
                         <PasswordBox.Header >
                             <TextBlock>
         <Run Text="Current Password " > </Run><Run  Foreground="Red">*</Run>
@@ -79,7 +80,7 @@
                 </StackPanel>
                 <CheckBox Margin="20,0,0,10" Name="revealModeCheckBox" Content="Show password" IsChecked="False"
     Checked="RevealModeCheckbox_Changed" Unchecked="RevealModeCheckbox_Changed"/>
-                <TextBlock Visibility="Collapsed" Name="ErrorMessage" Text="Error" Style="{ThemeResource FailureText}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,10"></TextBlock>
+                <TextBlock Visibility="{x:Bind passwordVerificationViewModel.TextBoxVisibility,Mode=OneWay}" Name="ErrorMessage" Text="{x:Bind passwordVerificationViewModel.ResponseValue,Mode=OneWay}" Style="{ThemeResource FailureText}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,10"></TextBlock>
             </StackPanel>
 
             <Popup IsLightDismissEnabled="True" LightDismissOverlayMode="on" Grid.RowSpan="2" Name="ResetPasswordGrid">
@@ -91,7 +92,7 @@
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock FontWeight="bold"  Text="&#xE001;" FontFamily="Segoe MDL2 Assets" Foreground="Green" FontSize="18"></TextBlock>
-                    <TextBlock Text="Password Updated" FontSize="18" Padding="5,0,0,0"></TextBlock>
+                    <TextBlock Text="Updated" FontSize="18" Padding="5,0,0,0"></TextBlock>
                 </StackPanel>
 
             </ContentDialog>

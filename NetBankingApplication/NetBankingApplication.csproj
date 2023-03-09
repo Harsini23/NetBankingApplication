@@ -125,6 +125,7 @@
     <Compile Include="ViewModel\CheckPasswordViewModel.cs" />
     <Compile Include="ViewModel\DeletePayeeViewModel.cs" />
     <Compile Include="ViewModel\EditPayeeViewModel.cs" />
+    <Compile Include="ViewModel\PasswordVerificationViewModel.cs" />
     <Compile Include="ViewModel\SwitchToMainUIThread.cs" />
     <Compile Include="ViewModel\GetAllAccountsViewModel.cs" />
     <Compile Include="ViewModel\GetAllPayeeViewModel.cs" />

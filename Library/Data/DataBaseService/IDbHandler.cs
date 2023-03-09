@@ -11,6 +11,7 @@ namespace Library.Data.DataBaseService
     {
         bool CheckUser(string userId);
         User GetUser(string userId);
+       
         void BlockAccount(string userId);
         void UnBlockAccount(string userId);
         void AddUser(User user);

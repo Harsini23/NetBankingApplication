@@ -23,10 +23,10 @@ namespace NetBankingApplication.ViewModel
 
     public class PresenterUpdateUserCallback : IPresenterUpdateUserCallback
     {
-        private UpdateUserViewModel UpdateUserViewModel;
+        private UpdateUserViewModel _updateUserViewModel;
         public PresenterUpdateUserCallback(UpdateUserViewModel updateUserViewModel)
         {
-            UpdateUserViewModel = updateUserViewModel;
+            _updateUserViewModel = updateUserViewModel;
         }
         NotificationServiceUser eventProvider = new NotificationServiceUser();
 
@@ -42,14 +42,39 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-
+                _updateUserViewModel.CurrentUser = response.Data;
+                _updateUserViewModel.CurrentUserInitial = response.Data.UserName.Substring(0, 1)[0];
                 eventProvider.Subscribe(new UserUpdate());
                 eventProvider.RaiseEvent(response.Data);
             });
         }
     }
-    public abstract class UpdateUserBaseViewModel
+    public abstract class UpdateUserBaseViewModel : NotifyPropertyBase
     {
         public abstract void UpdateUser(User user);
+
+        private User _currentUser;
+        public User CurrentUser
+        {
+            get { return this._currentUser; }
+            set
+            {
+                _currentUser = value;
+                OnPropertyChanged(nameof(CurrentUser));
+            }
+        }
+
+
+        private char _currentUserInitial;
+        public char CurrentUserInitial
+        {
+            get { return this._currentUserInitial; }
+            set
+            {
+                _currentUserInitial = value;
+                OnPropertyChanged(nameof(CurrentUserInitial));
+            }
+        }
+
     }
 }
