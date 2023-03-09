@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class TransferAmount : UserControl, ISwitchUserView
+    public sealed partial class TransferAmount : UserControl, ISwitchUserView, ZeroBalance
     {
         private string _currentUserId;
 
@@ -70,11 +70,12 @@ namespace NetBankingApplication.View.UserControls
             TransferAmountViewModel = PresenterService.GetInstance().Services.GetService<TransferAmountBaseViewModel>();
             GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
 
+            GetAllAccountsViewModel.ZerobalanceView = this;
             GetAllAccountsViewModel.TransferAmountView = this;
 
             GetAllPayeeViewModel.GetAllPayee(_currentUserId);
             GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
-
+            MakeTransaction.IsEnabled = true;
 
         }
         MenuFlyout selectPayeeList;
@@ -364,6 +365,7 @@ namespace NetBankingApplication.View.UserControls
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
         }
 
+        //call from VM incase the user has more than one account
         public void SwitchBasedOnUserAccount()
         {
             if (allAccountNumbers.Count > 1)
@@ -383,6 +385,15 @@ namespace NetBankingApplication.View.UserControls
                 //handle ui reload
             }
             Bindings.Update();
+        }
+
+        public void ZeroBalanceNotification()
+        {
+            int duration = 4000;
+            ExampleInAppNotification.Show("Zero Balance Alert!!", duration);
+            //disable make payment button
+            MakeTransaction.IsEnabled = false;
+
         }
     }
 }

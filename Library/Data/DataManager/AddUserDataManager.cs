@@ -27,7 +27,7 @@ namespace Library.Data.DataManager
 
             var credentials= CreateUserCredentials();
             var user =CreateUser(request.newUser.UserName,request.newUser.MobileNumber,request.newUser.EmailId,request.newUser.PAN);
-            var GeneratedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 1000000000).ToString();
+            var GeneratedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 999999999).ToString()+ GenerateUniqueId.RandomNumber(100, 999).ToString();
             var account= CreateAccount(GeneratedAccountNumber,request.newUser.AccountType,request.newUser.TotalBalance,request.newUser.BId,request.newUser.Currency);
             var userAccount= CreateUserAccounts(GeneratedAccountNumber);
             Transaction currentTransation = AddInitialTransaction(user.UserId, user.UserName, userAccount.AccountNumber, request.newUser.TotalBalance);

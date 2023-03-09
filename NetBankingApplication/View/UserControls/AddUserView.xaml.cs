@@ -160,6 +160,14 @@ namespace NetBankingApplication.View.UserControls
            
         }
 
+        private void MenuFlyout_Opening_1(object sender, object e)
+        {
 
+        }
+
+        private void MenuFlyout_Opening_2(object sender, object e)
+        {
+
+        }
     }
 }

@@ -58,7 +58,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 GetAllAccountsViewModel.GetAllAccounts(currentUserId);
             }
-            Bindings.Update();
+            Bindings.Update();  
 
             //--------------------------------------
 

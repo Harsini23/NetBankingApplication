@@ -103,6 +103,10 @@ namespace NetBankingApplication.ViewModel
             if (allBalances.Count == 1)
             {
                 GetAllAccountsViewModel.SingleAccountBalance = allBalances[0].TotalBalance.ToString();
+                if (allBalances[0].TotalBalance == 0)
+                {
+                    GetAllAccountsViewModel.ZerobalanceView?.ZeroBalanceNotification();
+                }
             }
                   GetAllAccountsViewModel.allBalances.Clear();
                   foreach(var i in allBalances)
@@ -121,6 +125,7 @@ namespace NetBankingApplication.ViewModel
         public ObservableCollection<Account> accounts= new ObservableCollection<Account>();
         public ObservableCollection<AccountBalance> allBalances= new ObservableCollection<AccountBalance>();
         public ISwitchUserView TransferAmountView { get; set; }
+        public ZeroBalance ZerobalanceView { get;set; }
 
         private  string _currentAccountSelection = String.Empty;
         public  string CurrentAccountSelection
@@ -185,6 +190,12 @@ namespace NetBankingApplication.ViewModel
 
     public interface ISwitchUserView
     {
-         void SwitchBasedOnUserAccount();
+        void SwitchBasedOnUserAccount();
+    }
+
+    public interface ZeroBalance
+    {
+        void ZeroBalanceNotification();
+
     }
 }

@@ -175,6 +175,9 @@
     <Compile Include="View\UserControls\FullAccountDetails.xaml.cs">
       <DependentUpon>FullAccountDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControls\InAppNotificationView.xaml.cs">
+      <DependentUpon>InAppNotificationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControls\PayeeTemplate.xaml.cs">
       <DependentUpon>PayeeTemplate.xaml</DependentUpon>
     </Compile>
@@ -326,6 +329,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\FullAccountDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\InAppNotificationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
