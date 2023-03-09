@@ -28,6 +28,7 @@ namespace NetBankingApplication.View.UserControls
         private TransactionHistoryBaseViewModel TransactionViewModel;
         public double windowHeight;
         public double windowWidth;
+        public bool ShowOnlyRecentTransactions { get;set; }
 
         public TransactionHistory(string userId)
         {
@@ -58,7 +59,9 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            TransactionViewModel.GetTransactionData(currentUserId);
+        
+                TransactionViewModel.GetTransactionData(currentUserId, ShowOnlyRecentTransactions);
+          
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)

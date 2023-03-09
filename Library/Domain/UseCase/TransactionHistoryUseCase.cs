@@ -21,11 +21,13 @@ namespace Library.Domain.UseCase
     {
         public string UserId { get; set; }
         public CancellationTokenSource CtsSource { get; set ; }
+        public bool ShowOnlyRecentTransactions { get; set; }
 
-        public TransactionHistoryRequest(string userId,CancellationTokenSource cts)
+        public TransactionHistoryRequest(string userId,CancellationTokenSource cts, bool showOnlyRecentTransactions)
         {
             UserId = userId;
             CtsSource = cts;
+            ShowOnlyRecentTransactions = showOnlyRecentTransactions;
         }
     }
 

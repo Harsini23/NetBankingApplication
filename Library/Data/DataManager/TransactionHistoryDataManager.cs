@@ -21,9 +21,10 @@ namespace Library.Data.DataManager
         {
             //get it frm db
             ZResponse<TransactionHistoryResponse> Response = new ZResponse<TransactionHistoryResponse>();
-
+            
             var userId = request.UserId;
-            var allTransactions = DbHandler.GetAllTransactions(userId);
+            List<Transaction> allTransactions= DbHandler.GetAllTransactions(userId,request.ShowOnlyRecentTransactions);
+           
             TransactionHistoryResponse transactionHistoryResponse = new TransactionHistoryResponse();
             transactionHistoryResponse.allTransactions = allTransactions;
             Response.Data = transactionHistoryResponse;

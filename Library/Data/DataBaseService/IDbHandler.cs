@@ -22,7 +22,7 @@ namespace Library.Data.DataBaseService
         bool ResetPassword(Credentials newCredential);
         bool AddTransaction(Transaction transaction);
         void AddAccount(Account account);
-        List<Transaction> GetAllTransactions(string userId);
+        List<Transaction> GetAllTransactions(string userId,bool fetchRecentTransactions);
         bool AddNewPayee(Payee newPayee);
         void AddAccountForUser(UserAccounts userAccounts);
         List<Payee> GetAllPayee(string userId);

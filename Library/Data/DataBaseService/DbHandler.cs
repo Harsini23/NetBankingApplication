@@ -145,27 +145,24 @@ namespace Library.Data.DataBaseService
             return (check != 0) ;
         }
 
-        public List<Transaction> GetAllTransactions(string userId)
+        public List<Transaction> GetAllTransactions(string userId,bool getRecentTransactions)
         {
-            List<Transaction> allTransactions = new List<Transaction>();
-            var AllTransactions = connection.Table<Transaction>().Where(c => c.UserId == userId);
-            foreach (var i in AllTransactions)
+            if (getRecentTransactions)
             {
-                allTransactions.Add(i);
+                //return only recent 10 transactions
+                var AllTransactions = connection.Table<Transaction>().Where(c => c.UserId == userId).ToList();
+                return  AllTransactions.OrderByDescending(c => DateTimeOffset.Parse(c.Date)).Take(10).ToList();
             }
-            return allTransactions;
-
+            else
+            {
+                //return all transactions
+                return connection.Table<Transaction>().Where(c => c.UserId == userId).ToList();
+            }
         }
 
         public List<Transaction> GetTransactionsForAccount(string accountNumber)
         {
-            List<Transaction> allTransactions = new List<Transaction>();
-            var AllTransactions = connection.Table<Transaction>().Where(c => c.FromAccount == accountNumber || c.ToAccount== accountNumber);
-            foreach (var i in AllTransactions)
-            {
-                allTransactions.Add(i);
-            }
-            return allTransactions;
+            return connection.Table<Transaction>().Where(c => c.FromAccount == accountNumber || c.ToAccount == accountNumber).ToList();
         }
 
         #endregion
@@ -182,8 +179,7 @@ namespace Library.Data.DataBaseService
 
         public List<Payee> GetAllPayee(string userId)
         {
-            var AllCurrentPayee = connection.Table<Payee>().Where(i => i.UserID == userId).ToList();
-            return AllCurrentPayee;
+           return connection.Table<Payee>().Where(i => i.UserID == userId).ToList();
         }
 
         public void DeletePayee(Payee payee)
@@ -201,9 +197,8 @@ namespace Library.Data.DataBaseService
 
         public List<String> GetAllAccountsForUser(string userId)
         {
-            var query = connection.Table<UserAccounts>().Where(c => c.UserId == userId)
+            return connection.Table<UserAccounts>().Where(c => c.UserId == userId)
                           .Select(c => c.AccountNumber).ToList();
-            return query;
         }
 
        public double GetTotalBalanceOfUser(string userId)

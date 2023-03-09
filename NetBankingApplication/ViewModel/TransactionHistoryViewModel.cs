@@ -22,10 +22,17 @@ namespace NetBankingApplication.ViewModel
     public class TransactionHistoryViewModel : TransactionHistoryBaseViewModel
     {
         TransactionHistoryUseCase Transaction;
-        public override void GetTransactionData(string userId)
+        //public override void GetTransactionData(string userId)
+        //{
+           
+        //    Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest(userId, new CancellationTokenSource()), new PresenterTransactionHistoryCallback(this));
+        //    Transaction.Execute();
+            
+        //} 
+        public override void GetTransactionData(string userId,bool showOnlyRecentTransactions=false)
         {
            
-            Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest(userId, new CancellationTokenSource()), new PresenterTransactionHistoryCallback(this));
+            Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest(userId, new CancellationTokenSource(),showOnlyRecentTransactions), new PresenterTransactionHistoryCallback(this));
             Transaction.Execute();
             
         }
@@ -220,7 +227,8 @@ namespace NetBankingApplication.ViewModel
         public ObservableCollection<Transaction> AllSortedTransactions = new ObservableCollection<Transaction>();
         public ObservableCollection<TransactionBObj> AllSortedIndexedTransactions = new ObservableCollection<TransactionBObj>();
         public ObservableCollection<GroupInfosList> FinalSortedIndexedTransactions = new ObservableCollection<GroupInfosList>();
-        public abstract void GetTransactionData(string UserId);
+        //public abstract void GetTransactionData(string UserId);
+        public abstract void GetTransactionData(string UserId,bool showOnlyRecentTransactions);
         public List<Transaction> AllTransactionList= new List<Transaction>(){};
 
         public List<String> RecipientNameInitials = new List<string>();
