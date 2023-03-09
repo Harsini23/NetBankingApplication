@@ -83,21 +83,18 @@ namespace Library.Data.DataBaseService
         public bool CheckIfUserExists(string userId)
         {
             var query = connection.Table<Credentials>().Where(c => c.UserId == userId).FirstOrDefault(); ;
-            if (query != null) return true;
-            return false;
+            return (query != null);
         }
         public bool CheckUserCredential(string userId, string password)
         {
             var query = connection.Table<Credentials>().Where(c => c.UserId == userId && c.Password == password).FirstOrDefault();
-            if (query != null) return true;
-            return false;
+            return (query != null);
         }
 
         public bool CheckIfAdmin(string userId)
         {
             var query = connection.Table<Credentials>().Where(c => c.UserId == userId && c.IsAdmin).FirstOrDefault(); ;
-            if (query != null) return true;
-            return false;
+            return (query != null);
         }
         public bool CheckIfNewUser(string userId)
         {
