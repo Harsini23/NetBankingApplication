@@ -48,6 +48,7 @@ namespace NetBankingApplication.ViewModel
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
                 EditPayeeViewModel.ResponseValue = response.Response;
+                EditPayeeViewModel.AddEditPayeeView?.CallEditNotificationNotification();
                 //refresh list after updation!
                 eventProvider.Subscribe(new PayeeUpdate());
                 eventProvider.RaiseEvent(EditPayeeViewModel.Currentpayee.UserID);
@@ -57,6 +58,7 @@ namespace NetBankingApplication.ViewModel
 
         public abstract class EditPayeeBaseViewModel : NotifyPropertyBase
         {
+        public IEditNotificationAlert AddEditPayeeView;
 
         public abstract void EditPayee(Payee payee);
         private string _response = String.Empty;
@@ -71,4 +73,12 @@ namespace NetBankingApplication.ViewModel
         }
 
         }
+
+    public interface IEditNotificationAlert
+    {
+        void CallEditNotificationNotification();
+    }
+
+
+
 }

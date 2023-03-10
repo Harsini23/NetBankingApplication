@@ -148,7 +148,7 @@
                     <StackPanel HorizontalAlignment="Center" Margin="10">
                         <TextBlock FontSize="20"  FontWeight="Bold" HorizontalAlignment="Center" Text="{x:Bind TransferAmountViewModel.Status,Mode=OneWay}" Margin="5"  x:Name="Transaction_status"></TextBlock>
                         <TextBlock FontWeight="Medium" FontSize="14"  Text="{x:Bind TransferAmountViewModel.ResultStatus,Mode=OneWay}"  HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
-                    </StackPanel> 
+                    </StackPanel>
                     <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock Text="Transaction Reference Number :" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         <TextBlock x:Name="TransactionId" Margin="10,0,0,0" Text="{x:Bind TransferAmountViewModel.TransactionIdValue,Mode=OneWay}"  FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
@@ -169,8 +169,8 @@
                             <TextBlock Text="To Account :" FontSize="16" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <TextBlock x:Name="ToAccountNumber" Text="{x:Bind TransferAmountViewModel.ToAccountNumber,Mode=OneWay}"  FontSize="16" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
-                     
-                       
+
+
                     </StackPanel>
 
                     <StackPanel Margin="10" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -189,9 +189,6 @@
 
                 </Grid>
             </ContentDialog>
-
-            <controls:InAppNotification x:Name="ExampleInAppNotification" BorderBrush="Black" BorderThickness="0.5" CornerRadius="10"  />
-
         </Grid>
 
     </ScrollViewer>

@@ -33,35 +33,35 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Add new Payee" Style="{ThemeResource InputFieldTextBox}" Margin="5" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"></TextBlock>
-                <TextBox Grid.Row="1" Style="{ThemeResource InputFieldTextBox}" x:Name="PayeeName" >
+                <TextBox TextChanged="TextChanged" Grid.Row="1" Style="{ThemeResource InputFieldTextBox}" x:Name="PayeeName" >
                     <TextBox.Header>
                         <TextBlock >
         <Run Text="Payee Name " > </Run><Run  Foreground="Red">*</Run>
                         </TextBlock>
                     </TextBox.Header>
                 </TextBox>
-                <TextBox Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" x:Name="AccountHolderName">
+                    <TextBox TextChanged="TextChanged" Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" x:Name="AccountHolderName">
                     <TextBox.Header>
                         <TextBlock >
         <Run Text="Account Holder name " > </Run><Run  Foreground="Red">*</Run>
                         </TextBlock>
                     </TextBox.Header>
                 </TextBox>
-                <TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}"   x:Name="BankName">
+                    <TextBox TextChanged="TextChanged" Grid.Row="4" Style="{ThemeResource InputFieldTextBox}"   x:Name="BankName">
                     <TextBox.Header>
                         <TextBlock >
         <Run Text="Bank Name " > </Run><Run  Foreground="Red">*</Run>
                         </TextBlock>
                     </TextBox.Header>
                 </TextBox>
-                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" InputScope="Number"  x:Name="Accountnumber" BeforeTextChanging="TextBox_OnBeforeTextChanging" >
+                    <TextBox TextChanged="TextChanged" Grid.Row="3" Style="{ThemeResource InputFieldTextBox}" InputScope="Number"  x:Name="Accountnumber" BeforeTextChanging="TextBox_OnBeforeTextChanging" >
                     <TextBox.Header>
                         <TextBlock >
         <Run Text="Account Number " > </Run><Run  Foreground="Red">*</Run>
                         </TextBlock>
                     </TextBox.Header>
                 </TextBox>
-                <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}"   x:Name="IfscCode" >
+                    <TextBox TextChanged="TextChanged" Grid.Row="5" Style="{ThemeResource InputFieldTextBox}"   x:Name="IfscCode" >
                     <TextBox.Header>
                         <TextBlock >
         <Run Text="IFSC Code " > </Run><Run  Foreground="Red">*</Run>
@@ -69,7 +69,7 @@
                     </TextBox.Header>
                 </TextBox>
 
-                <TextBlock Grid.Row="6" x:Name="ErrorMessage" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="6" x:Name="ErrorMessage" Style="{ThemeResource FailureText}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <Button  Grid.Row="7" x:Name="AddPayee" Content="Add Payee" Style="{ThemeResource ButtonStyling}" Click="AddPayee_Click"></Button>
 
                 </Grid>
@@ -77,7 +77,7 @@
         
         </StackPanel>
 
-            <ContentDialog x:Name="AddPayeeDialog"
+            <!--<ContentDialog x:Name="AddPayeeDialog"
        Background="{ThemeResource SupportingColour}" CornerRadius="10"
        HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Margin="0" >
 
@@ -86,7 +86,7 @@
                     <TextBlock  Text="{x:Bind AddPayeeViewModel.AddPayeeResponseValue,Mode=OneWay}" FontSize="18" Padding="5,0,0,0"></TextBlock>
                 </StackPanel>
 
-            </ContentDialog>
+            </ContentDialog>-->
         </Grid>
 
     </ScrollViewer>
