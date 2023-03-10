@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using static Library.Domain.UseCase.GetAllPayee;
 
 namespace NetBankingApplication.ViewModel
@@ -18,7 +19,7 @@ namespace NetBankingApplication.ViewModel
     public class GetAllPayeeViewModel : GetAllPayeeBaseViewModel
     {
         GetAllPayee recipients;
-        public IViewAndEditPayeeVM viewAndEditPayeeVMCallback;
+      //  public IViewAndEditPayeeVM viewAndEditPayeeVMCallback;
         public GetAllPayeeViewModel()
         {
             //PresenterDeletePayeeCallback.ValueChanged += PresenterDeletePayeeCallback_ValueChanged;
@@ -30,7 +31,7 @@ namespace NetBankingApplication.ViewModel
 
         public override void GetAllPayee(string userId)
         {
-            viewAndEditPayeeVMCallback =  ChangeVisibility;
+            //viewAndEditPayeeVMCallback =  ChangeVisibility;
             recipients = new GetAllPayee(new GetAllPayeeRequest(userId, new CancellationTokenSource()), new PresenterGetAllPayeeCallback(this));
             recipients.Execute();
         }
@@ -83,7 +84,18 @@ namespace NetBankingApplication.ViewModel
                       getAllPayeeViewModel.PayeeNames.Add(i.PayeeName);
                       getAllPayeeViewModel.AllPayee.Add(i);
                   }
-            GetAllPayeeViewModel.ChangeVisibility?.ChangeVisibility(getAllPayeeViewModel.AllPayeeCollection.Count <= 0);
+
+            if(getAllPayeeViewModel.AllPayeeCollection.Count <= 0)
+            {
+                getAllPayeeViewModel.TextBoxVisibility = Visibility.Visible;
+
+            }
+            else
+            {
+                getAllPayeeViewModel.TextBoxVisibility = Visibility.Collapsed;
+
+            }
+           // GetAllPayeeViewModel.ChangeVisibility?.ChangeVisibility(getAllPayeeViewModel.AllPayeeCollection.Count <= 0);
              
         }
     }
@@ -96,11 +108,24 @@ namespace NetBankingApplication.ViewModel
         public abstract void GetAllPayee(string userId);
         public List<Payee> AllPayee = new List<Payee>() { };
         public List<String> PayeeNames = new List<String>();
-        public static IViewAndEditPayeeVM ChangeVisibility;
+       // public static IViewAndEditPayeeVM ChangeVisibility;
+
+        private Visibility _textBoxVisibility = Visibility.Collapsed;
+        public Visibility TextBoxVisibility
+        {
+            get { return _textBoxVisibility; }
+            set
+            {
+                _textBoxVisibility = value;
+                OnPropertyChanged(nameof(TextBoxVisibility));
+
+            }
+        }
+
     }
 
-    public interface IViewAndEditPayeeVM
-    {
-        void ChangeVisibility(bool visible);
-    }
+    //public interface IViewAndEditPayeeVM
+    //{
+    //    void ChangeVisibility(bool visible);
+    //}
 }

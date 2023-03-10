@@ -21,15 +21,18 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class AddPayeeView : UserControl
+    public sealed partial class AddPayeeView : UserControl, INotificationAlert
     {
         private string currentUserId;
         private AddPayeeBaseViewModel AddPayeeViewModel;
-   
+
+        public event Action<string> RaiseNotification;
+
         public AddPayeeView(string userId)
         {
             this.InitializeComponent();
             AddPayeeViewModel = PresenterService.GetInstance().Services.GetService<AddPayeeBaseViewModel>();
+            AddPayeeViewModel.AddPayeeView = this;
             currentUserId = userId;
          //   Result.Text = "";
 
@@ -39,6 +42,7 @@ namespace NetBankingApplication.View.UserControls
         {
             if (AccountHolderName.Text==String.Empty|| Accountnumber.Text==String.Empty|| IfscCode.Text==String.Empty|| BankName.Text==String.Empty|| PayeeName.Text==String.Empty)
             {
+                ErrorMessage.Visibility = Visibility.Visible;
                 ErrorMessage.Text = "All fields are required";
             }
             else
@@ -52,15 +56,17 @@ namespace NetBankingApplication.View.UserControls
                 BankName.Text = String.Empty;
                 ErrorMessage.Text= String.Empty;
 
-                AddPayeeDialog.ShowAsync();
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(1);
-                timer.Tick += (s, args) =>
-                {
-                    AddPayeeDialog.Hide();
-                    timer.Stop();
-                };
-                timer.Start();
+                //AddPayeeDialog.ShowAsync();
+                //DispatcherTimer timer = new DispatcherTimer();
+                //timer.Interval = TimeSpan.FromSeconds(1);
+                //timer.Tick += (s, args) =>
+                //{
+                //    AddPayeeDialog.Hide();
+                //    timer.Stop();
+                //};
+                //timer.Start();
+
+
 
             }
 
@@ -71,6 +77,17 @@ namespace NetBankingApplication.View.UserControls
                                           TextBoxBeforeTextChangingEventArgs args)
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
+
+        public void CallNotification()
+        {
+            RaiseNotification?.Invoke(AddPayeeViewModel.AddPayeeResponseValue);
+
+        }
+
+        private void TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ErrorMessage.Visibility = Visibility.Collapsed;
         }
     }
 }

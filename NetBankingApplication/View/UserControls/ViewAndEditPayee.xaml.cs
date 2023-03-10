@@ -22,18 +22,20 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class ViewAndEditPayee : UserControl, IViewAndEditPayeeVM
+    public sealed partial class ViewAndEditPayee : UserControl, IDeleteNotificationAlert,IEditNotificationAlert //, IViewAndEditPayeeVM
     {
         private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
         private DeletePayeeBaseViewModel DeletePayeeViewModel;
         private EditPayeeBaseViewModel EditPayeeViewModel;
         private double windowWidth;
         private double windowHeight;
+        private Payee _currentPayee;
 
         public ObservableCollection<Payee> PayeeCollection = new ObservableCollection<Payee>();
         public ObservableCollection<Payee> SelctionPayeeCollection = new ObservableCollection<Payee>();
 
         //List<Payee> allRecipients = new List<Payee>();
+        public event Action<string> RaiseNotification;
 
         private string currentUserId;
         public ViewAndEditPayee(string userId)
@@ -43,11 +45,13 @@ namespace NetBankingApplication.View.UserControls
             GetAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
             DeletePayeeViewModel = PresenterService.GetInstance().Services.GetService<DeletePayeeBaseViewModel>();
             EditPayeeViewModel = PresenterService.GetInstance().Services.GetService<EditPayeeBaseViewModel>();
+            DeletePayeeViewModel.AddEditPayeeView = this;
+            EditPayeeViewModel.AddEditPayeeView = this;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            GetAllPayeeBaseViewModel.ChangeVisibility = this;
+           // GetAllPayeeBaseViewModel.ChangeVisibility = this;
             PayeeCollection.Clear();
             GetAllPayeeViewModel.GetAllPayee(currentUserId);
             PayeeCollection = GetAllPayeeViewModel.AllPayeeCollection;
@@ -73,15 +77,15 @@ namespace NetBankingApplication.View.UserControls
             //EmptyList.Visibility = Visibility.Collapsed;
           
 
-            DeletePayeeAcknowledgementDialogue.ShowAsync();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += (s, args) =>
-            {
-                DeletePayeeAcknowledgementDialogue.Hide();
-                timer.Stop();
-            };
-            timer.Start();
+            //DeletePayeeAcknowledgementDialogue.ShowAsync();
+            //DispatcherTimer timer = new DispatcherTimer();
+            //timer.Interval = TimeSpan.FromSeconds(1);
+            //timer.Tick += (s, args) =>
+            //{
+            //    DeletePayeeAcknowledgementDialogue.Hide();
+            //    timer.Stop();
+            //};
+            //timer.Start();
 
         }
 
@@ -159,6 +163,7 @@ namespace NetBankingApplication.View.UserControls
         }
         private void populateEdittingDetails(Payee dataItem)
         {
+            _currentPayee=dataItem;
             PayeeNameTextBox.Text = dataItem.PayeeName;
             AccountHolderTextBox.Text = dataItem.AccountHolderName;
             AccountNumberTextBox.Text=dataItem.AccountNumber;
@@ -188,6 +193,12 @@ namespace NetBankingApplication.View.UserControls
                 ErrorMessage.Text = "Bank name cannot be empty";
                 ErrorMessage.Visibility = Visibility.Visible;
             }
+            else if (PayeeNameTextBox.Text == _currentPayee.PayeeName && AccountHolderTextBox.Text==_currentPayee.AccountHolderName && IFSCCodeTextBox.Text==_currentPayee.IfscCode && BankNameTextBox.Text==_currentPayee.BankName)
+            {
+                //no changes
+                RaiseNotification?.Invoke("No changes to be edited ");
+                EditPayeePopup.IsOpen = false;
+            }
             else
             {
                 Payee editedPayee = new Payee
@@ -204,17 +215,27 @@ namespace NetBankingApplication.View.UserControls
 
                 EditPayeePopup.IsOpen = false;
 
-                EditPayeeAcknowledgementDialogue.ShowAsync();
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(1);
-                timer.Tick += (s, args) =>
-                {
-                    EditPayeeAcknowledgementDialogue.Hide();
-                    timer.Stop();
-                };
-                timer.Start();
+                //EditPayeeAcknowledgementDialogue.ShowAsync();
+                //DispatcherTimer timer = new DispatcherTimer();
+                //timer.Interval = TimeSpan.FromSeconds(1);
+                //timer.Tick += (s, args) =>
+                //{ 
+                //    EditPayeeAcknowledgementDialogue.Hide();
+                //    timer.Stop();
+                //};
+                //timer.Start();
             }
-         
+        }
+
+       
+        public void CallEditNotificationNotification()
+        {
+            RaiseNotification?.Invoke(EditPayeeViewModel.ResponseValue);
+        }
+
+        public void CallDeleteNotificationNotification()
+        {
+            RaiseNotification?.Invoke(DeletePayeeViewModel.ResponseValue);
         }
     }
 }

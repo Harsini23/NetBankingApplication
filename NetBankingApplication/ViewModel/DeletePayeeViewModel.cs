@@ -57,6 +57,7 @@ namespace NetBankingApplication.ViewModel
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
                 deletePayeeViewModel.ResponseValue = response.Data.ToString();
+                deletePayeeViewModel.AddEditPayeeView?.CallDeleteNotificationNotification();
                 //ValueChanged?.Invoke(DeletePayeeViewModel.userId);
 
                 eventProvider.Subscribe(new PayeeUpdate());
@@ -70,6 +71,7 @@ namespace NetBankingApplication.ViewModel
     {
 
         public abstract void DeletePayee(Payee payee);
+        public IDeleteNotificationAlert AddEditPayeeView;
         private string _response = String.Empty;
         public string ResponseValue
         {
@@ -81,5 +83,10 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+    }
+
+    public interface IDeleteNotificationAlert
+    {
+       void CallDeleteNotificationNotification();
     }
 }

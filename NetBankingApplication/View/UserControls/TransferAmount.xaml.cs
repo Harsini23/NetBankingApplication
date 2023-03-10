@@ -1,6 +1,7 @@
 ﻿using Library.Model;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp.UI;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -41,14 +42,10 @@ namespace NetBankingApplication.View.UserControls
 
 
         private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
-
-
         private TransferAmountBaseViewModel TransferAmountViewModel;
-
-
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
 
-
+        public event Action<string> RaiseNotification;
 
         List<String> allRecipientNames = new List<String>();
         List<Payee> allRecipients = new List<Payee>();
@@ -389,8 +386,10 @@ namespace NetBankingApplication.View.UserControls
 
         public void ZeroBalanceNotification()
         {
-            int duration = 4000;
-            ExampleInAppNotification.Show("Zero Balance Alert!!", duration);
+           // int duration = 4000;
+            RaiseNotification?.Invoke("Zero balance alert");
+
+            //ExampleInAppNotification.Show("Zero Balance Alert!!", duration);
             //disable make payment button
             MakeTransaction.IsEnabled = false;
 

@@ -54,6 +54,7 @@ namespace NetBankingApplication.ViewModel
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
                 addPayeeViewModel.AddPayeeResponseValue = response.Response;
+                addPayeeViewModel.AddPayeeView?.CallNotification();
             });
           
         }
@@ -63,7 +64,7 @@ namespace NetBankingApplication.ViewModel
     public abstract class AddPayeeBaseViewModel : NotifyPropertyBase
     {
         public abstract void AddPayee(Payee newRecipent);
-     
+        public INotificationAlert AddPayeeView { get; set; }
 
         private string _response = String.Empty;
         public string AddPayeeResponseValue
@@ -77,5 +78,10 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+    }
+
+    public interface INotificationAlert
+    {
+        void CallNotification();
     }
 }

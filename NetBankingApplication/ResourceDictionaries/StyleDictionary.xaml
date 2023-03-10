@@ -18,6 +18,7 @@
             <SolidColorBrush x:Key="AppForegroundBg" Color="White"></SolidColorBrush>
 
             <SolidColorBrush x:Key="SupportingColour" Color="#cfd6df"></SolidColorBrush>
+            <SolidColorBrush x:Key="NotificationColour" Color="#cfd6df"></SolidColorBrush>
 
 
             <SolidColorBrush x:Key="Positive" Color="#70b454"></SolidColorBrush>
@@ -1088,6 +1089,7 @@
 
             <SolidColorBrush x:Key="AppForegroundBg" Color="#1a1a1a"></SolidColorBrush>
             <SolidColorBrush x:Key="SupportingColour" Color="#212732"></SolidColorBrush>
+            <SolidColorBrush x:Key="NotificationColour" Color="#4b4f55"></SolidColorBrush>
 
             <SolidColorBrush x:Key="Positive" Color="#0e8153"></SolidColorBrush>
             <SolidColorBrush x:Key="Negative" Color="#a72523"></SolidColorBrush>

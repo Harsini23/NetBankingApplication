@@ -19,7 +19,7 @@ namespace Library.Data.DataManager
         {
             DbHandler.EditPayee(request.EditedPayee);
             ZResponse<String> Response = new ZResponse<String>();
-            Response.Response = "Edited successfully";
+            Response.Response = "Payee Edited successfully";
             Response.Data = "Payee Edited";
 
             response.OnResponseSuccess(Response);

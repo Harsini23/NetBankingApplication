@@ -43,7 +43,18 @@ namespace NetBankingApplication.View.UserControls
                 NotifyPropertyChanged();
             }
         }
-   
+
+        private string _notificationMessage;
+        public string NotificationMessage
+        {
+            get { return _notificationMessage; }
+            set
+            {
+                _notificationMessage = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -60,7 +71,10 @@ namespace NetBankingApplication.View.UserControls
 
             if (args.SelectedItem == Transfer)
             {
-                CurrentSelectedItem = new TransferAmount(currentUser.UserId);
+                    var transferAmount= new TransferAmount(currentUser.UserId);
+                CurrentSelectedItem = transferAmount;
+                transferAmount.RaiseNotification += TransferAmount_RaiseNotification;
+
             }
             else if(args.SelectedItem == ViewTransactions)
             {
@@ -68,13 +82,23 @@ namespace NetBankingApplication.View.UserControls
             }
             else if(args.SelectedItem == AddPayee)
             {
-                CurrentSelectedItem = new AddPayeeView(currentUser.UserId);
+               var addPayeeView  = new AddPayeeView(currentUser.UserId);
+                CurrentSelectedItem = addPayeeView;
+                addPayeeView.RaiseNotification += TransferAmount_RaiseNotification;
             }
             else
             {
-                CurrentSelectedItem = new ViewAndEditPayee(currentUser.UserId);
+                var viewAndEditPayee = new ViewAndEditPayee(currentUser.UserId);
+                CurrentSelectedItem = viewAndEditPayee;
+                viewAndEditPayee.RaiseNotification+= TransferAmount_RaiseNotification;
             }
           
+        }
+
+        private void TransferAmount_RaiseNotification(string obj)
+        {
+            ExampleInAppNotification.Show(obj, 3000);
+            NotificationMessage = obj;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -82,6 +106,11 @@ namespace NetBankingApplication.View.UserControls
             CurrentSelectedItem = new TransferAmount(currentUser.UserId);
             PaymentsAndTransferNavigation.SelectedItem = Transfer;
           
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ExampleInAppNotification.Dismiss();
         }
     }
 }

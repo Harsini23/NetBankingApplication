@@ -900,7 +900,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-            <TextBlock Visibility="Collapsed" Text="No records found!" Name="EmptyList" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"></TextBlock>
+            <TextBlock Visibility="{x:Bind GetAllPayeeViewModel.TextBoxVisibility,Mode=OneWay}" Text="No records found!" Name="EmptyList" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"></TextBlock>
 
             <Popup Height="Auto" Grid.Row="0" ScrollViewer.HorizontalScrollMode="Auto" Grid.RowSpan="2"  x:Name="EditPayeePopup"  IsLightDismissEnabled="True" LightDismissOverlayMode="on" >
                 <Grid CornerRadius="10" MinWidth="350" MinHeight="450" Background="{ThemeResource SupportingColour}" Padding="40" VerticalAlignment="Center" HorizontalAlignment="Center" Width="380">
@@ -955,7 +955,7 @@
             </Popup>
 
 
-            <ContentDialog x:Name="DeletePayeeAcknowledgementDialogue"
+            <!--<ContentDialog x:Name="DeletePayeeAcknowledgementDialogue"
        Background="{ThemeResource SupportingColour}" CornerRadius="10"
        HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Margin="0" >
               
@@ -974,7 +974,7 @@
                     <TextBlock  Text="{x:Bind EditPayeeViewModel.ResponseValue,Mode=OneWay}" FontSize="18" Padding="5,0,0,0"></TextBlock>
                 </StackPanel>
 
-            </ContentDialog>
+            </ContentDialog>-->
         </Grid>
 
     </ScrollViewer>
