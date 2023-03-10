@@ -149,7 +149,6 @@
                     <DropDownButton  MinWidth="260" HorizontalContentAlignment="Left"   Name="CurrencyValues" MinHeight="32" Background="{ThemeResource AppForegroundBg}" Style="{ThemeResource DropdownStyle}" >
                         <DropDownButton.Flyout >
                             <MenuFlyout  Opening="MenuFlyout_Opening_Currency" LightDismissOverlayMode="Auto" Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource MenuDropDownContentStyle}">
-                                <!--<MenuFlyoutItem CornerRadius="10" Width="270"></MenuFlyoutItem>-->
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
@@ -164,7 +163,6 @@
                         </TextBlock>
                     </TextBox.Header>
                 </TextBox>
-                <!--<TextBox Grid.Row="4" Style="{ThemeResource InputFieldTextBox}" Header="Branch Id"  x:Name="BranchIdTextBox"/>-->
 
                 <StackPanel  Grid.Row="4" Margin="5" >
                     <StackPanel Orientation="Horizontal" Padding="0,0,0,5">
@@ -174,7 +172,6 @@
                     <DropDownButton  MinWidth="260" HorizontalContentAlignment="Left" Name="SelectBranch" MinHeight="32" Background="{ThemeResource AppForegroundBg}" Style="{ThemeResource DropdownStyle}" >
                         <DropDownButton.Flyout >
                             <MenuFlyout  Opening="MenuFlyout_Opening" LightDismissOverlayMode="Auto" Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource MenuDropDownContentStyle}">
-                                <!--<MenuFlyoutItem CornerRadius="10" Width="270"></MenuFlyoutItem>-->
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
