@@ -18,13 +18,11 @@
     </UserControl.Resources>
 
     <Grid Background="{ThemeResource AppBackground}">
-        <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" SelectionChanged="AdminPageNavigation_SelectionChanged"  x:Name="AdminPageNavigation" IsBackButtonVisible="Collapsed"  IsSettingsVisible="False" OpenPaneLength="200">
+        <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" SelectionChanged="AdminPageNavigation_SelectionChanged"  x:Name="AdminPageNavigation"  IsBackEnabled="False"  IsBackButtonVisible="Collapsed"   IsPaneToggleButtonVisible="True" IsPaneOpen="False" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.IsVerticalRailEnabled="False" IsSettingsVisible="False" OpenPaneLength="200">
             <NavigationView.MenuItems>
                 <NavigationViewItem Name="AddUser" Icon="Edit" Content="Add User" Tag="Add User"  />
                 <NavigationViewItem Name="EditProfile" Icon="Contact" Content="Edit Profile" Tag="Edit Profile" />
             </NavigationView.MenuItems>
-
-
             <NavigationView.PaneFooter>
                 <StackPanel>
                     <NavigationViewItem  Tapped="ThemeChange_Tapped"  Name="ThemeChange" Content="{x:Bind OppositeTheme,Mode=OneWay}">
@@ -44,23 +42,28 @@
 
             <ContentControl HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedModule,Mode=OneWay}" CornerRadius="30" />
         </NavigationView>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger
+                        MinWindowWidth="900" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <!--<Setter Target="DashBoardNavigation.CompactPaneLength" Value="240"/>-->
+                        <Setter Target="AdminPageNavigation.IsPaneToggleButtonVisible" Value="false"/>
+                        <Setter Target="AdminPageNavigation.PaneDisplayMode" Value="Left"/>
+                        <Setter Target="AdminPageNavigation.IsPaneOpen" Value="True"/>
+                        <Setter Target="AdminPageNavigation.OpenPaneLength" Value="240"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 
-    <VisualStateManager.VisualStateGroups>
-        <VisualStateGroup>
-            <VisualState>
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger
-                        MinWindowWidth="900" />
-                </VisualState.StateTriggers>
+   
 
-                <VisualState.Setters>
-                    <!--<Setter Target="DashBoardNavigation.CompactPaneLength" Value="240"/>-->
-                    <Setter Target="AdminPageNavigation.PaneDisplayMode" Value="Left"/>
-                  
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
-    </VisualStateManager.VisualStateGroups>
+ 
 
 </Page>
