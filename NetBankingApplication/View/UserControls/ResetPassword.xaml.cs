@@ -101,9 +101,11 @@ namespace NetBankingApplication.View.UserControls
 
         private void ResetPassword_Click(object sender, RoutedEventArgs e)
         {
+          
             LoginViewModel.Redirect = redirect;
             LoginViewModel.ResetPassword(RePasswordReset.Password);
-            
+            PasswordReset.Password = "";
+            RePasswordReset.Password = "";
         }
     }
 }

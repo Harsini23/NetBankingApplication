@@ -32,26 +32,36 @@ namespace Library.Data.DataManager
             var userAccount= CreateUserAccounts(GeneratedAccountNumber);
             Transaction currentTransation = AddInitialTransaction(user.UserId, user.UserName, userAccount.AccountNumber, request.newUser.TotalBalance);
 
-            DbHandler.AddUser(user);
-            DbHandler.AddAccount(account);
-            DbHandler.AddAccountForUser(userAccount);
-            DbHandler.CreateCredential(credentials);
-            DbHandler.AddTransaction(currentTransation);
-            Debug.WriteLine("Created and added new account and user details");
-
-            addUserResponse.credentials = new Credentials
+            var checkForExistingAccount = CheckPreviousUsers(request.newUser.EmailId,request.newUser.MobileNumber,request.newUser.PAN);
+            String responseStatus="";
+            if (!checkForExistingAccount)
             {
-                UserId = credentials.UserId,
-                Password=password,
-                IsAdmin=credentials.IsAdmin,
-                NewUser=credentials.NewUser,
-            };
-            addUserResponse.user=user;
-            addUserResponse.account = account;
-            Response.Data = addUserResponse;
-            var responseStatus = "Successfull got all data";
-            Response.Response = responseStatus;
+                DbHandler.AddUser(user);
+                DbHandler.AddAccount(account);
+                DbHandler.AddAccountForUser(userAccount);
+                DbHandler.CreateCredential(credentials);
+                DbHandler.AddTransaction(currentTransation);
+                Debug.WriteLine("Created and added new account and user details");
 
+                addUserResponse.credentials = new Credentials
+                {
+                    UserId = credentials.UserId,
+                    Password = password,
+                    IsAdmin = credentials.IsAdmin,
+                    NewUser = credentials.NewUser,
+                };
+                addUserResponse.user = user;
+                addUserResponse.account = account;
+                 responseStatus = "Successfull added user";
+            }
+            else
+            {
+                addUserResponse.UserExists = true;
+                responseStatus = "Ouch, Looks like the user already exists";
+            }
+
+            Response.Data = addUserResponse;
+            Response.Response = responseStatus;
             response.OnResponseSuccess(Response);
         }
 
@@ -121,6 +131,12 @@ namespace Library.Data.DataManager
             };
             return currentTransaction;
 
+        }
+
+
+        private bool CheckPreviousUsers(string email,long mobileNo,string Pan)
+        {
+            return DbHandler.IfUserAlreadyExists(email,mobileNo,Pan);
         }
     }
 

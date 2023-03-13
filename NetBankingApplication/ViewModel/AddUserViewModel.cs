@@ -44,9 +44,21 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                addUserViewModel.UserId = response.Data.credentials.UserId;
-                addUserViewModel.Password = response.Data.credentials.Password;
-                addUserViewModel.AccountNo = response.Data.account.AccountNumber;
+                addUserViewModel.Response = response.Response;
+                addUserViewModel.addUserNotification?.NotificationUpdate();
+                if (response.Data.UserExists)
+                {
+                    //user details already exists
+                }
+                else
+                {
+                    addUserViewModel.UserId = response.Data.credentials.UserId;
+                    addUserViewModel.Password = response.Data.credentials.Password;
+                    addUserViewModel.AccountNo = response.Data.account.AccountNumber;
+                    addUserViewModel.adduserView?.ShowContentDialogueAsync();
+
+                }
+             
             });
         }
     }
@@ -61,11 +73,8 @@ namespace NetBankingApplication.ViewModel
             {
                 _errorMessage = value;
                 OnPropertyChanged(nameof(ErrorMessage));
-                //SetProperty(ref _response, value);
             }
         }
-
-
 
         private string _userId = String.Empty;
         public string UserId
@@ -75,10 +84,8 @@ namespace NetBankingApplication.ViewModel
             {
                 _userId = value;
                 OnPropertyChanged(nameof(UserId));
-                //SetProperty(ref _response, value);
             }
         }
-
 
         private string _password = String.Empty;
         public string Password
@@ -88,7 +95,17 @@ namespace NetBankingApplication.ViewModel
             {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
-                //SetProperty(ref _response, value);
+            }
+        }
+
+        private string _response = String.Empty;
+        public string Response
+        {
+            get { return this._response; }
+            set
+            {
+                _response = value;
+                OnPropertyChanged(nameof(Response));
             }
         }
 
@@ -100,9 +117,19 @@ namespace NetBankingApplication.ViewModel
             {
                 _accountNo = value;
                 OnPropertyChanged(nameof(AccountNo));
-                //SetProperty(ref _response, value);
             }
         }
         public abstract void AddUser(UserAccountDetails userDetails);
+        public IAddUserView adduserView;
+        public ShowResponseNotification addUserNotification;
+    }
+
+    public interface IAddUserView
+    {
+         void ShowContentDialogueAsync();
+    }
+    public interface ShowResponseNotification
+    {
+        void NotificationUpdate();
     }
 }

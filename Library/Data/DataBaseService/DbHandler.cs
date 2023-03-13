@@ -31,8 +31,7 @@ namespace Library.Data.DataBaseService
         public bool CheckUser(string userId)
         {
             var user = connection.Table<User>().Where(i => i.UserId == userId);
-            if (user.Count() > 0) return true;
-            return false;
+            return (user.Count() > 0);
         }
         public bool CheckPassword(UserPasswordBObj credential)
         {
@@ -76,6 +75,7 @@ namespace Library.Data.DataBaseService
             var query = connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault();
             return query.UserName;
         }
+       
         #endregion
 
         #region "Credential Table operations"
@@ -327,6 +327,14 @@ namespace Library.Data.DataBaseService
         {
             return connection.Table<Branch>().ToList();
         }
+
+        public bool IfUserAlreadyExists(string email, long mobileNo, string Pan)
+        {
+            var query = connection.Table<User>().Where(i => i.EmailId == email || i.MobileNumber == mobileNo || i.PAN == Pan).FirstOrDefault();
+            return (query != null);
+        }
+
+    
         #endregion
     }
 }

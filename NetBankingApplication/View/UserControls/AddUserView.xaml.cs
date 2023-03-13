@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class AddUserView : UserControl
+    public sealed partial class AddUserView : UserControl,IAddUserView, ShowResponseNotification
     {
 
         private AddUserBaseViewModel AddUserViewModel;
@@ -41,6 +41,8 @@ namespace NetBankingApplication.View.UserControls
             this.InitializeComponent();
             AddUserViewModel = PresenterService.GetInstance().Services.GetService<AddUserBaseViewModel>();
             GetBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
+            AddUserViewModel.adduserView = this;
+            AddUserViewModel.addUserNotification = this;
             GetBranchDetailsViewModel.FetchBranchDetails();
             _AccountTypeValues = Enum.GetValues(typeof(AccountType)).Cast<AccountType>();
             _CurrencyValues = Enum.GetValues(typeof(Currency)).Cast<Currency>();
@@ -102,15 +104,9 @@ namespace NetBankingApplication.View.UserControls
                 AddUserViewModel.ErrorMessage = String.Empty;
                 PANTextBox.Text = String.Empty;
                 SelectBranch.Content = "";
-                ShowContentDialogueAsync();
+                //ShowContentDialogueAsync();
 
             }
-        }
-
-        public async Task ShowContentDialogueAsync()
-        {
-            var result = await ContentDialog.ShowAsync();
-            Bindings.Update();  
         }
 
         private void PanNumberTextBox_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
@@ -213,6 +209,21 @@ namespace NetBankingApplication.View.UserControls
             SelectedCurrency = selectedItem.Text;
             CurrencyValues.Content = selectedItem.Text;
 
+        }
+
+         async void IAddUserView.ShowContentDialogueAsync()
+        {
+            var result = await ContentDialog.ShowAsync();
+            Bindings.Update();
+        }
+
+        public void NotificationUpdate()
+        {
+            InAppNotification.Show(AddUserViewModel.Response, 3000);
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InAppNotification.Dismiss();
         }
     }
 }

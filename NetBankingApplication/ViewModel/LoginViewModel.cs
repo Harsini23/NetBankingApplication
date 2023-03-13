@@ -128,15 +128,20 @@ namespace NetBankingApplication.ViewModel
                         if (IsAdmin)
                         {
                             handleAdminAccess();
+                            loginViewModel.LoginResponseValue = "";
                         }
                         else
                         {
                             LoadDashBoard(loginViewModel.CurrentUser);
+                            loginViewModel.LoginResponseValue = "";
+
                         }
                     }
                     else
                     {
                         HandleClosePopUp();
+                        //changes here
+                        loginViewModel.settingsNotification?.ChangePasswordNotification();
                      }
 
                   
@@ -171,6 +176,8 @@ namespace NetBankingApplication.ViewModel
             {
                 await SwitchToMainUIThread.SwitchToMainThread(() =>
                 {
+                    loginViewModel.TextBoxVisibility = Windows.UI.Xaml.Visibility.Visible;
+
                     loginViewModel.LoginResponseValue = response.Response.ToString();
                 });
             }
@@ -180,6 +187,7 @@ namespace NetBankingApplication.ViewModel
                 await SwitchToMainUIThread.SwitchToMainThread(() =>
                 {
                     //Block account
+                    loginViewModel.TextBoxVisibility = Windows.UI.Xaml.Visibility.Visible;
                     loginViewModel.LoginResponseValue = errorMessage.exceptionMessage.ToString();
                 });
             }
@@ -190,6 +198,7 @@ namespace NetBankingApplication.ViewModel
                 {
                     LoginViewModel.IsAdmin = response.Data.IsAdmin;
                     loginViewModel.CurrentUser = response.Data.currentUser;
+                    loginViewModel.TextBoxVisibility = Windows.UI.Xaml.Visibility.Collapsed;
                     //LoginViewModel.user = response.Data.currentUser;
                     if (response.Data.IsAdmin)
                     {

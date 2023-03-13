@@ -3,9 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -24,22 +26,40 @@ namespace NetBankingApplication.View.UserControls
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SettingsView : Page, IClosePopUp, ISettingsView
+    public sealed partial class SettingsView : Page, IClosePopUp, ISettingsView, INotifyPropertyChanged, IUserUpdateNotification, IChangePasswordNotification
     {
        // private User currentuser;
        // private char UserInitial;
         private LoginBaseViewModel LoginViewModel;
         private UpdateUserBaseViewModel updateViewModel;
         private PasswordVerificationBaseViewModel passwordVerificationViewModel;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public SettingsView()
         {
             this.InitializeComponent();
             LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+            LoginViewModel.settingsNotification = this;
 
             LoginViewModel.ClosePopUp = this;
             passwordVerificationViewModel.TextBoxVisibility = Visibility.Collapsed;
         }
 
+        private string _notificationMessage;
+        public string NotificationMessage
+        {
+            get { return _notificationMessage; }
+            set
+            {
+                _notificationMessage = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public SettingsView(User currentuser)
         {
@@ -51,6 +71,7 @@ namespace NetBankingApplication.View.UserControls
 
             updateViewModel = PresenterService.GetInstance().Services.GetService<UpdateUserBaseViewModel>();
             updateViewModel.CurrentUser = currentuser;
+            updateViewModel.settingsView = this;
             updateViewModel.CurrentUserInitial= currentuser.UserName.Substring(0, 1)[0];
             passwordVerificationViewModel = PresenterService.GetInstance().Services.GetService<PasswordVerificationBaseViewModel>();
             passwordVerificationViewModel.settingsView = this;
@@ -96,15 +117,15 @@ namespace NetBankingApplication.View.UserControls
         public void closePopup()
         {
             ResetPasswordGrid.IsOpen = false;
-            AcknowledgementDialogue.ShowAsync();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += (s, args) =>
-            {
-                AcknowledgementDialogue.Hide();
-                timer.Stop();
-            };
-            timer.Start();
+            //AcknowledgementDialogue.ShowAsync();
+            //DispatcherTimer timer = new DispatcherTimer();
+            //timer.Interval = TimeSpan.FromSeconds(1);
+            //timer.Tick += (s, args) =>
+            //{
+            //    AcknowledgementDialogue.Hide();
+            //    timer.Stop();
+            //};
+            //timer.Start();
         }
         private void TextBox_OnBeforeTextChanging(TextBox sender,
                                        TextBoxBeforeTextChangingEventArgs args)
@@ -152,15 +173,15 @@ namespace NetBankingApplication.View.UserControls
 
                 updateViewModel.UpdateUser(updatedUserValue);
                 UserProfileError.Visibility = Visibility.Collapsed;
-                AcknowledgementDialogue.ShowAsync();
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(1);
-                timer.Tick += (s, args) =>
-                {
-                    AcknowledgementDialogue.Hide();
-                    timer.Stop();
-                };
-                timer.Start();
+                //AcknowledgementDialogue.ShowAsync();
+                //DispatcherTimer timer = new DispatcherTimer();
+                //timer.Interval = TimeSpan.FromSeconds(1);
+                //timer.Tick += (s, args) =>
+                //{
+                //    AcknowledgementDialogue.Hide();
+                //    timer.Stop();
+                //};
+                //timer.Start();
             }
         }
         private void UpdateCurrentPage()
@@ -195,6 +216,25 @@ namespace NetBankingApplication.View.UserControls
         {
             passwordVerificationViewModel.ResponseValue = "";
             ResetPassword.Password = String.Empty;
+        }
+
+       
+
+        public void UpdateUserNotification()
+        {
+            ExampleInAppNotification.Show(passwordVerificationViewModel.ResponseValue, 3000);
+            NotificationMessage = updateViewModel.ResponseValue;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ExampleInAppNotification.Dismiss();
+        }
+
+        public void ChangePasswordNotification()
+        {
+            ExampleInAppNotification.Show(LoginViewModel.ResetPasswordResponseValue, 3000);
+            NotificationMessage = updateViewModel.ResponseValue;
         }
     }
 }
