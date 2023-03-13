@@ -35,6 +35,7 @@ namespace NetBankingApplication.View.UserControls
         private string SelectedBranch;
         private string SelectedAccountType;
         private string SelectedCurrency;
+        private string _amount;
 
         public AddUserView()
         {
@@ -52,8 +53,9 @@ namespace NetBankingApplication.View.UserControls
                                           TextBoxBeforeTextChangingEventArgs args)
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+
         }
-      
+
 
 
         private void Submit_Click(object sender, RoutedEventArgs e)
@@ -225,5 +227,48 @@ namespace NetBankingApplication.View.UserControls
         {
             InAppNotification.Dismiss();
         }
+
+        private void BalanceTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var amountBox = (TextBox)sender;
+            ErrorMessage.Text = String.Empty;
+            _amount = amountBox.Text.ToString();
+            double val = 0.0;
+            if (amountBox.Text.Length > 0)
+            {
+                var parsable = double.TryParse(BalanceTextBox.Text, out val);
+
+                if (Math.Abs(val % 1) >= 0.0001)
+                {
+                    BalanceTextBox.Text = Math.Round(val, 2).ToString();
+                    BalanceTextBox.SelectionStart = BalanceTextBox.Text.Length;
+                }
+            }
+
+
+            if (_amount == String.Empty)
+            {
+                ErrorMessage.Text = String.Empty;
+            }
+
+            else if (!IsFloatOrInt(_amount) || Double.Parse(_amount) <= 0 && !String.IsNullOrEmpty(_amount))
+            {
+                ErrorMessage.Visibility = Visibility.Visible;
+
+                ErrorMessage.Text = "Enter valid amount";
+                //MakeTransaction.IsEnabled = false;
+            }
+            else
+            {
+                ErrorMessage.Text = String.Empty;
+            }
+        }
+        private static bool IsFloatOrInt(string value)
+        {
+            int intValue;
+            float floatValue;
+            return Int32.TryParse(value, out intValue) || float.TryParse(value, out floatValue);
+        }
+
     }
 }

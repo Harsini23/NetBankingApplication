@@ -169,7 +169,7 @@
 
 
 
-                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}"  BeforeTextChanging="TextBox_OnBeforeTextChanging"  InputScope="Number"  x:Name="BalanceTextBox">
+                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}"   TextChanged="BalanceTextBox_TextChanged" InputScope="Number"  x:Name="BalanceTextBox">
                     <TextBox.Header>
                         <TextBlock >
         <Run Text="Balance " > </Run><Run  Foreground="Red">*</Run>
