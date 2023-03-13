@@ -10,13 +10,21 @@ namespace Library.Model
     public class Admin
     {
         [PrimaryKey]
-        public string BranchId { get; set; }
         public string EmployeeId { get; set; }
-        public Admin( string branchId, string employeeId)
-        {
-            BranchId = branchId;
+        public string Name { get;set; }
+        public long MobileNumber { get; set; }
+        public string EmaiId { get; set; }
+        public string BranchId { get; set; }
+        
+    
+        public Admin(string employeeId, string name, long mobileNumber, string emaiId, string branchId) { 
             EmployeeId = employeeId;
+            Name = name;
+            MobileNumber = mobileNumber;
+            EmaiId = emaiId;
+            BranchId = branchId;
         }
+
         public Admin()
         {
                 

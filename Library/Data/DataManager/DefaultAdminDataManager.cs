@@ -18,7 +18,7 @@ namespace Library.Data.DataManager
         }
         public DefaultAdminDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
-            if (!DbHandler.CheckIfUserExists("Admin"))
+            if (!DbHandler.CheckIfAdminExists("Admin"))
             {
                 DbHandler.CreateDefaultAdminIfNotExists(new Credentials
                 {

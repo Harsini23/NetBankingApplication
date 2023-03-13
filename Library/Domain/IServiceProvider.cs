@@ -37,6 +37,7 @@ namespace Library.Domain
             var services = new ServiceCollection();
             //Services
             services.AddSingleton<ILoginDataManager, LoginDataManager>();
+            services.AddSingleton<IAddAccountDataManager, AddAccountDataManager>();
             services.AddSingleton<IResetPasswordDataManager, ResetPasswordDataManager>();
             services.AddSingleton<ITransactionHistoryDataManager, TransactionHistoryDataManager>();
             services.AddSingleton<IAddPayeeDataManager, AddPayeeDataManager>();
@@ -52,6 +53,7 @@ namespace Library.Domain
             services.AddSingleton<IEditPayeeDataManager, EditPayeeDataManager>();
             services.AddSingleton<IUpdateUserDataManager, UpdateUserDataManager>();
             services.AddSingleton<ICheckPasswordDataManager, CheckPasswordDataManager>();
+            services.AddSingleton<IGetAllUsersDataManager, GetAllUsersDataManager>();
 
             services.AddSingleton<IDbHandler, DbHandler>();
             services.AddSingleton<INetHandler, NetHandler>();

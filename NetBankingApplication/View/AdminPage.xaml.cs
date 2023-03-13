@@ -61,6 +61,11 @@ namespace NetBankingApplication.View
                 AddUserView addUserView = new AddUserView();
                 CurrentSelectedModule = addUserView;
                 HeaderTitle = "Add user";
+            }else if(args.SelectedItem== AddAccount)
+            {
+                AddAccount addAccount = new AddAccount();
+                CurrentSelectedModule = addAccount;
+                HeaderTitle = "Add Account";
             }
         }
 

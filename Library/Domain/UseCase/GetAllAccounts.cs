@@ -40,8 +40,7 @@ namespace Library.Domain.UseCase
         IPresenterGetAllAccountsCallback GetAllAccountsResponseCallback;
         public GetAllAccounts(GetAllAccountsRequest request, IPresenterGetAllAccountsCallback responseCallback)
         {
-            var serviceProviderInstance = ServiceProvider.GetInstance();
-            GetAllAccountsDataManager = serviceProviderInstance.Services.GetService<IGetAllAccountsDataManager>();
+            GetAllAccountsDataManager = ServiceProvider.GetInstance().Services.GetService<IGetAllAccountsDataManager>();
             GetAllAccountsRequest = request;
             GetAllAccountsResponseCallback = responseCallback;
         }
