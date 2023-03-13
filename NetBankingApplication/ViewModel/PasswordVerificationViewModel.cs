@@ -45,8 +45,10 @@ namespace NetBankingApplication.ViewModel
                 if (response.Data)
                 {
                     //validated
+                    passwordVerificationViewModel.ResponseValue = response.Response;
                     passwordVerificationViewModel.settingsView?.TriggerResetPasswordPopup();
                     passwordVerificationViewModel.settingsView?.RemoveErrors();
+                  
                 }
                 else
                 {
@@ -62,6 +64,7 @@ namespace NetBankingApplication.ViewModel
     {
         public abstract void CheckPassword(string userId,string password);
         public ISettingsView settingsView { get; set; }
+       // public IPasswordConfirmationView 
 
         private string _response = String.Empty;
         public string ResponseValue
@@ -93,5 +96,8 @@ namespace NetBankingApplication.ViewModel
     {
          void TriggerResetPasswordPopup();
         void RemoveErrors();
+      
     }
+
+   
 }

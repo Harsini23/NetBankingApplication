@@ -15,8 +15,6 @@
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
-            
-
             <ControlTemplate x:Key="InAppNotificationTemplate1" TargetType="controls:InAppNotification">
                 <Grid Width="300" Background="{ThemeResource NotificationColour}"  Height="50"  CornerRadius="10" >
                     <Grid.ColumnDefinitions>

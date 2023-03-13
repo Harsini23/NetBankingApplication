@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NetBankingApplication.View.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -14,7 +14,19 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-         
+            <ControlTemplate x:Key="InAppNotificationTemplate1" TargetType="controls:InAppNotification">
+                <Grid Width="400" Background="{ThemeResource NotificationColour}"  Height="50"  CornerRadius="10" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="NotificationText" Text="{TemplateBinding Content}" Margin="30,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                    <Button   FontFamily="Segoe MDL2 Assets"
+                                FontSize="12" Grid.Column="1" Background="Transparent" BorderThickness="0"
+                                Content="&#xE106;"  Style="{ThemeResource ButtonStyling}" Click="Button_Click"></Button>
+                </Grid>
+            </ControlTemplate>
             <Style TargetType="Button" x:Key="ContentDialogPrimaryButtonStyle">
                 <Setter Property="CornerRadius" Value="5"></Setter>
                
@@ -65,7 +77,8 @@
         
     </UserControl.Resources>
     <ScrollViewer>
-        <Grid x:Name="TransferAmountDetails" VerticalAlignment="Center"  Width="270" Background="Transparent" HorizontalAlignment="Center" >
+        <Grid>
+            <Grid x:Name="TransferAmountDetails" VerticalAlignment="Center"  Width="270" Background="Transparent" HorizontalAlignment="Center" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -224,7 +237,11 @@
                 </Grid>
             </ContentDialog>
 
-        </Grid>
+    
 
+        </Grid>
+            <controls:InAppNotification  Content="{x:Bind AddUserViewModel.Response,Mode=OneWay}" Margin="5,5,0,30" Template="{StaticResource InAppNotificationTemplate1}" Width="500" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Height="70"  x:Name="InAppNotification" Background="{ThemeResource NotificationColour}" BorderBrush="Black" BorderThickness="0.5" CornerRadius="10"  ShowDismissButton="True"  >
+            </controls:InAppNotification>
+        </Grid>
     </ScrollViewer>
 </UserControl>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace NetBankingApplication.ViewModel
 {
@@ -25,6 +26,18 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+        private Visibility _textBoxVisibility = Visibility.Collapsed;
+        public Visibility TextBoxVisibility
+        {
+            get { return _textBoxVisibility; }
+            set
+            {
+                _textBoxVisibility = value;
+                OnPropertyChanged(nameof(TextBoxVisibility));
+
+            }
+        }
+
         private User _currentUser;
         public User CurrentUser
         {
@@ -36,12 +49,13 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+        private string _resetPasswordResponseValue;
         public string ResetPasswordResponseValue
         {
-            get { return this._response; }
+            get { return this._resetPasswordResponseValue; }
             set
             {
-                _response = value;
+                _resetPasswordResponseValue = value;
                 OnPropertyChanged(nameof(ResetPasswordResponseValue));
             }
         }
@@ -62,7 +76,7 @@ namespace NetBankingApplication.ViewModel
         public ILoginViewModel LoginViewModelCallback { get; set; }
         public IMainPageNavigation MainPageNavigationCallback { get; set; }
         public ICloseAllWindows CloseAllWindowsCallback { get; set; }
-
+        public IChangePasswordNotification settingsNotification { get; set; }
         public IClosePopUp ClosePopUp { get; set; }
         public abstract void ValidateUserInput(string userId, string password);
         public abstract void ResetPassword(string newPassword);
@@ -95,6 +109,9 @@ namespace NetBankingApplication.ViewModel
         void closePopup();
     }
 
-
+    public interface IChangePasswordNotification
+    {
+        void ChangePasswordNotification();
+    }
 
 }

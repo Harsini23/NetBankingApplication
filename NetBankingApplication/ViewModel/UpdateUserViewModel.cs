@@ -46,11 +46,24 @@ namespace NetBankingApplication.ViewModel
                 _updateUserViewModel.CurrentUserInitial = response.Data.UserName.Substring(0, 1)[0];
                 eventProvider.Subscribe(new UserUpdate());
                 eventProvider.RaiseEvent(response.Data);
+                _updateUserViewModel.ResponseValue = response.Response;
+                _updateUserViewModel.settingsView.UpdateUserNotification();
             });
         }
     }
     public abstract class UpdateUserBaseViewModel : NotifyPropertyBase
     {
+        public IUserUpdateNotification settingsView { get;set; }
+        private string _response = String.Empty;
+        public string ResponseValue
+        {
+            get { return this._response; }
+            set
+            {
+                _response = value;
+                OnPropertyChanged(nameof(ResponseValue));
+            }
+        }
         public abstract void UpdateUser(User user);
 
         private User _currentUser;
@@ -76,5 +89,10 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+    }
+
+    public interface IUserUpdateNotification
+    {
+        void UpdateUserNotification();
     }
 }

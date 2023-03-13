@@ -76,5 +76,6 @@ namespace Library.Domain.UseCase
         public User user;
         public Credentials credentials;
         public Account account;
+        public bool UserExists;
     }
 }

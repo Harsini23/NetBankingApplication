@@ -79,6 +79,7 @@ namespace NetBankingApplication.View
 
         private void Password_PasswordChanged(object sender, RoutedEventArgs e)
         {
+            LoginViewModel.TextBoxVisibility = Windows.UI.Xaml.Visibility.Collapsed;
             var passwordBox = (PasswordBox)sender;
             var password = passwordBox.Password.ToString();
             if (password.Length > 8 && password.Length < 14 && password.Any(char.IsLower) && password.Any(char.IsUpper) && (!password.Contains(" ")) && CheckForSpecialCharacter(password))

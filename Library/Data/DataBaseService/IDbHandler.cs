@@ -46,6 +46,7 @@ namespace Library.Data.DataBaseService
         List<Branch> GetAllBranches();
         bool EditPayee(Payee payee);
         bool UpdateUser(User updatedUser);
+        bool IfUserAlreadyExists(string email,long mobileNo,string Pan);
     }
 
     public interface INetHandler
