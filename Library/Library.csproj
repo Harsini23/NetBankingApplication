@@ -128,6 +128,7 @@
     <Compile Include="Data\DataBaseService\IDbHandler.cs" />
     <Compile Include="Data\DataBaseService\NetHandler.cs" />
     <Compile Include="Data\DataManager\AccountTransactionsDataManager.cs" />
+    <Compile Include="Data\DataManager\AddAccountDataManager.cs" />
     <Compile Include="Data\DataManager\AddPayeeDataManager.cs" />
     <Compile Include="Data\DataManager\AddUserDataManager.cs" />
     <Compile Include="Data\DataManager\BankingDataManager.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Data\DataManager\EditPayeeDataManager.cs" />
     <Compile Include="Data\DataManager\GetAllAccountsDataManager.cs" />
     <Compile Include="Data\DataManager\GetAllPayeeDataManager.cs" />
+    <Compile Include="Data\DataManager\GetAllUsersDataManager.cs" />
     <Compile Include="Data\DataManager\GetBranchDetailsDataManager.cs" />
     <Compile Include="Data\DataManager\LoginDataManager.cs" />
     <Compile Include="Data\DataManager\OverviewDataManager.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="Domain\DefaultAdmin.cs" />
     <Compile Include="Domain\IServiceProvider.cs" />
     <Compile Include="Domain\UseCase\AccountTransactions.cs" />
+    <Compile Include="Domain\UseCase\AddAccount.cs" />
     <Compile Include="Domain\UseCase\AddPayee.cs" />
     <Compile Include="Domain\UseCase\AddUser.cs" />
     <Compile Include="Domain\UseCase\CheckPassword.cs" />
@@ -155,6 +158,7 @@
     <Compile Include="Domain\UseCase\EditPayee.cs" />
     <Compile Include="Domain\UseCase\GetAllAccounts.cs" />
     <Compile Include="Domain\UseCase\GetAllPayee.cs" />
+    <Compile Include="Domain\UseCase\GetAllUsers.cs" />
     <Compile Include="Domain\UseCase\GetBranchDetails.cs" />
     <Compile Include="Domain\UseCase\Login.cs" />
     <Compile Include="Domain\UseCaseBase.cs" />

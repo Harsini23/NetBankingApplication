@@ -38,4 +38,25 @@ namespace Library.Model
                 
         }
     }
+
+    public class AccountBObj
+    {
+        public string UserId { get; set; }
+        public AccountType AccountType { get; set; }
+        public double TotalBalance { get; set; }
+        public Currency Currency { get; set; }
+        public string BId { get; set; }
+        public AccountBObj(string userId, AccountType accountType, double totalBalance, Currency currency, string bId)
+        {
+            UserId = userId;
+            AccountType = accountType;
+            TotalBalance = totalBalance;
+            Currency = currency;
+            BId = bId;
+        }
+        public AccountBObj()
+        {
+
+        }
+    }
 }

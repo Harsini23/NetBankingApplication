@@ -28,6 +28,12 @@ namespace Library.Data.DataBaseService
 
 
         #region "User Table operations"
+
+       public List<User> GetAllUsers()
+        {
+            return connection.Table<User>().ToList();
+        }
+
         public bool CheckUser(string userId)
         {
             var user = connection.Table<User>().Where(i => i.UserId == userId);
@@ -83,6 +89,11 @@ namespace Library.Data.DataBaseService
         public bool CheckIfUserExists(string userId)
         {
             var query = connection.Table<Credentials>().Where(c => c.UserId == userId).FirstOrDefault(); ;
+            return (query != null);
+        }   
+        public bool CheckIfAdminExists(string Id)
+        {
+            var query = connection.Table<Admin>().Where(c => c.EmployeeId == Id).FirstOrDefault(); ;
             return (query != null);
         }
         public bool CheckUserCredential(string userId, string password)
@@ -242,16 +253,15 @@ namespace Library.Data.DataBaseService
 
        public void CreateDefaultAdminIfNotExists(Credentials credential)
         {
-            var user = new User
+            var admin = new Admin
             {
-                UserId = credential.UserId,
-                UserName = "Admin",
+                EmployeeId = credential.UserId,
+                Name = "Admin",
                 MobileNumber = 0,
-                EmailId = "-",
-                IsBlocked = false,
-                PAN = "NA"
+                EmaiId = "-",
+                BranchId = "B001",
             };
-            connection.Insert(user);
+            connection.Insert(admin);
             connection.Insert(credential);
         }
 
@@ -334,7 +344,9 @@ namespace Library.Data.DataBaseService
             return (query != null);
         }
 
-    
+     
+
+
         #endregion
     }
 }

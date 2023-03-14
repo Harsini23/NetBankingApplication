@@ -21,7 +21,7 @@
         <NavigationView Header="{x:Bind HeaderTitle,Mode=OneWay}" SelectionChanged="AdminPageNavigation_SelectionChanged"  x:Name="AdminPageNavigation"  IsBackEnabled="False"  IsBackButtonVisible="Collapsed"   IsPaneToggleButtonVisible="True" IsPaneOpen="False" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.IsVerticalRailEnabled="False" IsSettingsVisible="False" OpenPaneLength="200">
             <NavigationView.MenuItems>
                 <NavigationViewItem Name="AddUser" Icon="Edit" Content="Add User" Tag="Add User"  />
-                <NavigationViewItem Name="EditProfile" Icon="Contact" Content="Edit Profile" Tag="Edit Profile" />
+                <NavigationViewItem Name="AddAccount" Icon="Add" Content="Add Account" Tag="Add Account" />
             </NavigationView.MenuItems>
             <NavigationView.PaneFooter>
                 <StackPanel>

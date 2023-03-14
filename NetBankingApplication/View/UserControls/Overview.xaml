@@ -231,7 +231,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Text="Transactions" Grid.Row="0" Margin="10" FontSize="16" FontWeight="SemiBold"></TextBlock>
+            <TextBlock Text="Recent Transactions" Grid.Row="0" Margin="10" FontSize="16" FontWeight="SemiBold"></TextBlock>
                 <local:TransactionHistory ShowOnlyRecentTransactions="True"  Grid.Row="1" UserId="{x:Bind UserId,Mode=OneWay}" ></local:TransactionHistory>
 
             </Grid>

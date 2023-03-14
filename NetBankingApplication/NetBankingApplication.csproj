@@ -120,11 +120,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AccountTransactionsViewModel.cs" />
+    <Compile Include="ViewModel\AddAccountViewModel.cs" />
     <Compile Include="ViewModel\AddPayeeViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
     <Compile Include="ViewModel\CheckPasswordViewModel.cs" />
     <Compile Include="ViewModel\DeletePayeeViewModel.cs" />
     <Compile Include="ViewModel\EditPayeeViewModel.cs" />
+    <Compile Include="ViewModel\GetAllUsersViewModel.cs" />
     <Compile Include="ViewModel\PasswordVerificationViewModel.cs" />
     <Compile Include="ViewModel\SwitchToMainUIThread.cs" />
     <Compile Include="ViewModel\GetAllAccountsViewModel.cs" />
@@ -156,6 +158,9 @@
     <Compile Include="View\ThemeSwitch.cs" />
     <Compile Include="View\TransactionReceiptContentDialog.xaml.cs">
       <DependentUpon>TransactionReceiptContentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\AddAccount.xaml.cs">
+      <DependentUpon>AddAccount.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\AddPayeeView.xaml.cs">
       <DependentUpon>AddPayeeView.xaml</DependentUpon>
@@ -302,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TransactionReceiptContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\AddAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

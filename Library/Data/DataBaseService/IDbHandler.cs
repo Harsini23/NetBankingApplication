@@ -16,6 +16,7 @@ namespace Library.Data.DataBaseService
         void UnBlockAccount(string userId);
         void AddUser(User user);
         bool CheckIfUserExists(string userId);
+        bool CheckIfAdminExists(string userId);
         bool CheckUserCredential(string userId, string password);
         bool CheckIfAdmin(string userId);
         bool CheckIfNewUser(string userId);
@@ -47,6 +48,7 @@ namespace Library.Data.DataBaseService
         bool EditPayee(Payee payee);
         bool UpdateUser(User updatedUser);
         bool IfUserAlreadyExists(string email,long mobileNo,string Pan);
+        List<User> GetAllUsers();
     }
 
     public interface INetHandler
