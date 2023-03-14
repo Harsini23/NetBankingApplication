@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class AddUserView : UserControl,IAddUserView, ShowResponseNotification
+    public sealed partial class AddUserView : UserControl, IAddUserView, ShowResponseNotification
     {
 
         private AddUserBaseViewModel AddUserViewModel;
@@ -60,8 +60,8 @@ namespace NetBankingApplication.View.UserControls
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-           
-            if (UserNameTextBox.Text == String.Empty || MobileNumberTextBox.Text == String.Empty || EmailIdTextBox.Text == String.Empty  || BalanceTextBox.Text == String.Empty || SelectBranch.Content == String.Empty || SelectedBranch==null|| SelectedAccountType == null || SelectedCurrency == null)
+
+            if (UserNameTextBox.Text == String.Empty || MobileNumberTextBox.Text == String.Empty || EmailIdTextBox.Text == String.Empty || BalanceTextBox.Text == String.Empty || SelectBranch.Content == String.Empty || SelectedBranch == null || SelectedAccountType == null || SelectedCurrency == null)
             {
                 AddUserViewModel.ErrorMessage = "All fields are required*";
             }
@@ -85,7 +85,7 @@ namespace NetBankingApplication.View.UserControls
                     UserName = UserNameTextBox.Text.Trim(),
                     MobileNumber = long.Parse(MobileNumberTextBox.Text),
                     EmailId = EmailIdTextBox.Text.Trim(),
-                    AccountType = (AccountType)Enum.Parse(typeof(AccountType),SelectedAccountType),
+                    AccountType = (AccountType)Enum.Parse(typeof(AccountType), SelectedAccountType),
                     TotalBalance = Double.Parse(BalanceTextBox.Text),
                     Currency = (Currency)Enum.Parse(typeof(Currency), SelectedCurrency),
                     BId = SelectedBranch,
@@ -116,7 +116,7 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
-     
+
         private void Idcopy_Click(object sender, RoutedEventArgs e)
         {
             DataPackage dataPackage = new DataPackage();
@@ -140,13 +140,13 @@ namespace NetBankingApplication.View.UserControls
             foreach (var i in GetBranchDetailsViewModel.allBranchDetails)
             {
                 var item = new MenuFlyoutItem();
-                item.Text = i.BId+" - "+i.BCity;
+                item.Text = i.BId + " - " + i.BCity;
                 item.HorizontalAlignment = HorizontalAlignment.Stretch;
                 item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
                 item.CornerRadius = new CornerRadius(5);
                 //item.Width = 270;
                 item.Name = i.BId.ToString();
-                item.Click += Account_Selection; 
+                item.Click += Account_Selection;
                 //item.HorizontalContentAlignment = HorizontalAlignment.Left;
                 allBranches.Items.Add(item);
             }
@@ -156,16 +156,16 @@ namespace NetBankingApplication.View.UserControls
             var selectedItem = sender as MenuFlyoutItem;
             SelectedBranch = selectedItem.Text;
             SelectBranch.Content = selectedItem.Text;
-           // GetAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
-           
+            // GetAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
+
         }
 
         MenuFlyout AllAccountTypes;
         private void MenuFlyout_Opening_AccountType(object sender, object e)
         {
-            AllAccountTypes = sender as MenuFlyout; 
+            AllAccountTypes = sender as MenuFlyout;
             AllAccountTypes.Items.Clear();
-            foreach(var accType in _AccountTypeValues)
+            foreach (var accType in _AccountTypeValues)
             {
 
                 var item = new MenuFlyoutItem();
@@ -174,7 +174,7 @@ namespace NetBankingApplication.View.UserControls
                 item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
                 item.CornerRadius = new CornerRadius(5);
                 //item.Width = 270;
-                item.Click += AccountType_Selection; 
+                item.Click += AccountType_Selection;
                 AllAccountTypes.Items.Add(item);
             }
         }
@@ -183,7 +183,7 @@ namespace NetBankingApplication.View.UserControls
             var selectedItem = sender as MenuFlyoutItem;
             SelectedAccountType = selectedItem.Text;
             AccountTypeBox.Content = selectedItem.Text;
-          
+
         }
 
         MenuFlyout Currencies;
@@ -200,7 +200,7 @@ namespace NetBankingApplication.View.UserControls
                 item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
                 item.CornerRadius = new CornerRadius(5);
                 //item.Width = 270;
-                item.Click += Currency_Selection; 
+                item.Click += Currency_Selection;
                 Currencies.Items.Add(item);
             }
 
@@ -213,7 +213,7 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
-         async void IAddUserView.ShowContentDialogueAsync()
+        async void IAddUserView.ShowContentDialogueAsync()
         {
             var result = await ContentDialog.ShowAsync();
             Bindings.Update();

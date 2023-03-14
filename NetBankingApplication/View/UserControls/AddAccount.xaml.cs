@@ -104,6 +104,7 @@ namespace NetBankingApplication.View.UserControls
             if (String.IsNullOrEmpty(UserAutoSuggestBox.Text))
             {
                 UserInfoGrid.Visibility = Visibility.Collapsed;
+                CurrentSelectedUser=null;
             }
 
         }
@@ -124,6 +125,7 @@ namespace NetBankingApplication.View.UserControls
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             //add new account for existing user
+            addAccountBaseViewModel.AddAccount(new AccountBObj(CurrentSelectedUser.UserId, (AccountType)Enum.Parse(typeof(AccountType), SelectedAccountType), Double.Parse(BalanceTextBox.Text), (Currency)Enum.Parse(typeof(Currency), SelectedCurrency), SelectedBranch));
         }
         //--------------------------------------------------------------------
 

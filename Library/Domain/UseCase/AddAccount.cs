@@ -10,9 +10,9 @@ namespace Library.Domain.UseCase
 {
     public interface IAddAccountDataManager
     {
-        void AddAccount(AddAccountRequest request, IUsecaseCallbackBaseCase<ZResponse<bool>> response);
+        void AddAccount(AddAccountRequest request, IUsecaseCallbackBaseCase<bool> response);
     }
-    public class AddAccount : UseCaseBase<ZResponse<bool>>
+    public class AddAccount : UseCaseBase<bool>
     {
         private IAddAccountDataManager AddAccountDataManager;
         private AddAccountRequest addAccountRequest;
@@ -27,7 +27,7 @@ namespace Library.Domain.UseCase
         {
             this.AddAccountDataManager.AddAccount(addAccountRequest, new AddUserCallback(this));
         }
-        public class AddUserCallback : IUsecaseCallbackBaseCase<ZResponse<bool>>
+        public class AddUserCallback : IUsecaseCallbackBaseCase<bool>
         {
             private AddAccount addAccount;
 
@@ -41,12 +41,12 @@ namespace Library.Domain.UseCase
                 addAccount.presenterAddAccountCallback?.OnError(response);
             }
 
-            public void OnResponseFailure(ZResponse<ZResponse<bool>> response)
+            public void OnResponseFailure(ZResponse<bool> response)
             {
                 addAccount.presenterAddAccountCallback?.OnFailure(response);
             }
 
-            public void OnResponseSuccess(ZResponse<ZResponse<bool>> response)
+            public void OnResponseSuccess(ZResponse<bool> response)
             {
                 addAccount.presenterAddAccountCallback?.OnSuccessAsync(response);
             }
@@ -56,12 +56,12 @@ namespace Library.Domain.UseCase
     public class AddAccountRequest
     {
         public AccountBObj newAccount { get; set; }
-        public AddAccountRequest(AccountBObj addNewAccount, string userId)
+        public AddAccountRequest(AccountBObj NewAccount, string userId)
         {
-            addNewAccount = newAccount;
+            newAccount = NewAccount;
         }
     }
-    public interface IPresenterAddAccountCallback : IResponseCallbackBaseCase<ZResponse<bool>>
+    public interface IPresenterAddAccountCallback : IResponseCallbackBaseCase<bool>
     {
     }
 
