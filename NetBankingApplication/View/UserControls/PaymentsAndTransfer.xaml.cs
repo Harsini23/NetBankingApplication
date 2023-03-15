@@ -97,7 +97,7 @@ namespace NetBankingApplication.View.UserControls
 
         private void TransferAmount_RaiseNotification(string obj)
         {
-            ExampleInAppNotification.Show(obj, 3000);
+            InAppNotification.Show(obj, 3000);
             NotificationMessage = obj;
         }
 
@@ -110,7 +110,7 @@ namespace NetBankingApplication.View.UserControls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ExampleInAppNotification.Dismiss();
+            InAppNotification.Dismiss();
         }
     }
 }

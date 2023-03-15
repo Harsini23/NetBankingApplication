@@ -55,9 +55,6 @@ namespace NetBankingApplication.View.UserControls
 
             addAccountBaseViewModel = PresenterService.GetInstance().Services.GetService<AddAccountBaseViewModel>();
 
-
-
-
         }
 
         private User _currentSelectedUser ;
@@ -125,7 +122,27 @@ namespace NetBankingApplication.View.UserControls
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             //add new account for existing user
-            addAccountBaseViewModel.AddAccount(new AccountBObj(CurrentSelectedUser.UserId, (AccountType)Enum.Parse(typeof(AccountType), SelectedAccountType), Double.Parse(BalanceTextBox.Text), (Currency)Enum.Parse(typeof(Currency), SelectedCurrency), SelectedBranch));
+            if(CurrentSelectedUser==null || string.IsNullOrEmpty(SelectedAccountType) || string.IsNullOrEmpty(SelectedCurrency) || string.IsNullOrEmpty(SelectedCurrency)|| string.IsNullOrEmpty(BalanceTextBox.Text))
+            {
+                ErrorMessage.Text = "Kindly fill all details!";
+            }
+            else
+            {
+                addAccountBaseViewModel.AddAccount(new AccountBObj(CurrentSelectedUser.UserId, (AccountType)Enum.Parse(typeof(AccountType), SelectedAccountType), Double.Parse(BalanceTextBox.Text), (Currency)Enum.Parse(typeof(Currency), SelectedCurrency), SelectedBranch,CurrentSelectedUser.UserName));
+                ClearUI();
+            }
+            
+        }
+
+        private void ClearUI()
+        {
+            UserAutoSuggestBox.Text = "";
+            UserInfoGrid.Visibility = Visibility.Collapsed;
+            BalanceTextBox.Text = "";
+            AccountTypeBox.Content = "";
+            CurrencyValues.Content = "";
+            ErrorMessage.Text = String.Empty;
+            SelectBranch.Content = "";
         }
         //--------------------------------------------------------------------
 
@@ -250,7 +267,7 @@ namespace NetBankingApplication.View.UserControls
         private void Account_Selection(object sender, RoutedEventArgs e)
         {
             var selectedItem = sender as MenuFlyoutItem;
-            SelectedBranch = selectedItem.Text;
+            SelectedBranch = selectedItem.Text.Substring(0, selectedItem.Text.IndexOf("-")).Trim();
             SelectBranch.Content = selectedItem.Text;
             // GetAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
 

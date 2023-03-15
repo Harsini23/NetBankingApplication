@@ -13,7 +13,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
+                
             </ResourceDictionary.MergedDictionaries>
+     
         </ResourceDictionary>
     </Page.Resources>
 
@@ -114,8 +116,14 @@
                                 <!--</Border>-->
                             </ToolTipService.ToolTip>
                         </PasswordBox>
-                        <CheckBox Margin="50,0,0,0" Name="revealModeCheckBox" Content="Show password" IsChecked="False"
-    Checked="RevealModeCheckbox_Changed" Unchecked="RevealModeCheckbox_Changed"/>
+                        <CheckBox  CornerRadius="5"
+                                   Margin="50,0,0,0"
+                                   Name="revealModeCheckBox"
+                                   Content="Show password"
+                                   IsChecked="False"
+                                   Checked="RevealModeCheckbox_Changed"
+                                   Style="{StaticResource CheckBoxCustom}"
+                                   Unchecked="RevealModeCheckbox_Changed"></CheckBox>
                     </StackPanel>
 
                     <TextBlock Style="{ThemeResource FailureText}" Grid.Row="4" Grid.ColumnSpan="2" Visibility="{x:Bind LoginViewModel.TextBoxVisibility,Mode=OneWay}" Text="{x:Bind LoginViewModel.LoginResponseValue,Mode=OneWay }"  x:Name="ResultText" ></TextBlock>

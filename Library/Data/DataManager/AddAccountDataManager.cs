@@ -2,6 +2,7 @@
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
+using Library.Model.Enum;
 using Library.Util;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,11 @@ namespace Library.Data.DataManager
             var GeneratedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 999999999).ToString() + GenerateUniqueId.RandomNumber(100, 999).ToString();
             var account = CreateAccount(request.newAccount,GeneratedAccountNumber);
             var userAccount = CreateUserAccount(request.newAccount.UserId,GeneratedAccountNumber);
+            var currentTransaction = CreateTransaction(request.newAccount,GeneratedAccountNumber);
             DbHandler.AddAccount(account);
             DbHandler.AddAccountForUser(userAccount);
+            DbHandler.AddTransaction(currentTransaction);
+
             Response.Response = "Sucessfully added account";
             Response.Data = true;
             response?.OnResponseSuccess(Response);
@@ -50,6 +54,24 @@ namespace Library.Data.DataManager
                 UserId = userId,
                 AccountNumber = AccountNo,
             };
+        }
+        private Transaction CreateTransaction(AccountBObj account,string accNo)
+        {
+            return  new Transaction
+            {
+                UserId = account.UserId,
+                Name = account.Name,
+                TransactionId = GenerateUniqueId.GetUniqueId("TID"),
+                Date = CurrentDateTime.GetCurrentDate(),
+                TransactionType = TransactionType.Credited,
+                Remark = "Initial deposit",
+                Amount = account.TotalBalance,
+                FromAccount = "-",
+                ToAccount = accNo,
+                Status = true,
+            };
+         
+
         }
     }
 }

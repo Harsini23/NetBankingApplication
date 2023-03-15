@@ -139,6 +139,7 @@ namespace NetBankingApplication.ViewModel
                     }
                     else
                     {
+                        loginViewModel.LoginResponseValue = response.Response.ToString();
                         HandleClosePopUp();
                         //changes here
                         loginViewModel.settingsNotification?.ChangePasswordNotification();

@@ -389,7 +389,7 @@ namespace NetBankingApplication.View.UserControls
            // int duration = 4000;
             RaiseNotification?.Invoke("Zero balance alert");
 
-            //ExampleInAppNotification.Show("Zero Balance Alert!!", duration);
+            //InAppNotification.Show("Zero Balance Alert!!", duration);
             //disable make payment button
             MakeTransaction.IsEnabled = false;
 

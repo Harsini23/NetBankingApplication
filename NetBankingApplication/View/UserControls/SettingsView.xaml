@@ -14,7 +14,7 @@
             </ResourceDictionary.MergedDictionaries>
             <ControlTemplate x:Key="InAppNotificationTemplate1"
                              TargetType="controls:InAppNotification">
-                <Grid Width="300"
+                <Grid Width="320"
                       Background="{ThemeResource NotificationColour}"
                       Height="50"
                       CornerRadius="10">
@@ -182,6 +182,7 @@
                           Name="revealModeCheckBox"
                           Content="Show password"
                           IsChecked="False"
+                          Style="{StaticResource CheckBoxCustom}"
                           Checked="RevealModeCheckbox_Changed"
                           Unchecked="RevealModeCheckbox_Changed" />
                 <TextBlock Visibility="{x:Bind passwordVerificationViewModel.TextBoxVisibility,Mode=OneWay}"
@@ -210,18 +211,18 @@
 
             </ContentDialog>-->
             <controls:InAppNotification  Content="{x:Bind NotificationMessage,Mode=OneWay}"
-                                         Margin="5,5,0,30"
                                          Template="{StaticResource InAppNotificationTemplate1}"
                                          Width="400"
                                          HorizontalContentAlignment="Left"
                                          HorizontalAlignment="Right"
                                          Height="70"
-                                         x:Name="ExampleInAppNotification"
+                                         x:Name="InAppNotification"
                                          Background="{ThemeResource NotificationColour}"
                                          BorderBrush="Black"
                                          BorderThickness="0.5"
                                          CornerRadius="10"
-                                         ShowDismissButton="True">
+                                         ShowDismissButton="True"
+                                         Grid.RowSpan="2">
             </controls:InAppNotification>
         </Grid>
     </ScrollViewer>

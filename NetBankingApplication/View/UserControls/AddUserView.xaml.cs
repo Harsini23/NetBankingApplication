@@ -154,7 +154,7 @@ namespace NetBankingApplication.View.UserControls
         private void Account_Selection(object sender, RoutedEventArgs e)
         {
             var selectedItem = sender as MenuFlyoutItem;
-            SelectedBranch = selectedItem.Text;
+            SelectedBranch = selectedItem.Text.Substring(0, selectedItem.Text.IndexOf("-")).Trim();
             SelectBranch.Content = selectedItem.Text;
             // GetAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
 

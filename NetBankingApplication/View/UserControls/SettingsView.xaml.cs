@@ -117,6 +117,8 @@ namespace NetBankingApplication.View.UserControls
         public void closePopup()
         {
             ResetPasswordGrid.IsOpen = false;
+            InAppNotification.Show(LoginViewModel.ResetPasswordResponseValue, 3000);
+            NotificationMessage = LoginViewModel.ResetPasswordResponseValue;
             //AcknowledgementDialogue.ShowAsync();
             //DispatcherTimer timer = new DispatcherTimer();
             //timer.Interval = TimeSpan.FromSeconds(1);
@@ -222,18 +224,18 @@ namespace NetBankingApplication.View.UserControls
 
         public void UpdateUserNotification()
         {
-            ExampleInAppNotification.Show(passwordVerificationViewModel.ResponseValue, 3000);
+            InAppNotification.Show(passwordVerificationViewModel.ResponseValue, 3000);
             NotificationMessage = updateViewModel.ResponseValue;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ExampleInAppNotification.Dismiss();
+            InAppNotification.Dismiss();
         }
 
         public void ChangePasswordNotification()
         {
-            ExampleInAppNotification.Show(LoginViewModel.ResetPasswordResponseValue, 3000);
+            InAppNotification.Show(LoginViewModel.ResetPasswordResponseValue, 3000);
             NotificationMessage = updateViewModel.ResponseValue;
         }
     }

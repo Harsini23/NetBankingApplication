@@ -32,13 +32,13 @@ namespace Library.Data.DataManager
             if (result)
             {
                 //password reset successfully
-                Response.Response = "Reset password successfully";
+                Response.Response = "Password updated successfully!";
                 callback.OnResponseSuccess(Response);
             }
             else
             {
                 //error in password resetting
-                Response.Response = "Failed to resetPassword";// add error in future if needed
+                Response.Response = "Failed to reset Password";// add error in future if needed
                 callback.OnResponseFailure(Response);
             }
         }
