@@ -108,7 +108,14 @@
                             <TextBox MaxWidth="220"  Grid.Row="2" Style="{ThemeResource InputFieldTextBox}" Header="User ID"  x:Name="UserId"/>
 
                     <StackPanel  Grid.Row="3">
-                        <PasswordBox MaxLength="100" MaxWidth="220" CornerRadius="5" Header="Password" IsPasswordRevealButtonEnabled="True" PasswordRevealMode="Peek" Background="White" PasswordChanged="Password_PasswordChanged"   Style="{ThemeResource FormPasswordBox}" x:Name="Password" >
+                        <PasswordBox MaxLength="100"
+                                     MaxWidth="220"
+                                     CornerRadius="5"
+                                     Header="Password"
+                                     IsPasswordRevealButtonEnabled="True"
+                                     PasswordRevealMode="Peek"
+                                     PasswordChanged="Password_PasswordChanged"
+                                     Style="{ThemeResource PasswordBoxCustom}" x:Name="Password" >
                             <ToolTipService.ToolTip >
                                 <!--<Border CornerRadius="5" BorderThickness="0" BorderBrush="Transparent">-->
                                     <ToolTip Background="{ThemeResource AppForegroundBg}" CornerRadius="15" FontSize="12" CharacterSpacing="20" Content="Must be mininum of 9 characters with one lowercase, uppercase and special charater." VerticalOffset="-80">

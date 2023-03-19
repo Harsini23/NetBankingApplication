@@ -52,10 +52,12 @@ namespace NetBankingApplication.View
 
             if (UserId.Text == "")
             {
+                LoginViewModel.TextBoxVisibility = Visibility.Visible;
                 ResultText.Text = "Enter User ID";
             }
             else
             {
+              
                 LoginViewModel.ValidateUserInput(UserId.Text, Password.Password);
                 UserId.Text = ""; Password.Password = "";
             }
@@ -131,5 +133,7 @@ namespace NetBankingApplication.View
             dataPackage.SetText("UserAdmin@1");
             Clipboard.SetContent(dataPackage);
         }
+
+       
     }
 }

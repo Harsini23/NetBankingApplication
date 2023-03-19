@@ -167,9 +167,11 @@
                     </DropDownButton>
                 </StackPanel>
 
-
-
-                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}"   TextChanged="BalanceTextBox_TextChanged" InputScope="Number"  x:Name="BalanceTextBox">
+                    <TextBox Grid.Row="3"
+                             Margin="5"
+                             Style="{ThemeResource InputFieldTextBox}"
+                             BeforeTextChanging="TextBox_BalanceOnBeforeTextChanging"
+                             TextChanged="BalanceTextBox_TextChanged" InputScope="Number"  x:Name="BalanceTextBox">
                     <TextBox.Header>
                         <TextBlock >
         <Run Text="Balance " > </Run><Run  Foreground="Red">*</Run>
@@ -230,7 +232,8 @@
 
                     <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left">
                         <TextBlock Text="Account Number : " FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
-                        <TextBlock Margin="5,0,0,0" Text="{x:Bind AddUserViewModel.AccountNo,Mode=OneWay}"></TextBlock>
+                        <TextBlock Margin="5,0,0,0" Text="{x:Bind AddUserViewModel.AccountNo,Mode=OneWay}"    FontFamily="Consolas"
+                                               FontSize="22" FontWeight="SemiBold" CharacterSpacing="80"></TextBlock>
                     </StackPanel>
                     
 

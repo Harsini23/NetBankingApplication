@@ -162,7 +162,7 @@
                                  Margin="20,0,0,5"
                                  Width="300"
                                  HorizontalAlignment="Left"
-                                 Style="{ThemeResource FormPasswordBox}"
+                                 Style="{ThemeResource PasswordBoxCustom}"
                                  x:Name="ResetPassword">
                         <PasswordBox.Header>
                             <TextBlock>

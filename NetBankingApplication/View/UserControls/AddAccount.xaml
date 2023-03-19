@@ -69,7 +69,7 @@
 
             </Grid.RowDefinitions>
             <TextBlock Text="Select User" Margin="5,10,10,10" FontWeight="Bold" FontSize="20" />
-            <AutoSuggestBox MaxSuggestionListHeight="200" LosingFocus="UserAutoSuggestBox_LosingFocus" Grid.Row="1" CornerRadius="10"  TextChanged="AutoSuggestBox_TextChanged" PointerEntered="UserAutoSuggestBox_PointerEntered"
+            <AutoSuggestBox  Style="{ThemeResource AutoSuggestBoxCustom}" MaxSuggestionListHeight="200" LosingFocus="UserAutoSuggestBox_LosingFocus" Grid.Row="1" CornerRadius="10"  TextChanged="AutoSuggestBox_TextChanged" PointerEntered="UserAutoSuggestBox_PointerEntered"
                 SuggestionChosen="AutoSuggestBox_SuggestionChosen"
                 Width="270" Name="UserAutoSuggestBox" AutomationProperties.Name="UserAutoSuggestBox">
                 <AutoSuggestBox.Header>
@@ -121,7 +121,7 @@
                     </DropDownButton>
                 </StackPanel>
 
-                <StackPanel   Grid.Row="2"  Margin="5" >
+                <StackPanel   Grid.Row="2"  Margin="5">
                     <StackPanel Orientation="Horizontal" Padding="0,0,0,5">
                         <TextBlock Text="Currency" FontSize="16"  ></TextBlock>
                         <TextBlock FontSize="16"   FontFamily="Segoe MDL2 Assets" Text="&#xEA21;" Foreground="red"  Padding="5,5,0,0"></TextBlock>
@@ -134,9 +134,11 @@
                     </DropDownButton>
                 </StackPanel>
 
-
-
-                <TextBox Grid.Row="3" Style="{ThemeResource InputFieldTextBox}"   TextChanged="BalanceTextBox_TextChanged" InputScope="Number"  x:Name="BalanceTextBox">
+                <TextBox Grid.Row="3"
+                         Style="{ThemeResource InputFieldTextBox}"
+                         Margin="5"
+                         BeforeTextChanging="TextBox_BalanceOnBeforeTextChanging"
+                         TextChanged="BalanceTextBox_TextChanged" InputScope="Number"  x:Name="BalanceTextBox">
                     <TextBox.Header>
                         <TextBlock >
         <Run Text="Balance " > </Run><Run  Foreground="Red">*</Run>

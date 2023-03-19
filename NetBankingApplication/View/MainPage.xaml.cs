@@ -75,7 +75,7 @@ namespace NetBankingApplication
             //User user = new User
             //{
             //    UserId = "UID6df59172",
-            //    UserName = "Rachel",
+            //    UserName = "Rachel Green",
             //    MobileNumber = 9872634150,
             //    EmailId = "rachelgreeen@gmail.com",
             //    IsBlocked = false,

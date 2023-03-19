@@ -145,6 +145,12 @@ namespace NetBankingApplication.View.UserControls
             }
 
         }
+        private void TextBox_BalanceOnBeforeTextChanging(TextBox sender,
+                                      TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c) && c != '.');
+
+        }
 
         private void ResetUI()
         {

@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:data="using:Library.Model" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     SizeChanged="Page_SizeChanged"
-    Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <UserControl.Resources>
@@ -553,6 +552,7 @@
             <DropDownButton Margin="10" Visibility="Collapsed" Name="SelectAccountDropdown" Style="{ThemeResource DropdownStyle}" Content="Account Details" MinWidth="200" >
                 <DropDownButton.Flyout>
                     <MenuFlyout Placement="Bottom" Opening="MenuFlyout_Opening" MenuFlyoutPresenterStyle="{ThemeResource MenuFlyoutStyle}">
+                        <MenuFlyoutItem CornerRadius="10"></MenuFlyoutItem>
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
@@ -602,7 +602,7 @@
 
                                 <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
                                     <TextBlock Text="Account : " Style="{ThemeResource BasicTextBlock}"></TextBlock>
-                                    <TextBlock Margin="5" TextTrimming="CharacterEllipsis" Width="100" Text="{x:Bind AccountNumber,Mode=OneWay}" Style="{ThemeResource BasicTextBlock}"></TextBlock>
+                                    <TextBlock Margin="5" TextTrimming="CharacterEllipsis" Width="200" Text="{x:Bind AccountNumber,Mode=OneWay}" Style="{ThemeResource BasicTextBlock}"></TextBlock>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1" Orientation="Horizontal" Grid.Row="1">
@@ -649,6 +649,17 @@
                 <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                     <Button Margin="5,5,0,0" FontSize="24" CornerRadius="5" BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Content="&#xE298;" FontFamily="Segoe MDL2 Assets" Visibility="Collapsed" x:Name="BackToList" Click="BackToList_Click"></Button>
                     <TextBlock Margin="5,0,0,0" Text="Transaction Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20" ></TextBlock>
+                    <Button FontFamily="Segoe MDL2 Assets"
+                            FontSize="12"
+                            Grid.Column="1"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Content="&#xE106;"
+                            HorizontalAlignment="Right"
+                            Margin="280,0,0,0"
+                            Name="CloseButton"
+                            Style="{ThemeResource ButtonStyling}"
+                            Click="CloseButton_Click"></Button>
                 </StackPanel>
                 <NavigationViewItemSeparator Grid.Row="1"></NavigationViewItemSeparator>
                 

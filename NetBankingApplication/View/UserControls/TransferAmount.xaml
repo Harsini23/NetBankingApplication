@@ -110,7 +110,9 @@
 
                 <TextBox Header="Remark" Grid.Row="6" Style="{ThemeResource InputFieldTextBox}"  x:Name="RemarkTextBox" ></TextBox>
 
-                <TextBox Grid.Row="5" Style="{ThemeResource InputFieldTextBox}"  TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox">
+                <TextBox Grid.Row="5"
+                         BeforeTextChanging="TextBox_BalanceOnBeforeTextChanging"
+                         Style="{ThemeResource InputFieldTextBox}"  TextChanged="AmountTextBox_TextChanged" InputScope="CurrencyAmount" x:Name="AmountTextBox">
                     <TextBox.Header>
                         <TextBlock >
         <Run Text="Amount " > </Run><Run  Foreground="Red">*</Run>

@@ -92,6 +92,7 @@ namespace NetBankingApplication.View.UserControls
             if (password == NewPassword)
             {
                 ReSetPassword.IsEnabled = true;
+                ErrorTextBlock.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -101,11 +102,20 @@ namespace NetBankingApplication.View.UserControls
 
         private void ResetPassword_Click(object sender, RoutedEventArgs e)
         {
-          
-            LoginViewModel.Redirect = redirect;
-            LoginViewModel.ResetPassword(RePasswordReset.Password);
-            PasswordReset.Password = "";
-            RePasswordReset.Password = "";
+          if(RePasswordReset.Password== PasswordReset.Password)
+            {
+                LoginViewModel.Redirect = redirect;
+                LoginViewModel.ResetPassword(RePasswordReset.Password);
+                PasswordReset.Password = "";
+                RePasswordReset.Password = "";
+                ErrorTextBlock.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ErrorTextBlock.Visibility = Visibility.Visible;
+            }
         }
+
+        
     }
 }
