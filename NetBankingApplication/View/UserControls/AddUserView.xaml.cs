@@ -28,25 +28,18 @@ namespace NetBankingApplication.View.UserControls
     {
 
         private AddUserBaseViewModel AddUserViewModel;
-        IEnumerable<AccountType> _AccountTypeValues;
-        IEnumerable<Currency> _CurrencyValues;
-        private GetBranchDetailsBaseViewModel GetBranchDetailsViewModel;
+     
+     
 
-        private string SelectedBranch;
-        private string SelectedAccountType;
-        private string SelectedCurrency;
-        private string _amount;
+   
 
         public AddUserView()
         {
             this.InitializeComponent();
             AddUserViewModel = PresenterService.GetInstance().Services.GetService<AddUserBaseViewModel>();
-            GetBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
             AddUserViewModel.adduserView = this;
             AddUserViewModel.addUserNotification = this;
-            GetBranchDetailsViewModel.FetchBranchDetails();
-            _AccountTypeValues = Enum.GetValues(typeof(AccountType)).Cast<AccountType>();
-            _CurrencyValues = Enum.GetValues(typeof(Currency)).Cast<Currency>();
+         
         }
 
         private void TextBox_OnBeforeTextChanging(TextBox sender,
@@ -62,12 +55,11 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
-
-
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            var accountDetails = CreateAccountViewDetails.FetchData();
 
-            if (UserNameTextBox.Text == String.Empty || MobileNumberTextBox.Text == String.Empty || EmailIdTextBox.Text == String.Empty || BalanceTextBox.Text == String.Empty || SelectBranch.Content == String.Empty || SelectedBranch == null || SelectedAccountType == null || SelectedCurrency == null)
+            if (UserNameTextBox.Text == String.Empty || MobileNumberTextBox.Text == String.Empty || EmailIdTextBox.Text == String.Empty )
             {
                 AddUserViewModel.ErrorMessage = "All fields are required*";
             }
@@ -84,6 +76,14 @@ namespace NetBankingApplication.View.UserControls
             {
                 AddUserViewModel.ErrorMessage = "PAN number must be of 10 values";
             }
+            else if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || string.IsNullOrEmpty(accountDetails.AccountType))
+            {
+                AddUserViewModel.ErrorMessage = "Enter all account details";
+            }
+            else if (Double.Parse(accountDetails.Balance) <= 1 && accountDetails.AccountType != "SalaryAccount")
+            {
+                ErrorMessage.Text = "Only savings account can have zero balance!";
+            }
             else
             {
                 UserAccountDetails details = new UserAccountDetails
@@ -91,27 +91,22 @@ namespace NetBankingApplication.View.UserControls
                     UserName = UserNameTextBox.Text.Trim(),
                     MobileNumber = long.Parse(MobileNumberTextBox.Text),
                     EmailId = EmailIdTextBox.Text.Trim(),
-                    AccountType = (AccountType)Enum.Parse(typeof(AccountType), SelectedAccountType),
-                    TotalBalance = Double.Parse(BalanceTextBox.Text),
-                    Currency = (Currency)Enum.Parse(typeof(Currency), SelectedCurrency),
-                    BId = SelectedBranch,
+                    AccountType = (AccountType)Enum.Parse(typeof(AccountType), accountDetails.AccountType),
+                    TotalBalance = Double.Parse(accountDetails.Balance),
+                    Currency = (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency),
+                    BId = accountDetails.Branch,
                     PAN = PANTextBox.Text.Trim().ToString()
                 };
 
 
                 AddUserViewModel.AddUser(details);
 
-
+                CreateAccountViewDetails.ClearUI();
                 UserNameTextBox.Text = String.Empty;
                 MobileNumberTextBox.Text = String.Empty;
                 EmailIdTextBox.Text = String.Empty;
-                //BranchIdTextBox.Text = String.Empty;
-                BalanceTextBox.Text = String.Empty;
-                AccountTypeBox.Content = "";
-                CurrencyValues.Content = "";
                 AddUserViewModel.ErrorMessage = String.Empty;
                 PANTextBox.Text = String.Empty;
-                SelectBranch.Content = "";
                 //ShowContentDialogueAsync();
 
             }
@@ -135,90 +130,6 @@ namespace NetBankingApplication.View.UserControls
             dataPackage.SetText(AddUserViewModel.Password.ToString());
             Clipboard.SetContent(dataPackage);
         }
-
-
-
-        MenuFlyout allBranches;
-        private void MenuFlyout_Opening(object sender, object e)
-        {
-            allBranches = sender as MenuFlyout;
-            allBranches.Items.Clear();
-            foreach (var i in GetBranchDetailsViewModel.allBranchDetails)
-            {
-                var item = new MenuFlyoutItem();
-                item.Text = i.BId + " - " + i.BCity;
-                item.HorizontalAlignment = HorizontalAlignment.Stretch;
-                item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-                item.CornerRadius = new CornerRadius(5);
-                //item.Width = 270;
-                item.Name = i.BId.ToString();
-                item.Click += Account_Selection;
-                //item.HorizontalContentAlignment = HorizontalAlignment.Left;
-                allBranches.Items.Add(item);
-            }
-        }
-        private void Account_Selection(object sender, RoutedEventArgs e)
-        {
-            var selectedItem = sender as MenuFlyoutItem;
-            SelectedBranch = selectedItem.Text.Substring(0, selectedItem.Text.IndexOf("-")).Trim();
-            SelectBranch.Content = selectedItem.Text;
-            // GetAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
-
-        }
-
-        MenuFlyout AllAccountTypes;
-        private void MenuFlyout_Opening_AccountType(object sender, object e)
-        {
-            AllAccountTypes = sender as MenuFlyout;
-            AllAccountTypes.Items.Clear();
-            foreach (var accType in _AccountTypeValues)
-            {
-
-                var item = new MenuFlyoutItem();
-                item.Text = accType.ToString();
-                item.HorizontalAlignment = HorizontalAlignment.Stretch;
-                item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-                item.CornerRadius = new CornerRadius(5);
-                //item.Width = 270;
-                item.Click += AccountType_Selection;
-                AllAccountTypes.Items.Add(item);
-            }
-        }
-        private void AccountType_Selection(object sender, RoutedEventArgs e)
-        {
-            var selectedItem = sender as MenuFlyoutItem;
-            SelectedAccountType = selectedItem.Text;
-            AccountTypeBox.Content = selectedItem.Text;
-
-        }
-
-        MenuFlyout Currencies;
-        private void MenuFlyout_Opening_Currency(object sender, object e)
-        {
-            Currencies = sender as MenuFlyout;
-            Currencies.Items.Clear();
-            foreach (var currency in _CurrencyValues)
-            {
-
-                var item = new MenuFlyoutItem();
-                item.Text = currency.ToString();
-                item.HorizontalAlignment = HorizontalAlignment.Stretch;
-                item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-                item.CornerRadius = new CornerRadius(5);
-                //item.Width = 270;
-                item.Click += Currency_Selection;
-                Currencies.Items.Add(item);
-            }
-
-        }
-        private void Currency_Selection(object sender, RoutedEventArgs e)
-        {
-            var selectedItem = sender as MenuFlyoutItem;
-            SelectedCurrency = selectedItem.Text;
-            CurrencyValues.Content = selectedItem.Text;
-
-        }
-
         async void IAddUserView.ShowContentDialogueAsync()
         {
             var result = await ContentDialog.ShowAsync();
@@ -232,42 +143,6 @@ namespace NetBankingApplication.View.UserControls
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             InAppNotification.Dismiss();
-        }
-
-        private void BalanceTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var amountBox = (TextBox)sender;
-            ErrorMessage.Text = String.Empty;
-            _amount = amountBox.Text.ToString();
-            double val = 0.0;
-            if (amountBox.Text.Length > 0)
-            {
-                var parsable = double.TryParse(BalanceTextBox.Text, out val);
-
-                if (Math.Abs(val % 1) >= 0.0001)
-                {
-                    BalanceTextBox.Text = Math.Round(val, 2).ToString();
-                    BalanceTextBox.SelectionStart = BalanceTextBox.Text.Length;
-                }
-            }
-
-
-            if (_amount == String.Empty)
-            {
-                ErrorMessage.Text = String.Empty;
-            }
-
-            else if (!IsFloatOrInt(_amount) || Double.Parse(_amount) <= 0 && !String.IsNullOrEmpty(_amount))
-            {
-                ErrorMessage.Visibility = Visibility.Visible;
-
-                ErrorMessage.Text = "Enter valid amount";
-                //MakeTransaction.IsEnabled = false;
-            }
-            else
-            {
-                ErrorMessage.Text = String.Empty;
-            }
         }
         private static bool IsFloatOrInt(string value)
         {

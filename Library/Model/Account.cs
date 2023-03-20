@@ -31,14 +31,21 @@ namespace Library.Model
         }
         public Account() { }
 
+    }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder
-        //        .Entity<User>()
-        //        .Property(e => e.Type)
-        //        .HasConversion<string>();
-        //}
+    public class AccountVobj
+    {
+        public string AccountType { get; set; }
+        public string Balance { get; set; }
+        public string Currency { get; set; }
+        public string Branch { get; set; }
+        public AccountVobj(string accountType, string balance, string currency, string branch)
+        {
+            AccountType = accountType;
+            Balance = balance;
+            Currency = currency;
+            Branch = branch;
+        }
     }
     public class AccountBalance
     {

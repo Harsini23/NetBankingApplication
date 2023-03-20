@@ -129,7 +129,10 @@
 
             </Grid>
 
-        <Grid Grid.Row="1">
+                <local:CreateAccountView Grid.Row="1"
+                                         x:Name="CreateAccountViewDetails"></local:CreateAccountView>
+
+                <!--<Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition> 
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -191,17 +194,14 @@
                         </DropDownButton.Flyout>
                     </DropDownButton>
                 </StackPanel>
-              
-            
-            
-            </Grid>
+            </Grid>-->
 
         <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="ErrorMessage" Text="{x:Bind AddUserViewModel.ErrorMessage ,Mode=OneWay}" Style="{ThemeResource FailureText}"></TextBlock>
+                <TextBlock x:Name="ErrorMessage" TextWrapping="Wrap" Width="200" Text="{x:Bind AddUserViewModel.ErrorMessage ,Mode=OneWay}" Style="{ThemeResource FailureText}"></TextBlock>
                     <Button x:Name="Submit"
                             Grid.Row="1"
                             Click="Submit_Click"
