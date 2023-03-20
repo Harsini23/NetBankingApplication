@@ -137,7 +137,11 @@
 
 
                     <StackPanel Grid.ColumnSpan="2"  Grid.Row="5" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Button Name="SubmitLoginDetails"  MinWidth="300" IsEnabled="False" Style="{ThemeResource ButtonStyling}" Content="Submit" Click="Verify_Click"></Button>
+                        <Button Name="SubmitLoginDetails"
+                                MinWidth="300"
+                                IsEnabled="False"
+                                Style="{StaticResource AccentButtonStyleCustom}"
+                                Content="Submit" Click="Verify_Click"></Button>
 
                     </StackPanel>
                     <!--<Image MaxHeight="300" MaxWidth="300" Grid.RowSpan="7" Grid.Column="1" Source="ms-appx:///Assets/loginlogo.png"></Image>-->

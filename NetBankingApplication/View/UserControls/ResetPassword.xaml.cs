@@ -116,6 +116,15 @@ namespace NetBankingApplication.View.UserControls
             }
         }
 
+        public void ResetUI()
+        {
+            PasswordReset.Password = String.Empty;
+            revealModeCheckBoxPassword.IsChecked = false;
+            RePasswordReset.Password = String.Empty;
+            revealModeCheckBox_RePassword.IsChecked = false;
+            ErrorTextBlock.Visibility = Visibility.Collapsed;
+        }
+
         
     }
 }

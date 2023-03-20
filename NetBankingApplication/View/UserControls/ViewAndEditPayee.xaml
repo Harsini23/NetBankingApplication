@@ -10,27 +10,32 @@
     mc:Ignorable="d"
     SizeChanged="UserControl_SizeChanged"
     Loaded="UserControl_Loaded"
+    xmlns:converter="using:NetBankingApplication.View.Converter"
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <Storyboard x:Name="HideContentDialogStoryboard">
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ViewAndEditPayeeAcknowledgementDialogue"
-                                       Storyboard.TargetProperty="Opacity">
-                    <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1" />
-                    <LinearDoubleKeyFrame KeyTime="0:0:5" Value="0" />
+                                               Storyboard.TargetProperty="Opacity">
+                    <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                          Value="1" />
+                    <LinearDoubleKeyFrame KeyTime="0:0:5"
+                                          Value="0" />
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
-
-          
-
+            <converter:TrimConverter x:Key="TextTrimConverter"
+                                     Text="{Binding ElementName=PayeeNameTextbox,Path=Text,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
         </ResourceDictionary>
     </UserControl.Resources>
     <ScrollViewer>
         <Grid>
+
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -65,7 +70,7 @@
                         <Grid Margin="5" BorderBrush="Gray" BorderThickness="0.3" CornerRadius="5" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
-                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*" ></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
@@ -82,20 +87,62 @@
                             </Grid.ChildrenTransitions>
 
                             <StackPanel Margin="20,0,0,0" Grid.RowSpan="2">
-                                <TextBlock   Text="{x:Bind PayeeName}" TextWrapping="Wrap" FontWeight="Bold" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="PayeeNameTextbox"></TextBlock>
+                                <TextBlock   Text="{x:Bind PayeeName}"
+                                             TextTrimming="CharacterEllipsis"
+                                             FontWeight="Bold"
+                                             Margin="10"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left"
+                                             x:Name="PayeeNameTextbox">
+                                    <ToolTipService.ToolTip >
+                                        <ToolTip Content="{x:Bind PayeeName}"
+                                                 CornerRadius="5"
+                                                 Background="{ThemeResource AppForegroundBg}" ></ToolTip>
+                                    </ToolTipService.ToolTip>
+                                             <!--ToolTipService.ToolTip="{Binding ElementName=PayeeNameTextbox, 
+                                                Path=IsTextTrimmed, 
+                                                Converter={StaticResource TextTrimConverter}}">-->
+                                    
+                                  
+                                </TextBlock>
+                              
                                 <TextBlock  Margin="10,0,0,0"  Grid.Column="0" Text="Name" FontWeight="ExtraLight" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                             </StackPanel>
-                          
-                            <TextBlock Margin="10"  Grid.Column="1" TextWrapping="NoWrap" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind AccountNumber}"  ></TextBlock>
-                            <TextBlock Text="Account number" Margin="0,0,0,5"  Grid.Column="1" Grid.Row="1" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
 
+                            <TextBlock Margin="10"
+                                       Grid.Column="1"
+                                       TextTrimming="CharacterEllipsis"
+                                       FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{x:Bind AccountNumber}">
+                                 <ToolTipService.ToolTip>
+                                        <ToolTip Content="{x:Bind AccountNumber}"
+                                                 CornerRadius="5"
+                                                 Background="{ThemeResource AppForegroundBg}"></ToolTip>
+                                    </ToolTipService.ToolTip>
+                            </TextBlock>
+                            <TextBlock Text="Account number"
+                                       Margin="0,0,0,5"
+                                       Grid.Column="1"
+                                       Width="100"
+                                       TextTrimming="CharacterEllipsis"
+                                       Grid.Row="1" FontWeight="ExtraLight" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
 
-                            <TextBlock  Grid.Column="2" Text="{x:Bind BankName}" TextWrapping="Wrap" Margin="10" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock  Grid.Column="2"
+                                        Text="{x:Bind BankName}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="Wrap"
+                                        Margin="10"
+                                        FontWeight="Bold"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"> <ToolTipService.ToolTip>
+                                        <ToolTip Content="{x:Bind BankName}"
+                                                 CornerRadius="5"
+                                                 Background="{ThemeResource AppForegroundBg}"></ToolTip>
+                                    </ToolTipService.ToolTip></TextBlock>
                             <TextBlock  Grid.Column="2" Margin="0,0,0,5" Grid.Row="1" Text="Bank name" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <StackPanel Grid.RowSpan="2" Orientation="Horizontal" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
-                                <Button Style="{ThemeResource ButtonStyling}" MinHeight="35" MinWidth="35" Content="&#xE107;" FontFamily="Segoe MDL2 Assets"  Name="DeletePayee" Click="DeletePayee_Click"></Button>
+                                <Button Style="{StaticResource AccentButtonStyleCustom}" MinHeight="35" MinWidth="35" Content="&#xE107;" FontFamily="Segoe MDL2 Assets"  Name="DeletePayee" Click="DeletePayee_Click"></Button>
 
-                                <Button Style="{ThemeResource ButtonStyling}"  MinHeight="35" MinWidth="35"  Content="&#xE104;" FontFamily="Segoe MDL2 Assets" Name="EditPayee" Click="EditPayee_Click" ></Button>
+                                <Button Style="{StaticResource AccentButtonStyleCustom}" Margin="10,0,0,0" MinHeight="35" MinWidth="35"  Content="&#xE104;" FontFamily="Segoe MDL2 Assets" Name="EditPayee" Click="EditPayee_Click" ></Button>
                             </StackPanel>
 
 
@@ -559,7 +606,10 @@
                         </TextBox.Header>
                     </TextBox>
                     <TextBlock Visibility="Collapsed" TextWrapping="Wrap" Name="ErrorMessage" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{ThemeResource FailureText}"></TextBlock>
-                    <Button Margin="10,20,0,0" Padding="20,5,20,5" Style="{ThemeResource ButtonStyling}" Grid.Row="7" Content="Save" x:Name="EditPayeeDetails" Click="EditPayeeDetails_Click"></Button>
+                    <Button Margin="10,20,0,0"
+                            Padding="20,5,20,5"
+                            Style="{StaticResource AccentButtonStyleCustom}"
+                            Grid.Row="7" Content="Save" x:Name="EditPayeeDetails" Click="EditPayeeDetails_Click"></Button>
                 </Grid>
             </Popup>
 

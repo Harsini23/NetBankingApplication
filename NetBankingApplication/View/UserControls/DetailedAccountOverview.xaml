@@ -639,34 +639,36 @@
                     </Grid>
                 </controls:GridSplitter.Element>
             </controls:GridSplitter>
-            
-            <Grid Visibility="Collapsed" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" x:Name="TransactionDetailGrid" ScrollViewer.VerticalScrollMode="Enabled" >
+       
+                <Grid Visibility="Collapsed" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" x:Name="TransactionDetailGrid" ScrollViewer.VerticalScrollMode="Enabled" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                    <Button Margin="5,5,0,0" FontSize="24" CornerRadius="5" BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Content="&#xE298;" FontFamily="Segoe MDL2 Assets" Visibility="Collapsed" x:Name="BackToList" Click="BackToList_Click"></Button>
-                    <TextBlock Margin="5,0,0,0" Text="Transaction Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20" ></TextBlock>
+              
+                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                     <Button FontFamily="Segoe MDL2 Assets"
-                            FontSize="12"
                             Grid.Column="1"
                             Background="Transparent"
                             BorderThickness="0"
                             Content="&#xE106;"
                             HorizontalAlignment="Right"
-                            Margin="280,0,0,0"
-                            Name="CloseButton"
+                            Name="CloseButton" FontSize="13"
                             Style="{ThemeResource ButtonStyling}"
                             Click="CloseButton_Click"></Button>
+                    <Button Margin="5,5,0,0" FontSize="24" CornerRadius="5" BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Content="&#xE298;" FontFamily="Segoe MDL2 Assets" Visibility="Collapsed" x:Name="BackToList" Click="BackToList_Click"></Button>
+                    <TextBlock Margin="5,0,0,0" Text="Transaction Details" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="20" ></TextBlock>
+                 
                 </StackPanel>
+           
+
                 <NavigationViewItemSeparator Grid.Row="1"></NavigationViewItemSeparator>
                 
                 <local:TransactionDetailView ScrollViewer.VerticalScrollMode="Enabled" Grid.Row="2"  x:Name="TransactionDetails" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></local:TransactionDetailView>
             </Grid>
 
-    </Grid>
+        </Grid>
 
     </Grid>
 

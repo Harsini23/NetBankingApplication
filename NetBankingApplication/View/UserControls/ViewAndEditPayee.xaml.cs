@@ -237,5 +237,8 @@ namespace NetBankingApplication.View.UserControls
         {
             RaiseNotification?.Invoke(DeletePayeeViewModel.ResponseValue);
         }
+
     }
+
+  
 }

@@ -69,8 +69,12 @@
                     </TextBox.Header>
                 </TextBox>
 
-                    <TextBlock Grid.Row="6" x:Name="ErrorMessage" Style="{ThemeResource FailureText}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <Button  Grid.Row="7" x:Name="AddPayee" Content="Add Payee" Style="{ThemeResource ButtonStyling}" Click="AddPayee_Click"></Button>
+                    <TextBlock Grid.Row="6" x:Name="ErrorMessage" Visibility="Collapsed" Style="{ThemeResource FailureText}" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <Button  Grid.Row="7"
+                             x:Name="AddPayee" Margin="0,10,0,0"
+                             Content="Add Payee"
+                             Style="{StaticResource AccentButtonStyleCustom}"
+                             Click="AddPayee_Click"></Button>
 
                 </Grid>
                 <!--<TextBlock  Text="{x:Bind AddPayeeViewModel.AddPayeeResponseValue,Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" TextWrapping="Wrap" x:Name="Result"></TextBlock>-->

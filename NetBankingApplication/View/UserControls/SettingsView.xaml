@@ -64,8 +64,8 @@
                     <Button Content="Save"
                             Name="SaveUserProfile"
                             Click="SaveUserProfile_Click"
-                            Style="{ThemeResource ButtonStyling}"
-                            Padding="10,5,10,5" Margin="40,0,0,0"></Button>
+                            Style="{StaticResource AccentButtonStyleCustom}"
+                            Padding="10,5,10,5" Margin="45,0,0,0"></Button>
                 </StackPanel>
 
                 <Grid Margin="20,5,5,5">
@@ -163,7 +163,7 @@
                                  Width="300"
                                  HorizontalAlignment="Left"
                                  Style="{ThemeResource PasswordBoxCustom}"
-                                 x:Name="ResetPassword">
+                                 x:Name="ResetPasswordPasswordBox">
                         <PasswordBox.Header>
                             <TextBlock>
         <Run Text="Current Password "> </Run><Run  Foreground="Red">*</Run>
@@ -175,7 +175,7 @@
                             Name="ResetPasswordFromLogin"
                             Click="ResetPassword_Click"
                             Margin="10,20,0,0"
-                            Style="{ThemeResource ButtonStyling}"
+                            Style="{StaticResource AccentButtonStyleCustom}"
                             Padding="10,5,10,5"></Button>
                 </StackPanel>
                 <CheckBox Margin="20,0,0,10"
@@ -197,8 +197,9 @@
             <Popup IsLightDismissEnabled="True"
                    LightDismissOverlayMode="on"
                    Grid.RowSpan="2"
+                   Closed="ResetPasswordGrid_Closed"
                    Name="ResetPasswordGrid">
-                <local:ResetPassword redirect="False"></local:ResetPassword>
+                <local:ResetPassword Name="ResetPasswordComponent" redirect="False"></local:ResetPassword>
             </Popup>
             <!--<ContentDialog x:Name="AcknowledgementDialogue"
        Background="{ThemeResource SupportingColour}" CornerRadius="10"

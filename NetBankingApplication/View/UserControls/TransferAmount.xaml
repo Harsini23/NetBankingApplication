@@ -121,8 +121,12 @@
                 </TextBox>
 
                 <TextBlock Grid.Row="7" Text="{x:Bind TransferAmountViewModel.ResultText,Mode=OneWay}" x:Name="ErrorMessage" Style="{ThemeResource FailureText}"></TextBlock>
-                
-                <Button Click="MakeTransaction_Click" x:Name="MakeTransaction" Grid.Row="8"  Content="Make Payment" Style="{ThemeResource ButtonStyling}">
+
+                <Button Click="MakeTransaction_Click"
+                        x:Name="MakeTransaction"
+                        Grid.Row="8"
+                        Content="Make Payment"
+                        Style="{StaticResource AccentButtonStyleCustom}">
                 </Button>
 
                 <!--<TextBlock Grid.Row="8"  Name="TransactionResult" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>-->

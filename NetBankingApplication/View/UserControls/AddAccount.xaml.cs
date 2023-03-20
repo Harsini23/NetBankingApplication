@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class AddAccount : UserControl, INotifyPropertyChanged
+    public sealed partial class AddAccount : UserControl, INotifyPropertyChanged, IAccountAddedNotification
     {
         private GetAllUsersBaseViewModel allUsersViewModel;
         private ObservableCollection<User> users;
@@ -54,6 +54,7 @@ namespace NetBankingApplication.View.UserControls
             GetBranchDetailsViewModel.FetchBranchDetails();
 
             addAccountBaseViewModel = PresenterService.GetInstance().Services.GetService<AddAccountBaseViewModel>();
+            addAccountBaseViewModel.addAccountView = this;
 
         }
 
@@ -285,5 +286,17 @@ namespace NetBankingApplication.View.UserControls
             UserAutoSuggestBox.IsSuggestionListOpen = false;
 
         }
+
+        public void AccountNotification()
+        {
+            InAppNotification.Show(addAccountBaseViewModel.Response, 3000);
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InAppNotification.Dismiss();
+        }
+
     }
 }

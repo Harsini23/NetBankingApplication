@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <ControlTemplate x:Key="InAppNotificationTemplate1" TargetType="controls:InAppNotification">
-                <Grid Width="400" Background="{ThemeResource NotificationColour}"  Height="50"  CornerRadius="10" >
+                <Grid Width="300" Background="{ThemeResource NotificationColour}"  Height="50"  CornerRadius="10" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -202,39 +202,64 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="ErrorMessage" Text="{x:Bind AddUserViewModel.ErrorMessage ,Mode=OneWay}" Style="{ThemeResource FailureText}"></TextBlock>
-            <Button x:Name="Submit" Grid.Row="1" Click="Submit_Click" Content="Create user" Style="{ThemeResource ButtonStyling}"></Button>
+                    <Button x:Name="Submit"
+                            Grid.Row="1"
+                            Click="Submit_Click"
+                            Content="Create user"
+                            Style="{StaticResource AccentButtonStyleCustom}"></Button>
         </Grid>
 
 
             <ContentDialog x:Name="ContentDialog" CornerRadius="5"  CloseButtonText="Done"
          CloseButtonStyle="{StaticResource ContentDialogPrimaryButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center">
                     
-                <Grid  x:Name="TransactionDetails" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Grid  x:Name="TransactionDetails" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.3*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                            <ColumnDefinition Width="1.3*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBlock Margin="10" Text="Your Credentials" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     
-                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5,20,5,5" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                        <TextBlock  Text="UserID :" Padding="0,3,3,3" FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
-                        <TextBlock Margin="5,0,0,0" Padding="0,3,3,3" Text="{x:Bind AddUserViewModel.UserId,Mode=OneWay}"></TextBlock>
-                        <Button Width="25" Name="copy" Height="25" FontSize="12" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Margin="5,0,0,0" Grid.Column="1" FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="Idcopy_Click" ></Button>
-                    </StackPanel>
+                    <TextBlock Margin="10,10,10,30" Text="Your Credentials" FontSize="20" Grid.ColumnSpan="4" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    
+                   
+                        <TextBlock Margin="5" Text="User ID " Grid.Row="1" Padding="3" FontSize="16" FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
+                        <TextBlock Margin="5" Text=":" FontSize="16" Grid.Row="1" FontWeight="SemiBold"  Grid.Column="1"></TextBlock>
+                        <TextBlock Margin="5" Grid.Column="2" Grid.Row="1" Padding="3" Text="{x:Bind AddUserViewModel.UserId,Mode=OneWay}"></TextBlock>
+                        <Button Width="25"  Grid.Row="1" Grid.Column="3" Name="copy" Height="25" FontSize="16" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Margin="5,0,0,0"  FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="Idcopy_Click" ></Button>
+                 
+                        <TextBlock Margin="5" Grid.Row="2" FontSize="16" Text="Password " Padding="3" FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
+                        <TextBlock Text=":"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Grid.Row="2"
+                                   Grid.Column="1" Margin="5"></TextBlock>
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left">
-                        <TextBlock Text="Password :" Padding="0,3,3,3" FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
-                        <TextBlock Margin="5,0,0,0" Padding="0,3,3,3" Text="{x:Bind AddUserViewModel.Password,Mode=OneWay}"></TextBlock>
-                        <Button Margin="5,0,0,0" Width="25" Height="25" FontSize="12" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Grid.Column="1" FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="Passwordcopy_Click" ></Button>
-                    </StackPanel>
+                        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16" Margin="5" Padding="3" Text="{x:Bind AddUserViewModel.Password,Mode=OneWay}"></TextBlock>
+                    
+                        <Button Margin="5,0,0,0" Width="25" Height="25" FontSize="16" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Grid.Column="3" Grid.Row="2" FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="Passwordcopy_Click" ></Button>
 
-                    <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left">
-                        <TextBlock Text="Account Number : " FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
-                        <TextBlock Margin="5,0,0,0" Text="{x:Bind AddUserViewModel.AccountNo,Mode=OneWay}"    FontFamily="Consolas"
-                                               FontSize="22" FontWeight="SemiBold" CharacterSpacing="80"></TextBlock>
-                    </StackPanel>
+                        <TextBlock Margin="5" Text="Account Number  "
+                                   FontSize="16"
+                                   Grid.Row="3"
+                                   FontWeight="SemiBold"
+                                   CharacterSpacing="60"></TextBlock>
+                        <TextBlock Text=":"
+                                    Margin="5"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Grid.Row="3"
+                                   Grid.Column="1"></TextBlock>
+                        <TextBlock Grid.Row="3" Margin="5" Text="{x:Bind AddUserViewModel.AccountNo,Mode=OneWay}" Grid.Column="2" Grid.ColumnSpan="2"   FontFamily="Consolas"
+                                               FontSize="18" FontWeight="SemiBold" CharacterSpacing="80"></TextBlock>
+                 
                     
 
                 </Grid>
@@ -243,7 +268,7 @@
     
 
         </Grid>
-            <controls:InAppNotification  Content="{x:Bind AddUserViewModel.Response,Mode=OneWay}" Margin="5,5,0,30" Template="{StaticResource InAppNotificationTemplate1}" Width="500" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Height="70"  x:Name="InAppNotification" Background="{ThemeResource NotificationColour}" BorderBrush="Black" BorderThickness="0.5" CornerRadius="10"  ShowDismissButton="True"  >
+            <controls:InAppNotification  Content="{x:Bind AddUserViewModel.Response,Mode=OneWay}" Margin="5,5,0,30" Template="{StaticResource InAppNotificationTemplate1}" Width="300" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Height="70"  x:Name="InAppNotification" Background="{ThemeResource NotificationColour}" BorderBrush="Black" BorderThickness="0.5" CornerRadius="10"  ShowDismissButton="True"  >
             </controls:InAppNotification>
         </Grid>
     </ScrollViewer>

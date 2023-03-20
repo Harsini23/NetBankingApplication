@@ -82,11 +82,11 @@ namespace NetBankingApplication.View.UserControls
         {
             if (revealModeCheckBox.IsChecked == true)
             {
-                ResetPassword.PasswordRevealMode = PasswordRevealMode.Visible;
+                ResetPasswordPasswordBox.PasswordRevealMode = PasswordRevealMode.Visible;
             }
             else
             {
-                ResetPassword.PasswordRevealMode = PasswordRevealMode.Hidden;
+                ResetPasswordPasswordBox.PasswordRevealMode = PasswordRevealMode.Hidden;
             }
         }
 
@@ -98,7 +98,7 @@ namespace NetBankingApplication.View.UserControls
             //double verticalOffset = Window.Current.Bounds.Height / 2 - ResetPasswordGrid.ActualHeight / 2;
             //ResetPasswordGrid.HorizontalOffset = horizontalOffset;
             //ResetPasswordGrid.VerticalOffset = verticalOffset;
-            var password = ResetPassword.Password;
+            var password = ResetPasswordPasswordBox.Password;
            
             if (string.IsNullOrEmpty(password))
             {
@@ -217,7 +217,7 @@ namespace NetBankingApplication.View.UserControls
         public void RemoveErrors()
         {
             passwordVerificationViewModel.ResponseValue = "";
-            ResetPassword.Password = String.Empty;
+            ResetPasswordPasswordBox.Password = String.Empty;
         }
 
        
@@ -237,6 +237,13 @@ namespace NetBankingApplication.View.UserControls
         {
             InAppNotification.Show(LoginViewModel.ResetPasswordResponseValue, 3000);
             NotificationMessage = updateViewModel.ResponseValue;
+        }
+
+        private void ResetPasswordGrid_Closed(object sender, object e)
+        {
+            //clear resetpassword UI data
+            ResetPassword myUserControl = (ResetPassword)this.FindName("ResetPasswordComponent");
+            myUserControl.ResetUI();
         }
     }
 }

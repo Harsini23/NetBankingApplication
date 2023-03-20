@@ -38,12 +38,32 @@ namespace NetBankingApplication.ViewModel
         {
         }
 
-        public void OnSuccessAsync(ZResponse<bool> response)
+        public async void OnSuccessAsync(ZResponse<bool> response)
         {
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                addAccountViewModel.Response = response.Response;
+                addAccountViewModel.addAccountView?.AccountNotification();
+            });
         }
     }
     public abstract class AddAccountBaseViewModel : NotifyPropertyBase
     {
         public abstract void AddAccount(AccountBObj account);
+       public IAccountAddedNotification addAccountView { get; set; }
+        private string _response = String.Empty;
+        public string Response
+        {
+            get { return this._response; }
+            set
+            {
+                _response = value;
+                OnPropertyChanged(nameof(Response));
+            }
+        }
+    }
+    public interface IAccountAddedNotification
+    {
+        void AccountNotification();
     }
 }
