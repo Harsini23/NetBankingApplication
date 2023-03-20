@@ -40,7 +40,7 @@
                                 <RowDefinition Height="1*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition   Width="1*"></ColumnDefinition>
+                                <ColumnDefinition   Width="1.5*"></ColumnDefinition>
                                 <ColumnDefinition   Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
 
@@ -50,12 +50,12 @@
                                        Text="{x:Bind AccountType}"
                                        TextWrapping="Wrap"
                                        ></TextBlock>                            <Image Stretch="Fill"
-                                   Width="30"
-                                   Height="30"
+                                   Width="25"
+                                   Height="25"
                                    Grid.Row="0"
                                    HorizontalAlignment="Right" VerticalAlignment="Top"
                                    Grid.Column="1">                                <Image.Source>                                    <BitmapImage UriSource="/Assets/wallet.png" />                                </Image.Source>                            </Image>                            <StackPanel Grid.Row="1" HorizontalAlignment="Left"
-                                        Grid.ColumnSpan="2" Margin="0,10,0,0">                                <StackPanel>
+                                        Grid.ColumnSpan="2" Margin="0,20,0,0">                                <StackPanel>
                                     <TextBlock 
                                                HorizontalAlignment="Stretch"
                                                Text="Account Number "
