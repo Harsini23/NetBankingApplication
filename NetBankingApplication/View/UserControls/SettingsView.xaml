@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:converter="using:NetBankingApplication.View.Converter"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <UserControl.Resources>
@@ -12,6 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <converter:StringToBitmapImageConverter x:Key="StringToBitmap" />
             <ControlTemplate x:Key="InAppNotificationTemplate1"
                              TargetType="controls:InAppNotification">
                 <Grid Width="320"
@@ -83,6 +85,7 @@
                                    MaxHeight="80"
                                    Grid.RowSpan="2"
                                    Name="Initial"
+                                   ProfilePicture="{x:Bind updateViewModel.CurrentUser.ProfilePath,Mode=OneWay,Converter={StaticResource StringToBitmap}}"
                                    Initials="{x:Bind updateViewModel.CurrentUserInitial,Mode=OneWay}"
                                    Grid.Column="0"
                                    Tapped="Initial_Tapped"></PersonPicture>

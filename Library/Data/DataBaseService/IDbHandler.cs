@@ -48,6 +48,7 @@ namespace Library.Data.DataBaseService
         bool UpdateUser(User updatedUser);
         bool IfUserAlreadyExists(string email,long mobileNo,string Pan);
         List<User> GetAllUsers();
+        string GetProfile(string userId);
     }
 
     public interface INetHandler

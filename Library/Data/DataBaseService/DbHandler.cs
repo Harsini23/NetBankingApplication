@@ -344,7 +344,12 @@ namespace Library.Data.DataBaseService
             return (query != null);
         }
 
-     
+        public string GetProfile(string userId)
+        {
+            return connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault().ProfilePath;
+        }
+
+
 
 
         #endregion

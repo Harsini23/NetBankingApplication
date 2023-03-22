@@ -38,6 +38,7 @@ namespace NetBankingApplication.View.UserControls
         private PasswordVerificationBaseViewModel passwordVerificationViewModel;
 
         public event PropertyChangedEventHandler PropertyChanged;
+        String ProfilePath;
 
         public SettingsView()
         {
@@ -157,13 +158,18 @@ namespace NetBankingApplication.View.UserControls
                 UserProfileError.Visibility = Visibility.Visible;
                 UserProfileError.Text = "Check your emaild id;)";
             }
-            else if (EmailId.Text.Trim() == updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == updateViewModel.CurrentUser.MobileNumber)
+            else if (EmailId.Text.Trim() == updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == updateViewModel.CurrentUser.MobileNumber && ProfilePath==null)
             {
                 UserProfileError.Visibility = Visibility.Visible;
                 UserProfileError.Text = "No changes to be saved;)";
             }
             else
             {
+                string ProfilePathUri = "";
+                if (ProfilePath != null)
+                {
+                    ProfilePathUri = ProfilePath;
+                }
                 var updatedUserValue = new User
                 {
                     UserId = updateViewModel.CurrentUser.UserId,
@@ -171,7 +177,8 @@ namespace NetBankingApplication.View.UserControls
                     UserName = Name.Text.Trim(),
                     MobileNumber = long.Parse(Phonenumber.Text.Trim()),
                     IsBlocked = updateViewModel.CurrentUser.IsBlocked,
-                    PAN = updateViewModel.CurrentUser.PAN
+                    PAN = updateViewModel.CurrentUser.PAN,
+                    ProfilePath = ProfilePathUri
                 };
 
                 UpdateCurrentPage();
@@ -267,7 +274,10 @@ namespace NetBankingApplication.View.UserControls
                 StorageFile newFile = await file.CopyAsync(appFolder, file.Name, NameCollisionOption.ReplaceExisting);
 
                 // Update the image source with the new file
-                Initial.ProfilePicture = new BitmapImage(new Uri(newFile.Path));
+                var temp= new BitmapImage(new Uri(newFile.Path));
+                ProfilePath = temp.UriSource.LocalPath.ToString();
+
+                Initial.ProfilePicture = temp;
             }
         }
     }

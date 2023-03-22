@@ -36,6 +36,7 @@ namespace Library.Data.DataManager
             foreach(var i in Alltransactions)
             {
                string Account;
+                string picPath;
                 if (i.TransactionType == Model.Enum.TransactionType.Credited)
                 {
                     Account = i.FromAccount;
@@ -43,6 +44,11 @@ namespace Library.Data.DataManager
                 else
                 {
                     Account = i.ToAccount;
+                }
+                var path= DbHandler.GetProfile(i.UserId);
+                if (path != null)
+                {
+                    picPath=path;
                 }
                 AccountTransactionBObj trasaction = new AccountTransactionBObj
                 {
@@ -52,7 +58,8 @@ namespace Library.Data.DataManager
                     Amount=i.Amount,
                     DateOfTransaction=i.Date,
                     Initial = UserMapping[i.UserId].Substring(0, 1).ToUpper(),
-                    Transaction=i
+                    Transaction=i,
+                    PersonPicPath=path
                 };
                 allAccountTransactions.Add(trasaction);
             }
