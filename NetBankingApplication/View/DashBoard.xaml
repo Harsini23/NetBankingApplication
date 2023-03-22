@@ -915,7 +915,7 @@
                 </NavigationViewItem>
                 <NavigationViewItem Margin="-1.5,0,0,0" ScrollViewer.VerticalScrollMode="Disabled" x:Name="Settings" Content="Settings" Tag="Settings" >
                     <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE115;"></FontIcon>
+                        <FontIcon Glyph="&#xE115;" ></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 

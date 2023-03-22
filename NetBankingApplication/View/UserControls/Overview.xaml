@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:Library.Model" xmlns:Controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
+    xmlns:converter="using:NetBankingApplication.View.Converter"
     d:DesignHeight="300"
     SizeChanged="UserControl_SizeChanged"
     d:DesignWidth="400">
@@ -64,7 +65,9 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <converter:EnumToStringConverter x:Key="EnumConverter" />
         </ResourceDictionary>
+        
     </UserControl.Resources>
     <ScrollViewer>
 
@@ -171,7 +174,16 @@
                     <TextBlock Text="Current Total balance "></TextBlock>
                     <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
                         <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="30" FontWeight="Bold"></TextBlock>
-                        <TextBlock FontWeight="Bold" Text="{x:Bind _overviewViewModel.TotalBalance,Mode=OneWay}" Margin="5,0,0,0" FontSize="30" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock FontWeight="Bold"
+                                   Text="{x:Bind _overviewViewModel.TotalBalance,Mode=OneWay}"
+                                   TextTrimming="CharacterEllipsis"
+                                   Margin="5,0,0,0" FontSize="30"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                              <ToolTipService.ToolTip>
+                                        <ToolTip Content="{x:Bind _overviewViewModel.TotalBalance,Mode=OneWay}"
+                                                 CornerRadius="5"
+                                                 Background="{ThemeResource AppForegroundBg}"></ToolTip>
+                                    </ToolTipService.ToolTip>
+                        </TextBlock>
                     </StackPanel>
                 </StackPanel>
 
@@ -186,19 +198,39 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel x:Name="OverallIcomeBlock" Orientation="Horizontal" >
-                        <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,4,8,4" FontSize="16" FontWeight="ExtraBold" Background="{ThemeResource Positive}" FontFamily="Segoe MDL2 Assets" Content="&#xE742;" >
+                        <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,6,8,6" FontSize="16" FontWeight="ExtraBold" Background="{ThemeResource Positive}" FontFamily="Segoe MDL2 Assets" Content="&#xE742;" >
                         </Button>
                         <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
                             <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" ></TextBlock>
-                                <TextBlock TextTrimming="CharacterEllipsis" Text="{x:Bind _overviewViewModel.Income,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock TextTrimming="CharacterEllipsis"
+                                       Text="{x:Bind _overviewViewModel.Income,Mode=OneWay}"
+                                       Margin="5,0,0,0"
+                                       FontSize="18"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center">
+                                  <ToolTipService.ToolTip>
+                                        <ToolTip Content="{x:Bind _overviewViewModel.Income,Mode=OneWay}"
+                                                 CornerRadius="5"
+                                                 Background="{ThemeResource AppForegroundBg}"></ToolTip>
+                                    </ToolTipService.ToolTip>
+                            </TextBlock>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel x:Name="OverallExpenseBlock" Orientation="Horizontal" Grid.Column="1" Margin="20,0,0,0">
-                        <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,2,8,4"  FontSize="16" FontWeight="ExtraBold"  Background="{ThemeResource Negative}" FontFamily="Segoe MDL2 Assets" Content="&#xE741;" >
+                        <Button Style="{StaticResource TestingButton}"
+                                IsEnabled="False"
+                                CornerRadius="5"
+                                Padding="8,6,8,6"
+                                FontSize="16" FontWeight="ExtraBold"  Background="{ThemeResource Negative}" FontFamily="Segoe MDL2 Assets" Content="&#xE741;" >
                         </Button>
                         <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
                             <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" ></TextBlock>
-                                <TextBlock TextTrimming="CharacterEllipsis"  Text="{x:Bind _overviewViewModel.Expense,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock TextTrimming="CharacterEllipsis"  Text="{x:Bind _overviewViewModel.Expense,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                      <ToolTipService.ToolTip>
+                                        <ToolTip Content="{x:Bind _overviewViewModel.Expense,Mode=OneWay}"
+                                                 CornerRadius="5"
+                                                 Background="{ThemeResource AppForegroundBg}"></ToolTip>
+                                    </ToolTipService.ToolTip>
+                                </TextBlock>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -210,11 +242,15 @@
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Fill="{ThemeResource Positive}" Width="10" Height="10"></Ellipse>
-                                        <TextBlock Text="Income" Margin="5,0,0,0"></TextBlock>
+                                        <TextBlock Text="Income" Margin="5,0,5,0"></TextBlock>
+                                        <TextBlock Text="{x:Bind _overviewViewModel.IncomePercentage,Mode=OneWay}"></TextBlock>
+                                        <TextBlock Text="%" Margin="5,0,0,0"></TextBlock>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Fill="{ThemeResource Negative}" Width="10" Height="10"></Ellipse>
-                                        <TextBlock Text="Expense" Margin="5,0,0,0"></TextBlock>
+                                        <TextBlock Text="Expense" Margin="5,0,5,0"></TextBlock>
+                                        <TextBlock Text="{x:Bind _overviewViewModel.ExpensePercentageText,Mode=OneWay}"></TextBlock>
+                                        <TextBlock Text="%" Margin="5,0,0,0"></TextBlock>
                                     </StackPanel>
                                 </StackPanel>
                             </ToolTip.Content>
@@ -240,7 +276,7 @@
             <Grid Grid.Row="1" Name="MonthlySummaryCard" Background="{ThemeResource AppForegroundBg}" CornerRadius="10" Margin="10,10,30,10" Padding="10" Grid.Column="1">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="0.5*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
                     <StackPanel Padding="0,10,0,10">
@@ -250,31 +286,59 @@
                     </StackPanel>
 
 
-                <Grid Grid.Row="1" Padding="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <Grid Grid.Row="1" Padding="20,0,0,0" VerticalAlignment="Center" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel>
+                    <StackPanel>    
                         <TextBlock Text="Income" Padding="0,5,5,5"></TextBlock>
                             <StackPanel Orientation="Horizontal" >
-                                <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,4,8,4" FontSize="16" FontWeight="ExtraBold" Background="{ThemeResource Positive}" FontFamily="Segoe MDL2 Assets" Content="&#xE742;" >
+                                <Button Style="{StaticResource TestingButton}"
+                                        IsEnabled="False"
+                                        CornerRadius="5"
+                                        Padding="8,6,8,6"
+                                        FontSize="16" FontWeight="ExtraBold" Background="{ThemeResource Positive}" FontFamily="Segoe MDL2 Assets" Content="&#xE742;" >
                             </Button>
-                            <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                            <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left"  >
                                 <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" ></TextBlock>
-                                <TextBlock  Text="{x:Bind _overviewViewModel.CurrentMonthIncome,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock  Text="{x:Bind _overviewViewModel.CurrentMonthIncome,Mode=OneWay}"
+                                                Margin="5,0,0,0"
+                                                FontSize="18"
+                                                TextTrimming="CharacterEllipsis"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                                          <ToolTipService.ToolTip>
+                                        <ToolTip Content="{x:Bind _overviewViewModel.CurrentMonthIncome,Mode=OneWay}"
+                                                 CornerRadius="5"
+                                                 Background="{ThemeResource AppForegroundBg}"></ToolTip>
+                                    </ToolTipService.ToolTip>
+                                    </TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="20,0,0,0">
                         <TextBlock Text="Expense" Padding="0,5,5,5"></TextBlock>
                         <StackPanel Orientation="Horizontal" >
-                                <Button Style="{StaticResource TestingButton}" IsEnabled="False" CornerRadius="5" Padding="8,2,8,4"  FontSize="16" FontWeight="ExtraBold"  Background="{ThemeResource Negative}" FontFamily="Segoe MDL2 Assets" Content="&#xE741;" >
+                                <Button Style="{StaticResource TestingButton}"
+                                        IsEnabled="False"
+                                        CornerRadius="5"
+                                        Padding="8,6,8,6"
+                                        FontSize="16" FontWeight="ExtraBold"  Background="{ThemeResource Negative}" FontFamily="Segoe MDL2 Assets" Content="&#xE741;" >
                             </Button>
                             <StackPanel Margin="10,0,0,0"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" >
                                 <TextBlock Text="₹" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="18" ></TextBlock>
-                                <TextBlock  Text="{x:Bind _overviewViewModel.CurrentMonthExpense,Mode=OneWay}" Margin="5,0,0,0" FontSize="18" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock  Text="{x:Bind _overviewViewModel.CurrentMonthExpense,Mode=OneWay}"
+                                                Margin="5,0,0,0"
+                                                FontSize="18"
+                                                TextTrimming="CharacterEllipsis"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                                          <ToolTipService.ToolTip>
+                                        <ToolTip Content="{x:Bind _overviewViewModel.CurrentMonthExpense,Mode=OneWay}"
+                                                 CornerRadius="5"
+                                                 Background="{ThemeResource AppForegroundBg}"></ToolTip>
+                                    </ToolTipService.ToolTip>
+                                    </TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>

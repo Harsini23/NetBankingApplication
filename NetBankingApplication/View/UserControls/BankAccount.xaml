@@ -10,7 +10,13 @@
     Loaded="UserControl_Loaded"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <Grid x:Name="BankAccountOuterGrid" >
         <NavigationView x:Name="BankAccountNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top" Style="{StaticResource NavigationViewTitleHeaderContentControlTextStyle}"
@@ -21,8 +27,40 @@
                 <!--<NavigationViewItem Content="Open an Account" x:Name="CreateAccount"/>-->
             </NavigationView.MenuItems>
 
+            <NavigationView.PaneFooter>
+                <NavigationViewItem CornerRadius="5" Padding="0,0,10,0"
+                                         Name="AddAccount" 
+                                         >
+                    <NavigationViewItem.Content>
+                        <Button Click="CreateAccount_Click" Name="CreateAccount" Content="Add Account" Style="{StaticResource AccentButtonStyleCustom}"></Button>
+                    </NavigationViewItem.Content>
+                     
+                    </NavigationViewItem>
+
+            </NavigationView.PaneFooter>
+
             <ContentControl Margin="10" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedItem,Mode=OneWay}" CornerRadius="30" />
         </NavigationView>
+        <Popup IsLightDismissEnabled="True"
+               LightDismissOverlayMode="On"
+               Closed="CreateAccountGrid_Closed"
+               Name="CreateAccountGrid">
+            <Grid Background="{ThemeResource AppForegroundBg}"
+                  Margin="20"
+                  Padding="20" CornerRadius="10" Name="CreateAccountInnerGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <local:CreateAccountView x:Name="CreateNewAccountViewComponent"></local:CreateAccountView>
+                <TextBlock Grid.Row="1"
+                           Name="ErrorMessage"
+                           Style="{ThemeResource FailureText}" Text=""/>
+                <Button Grid.Row="2" Style="{StaticResource AccentButtonStyleCustom}" Name="CreateNewAccount" Click="CreateNewAccount_Click" Content='Create Account'></Button>
+            </Grid>
+          
+        </Popup>
     </Grid>
 
 </UserControl>

@@ -78,15 +78,16 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <PersonPicture HorizontalAlignment="Left"
-                                   MaxWidth="70"
-                                   Margin="0,0,10,0"
-                                   MaxHeight="70"
+                                   MaxWidth="80"
+                                   Margin="0,10,10,0"
+                                   MaxHeight="80"
                                    Grid.RowSpan="2"
                                    Name="Initial"
                                    Initials="{x:Bind updateViewModel.CurrentUserInitial,Mode=OneWay}"
-                                   Grid.Column="0"></PersonPicture>
+                                   Grid.Column="0"
+                                   Tapped="Initial_Tapped"></PersonPicture>
                     <TextBlock HorizontalAlignment="Left"
-                               Margin="5,5,0,0"
+                               Margin="5,20,0,0"
                                Grid.Row="0"
                                Grid.Column="1"
                                Name="Username"
@@ -102,7 +103,7 @@
                                Text="{x:Bind updateViewModel.CurrentUser.EmailId,Mode=OneWay}"></TextBlock>
                 </Grid>
                 <TextBox TextChanged="Name_TextChanged"
-                         Margin="20,5,5,5"
+                         Margin="20,25,5,5"
                          Width="300"
                          HorizontalAlignment="Left"
                          Style="{ThemeResource InputFieldTextBox}"

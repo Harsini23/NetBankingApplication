@@ -51,6 +51,27 @@ namespace NetBankingApplication.ViewModel
 
     }
 
+    public class NotificationServiceAccount
+    {
+        private Action<String> _eventHandler;
+
+        public void Subscribe(INotificationServiceAccount subscriber)
+        {
+            _eventHandler += subscriber.OnAccountUpdate;
+        }
+
+        public void Unsubscribe(INotificationServiceAccount subscriber)
+        {
+            _eventHandler -= subscriber.OnAccountUpdate;
+        }
+
+        public void RaiseEvent(String userID)
+        {
+            _eventHandler?.Invoke(userID);
+        }
+
+    }
+
     public interface INotificationServicePayee
     {
         void OnMyEvent(string eventData);
@@ -59,6 +80,10 @@ namespace NetBankingApplication.ViewModel
     public interface INotificationServiceUser
     {
         void OnUserUpdate(User user);
+    }
+    public interface INotificationServiceAccount
+    {
+        void OnAccountUpdate(String userId);
     }
 
 
@@ -86,6 +111,14 @@ namespace NetBankingApplication.ViewModel
         }
     }
 
+    public class AccountUpdate : INotificationServiceAccount
+    {
+        public void OnAccountUpdate(string userId)
+        {
+            var getAllAccountsBaseViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
+            getAllAccountsBaseViewModel.GetAllAccounts(userId);
+        }
+    }
 
 
 }

@@ -144,6 +144,7 @@
     <Compile Include="View\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Converter\EnumToStringConverter.cs" />
     <Compile Include="View\Converter\TrimConverter.cs" />
     <Compile Include="View\DashBoard.xaml.cs">
       <DependentUpon>DashBoard.xaml</DependentUpon>

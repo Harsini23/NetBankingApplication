@@ -99,7 +99,7 @@ namespace NetBankingApplication.View
             }
             else if (args.SelectedItem == BankAccount)
             {
-                BankAccount bankAccount = new BankAccount(LoginViewModel.CurrentUser.UserId);
+                BankAccount bankAccount = new BankAccount(LoginViewModel.CurrentUser);
                 CurrentSelectedModule = bankAccount;
                 HeaderTitle = "Account Details";
                 DashBoardNavigation.AlwaysShowHeader = true;

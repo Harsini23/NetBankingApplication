@@ -12,9 +12,11 @@ namespace NetBankingApplication.ViewModel
 {
     public class AddAccountViewModel : AddAccountBaseViewModel
     {
-        AddAccount addAccount;
+        public AddAccount addAccount;
+        public AccountBObj accountBObj;
         public override void AddAccount(AccountBObj account)
         {
+            accountBObj = account;
             addAccount = new AddAccount(new AddAccountRequest(account, account.UserId), new PresenterAddAccountCallback(this));
             addAccount.Execute();
         }
@@ -24,7 +26,7 @@ namespace NetBankingApplication.ViewModel
     public class PresenterAddAccountCallback : IPresenterAddAccountCallback
     {
         private AddAccountViewModel addAccountViewModel;
-
+        NotificationServiceAccount accountEventProvider = new NotificationServiceAccount();
         public PresenterAddAccountCallback(AddAccountViewModel addAccountViewModel)
         {
             this.addAccountViewModel = addAccountViewModel;
@@ -40,10 +42,13 @@ namespace NetBankingApplication.ViewModel
 
         public async void OnSuccessAsync(ZResponse<bool> response)
         {
+            //invoke notification to update the list preview
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
                 addAccountViewModel.Response = response.Response;
                 addAccountViewModel.addAccountView?.AccountNotification();
+                accountEventProvider.Subscribe(new AccountUpdate());
+                accountEventProvider.RaiseEvent(addAccountViewModel.accountBObj.UserId);
             });
         }
     }

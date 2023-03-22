@@ -11,12 +11,15 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -196,7 +199,7 @@ namespace NetBankingApplication.View.UserControls
         public void TriggerResetPasswordPopup()
         {
             ResetPasswordGrid.IsOpen = true;
-            double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetPasswordGrid.ActualWidth / 2 + 60;
+            double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetPasswordGrid.ActualWidth / 2 + 20;
             double verticalOffset = Window.Current.Bounds.Height / 2 - ResetPasswordGrid.ActualHeight / 2;
             ResetPasswordGrid.HorizontalOffset = horizontalOffset;
             ResetPasswordGrid.VerticalOffset = verticalOffset;
@@ -244,6 +247,28 @@ namespace NetBankingApplication.View.UserControls
             //clear resetpassword UI data
             ResetPassword myUserControl = (ResetPassword)this.FindName("ResetPasswordComponent");
             myUserControl.ResetUI();
+        }
+
+        private async void Initial_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var picker = new FileOpenPicker();
+            picker.ViewMode = PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+
+            StorageFile file = await picker.PickSingleFileAsync();
+
+            // If a file was selected, save it in the app folder
+            if (file != null)
+            {
+                StorageFolder appFolder = ApplicationData.Current.LocalFolder;
+                StorageFile newFile = await file.CopyAsync(appFolder, file.Name, NameCollisionOption.ReplaceExisting);
+
+                // Update the image source with the new file
+                Initial.ProfilePicture = new BitmapImage(new Uri(newFile.Path));
+            }
         }
     }
 }

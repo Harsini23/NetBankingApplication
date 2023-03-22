@@ -19,19 +19,7 @@ namespace Library.Data
         {
             conn = dbConn;
             InstantiateAllTables();
-            // InstantiateAllTables();
         }
-
-
-        //public static CreateTables GetInstance()
-        //{
-        //    if (_instance == null)
-        //    {
-        //        _instance = new CreateTables();
-        //        _instance.InstantiateAllTables();
-        //    }
-        //    return _instance;
-        //}
 
         public void InstantiateAllTables()
         {

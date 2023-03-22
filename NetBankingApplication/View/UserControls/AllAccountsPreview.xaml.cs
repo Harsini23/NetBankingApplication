@@ -39,19 +39,11 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //GetAllAccountsViewModel.GetAllAccounts(userId);
-            //Bindings.Update();
-            //DetailedAccountOverview detailedAccountOverview = new DetailedAccountOverview("", "");
-            //CurrentSelectedModule = detailedAccountOverview;
+          
         }
         public AllAccountsPreview()
         {
           
-            //this.InitializeComponent();
-            //GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
-            //currentUserId = UserId;
-            //GetAllAccountsViewModel.GetAllAccounts("UID6df59172");
-            //Bindings.Update();
         }
         public AllAccountsPreview(string userId)
         {
@@ -123,33 +115,10 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
-        //private Dictionary<UIContext, FrameworkElement> SomeDictoionary = new Dictionary<UIContext, FrameworkElement>();
-        ////private Page _rootPage;
-        //private void NewFrame_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    var frame = sender as Frame;
-        //    var _rootPage = frame.Content as Page;
-        //    SomeDictoionary.Add(_rootPage.UIContext, _rootPage);
-        //    ThemeSwitch.RegisterElement(_rootPage);
-
-        //}
-       
         private void AppWindow_Closed(AppWindow sender, object args)
         {
 
             var keysToRemove = appWindows.Where(x => x.Value == sender).Select(x => x.Key).ToList();
-            //ThemeSwitch.UnRegisterElement(_rootPage);
-
-            //foreach (var i in SomeDictoionary)
-            //{
-            //    if (sender.UIContext == i.Key)
-            //    {
-            //        ThemeSwitch.UnRegisterElement(i.Value);
-            //    }
-            //}
-
-            //// Remove the items
-            //SomeDictoionary.Remove(sender.UIContext);
             foreach (var key in keysToRemove)
             {
                 appWindows.Remove(key);

@@ -551,7 +551,7 @@
             <TextBlock FontSize="16" Text="Account Number : " VerticalAlignment="Center" Margin="5"></TextBlock>
             <DropDownButton Margin="10" Visibility="Collapsed" Name="SelectAccountDropdown" Style="{ThemeResource DropdownStyle}" Content="Account Details" MinWidth="200" >
                 <DropDownButton.Flyout>
-                    <MenuFlyout Placement="Bottom" Opening="MenuFlyout_Opening" MenuFlyoutPresenterStyle="{ThemeResource MenuFlyoutStyle}">
+                    <MenuFlyout  Placement="Bottom" Opening="MenuFlyout_Opening" MenuFlyoutPresenterStyle="{ThemeResource MenuFlyoutStyle}">
                         <MenuFlyoutItem CornerRadius="10"></MenuFlyoutItem>
                     </MenuFlyout>
                 </DropDownButton.Flyout>

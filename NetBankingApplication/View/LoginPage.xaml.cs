@@ -30,6 +30,7 @@ namespace NetBankingApplication.View
     {
         private LoginBaseViewModel LoginViewModel;
         public string NewPassword;
+        DispatcherTimer _timer = new DispatcherTimer();
 
         public LoginPage()
         {
@@ -44,6 +45,7 @@ namespace NetBankingApplication.View
 
             LoginViewModel.ResetPasswordResponseValue = String.Empty;
             UserUpdate.LoginViewModelInstance = LoginViewModel;
+
 
         }
 
@@ -132,8 +134,16 @@ namespace NetBankingApplication.View
             DataPackage dataPackage = new DataPackage();
             dataPackage.SetText("UserAdmin@1");
             Clipboard.SetContent(dataPackage);
+            _timer.Tick += Timer_Tick;
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Start();
+        }
+        private void Timer_Tick(object sender, object e)
+        {
+            _timer.Stop();
+            CopyFlyout.Hide();
         }
 
-       
+
     }
 }

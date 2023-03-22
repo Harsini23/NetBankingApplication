@@ -28,12 +28,14 @@ namespace NetBankingApplication.View.UserControls
 
         public event Action<string> RaiseNotification;
 
-        public AddPayeeView(string userId)
+        public AddPayeeView(string userId,string payeeName="",string accountNumber="")
         {
             this.InitializeComponent();
             AddPayeeViewModel = PresenterService.GetInstance().Services.GetService<AddPayeeBaseViewModel>();
             AddPayeeViewModel.AddPayeeView = this;
             currentUserId = userId;
+            PayeeName.Text = payeeName;
+            Accountnumber.Text = accountNumber;
          //   Result.Text = "";
 
         }

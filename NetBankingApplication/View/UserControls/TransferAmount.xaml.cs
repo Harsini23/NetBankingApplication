@@ -25,7 +25,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class TransferAmount : UserControl, ISwitchUserView, ZeroBalance
+    public sealed partial class TransferAmount : UserControl, ISwitchUserView, ZeroBalance, ISuggestAndAddPayeeView
     {
         private string _currentUserId;
 
@@ -39,6 +39,8 @@ namespace NetBankingApplication.View.UserControls
         private string UserAccountNumber;
         private string UserAccountBalance;
         private string _amount;
+        private bool IsNewPayee;
+        private bool ContentDialogClosed;
 
 
         private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
@@ -55,6 +57,8 @@ namespace NetBankingApplication.View.UserControls
 
        // List<AccountBalance> allBalances = new List<AccountBalance>();
         ObservableCollection<AccountBalance> allAccountBalances = new ObservableCollection<AccountBalance>();
+
+        public event Action<String, String> SendPayee;
 
         public TransferAmount(string userId)
         {
@@ -80,16 +84,7 @@ namespace NetBankingApplication.View.UserControls
 
         private async void MakeTransaction_Click(object sender, RoutedEventArgs e)
         {
-            //Grid.SetColumnSpan(TransferAmountDetails,0);
-            //Grid.SetRowSpan(TransferAmountDetails,0);
-
-            //show the current transaction overview receipt
-            //TransactionDetails.Visibility = Visibility.Visible;
-            //if (String.IsNullOrEmpty(RemarkTextBox.Text))
-            //{
-            //    ErrorMessage.Text = "Fill out remark field";
-            //}
-            //else
+            
             if (String.IsNullOrEmpty(AccountNumberTextBox.Text))
             {
                 ErrorMessage.Text = "Fill out account number field";
@@ -134,7 +129,11 @@ namespace NetBankingApplication.View.UserControls
                 };
                 if (amountTransfer.ToAccount != null && amountTransfer.Amount != null && amountTransfer.Name != null)
                 {
+                    TransferAmountViewModel.suggestionPopUp = this;
                     TransferAmountViewModel.SendTransaction(amountTransfer, amountTransfer.UserId);
+                    //set instance in VM to call usercontrol to conver it into added payee
+
+                    TransferAmountViewModel.NewPayee = IsNewPayee;
                 }
 
                 ResetUI();
@@ -253,6 +252,7 @@ namespace NetBankingApplication.View.UserControls
                     break;
                 }
             }
+            IsNewPayee = false;
 
         }
 
@@ -265,9 +265,11 @@ namespace NetBankingApplication.View.UserControls
             SelectPayee.Content = selectedItem.Text;
             ToAccount = selectedItem.Text;
             NewPayeeName.Visibility = Visibility.Visible;
-        }
+            IsNewPayee=true;
 
-        private void AccountDropdown_Opening(object sender, object e)
+    }
+
+    private void AccountDropdown_Opening(object sender, object e)
         {
             selectAccountList = sender as MenuFlyout;
            // AccountBalance.Children.Clear();
@@ -399,6 +401,44 @@ namespace NetBankingApplication.View.UserControls
             //disable make payment button
             MakeTransaction.IsEnabled = false;
 
+        }
+
+        public void addPayeeView()
+        {
+            //shows popup to add the payee or close
+            //AddPayeePopup.IsOpen = true;
+           
+            //if add payee- redirect to addpayee with name and account value filled out
+        }
+
+        private void AddPayeePopup_Closed(object sender, object e)
+        {
+
+        }
+
+        private void YesProceed_Click(object sender, RoutedEventArgs e)
+        {
+            //redirect to addpayee with params - payee name and acc no.
+            SendPayee?.Invoke(Name, ToAccount);
+        }
+
+        private void NoLater_Click(object sender, RoutedEventArgs e)
+        {
+            AddPayeePopup.IsOpen = false;
+        }
+
+        private void ContentDialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
+        {
+            if (IsNewPayee)
+            {
+                IsNewPayee = false;
+                AddPayeePopup.IsOpen = true;
+                double horizontalOffset = Window.Current.Bounds.Width / 2 - AddPayeePopup.ActualWidth / 2 + 200;
+                double verticalOffset = Window.Current.Bounds.Height / 2 - AddPayeePopup.ActualHeight / 2;
+                AddPayeePopup.HorizontalOffset = horizontalOffset;
+                AddPayeePopup.VerticalOffset = verticalOffset;
+            }
+        
         }
     }
 }
