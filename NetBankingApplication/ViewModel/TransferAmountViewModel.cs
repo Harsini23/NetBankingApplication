@@ -73,6 +73,11 @@ namespace NetBankingApplication.ViewModel
                 {
                     TransferAmountViewModel.Status = "Success";
                     ValueChanged?.Invoke(currentTransaction.FromAccount, TransferAmountViewModel.userId);
+                    if (TransferAmountViewModel.NewPayee)
+                    {
+                        //call to display usercontrol to suggest adding the payee
+                        TransferAmountViewModel.suggestionPopUp?.addPayeeView();
+                    }
                 }
                 else
                 {
@@ -194,8 +199,24 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChanged(nameof(ResultStatus));
             }
         }
+        private bool _newPayee = false;
 
+        public bool NewPayee
+        {
+            get { return this._newPayee; }
+            set
+            {
+                _newPayee = value;
+                OnPropertyChanged(nameof(NewPayee));
+            }
+        }
+        public ISuggestAndAddPayeeView suggestionPopUp { get; set; }
         public abstract void SendTransaction(AmountTransfer transaction, string userId);
 
+    }
+
+    public interface ISuggestAndAddPayeeView
+    {
+        void addPayeeView();
     }
 }

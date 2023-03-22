@@ -11,7 +11,6 @@ namespace Library.Data.DataBaseService
     {
         bool CheckUser(string userId);
         User GetUser(string userId);
-       
         void BlockAccount(string userId);
         void UnBlockAccount(string userId);
         void AddUser(User user);
@@ -49,6 +48,7 @@ namespace Library.Data.DataBaseService
         bool UpdateUser(User updatedUser);
         bool IfUserAlreadyExists(string email,long mobileNo,string Pan);
         List<User> GetAllUsers();
+        string GetProfile(string userId);
     }
 
     public interface INetHandler

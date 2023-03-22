@@ -11,4 +11,10 @@ namespace Library.Model.Enum
         INR,
         DLR,
     }
+
+    public static class CurrencyValues
+    {
+        public static readonly String INR = "₹";
+        public static readonly String DLR = "$";
+    }
 }

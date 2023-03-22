@@ -74,6 +74,7 @@ namespace NetBankingApplication.View.UserControls
                     var transferAmount= new TransferAmount(currentUser.UserId);
                 CurrentSelectedItem = transferAmount;
                 transferAmount.RaiseNotification += TransferAmount_RaiseNotification;
+                transferAmount.SendPayee += TransferAmount_SendPayee;
 
             }
             else if(args.SelectedItem == ViewTransactions)
@@ -95,6 +96,18 @@ namespace NetBankingApplication.View.UserControls
           
         }
 
+        private void TransferAmount_SendPayee(string arg1, string arg2)
+        {
+            SwitchToAddPayee(arg1, arg2);
+        }
+
+        public void SwitchToAddPayee(string payeeName,string AccountNumber)
+        {
+            var addPayeeView = new AddPayeeView(currentUser.UserId,payeeName, AccountNumber);
+            CurrentSelectedItem = addPayeeView;
+            addPayeeView.RaiseNotification += TransferAmount_RaiseNotification;
+            
+        }
         private void TransferAmount_RaiseNotification(string obj)
         {
             InAppNotification.Show(obj, 3000);

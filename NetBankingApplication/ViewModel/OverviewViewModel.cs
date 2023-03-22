@@ -60,6 +60,11 @@ namespace NetBankingApplication.ViewModel
                 {
                     expense=double.Parse(response.Data.Balance);
                 }
+                double finalexpense = expense;
+                if (expense < 1)
+                {
+                    expense = 1;
+                }
 
                 await SwitchToMainUIThread.SwitchToMainThread(() =>
                 {
@@ -69,7 +74,9 @@ namespace NetBankingApplication.ViewModel
                     OverviewViewModel.CurrentMonthExpense = response.Data.CurrentMonthExpense;
                     OverviewViewModel.CurrentMonthIncome = response.Data.CurrentMonthIncome;
                     OverviewViewModel.Month = response.Data.CurrentMonth;
+                    OverviewViewModel.ExpensePercentageText =Math.Round(finalexpense,2);
                     OverviewViewModel.ExpensePercentage = expense;
+                    OverviewViewModel.IncomePercentage = Math.Round(100 - finalexpense,2);
                 });
 
             }
@@ -143,6 +150,28 @@ namespace NetBankingApplication.ViewModel
             {
                 _expensePercentage = value;
                 OnPropertyChanged(nameof(ExpensePercentage));
+            }
+        }
+
+         private double _expensePercentageText = 0.0;
+        public double ExpensePercentageText
+        {
+            get { return _expensePercentageText; }
+            set
+            {
+                _expensePercentageText = value;
+                OnPropertyChanged(nameof(ExpensePercentageText));
+            }
+        }
+
+        private double _incomePercentage = 0.0;
+        public double IncomePercentage
+        {
+            get { return _incomePercentage; }
+            set
+            {
+                _incomePercentage = value;
+                OnPropertyChanged(nameof(IncomePercentage));
             }
         }
 

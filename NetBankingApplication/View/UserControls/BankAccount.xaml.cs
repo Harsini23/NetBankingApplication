@@ -1,4 +1,5 @@
 ﻿using Library.Model;
+using Library.Model.Enum;
 using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
@@ -24,12 +25,17 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class BankAccount : UserControl, INotifyPropertyChanged
     {
-        public static string currentUser;
+        public static string currentUserId;
+        public User CurrentUser;
+        private AddAccountBaseViewModel addAccountBaseViewModel;
 
-        public BankAccount(string currentUser)
+        public BankAccount(User currentUser)
         {
             this.InitializeComponent();
-            BankAccount.currentUser = currentUser;
+            BankAccount.currentUserId = currentUser.UserId;
+            CurrentUser=currentUser;
+
+            addAccountBaseViewModel = PresenterService.GetInstance().Services.GetService<AddAccountBaseViewModel>();
 
         }
 
@@ -52,7 +58,7 @@ namespace NetBankingApplication.View.UserControls
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            CurrentSelectedItem = new AllAccountsPreview(currentUser);
+            CurrentSelectedItem = new AllAccountsPreview(currentUserId);
             BankAccountNavigation.SelectedItem = AccountsPreview;
         }
 
@@ -62,15 +68,15 @@ namespace NetBankingApplication.View.UserControls
 
             if (args.SelectedItem == AccountsPreview)
             {
-                CurrentSelectedItem = new AllAccountsPreview(currentUser);
+                CurrentSelectedItem = new AllAccountsPreview(currentUserId);
             }
             else if (args.SelectedItem == AccountDetails)
             {
-                CurrentSelectedItem = new DetailedAccountOverview(currentUser);
+                CurrentSelectedItem = new DetailedAccountOverview(currentUserId);
             }
             else
             {
-                CurrentSelectedItem = new AllAccountsPreview(currentUser);
+                CurrentSelectedItem = new AllAccountsPreview(currentUserId);
             }
 
         }
@@ -90,6 +96,42 @@ namespace NetBankingApplication.View.UserControls
             //}
         }
 
+        private void CreateAccount_Click(object sender, RoutedEventArgs e)
+        {
+            CreateAccountGrid.IsOpen = true;
+            double horizontalOffset = Window.Current.Bounds.Width / 2 - CreateAccountGrid.ActualWidth / 2 +100;
+            double verticalOffset = Window.Current.Bounds.Height / 2 - CreateAccountGrid.ActualHeight / 2 ;
+            CreateAccountGrid.HorizontalOffset = horizontalOffset;
+            CreateAccountGrid.VerticalOffset = verticalOffset;
+        }
 
+        private void CreateAccountGrid_Closed(object sender, object e)
+        {
+            CreateNewAccountViewComponent.ClearUI();
+            ErrorMessage.Text="";
+        }
+
+        private void CreateNewAccount_Click(object sender, RoutedEventArgs e)
+        {
+            //add new account for existing user
+            AccountVobj accountDetails = CreateNewAccountViewComponent.FetchData();
+
+            if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || string.IsNullOrEmpty(accountDetails.AccountType))
+            {
+                ErrorMessage.Text = "Kindly fill account details";
+            }
+            else if (Double.Parse(accountDetails.Balance) <= 1 && accountDetails.AccountType != "SalaryAccount")
+            {
+                ErrorMessage.Text = "Only savings account can have zero balance!";
+            }
+            else
+            {
+                addAccountBaseViewModel.AddAccount(new AccountBObj(CurrentUser.UserId, (AccountType)Enum.Parse(typeof(AccountType), accountDetails.AccountType), Double.Parse(accountDetails.Balance), (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency), accountDetails.Branch, CurrentUser.UserName));
+                CreateNewAccountViewComponent.ClearUI();
+                CreateAccountGrid.IsOpen = false;
+            }
+
+        }
+      
     }
 }

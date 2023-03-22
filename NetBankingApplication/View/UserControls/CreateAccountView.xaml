@@ -78,7 +78,7 @@
     </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid >
+    <Grid  >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>

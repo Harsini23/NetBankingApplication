@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace NetBankingApplication.View.Converter
 {
@@ -24,6 +25,29 @@ namespace NetBankingApplication.View.Converter
         {
             bool isTrim = System.Convert.ToBoolean(value);
             return isTrim ? Text : null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class StringToBitmapImageConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is string imagePath)
+            {
+                BitmapImage bitmapImage = new BitmapImage();
+                //bitmapImage.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+                if (imagePath != null)
+                {
+                    bitmapImage = new BitmapImage(new Uri(imagePath));
+                }
+                return bitmapImage;
+            }
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
