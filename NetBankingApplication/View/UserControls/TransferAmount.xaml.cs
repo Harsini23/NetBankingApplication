@@ -434,7 +434,7 @@ namespace NetBankingApplication.View.UserControls
                 IsNewPayee = false;
                 AddPayeePopup.IsOpen = true;
                 double horizontalOffset = Window.Current.Bounds.Width / 2 - AddPayeePopup.ActualWidth / 2 + 200;
-                double verticalOffset = Window.Current.Bounds.Height / 2 - AddPayeePopup.ActualHeight / 2;
+                double verticalOffset = Window.Current.Bounds.Height / 2 - AddPayeePopup.ActualHeight / 2+100;
                 AddPayeePopup.HorizontalOffset = horizontalOffset;
                 AddPayeePopup.VerticalOffset = verticalOffset;
             }

@@ -309,7 +309,8 @@
             </ContentDialog>
             <Popup MinWidth="200" MinHeight="300"
                  Closed="AddPayeePopup_Closed"
-                 LightDismissOverlayMode="On" IsLightDismissEnabled="True"
+                   LightDismissOverlayMode="On"
+                   IsLightDismissEnabled="True"
                    Name="AddPayeePopup">
                 <Grid Background="{ThemeResource AppForegroundBg}"
                       Margin="20"
