@@ -66,6 +66,7 @@
                 </Setter>
             </Style>
             <converter:EnumToStringConverter x:Key="EnumConverter" />
+            <converter:AccountTypeToStringConverter x:Key="AccountTypeConverter" />
         </ResourceDictionary>
         
     </UserControl.Resources>
@@ -363,7 +364,7 @@
                                 <RowDefinition Height="1*"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Text="{x:Bind AccountType,Mode=OneWay}" FontSize="16" Margin="20"></TextBlock>
+                            <TextBlock Text="{x:Bind AccountType,Mode=OneWay,Converter={StaticResource AccountTypeConverter}}" FontSize="16" Margin="20"></TextBlock>
 
                                 <StackPanel Grid.Row="2"
                                     VerticalAlignment="top"

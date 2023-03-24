@@ -201,7 +201,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="ErrorMessage" TextWrapping="Wrap" Width="200" Text="{x:Bind AddUserViewModel.ErrorMessage ,Mode=OneWay}" Style="{ThemeResource FailureText}"></TextBlock>
+                <TextBlock x:Name="ErrorMessage" TextWrapping="Wrap"  Text="{x:Bind AddUserViewModel.ErrorMessage ,Mode=OneWay}" Style="{ThemeResource FailureText}"></TextBlock>
                     <Button x:Name="Submit"
                             Grid.Row="1"
                             Click="Submit_Click"

@@ -129,7 +129,6 @@
                             <TextBlock  Grid.Column="2"
                                         Text="{x:Bind BankName}"
                                         TextTrimming="CharacterEllipsis"
-                                        TextWrapping="Wrap"
                                         Margin="10"
                                         FontWeight="Bold"
                                         VerticalAlignment="Center"

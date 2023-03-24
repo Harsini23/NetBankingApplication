@@ -6,7 +6,8 @@
     xmlns:data="using:Library.Model"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             mc:Ignorable="d"
     Loaded="UserControl_Loaded"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -34,32 +35,51 @@
                     <NavigationViewItem.Content>
                         <Button Click="CreateAccount_Click" Name="CreateAccount" Content="Add Account" Style="{StaticResource AccentButtonStyleCustom}"></Button>
                     </NavigationViewItem.Content>
-                     
+                    <NavigationViewItem.Resources>
+                        <SolidColorBrush x:Key="NavigationViewItemBackgroundPointerOver"
+                                        Color="Transparent" />
+                        <SolidColorBrush x:Key="NavigationViewItemBackgroundPressed"
+                                        Color="Transparent" />
+                    </NavigationViewItem.Resources>
                     </NavigationViewItem>
 
             </NavigationView.PaneFooter>
 
             <ContentControl Margin="10" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{x:Bind CurrentSelectedItem,Mode=OneWay}" CornerRadius="30" />
         </NavigationView>
-        <Popup IsLightDismissEnabled="True"
+      
+            <Popup IsLightDismissEnabled="True"
                LightDismissOverlayMode="On"
                Closed="CreateAccountGrid_Closed"
                Name="CreateAccountGrid">
-            <Grid Background="{ThemeResource AppForegroundBg}"
+            <controls:DropShadowPanel Color="Black"
+                                      OffsetX="-25"
+                                      OffsetY="25"
+                                      BlurRadius="50"
+                                      ShadowOpacity=".4"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      Margin="5"
+                                      Padding="30"
+                                      Name="LoginContainerShadow">
+                <Grid Background="{ThemeResource AppForegroundBg}"
                   Margin="20"
                   Padding="20" CornerRadius="10" Name="CreateAccountInnerGrid">
                 <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <local:CreateAccountView x:Name="CreateNewAccountViewComponent"></local:CreateAccountView>
-                <TextBlock Grid.Row="1"
-                           Name="ErrorMessage"
+                    <TextBlock Text="Add Account" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20"></TextBlock>
+                <local:CreateAccountView Grid.Row="1" x:Name="CreateNewAccountViewComponent"></local:CreateAccountView>
+                <TextBlock Grid.Row="2"
+                           Name="ErrorMessage" TextWrapping="Wrap" MaxWidth="200" HorizontalTextAlignment="Center"
                            Style="{ThemeResource FailureText}" Text=""/>
-                <Button Grid.Row="2" Style="{StaticResource AccentButtonStyleCustom}" Name="CreateNewAccount" Click="CreateNewAccount_Click" Content='Create Account'></Button>
+                <Button Grid.Row="3" Style="{StaticResource AccentButtonStyleCustom}" Name="CreateNewAccount" Click="CreateNewAccount_Click" Content='Create Account'></Button>
             </Grid>
-          
+            </controls:DropShadowPanel>
+
         </Popup>
     </Grid>
 

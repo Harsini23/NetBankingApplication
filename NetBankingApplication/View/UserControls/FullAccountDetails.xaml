@@ -6,13 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    SizeChanged="Page_SizeChanged"
+      xmlns:converter="using:NetBankingApplication.View.Converter"
+      SizeChanged="Page_SizeChanged"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <converter:AccountTypeToStringConverter x:Key="AccountTypeConverter" />
         </ResourceDictionary>
     </Page.Resources>
     <ScrollViewer>
@@ -110,7 +112,7 @@
                                     FontSize="16"
                                     Grid.Row="0"
                                     Grid.Column="2"
-                                    Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountType,Mode=OneWay}"></TextBlock>
+                                    Text="{x:Bind AccountTransactionsViewModel.AccountDetails.AccountType,Mode=OneWay,Converter={StaticResource AccountTypeConverter}}"></TextBlock>
 
                         <TextBlock  Margin="5"
                                     FontSize="16"

@@ -17,8 +17,6 @@ namespace NetBankingApplication.ViewModel
         AddPayee addPayee;
         public override void AddPayee(Payee newRecipent)
         {
-            //var UserId = "Harsh";
-            //Payee recipent = new Payee{ AccountHolderName = "Chandler", AccountNumber = "567893471625", BankName = "ICICI", PayeeName = "Chan", IfscCode = "ICICI006", UserID = "Harsh" };
             AddPayeeRequest newReceiver = new AddPayeeRequest();
             newReceiver.UserId = newRecipent.UserID;
             newReceiver.NewPayee= newRecipent;

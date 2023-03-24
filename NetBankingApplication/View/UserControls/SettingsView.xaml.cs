@@ -170,6 +170,10 @@ namespace NetBankingApplication.View.UserControls
                 {
                     ProfilePathUri = ProfilePath;
                 }
+                else
+                {
+                    ProfilePathUri = updateViewModel.CurrentUser.ProfilePath;
+                }
                 var updatedUserValue = new User
                 {
                     UserId = updateViewModel.CurrentUser.UserId,
@@ -182,7 +186,7 @@ namespace NetBankingApplication.View.UserControls
                 };
 
                 UpdateCurrentPage();
-
+                ProfilePath = null;
                 updateViewModel.UpdateUser(updatedUserValue);
                 UserProfileError.Visibility = Visibility.Collapsed;
                 //AcknowledgementDialogue.ShowAsync();

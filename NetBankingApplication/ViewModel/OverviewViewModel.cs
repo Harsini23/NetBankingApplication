@@ -61,7 +61,7 @@ namespace NetBankingApplication.ViewModel
                     expense=double.Parse(response.Data.Balance);
                 }
                 double finalexpense = expense;
-                if (expense < 1)
+              if(expense>0.00 && expense < 1)
                 {
                     expense = 1;
                 }

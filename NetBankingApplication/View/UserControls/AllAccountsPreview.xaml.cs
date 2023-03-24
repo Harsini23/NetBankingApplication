@@ -66,7 +66,7 @@ namespace NetBankingApplication.View.UserControls
 
         public static readonly DependencyProperty UserIdProperty =
             DependencyProperty.Register("UserId", typeof(string), typeof(TransactionHistory), new PropertyMetadata(null));
-        private async void DisplayFullAccountDetails_Click_1(object sender, RoutedEventArgs e)
+        private async void DisplayFullAccountDetails_Click(object sender, RoutedEventArgs e)
         {
 
                 var selectedItem = (sender as FrameworkElement).DataContext;

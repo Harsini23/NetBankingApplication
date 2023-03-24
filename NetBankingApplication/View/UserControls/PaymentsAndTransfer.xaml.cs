@@ -24,6 +24,9 @@ namespace NetBankingApplication.View.UserControls
     {
         //CurrentSelectedItem
         User currentUser;
+        private bool _newPayeeSuggestionAccepted;
+        private string _payeeName;
+        private string _accountNumber;
         public PaymentsAndTransfer(User currentUSer)
         {
             this.InitializeComponent();
@@ -83,7 +86,16 @@ namespace NetBankingApplication.View.UserControls
             }
             else if(args.SelectedItem == AddPayee)
             {
-               var addPayeeView  = new AddPayeeView(currentUser.UserId);
+                AddPayeeView addPayeeView;
+                if (_newPayeeSuggestionAccepted)
+                {
+                    _newPayeeSuggestionAccepted = false;
+                    addPayeeView = new AddPayeeView(currentUser.UserId,_payeeName,_accountNumber);
+                }
+                else
+                {
+                    addPayeeView = new AddPayeeView(currentUser.UserId);
+                }
                 CurrentSelectedItem = addPayeeView;
                 addPayeeView.RaiseNotification += TransferAmount_RaiseNotification;
             }
@@ -98,16 +110,24 @@ namespace NetBankingApplication.View.UserControls
 
         private void TransferAmount_SendPayee(string arg1, string arg2)
         {
-            SwitchToAddPayee(arg1, arg2);
+            _newPayeeSuggestionAccepted = true;
+            _payeeName = arg1;
+            _accountNumber = arg2;
+            PaymentsAndTransferNavigation.SelectedItem = PaymentsAndTransferNavigation.MenuItems[2];
+            // SwitchToAddPayee(arg1, arg2);
         }
 
-        public void SwitchToAddPayee(string payeeName,string AccountNumber)
-        {
-            var addPayeeView = new AddPayeeView(currentUser.UserId,payeeName, AccountNumber);
-            CurrentSelectedItem = addPayeeView;
-            addPayeeView.RaiseNotification += TransferAmount_RaiseNotification;
-            
-        }
+        //public void SwitchToAddPayee(string payeeName,string AccountNumber)
+        //{
+        //    //var addPayeeView = new AddPayeeView(currentUser.UserId,payeeName, AccountNumber);
+        //    //CurrentSelectedItem = addPayeeView;
+        //    //addPayeeView.RaiseNotification += TransferAmount_RaiseNotification;
+
+        //    //PaymentsAndTransferNavigation.SelectedItem= CurrentSelectedItem;
+        //    PaymentsAndTransferNavigation.SelectedItem = PaymentsAndTransferNavigation.MenuItems[2];
+
+
+        //}
         private void TransferAmount_RaiseNotification(string obj)
         {
             InAppNotification.Show(obj, 3000);

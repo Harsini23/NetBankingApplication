@@ -204,9 +204,9 @@
                     <Grid.ColumnDefinitions>
 
                     <ColumnDefinition Width="0.75*" MinWidth="100"></ColumnDefinition>
-                    <ColumnDefinition Width="0.85*" MinWidth="100"></ColumnDefinition>
-                    <ColumnDefinition Width="0.5*" MinWidth="100"></ColumnDefinition>
-                    <ColumnDefinition Width="0.5*" MinWidth="100"></ColumnDefinition>
+                    <ColumnDefinition Width="0.8*" MinWidth="100"></ColumnDefinition>
+                    <ColumnDefinition Width="0.5*" MinWidth="85"></ColumnDefinition>
+                    <ColumnDefinition Width="0.5*" MinWidth="90"></ColumnDefinition>
                     <!--<ColumnDefinition Width="1*"></ColumnDefinition>-->
                     </Grid.ColumnDefinitions>
 
@@ -250,7 +250,16 @@
                                Padding="10,0,0,0"
                                Text="{x:Bind TransactionType,Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
 
-                    <TextBlock  Grid.Column="3" Text="{x:Bind Time,Mode=OneWay}" TextWrapping="Wrap" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                    <TextBlock  Grid.Column="3"
+                                Text="{x:Bind Time,Mode=OneWay}"
+                                Margin="10,0,10,0"
+                                TextTrimming="CharacterEllipsis"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"><ToolTipService.ToolTip>
+                                        <ToolTip Content="{x:Bind Time,Mode=OneWay}"
+                                                 CornerRadius="5"
+                                                 Background="{ThemeResource AppForegroundBg}"></ToolTip>
+                                    </ToolTipService.ToolTip></TextBlock>
                     <!--seperate-->
                  
                  
@@ -299,8 +308,8 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Opacity="100" Grid.Column="0" Margin="0,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20" Text="Recipent" HorizontalAlignment="Left" Padding="20,0,0,0"></TextBlock>
                     <TextBlock Grid.Column="1" Padding="0,0,10,0"  HorizontalAlignment="Right"  FontWeight="SemiBold" FontSize="16"  CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Amount"></TextBlock>
-                    <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Padding="20,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Status"></TextBlock>
-                    <TextBlock Grid.Column="3"  HorizontalAlignment="Left" Padding="5,0,0,0"  FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Date"></TextBlock>
+                    <TextBlock Grid.Column="2"  HorizontalAlignment="Left" Padding="25,0,0,0" FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Status"></TextBlock>
+                    <TextBlock Grid.Column="3"  HorizontalAlignment="Left" Padding="10,0,0,0"  FontWeight="SemiBold" FontSize="16" CharacterSpacing="20"  Style="{ThemeResource BaseTextBlockStyle}" Text="Date"></TextBlock>
                 </Grid>
             </DataTemplate>
 

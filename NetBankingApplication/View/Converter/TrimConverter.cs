@@ -41,7 +41,7 @@ namespace NetBankingApplication.View.Converter
             {
                 BitmapImage bitmapImage = new BitmapImage();
                 //bitmapImage.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute);
-                if (imagePath != null)
+                if (imagePath != null || string.IsNullOrWhiteSpace(imagePath))
                 {
                     bitmapImage = new BitmapImage(new Uri(imagePath));
                 }

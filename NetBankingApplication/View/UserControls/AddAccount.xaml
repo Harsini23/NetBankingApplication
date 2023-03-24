@@ -8,12 +8,14 @@
              xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+             xmlns:converter="using:NetBankingApplication.View.Converter"
+             d:DesignWidth="400">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <converter:StringToBitmapImageConverter x:Key="StringToBitmap" />
             <ControlTemplate x:Key="InAppNotificationTemplate1"
                              TargetType="controls:InAppNotification">
                 <Grid Width="300"
@@ -111,8 +113,10 @@
                     <ColumnDefinition Width="1*"></ColumnDefinition>
                     <ColumnDefinition Width="2.5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-               
-                <PersonPicture Width="50" Height="50" Initials="{x:Bind CurrentSelectedUser.UserName.Substring(0,1),Mode=OneWay}"></PersonPicture>
+
+                    <PersonPicture Width="50"
+                                   Height="50"
+                                   ProfilePicture="{x:Bind CurrentSelectedUser.ProfilePath,Mode=OneWay,Converter={StaticResource StringToBitmap}}" Initials="{x:Bind CurrentSelectedUser.UserName.Substring(0,1),Mode=OneWay}"></PersonPicture>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <TextBlock  Text="{x:Bind CurrentSelectedUser.UserName,Mode=OneWay}"></TextBlock>
@@ -131,7 +135,7 @@
                            Text=""
                            HorizontalTextAlignment="Center"
                            TextWrapping="Wrap"
-                           Width="250"
+                           MaxWidth="200"
                            Style="{ThemeResource FailureText}"></TextBlock>
                 <Button x:Name="Submit"
                         Grid.Row="5"

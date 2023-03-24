@@ -29,7 +29,6 @@ namespace NetBankingApplication.ViewModel
 
         private void TransferAmountViewModel_ValueChanged(string value,string user)
         {
-         
             GetAllTransactions(value,user);
         }
 

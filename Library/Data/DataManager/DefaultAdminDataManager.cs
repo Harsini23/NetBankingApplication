@@ -42,35 +42,35 @@ namespace Library.Data.DataManager
             branches.Add(new Branch
             {
                 BId = "B001",
-                BName = "Chennai-Tambaram",
+                BName = "Chennai - Tambaram",
                 BCity = "Chennai",
                 IfscCode = "Zoho001"
             });
             branches.Add(new Branch
             {
                 BId = "B002",
-                BName = "Chennai-Annanagar",
+                BName = "Chennai - Annanagar",
                 BCity = "Chennai",
                 IfscCode = "Zoho002"
             });
             branches.Add(new Branch
             {
                 BId = "B003",
-                BName = "Trichy-Guduvanchery",
+                BName = "Trichy - Guduvanchery",
                 BCity = "Trichy",
                 IfscCode = "Zoho003"
             });
             branches.Add(new Branch
             {
                 BId = "B004",
-                BName = "Madurai-Guduvanchery",
+                BName = "Madurai - Guduvanchery",
                 BCity = "Madurai",
                 IfscCode = "Zoho004"
             });
             branches.Add(new Branch
             {
                 BId = "B005",
-                BName = "Tenkasi-Guduvanchery",
+                BName = "Tenkasi - Guduvanchery",
                 BCity = "Tenkasi",
                 IfscCode = "Zoho005"
             });
