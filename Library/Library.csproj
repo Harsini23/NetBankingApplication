@@ -146,6 +146,7 @@
     <Compile Include="Data\DataManager\TransactionHistoryDataManager.cs" />
     <Compile Include="Data\DataManager\TransferAmountDataManager.cs" />
     <Compile Include="Data\DataManager\UpdateUserDataManager.cs" />
+    <Compile Include="Data\DbAdapter\DbAdapter.cs" />
     <Compile Include="Domain\BaseCase.cs" />
     <Compile Include="Domain\DefaultAdmin.cs" />
     <Compile Include="Domain\IServiceProvider.cs" />

@@ -1,6 +1,7 @@
 ﻿using Library.Data;
 using Library.Data.DataBaseService;
 using Library.Data.DataManager;
+using Library.Data.DbAdapter;
 using Library.Domain.UseCase;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -62,6 +63,7 @@ namespace Library.Domain
             services.AddSingleton<DatabaseConnection>();
             services.AddSingleton<CreateTables>();
             services.AddSingleton<DbHandler>();
+           services.AddSingleton<IDbAdapter, SqliteDbAdapter>();
 
             return services.BuildServiceProvider();
         }
