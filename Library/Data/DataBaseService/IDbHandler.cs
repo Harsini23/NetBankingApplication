@@ -26,7 +26,6 @@ namespace Library.Data.DataBaseService
         bool AddNewPayee(Payee newPayee);
         void AddAccountForUser(UserAccounts userAccounts);
         List<Payee> GetAllPayee(string userId);
-        // List<Account> GetAllAccounts(string accountnummber);
         Account GetAccount(string accountNumber);
         bool UpdateBalance(Account account);
         void DeletePayee(Payee payee);

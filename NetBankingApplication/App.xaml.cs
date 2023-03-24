@@ -1,4 +1,5 @@
-﻿using NetBankingApplication.View;
+﻿using Library;
+using NetBankingApplication.View;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -76,6 +77,10 @@ namespace NetBankingApplication
                 Window.Current.Activate();
             }
             ThemeSwitch.AddUIRootElement(rootFrame);//theme switch register
+
+            LibraryInitialization libraryInitialization;
+            libraryInitialization = LibraryInitialization.GetInstance();
+            libraryInitialization.InitializeDb();
         }
 
         /// <summary>

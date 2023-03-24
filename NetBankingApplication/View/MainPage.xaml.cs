@@ -31,12 +31,10 @@ namespace NetBankingApplication
     public sealed partial class MainPage : Page, IMainPageNavigation
     {
         private LoginBaseViewModel LoginViewModel;
-        LibraryInitialization libraryInitialization;
         private AppWindow m_AppWindow;
         public MainPage()
         {
-            libraryInitialization = LibraryInitialization.GetInstance();
-            libraryInitialization.InitializeDb();
+         
             this.InitializeComponent();
             LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             LoginViewModel.MainPageNavigationCallback = this;

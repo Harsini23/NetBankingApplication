@@ -29,6 +29,10 @@ namespace Library.Model
             ValidTill = validTill;
             ValidFrom = validFrom;
         }
+
+        public Card()
+        {
+        }
     }
 
     public class CreditCard : Card

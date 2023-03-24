@@ -1,4 +1,5 @@
-﻿using Library.Model;
+﻿using Library.Data.DbAdapter;
+using Library.Model;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -12,28 +13,32 @@ namespace Library.Data
     public class CreateTables
     {
         private static CreateTables _instance;
+        IDbAdapter adapter;
 
-        public SQLiteConnection connection;
-        DatabaseConnection conn;
-        public CreateTables(DatabaseConnection dbConn)
+        public CreateTables()
         {
-            conn = dbConn;
-            InstantiateAllTables();
+            adapter = new SqliteDbAdapter();
         }
+        //public SQLiteConnection connection;
+        //DatabaseConnection conn;
+        //public CreateTables(DatabaseConnection dbConn)
+        //{
+        //    conn = dbConn;
+        //    InstantiateAllTables();
+        //}
 
         public void InstantiateAllTables()
         {
-            connection = conn.GetDbConnection();
-  
-            connection.CreateTable<Credentials>();
-            connection.CreateTable<User>();
-            connection.CreateTable<Admin>();
-            connection.CreateTable<Transaction>();
-            connection.CreateTable<Branch>();
-            connection.CreateTable<Card>();
-            connection.CreateTable<Account>();
-            connection.CreateTable<Payee>();
-            connection.CreateTable<UserAccounts>();
+            //   connection = conn.GetDbConnection();
+            adapter.Create(new Credentials());
+            adapter.Create(new User());
+            adapter.Create(new Admin());
+            adapter.Create(new Transaction());
+            adapter.Create(new Branch());
+            adapter.Create(new Card());
+            adapter.Create(new Account());
+            adapter.Create(new Payee());
+            adapter.Create(new UserAccounts());
         }
        
     }

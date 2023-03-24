@@ -1,4 +1,5 @@
 ﻿using Library.Data.DataManager;
+using Library.Data.DbAdapter;
 using Library.Model;
 using SQLite;
 using System;
@@ -14,71 +15,64 @@ namespace Library.Data.DataBaseService
     public class DbHandler : IDbHandler
     {
 
-        public static SQLiteConnection connection;
-
-        public DbHandler(DatabaseConnection dbConn)
+        IDbAdapter adapter;
+        public DbHandler()
         {
-            if (connection == null)
-            {
-                var conn = dbConn;
-                connection = conn.GetDbConnection();
-            }
-
+            adapter = new SqliteDbAdapter();
         }
 
-
         #region "User Table operations"
-
-       public List<User> GetAllUsers()
+        public void AddUser(User user)
         {
-            return connection.Table<User>().ToList();
+            adapter.Update(user);
+        }
+        public List<User> GetAllUsers()
+        {   
+            return adapter.GetAll(new User()).ToList();
         }
 
         public bool CheckUser(string userId)
         {
-            var user = connection.Table<User>().Where(i => i.UserId == userId);
+            var user = adapter.GetAll(new User()).Where(i => i.UserId == userId);
             return (user.Count() > 0);
         }
         public bool CheckPassword(UserPasswordBObj credential)
         {
-            var check = connection.Table<Credentials>().Where(i => i.UserId == credential.UserId && i.Password == credential.Password).FirstOrDefault();
+            var check = adapter.GetAll(new Credentials()).Where(i => i.UserId == credential.UserId && i.Password == credential.Password).FirstOrDefault();
             return check != null;
         }
 
         public bool UpdateUser(User UpdatedUser)
         {
-            int check = connection.InsertOrReplace(UpdatedUser);
+            int check = adapter.Update(UpdatedUser);
             return (check != 0);
         }
 
         public User GetUser(string userId)
         {
-            User user = connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault();
+            User user = adapter.GetAll(new User()).Where(i => i.UserId == userId).FirstOrDefault();
             return user;
         }
 
         public void BlockAccount(string userId)
         {
-            User user = connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault();
+            User user = adapter.GetAll(new User()).Where(i => i.UserId == userId).FirstOrDefault();
             user.IsBlocked = true;
-            connection.Update(user);
+            adapter.Update(user);
         }
 
         public void UnBlockAccount(string userId)
         {
-            var query = connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault();
+            var query = adapter.GetAll(new User()).Where(i => i.UserId == userId).FirstOrDefault();
             query.IsBlocked = false;
-            connection.Update(query);
+            adapter.Update(query);
         }
 
-        public void AddUser(User user)
-        {
-            connection.Insert(user);
-        }
+      
 
         public string GetUserName(String userId)
         {
-            var query = connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault();
+            var query = adapter.GetAll(new User()).Where(i => i.UserId == userId).FirstOrDefault();
             return query.UserName;
         }
        
@@ -88,41 +82,41 @@ namespace Library.Data.DataBaseService
 
         public bool CheckIfUserExists(string userId)
         {
-            var query = connection.Table<Credentials>().Where(c => c.UserId == userId).FirstOrDefault(); ;
+            var query = adapter.GetAll(new Credentials()).Where(c => c.UserId == userId).FirstOrDefault(); ;
             return (query != null);
         }   
         public bool CheckIfAdminExists(string Id)
         {
-            var query = connection.Table<Admin>().Where(c => c.EmployeeId == Id).FirstOrDefault(); ;
+            var query = adapter.GetAll(new Admin()).Where(c => c.EmployeeId == Id).FirstOrDefault(); ;
             return (query != null);
         }
         public bool CheckUserCredential(string userId, string password)
         {
-            var query = connection.Table<Credentials>().Where(c => c.UserId == userId && c.Password == password).FirstOrDefault();
+            var query = adapter.GetAll(new Credentials()).Where(c => c.UserId == userId && c.Password == password).FirstOrDefault();
             return (query != null);
         }
 
         public bool CheckIfAdmin(string userId)
         {
-            var query = connection.Table<Credentials>().Where(c => c.UserId == userId && c.IsAdmin).FirstOrDefault(); ;
+            var query = adapter.GetAll(new Credentials()).Where(c => c.UserId == userId && c.IsAdmin).FirstOrDefault(); ;
             return (query != null);
         }
         public bool CheckIfNewUser(string userId)
         {
-            var query = connection.Table<Credentials>().Where(c => c.UserId == userId && c.NewUser).FirstOrDefault();
+            var query = adapter.GetAll(new Credentials()).Where(c => c.UserId == userId && c.NewUser).FirstOrDefault();
             return (query != null);
         }
 
 
         public bool ResetPassword(Credentials newCredential)
         {
-            int check=connection.InsertOrReplace(newCredential);
+            int check=adapter.Update(newCredential);
             return (check != 0);
         }
 
         public void CreateCredential(Credentials cred)
         {
-            connection.Insert(cred);
+            adapter.Update(cred);
         }
      
 
@@ -131,20 +125,20 @@ namespace Library.Data.DataBaseService
         #region "Account Table operations"
         public Account GetAccount(string accountNumber)
         {
-            var account = connection.Table<Account>().Where(i => i.AccountNumber == accountNumber).FirstOrDefault();
+            var account = adapter.GetAll(new Account()).Where(i => i.AccountNumber == accountNumber).FirstOrDefault();
             return account;
         }
 
         public bool UpdateBalance(Account account)
         {
 
-           int check= connection.InsertOrReplace(account);
+           int check= adapter.Update(account);
             return (check != 0) ; 
         }
 
         public void AddAccount(Account account)
         {
-            connection.Insert(account);
+            adapter.Update(account);
         }
 
         #endregion
@@ -152,7 +146,7 @@ namespace Library.Data.DataBaseService
         #region "Transactions"
         public bool AddTransaction(Transaction transaction)
         {
-           var check= connection.Insert(transaction);
+           var check= adapter.Update(transaction);
             return (check != 0) ;
         }
 
@@ -161,19 +155,19 @@ namespace Library.Data.DataBaseService
             if (getRecentTransactions)
             {
                 //return only recent 10 transactions
-                var AllTransactions = connection.Table<Transaction>().Where(c => c.UserId == userId).ToList();
+                var AllTransactions = adapter.GetAll(new Transaction()).Where(c => c.UserId == userId).ToList();
                 return  AllTransactions.OrderByDescending(c => DateTimeOffset.Parse(c.Date)).Take(10).ToList();
             }
             else
             {
                 //return all transactions
-                return connection.Table<Transaction>().Where(c => c.UserId == userId).ToList();
+                return adapter.GetAll(new Transaction()).Where(c => c.UserId == userId).ToList();
             }
         }
 
         public List<Transaction> GetTransactionsForAccount(string accountNumber)
         {
-            return connection.Table<Transaction>().Where(c => c.FromAccount == accountNumber || c.ToAccount == accountNumber).ToList();
+            return adapter.GetAll(new Transaction()).Where(c => c.FromAccount == accountNumber || c.ToAccount == accountNumber).ToList();
         }
 
         #endregion
@@ -182,43 +176,43 @@ namespace Library.Data.DataBaseService
 
         public bool AddNewPayee(Payee newPayee)
         {
-            connection.Insert(newPayee);
-            var ReCheckingquery = connection.Table<Payee>().Where(i => i.UserID == newPayee.UserID && i.AccountNumber == newPayee.AccountNumber).FirstOrDefault();
+            adapter.Update(newPayee);
+            var ReCheckingquery = adapter.GetAll(new Payee()).Where(i => i.UserID == newPayee.UserID && i.AccountNumber == newPayee.AccountNumber).FirstOrDefault();
             if (ReCheckingquery != null && newPayee != null) return true;
             return false;
         }
 
         public List<Payee> GetAllPayee(string userId)
         {
-           return connection.Table<Payee>().Where(i => i.UserID == userId).ToList();
+           return adapter.GetAll(new Payee()).Where(i => i.UserID == userId).ToList();
         }
 
         public void DeletePayee(Payee payee)
         {
-            connection.Delete(payee);
-            var DeletedPayee = connection.Table<Payee>().Where(i => i.UserID == payee.UserID && i.AccountNumber == payee.AccountNumber);
+            adapter.Delete(payee);
+            var DeletedPayee = adapter.GetAll(new Payee()).Where(i => i.UserID == payee.UserID && i.AccountNumber == payee.AccountNumber);
         }
         #endregion
 
         #region "UserAccounts"
         public void AddAccountForUser(UserAccounts userAccounts)
         {
-            connection.Insert(userAccounts);
+            adapter.Update(userAccounts);
         }
 
         public List<String> GetAllAccountsForUser(string userId)
         {
-            return connection.Table<UserAccounts>().Where(c => c.UserId == userId)
+            return adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId)
                           .Select(c => c.AccountNumber).ToList();
         }
 
        public double GetTotalBalanceOfUser(string userId)
         {
             double total = 0;  
-            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
+            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                var res = connection.Table<Account>().Where(j => j.AccountNumber == i).FirstOrDefault();
+                var res = adapter.GetAll(new Account()).Where(j => j.AccountNumber == i).FirstOrDefault();
                 total += res.TotalBalance;
             }
             return total;
@@ -227,10 +221,10 @@ namespace Library.Data.DataBaseService
         public Dictionary<String, double> GetAllAccountBalance(string userId)
         {
             var allAccountBalance = new Dictionary<String,double>();
-            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
+            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                var res = connection.Table<Account>().Where(j => j.AccountNumber == i).FirstOrDefault();
+                var res = adapter.GetAll(new Account()).Where(j => j.AccountNumber == i).FirstOrDefault();
                 allAccountBalance.Add(i, res.TotalBalance);
             }
             return allAccountBalance;
@@ -239,8 +233,8 @@ namespace Library.Data.DataBaseService
 
         public bool EditPayee(Payee payee)
         {
-            connection.InsertOrReplace(payee);
-            var ReCheckingquery = connection.Table<Payee>().Where(c => c.AccountNumber == payee.AccountNumber && c.AccountHolderName == payee.AccountHolderName).FirstOrDefault();
+            adapter.Update(payee);
+            var ReCheckingquery = adapter.GetAll(new Payee()).Where(c => c.AccountNumber == payee.AccountNumber && c.AccountHolderName == payee.AccountHolderName).FirstOrDefault();
             if (ReCheckingquery != null) return true;
             return false;
 
@@ -261,18 +255,18 @@ namespace Library.Data.DataBaseService
                 EmaiId = "-",
                 BranchId = "B001",
             };
-            connection.Insert(admin);
-            connection.Insert(credential);
+            adapter.Update(admin);
+            adapter.Update(credential);
         }
 
         #region "Overview"
         public double GetTotalIncome(string userId)
         {
             double income=0.0;
-            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                double totalIncome = connection.Table<Transaction>().Where(c => c.UserId == userId && c.ToAccount == i).Sum(c => c.Amount);
+                double totalIncome = adapter.GetAll(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i).Sum(c => c.Amount);
                 income += totalIncome;
             }
             return income;
@@ -281,10 +275,10 @@ namespace Library.Data.DataBaseService
         public double GetTotalExpense(string userId)
         {
             double income = 0.0;
-            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                var singleAccountExpense = connection.Table<Transaction>().Where(c => c.UserId == userId && c.FromAccount == i).Sum(c => c.Amount);
+                var singleAccountExpense = adapter.GetAll(new Transaction()).Where(c => c.UserId == userId && c.FromAccount == i).Sum(c => c.Amount);
                 income += singleAccountExpense;
             }
             return income;
@@ -293,11 +287,11 @@ namespace Library.Data.DataBaseService
         public List<Transaction> GetCurrentMonthIncome(string userId)
         {
            
-            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
             List<Transaction> monthlyincome=new List<Transaction>();
             foreach (var i in AllAccounts)
             {
-                var singleAccountTransaction = connection.Table<Transaction>().Where(c => c.UserId == userId && c.ToAccount == i).ToList();
+                var singleAccountTransaction = adapter.GetAll(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i).ToList();
                 foreach (var j in singleAccountTransaction)
                 {
                     monthlyincome.Add(j);
@@ -308,11 +302,11 @@ namespace Library.Data.DataBaseService
 
         public List<Transaction> GetCurrentMonthExpense(string userId)
         {
-            var AllAccounts = connection.Table<UserAccounts>().Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
             List<Transaction> monthlyexpense = new List<Transaction>();
             foreach (var i in AllAccounts)
             {
-                var singleAccountTransaction = connection.Table<Transaction>().Where(c => c.UserId == userId && c.FromAccount == i).ToList();
+                var singleAccountTransaction = adapter.GetAll(new Transaction()).Where(c => c.UserId == userId && c.FromAccount == i).ToList();
                 foreach (var j in singleAccountTransaction)
                 {
                     monthlyexpense.Add(j);
@@ -326,27 +320,27 @@ namespace Library.Data.DataBaseService
         #region "branches"
         public Branch GetBranchDetails(String BId)
         {
-            return connection.Table<Branch>().Where(i => i.BId == BId).FirstOrDefault();
+            return adapter.GetAll(new Branch()).Where(i => i.BId == BId).FirstOrDefault();
         }
         public void InsertBankBranchDetails(List<Branch> branches)
         {
-            connection.InsertAll(branches);
+            adapter.Update(branches);
         }
 
         public List<Branch> GetAllBranches()
         {
-            return connection.Table<Branch>().ToList();
+            return adapter.GetAll(new Branch()).ToList();
         }
 
         public bool IfUserAlreadyExists(string email, long mobileNo, string Pan)
         {
-            var query = connection.Table<User>().Where(i => i.EmailId == email || i.MobileNumber == mobileNo || i.PAN == Pan).FirstOrDefault();
+            var query = adapter.GetAll(new User()).Where(i => i.EmailId == email || i.MobileNumber == mobileNo || i.PAN == Pan).FirstOrDefault();
             return (query != null);
         }
 
         public string GetProfile(string userId)
         {
-            return connection.Table<User>().Where(i => i.UserId == userId).FirstOrDefault().ProfilePath;
+            return adapter.GetAll(new User()).Where(i => i.UserId == userId).FirstOrDefault().ProfilePath;
         }
 
 
