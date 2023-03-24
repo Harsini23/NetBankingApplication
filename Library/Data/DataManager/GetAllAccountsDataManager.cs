@@ -31,7 +31,7 @@ namespace Library.Data.DataManager
          
             foreach (var accNo in currentAccountForUser)
             {
-                allCurrentAccounts.Add(DbHandler.GetAccount(accNo));
+                allCurrentAccounts.Add(DbHandler.GetAccount(accNo.AccountNumber));
             }
             foreach(var i in tempallAccountBalance)
             {

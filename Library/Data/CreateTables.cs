@@ -1,5 +1,7 @@
 ﻿using Library.Data.DbAdapter;
+using Library.Domain;
 using Library.Model;
+using Microsoft.Extensions.DependencyInjection;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace Library.Data
 
         public CreateTables()
         {
-            adapter = new SqliteDbAdapter();
+           adapter= Domain.ServiceProvider.GetInstance().Services.GetService<IDbAdapter>();
         }
         //public SQLiteConnection connection;
         //DatabaseConnection conn;

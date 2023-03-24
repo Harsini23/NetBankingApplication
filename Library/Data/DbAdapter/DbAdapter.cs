@@ -12,16 +12,13 @@ namespace Library.Data.DbAdapter
         void Create<T>(T value) where T : new();
         int Update<T>(T value) where T : new();
         int Delete<T>(T value) where T : new();
+        int Insert<T>(T value) where T : new();
         IEnumerable<T> GetAll<T>(T value) where T : new();
     }
     public class SqliteDbAdapter : IDbAdapter
     {
         //get and set specific sqlite connection string
         public static SQLiteConnection connection;
-
-        public SqliteDbAdapter()
-        {
-        }
 
         public SqliteDbAdapter(DatabaseConnection dbConn)
         {
@@ -55,6 +52,11 @@ namespace Library.Data.DbAdapter
         public int Update<T>(T value) where T : new()
         {
             return connection.InsertOrReplace(value);
+        }
+
+        public int Insert<T>(T value) where T: new()
+        {
+            return connection.Insert(value);
         }
     }
 }

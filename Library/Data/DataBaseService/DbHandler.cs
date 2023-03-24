@@ -1,6 +1,8 @@
 ﻿using Library.Data.DataManager;
 using Library.Data.DbAdapter;
+using Library.Domain;
 using Library.Model;
+using Microsoft.Extensions.DependencyInjection;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ namespace Library.Data.DataBaseService
         IDbAdapter adapter;
         public DbHandler()
         {
-            adapter = new SqliteDbAdapter();
+            adapter = Domain.ServiceProvider.GetInstance().Services.GetService<IDbAdapter>();
         }
 
         #region "User Table operations"
@@ -197,13 +199,13 @@ namespace Library.Data.DataBaseService
         #region "UserAccounts"
         public void AddAccountForUser(UserAccounts userAccounts)
         {
-            adapter.Update(userAccounts);
+            adapter.Insert(userAccounts);
         }
 
-        public List<String> GetAllAccountsForUser(string userId)
+        public List<UserAccounts> GetAllAccountsForUser(string userId)
         {
-            return adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId)
-                          .Select(c => c.AccountNumber).ToList();
+            return adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).ToList();
+            //.Select(c => c.AccountNumber).ToList();
         }
 
        public double GetTotalBalanceOfUser(string userId)
@@ -324,7 +326,7 @@ namespace Library.Data.DataBaseService
         }
         public void InsertBankBranchDetails(List<Branch> branches)
         {
-            adapter.Update(branches);
+            adapter.Insert(branches);
         }
 
         public List<Branch> GetAllBranches()
