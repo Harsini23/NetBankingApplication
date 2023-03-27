@@ -188,6 +188,7 @@
     <Compile Include="Model\UserAccounts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\CurrentDateTime.cs" />
+    <Compile Include="Util\EmailValidation.cs" />
     <Compile Include="Util\GenerateUniqueId.cs" />
     <Compile Include="Util\PasswordEncryption.cs" />
     <EmbeddedResource Include="Properties\Library.rd.xml" />

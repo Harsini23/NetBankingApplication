@@ -409,9 +409,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Library\Library.csproj">
+    <ProjectReference Include="..\Library\NetBankingLibrary.csproj">
       <Project>{22cc69ef-2205-4742-8cb4-c8c3165d6c2a}</Project>
-      <Name>Library</Name>
+      <Name>NetBankingLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
