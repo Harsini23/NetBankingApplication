@@ -167,7 +167,7 @@
                 </Grid>
         
         </controls:DropShadowPanel>
-            <Popup Grid.Row="1"  Name="ResetGrid">
+            <Popup x:Load="False" Grid.Row="1"  Name="ResetGrid">
                 <data:ResetPassword redirect="True"></data:ResetPassword>
             </Popup>
          

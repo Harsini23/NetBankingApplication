@@ -30,17 +30,17 @@ namespace Library.Data.DataBaseService
         }
         public List<User> GetAllUsers()
         {   
-            return adapter.GetAll(new User()).ToList();
+            return adapter.Get(new User()).ToList();
         }
 
         public bool CheckUser(string userId)
         {
-            var user = adapter.GetAll(new User()).Where(i => i.UserId == userId);
+            var user = adapter.Get(new User()).Where(i => i.UserId == userId);
             return (user.Count() > 0);
         }
         public bool CheckPassword(UserPasswordBObj credential)
         {
-            var check = adapter.GetAll(new Credentials()).Where(i => i.UserId == credential.UserId && i.Password == credential.Password).FirstOrDefault();
+            var check = adapter.Get(new Credentials()).Where(i => i.UserId == credential.UserId && i.Password == credential.Password).FirstOrDefault();
             return check != null;
         }
 
@@ -52,20 +52,20 @@ namespace Library.Data.DataBaseService
 
         public User GetUser(string userId)
         {
-            User user = adapter.GetAll(new User()).Where(i => i.UserId == userId).FirstOrDefault();
+            User user = adapter.Get(new User()).Where(i => i.UserId == userId).FirstOrDefault();
             return user;
         }
 
         public void BlockAccount(string userId)
         {
-            User user = adapter.GetAll(new User()).Where(i => i.UserId == userId).FirstOrDefault();
+            User user = adapter.Get(new User()).Where(i => i.UserId == userId).FirstOrDefault();
             user.IsBlocked = true;
             adapter.Update(user);
         }
 
         public void UnBlockAccount(string userId)
         {
-            var query = adapter.GetAll(new User()).Where(i => i.UserId == userId).FirstOrDefault();
+            var query = adapter.Get(new User()).Where(i => i.UserId == userId).FirstOrDefault();
             query.IsBlocked = false;
             adapter.Update(query);
         }
@@ -74,7 +74,7 @@ namespace Library.Data.DataBaseService
 
         public string GetUserName(String userId)
         {
-            var query = adapter.GetAll(new User()).Where(i => i.UserId == userId).FirstOrDefault();
+            var query = adapter.Get(new User()).Where(i => i.UserId == userId).FirstOrDefault();
             return query.UserName;
         }
        
@@ -84,28 +84,28 @@ namespace Library.Data.DataBaseService
 
         public bool CheckIfUserExists(string userId)
         {
-            var query = adapter.GetAll(new Credentials()).Where(c => c.UserId == userId).FirstOrDefault(); ;
+            var query = adapter.Get(new Credentials()).Where(c => c.UserId == userId).FirstOrDefault(); ;
             return (query != null);
         }   
         public bool CheckIfAdminExists(string Id)
         {
-            var query = adapter.GetAll(new Admin()).Where(c => c.EmployeeId == Id).FirstOrDefault(); ;
+            var query = adapter.Get(new Admin()).Where(c => c.EmployeeId == Id).FirstOrDefault(); ;
             return (query != null);
         }
         public bool CheckUserCredential(string userId, string password)
         {
-            var query = adapter.GetAll(new Credentials()).Where(c => c.UserId == userId && c.Password == password).FirstOrDefault();
+            var query = adapter.Get(new Credentials()).Where(c => c.UserId == userId && c.Password == password).FirstOrDefault();
             return (query != null);
         }
 
         public bool CheckIfAdmin(string userId)
         {
-            var query = adapter.GetAll(new Credentials()).Where(c => c.UserId == userId && c.IsAdmin).FirstOrDefault(); ;
+            var query = adapter.Get(new Credentials()).Where(c => c.UserId == userId && c.IsAdmin).FirstOrDefault(); ;
             return (query != null);
         }
         public bool CheckIfNewUser(string userId)
         {
-            var query = adapter.GetAll(new Credentials()).Where(c => c.UserId == userId && c.NewUser).FirstOrDefault();
+            var query = adapter.Get(new Credentials()).Where(c => c.UserId == userId && c.NewUser).FirstOrDefault();
             return (query != null);
         }
 
@@ -127,7 +127,7 @@ namespace Library.Data.DataBaseService
         #region "Account Table operations"
         public Account GetAccount(string accountNumber)
         {
-            var account = adapter.GetAll(new Account()).Where(i => i.AccountNumber == accountNumber).FirstOrDefault();
+            var account = adapter.Get(new Account()).Where(i => i.AccountNumber == accountNumber).FirstOrDefault();
             return account;
         }
 
@@ -157,19 +157,19 @@ namespace Library.Data.DataBaseService
             if (getRecentTransactions)
             {
                 //return only recent 10 transactions
-                var AllTransactions = adapter.GetAll(new Transaction()).Where(c => c.UserId == userId).ToList();
+                var AllTransactions = adapter.Get(new Transaction()).Where(c => c.UserId == userId).ToList();
                 return  AllTransactions.OrderByDescending(c => DateTimeOffset.Parse(c.Date)).Take(10).ToList();
             }
             else
             {
                 //return all transactions
-                return adapter.GetAll(new Transaction()).Where(c => c.UserId == userId).ToList();
+                return adapter.Get(new Transaction()).Where(c => c.UserId == userId).ToList();
             }
         }
 
         public List<Transaction> GetTransactionsForAccount(string accountNumber)
         {
-            return adapter.GetAll(new Transaction()).Where(c => c.FromAccount == accountNumber || c.ToAccount == accountNumber).ToList();
+            return adapter.Get(new Transaction()).Where(c => c.FromAccount == accountNumber || c.ToAccount == accountNumber).ToList();
         }
 
         #endregion
@@ -179,20 +179,20 @@ namespace Library.Data.DataBaseService
         public bool AddNewPayee(Payee newPayee)
         {
             adapter.Update(newPayee);
-            var ReCheckingquery = adapter.GetAll(new Payee()).Where(i => i.UserID == newPayee.UserID && i.AccountNumber == newPayee.AccountNumber).FirstOrDefault();
+            var ReCheckingquery = adapter.Get(new Payee()).Where(i => i.UserID == newPayee.UserID && i.AccountNumber == newPayee.AccountNumber).FirstOrDefault();
             if (ReCheckingquery != null && newPayee != null) return true;
             return false;
         }
 
         public List<Payee> GetAllPayee(string userId)
         {
-           return adapter.GetAll(new Payee()).Where(i => i.UserID == userId).ToList();
+           return adapter.Get(new Payee()).Where(i => i.UserID == userId).ToList();
         }
 
         public void DeletePayee(Payee payee)
         {
             adapter.Delete(payee);
-            var DeletedPayee = adapter.GetAll(new Payee()).Where(i => i.UserID == payee.UserID && i.AccountNumber == payee.AccountNumber);
+            var DeletedPayee = adapter.Get(new Payee()).Where(i => i.UserID == payee.UserID && i.AccountNumber == payee.AccountNumber);
         }
         #endregion
 
@@ -204,17 +204,17 @@ namespace Library.Data.DataBaseService
 
         public List<UserAccounts> GetAllAccountsForUser(string userId)
         {
-            return adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).ToList();
+            return adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).ToList();
             //.Select(c => c.AccountNumber).ToList();
         }
 
        public double GetTotalBalanceOfUser(string userId)
         {
             double total = 0;  
-            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
+            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                var res = adapter.GetAll(new Account()).Where(j => j.AccountNumber == i).FirstOrDefault();
+                var res = adapter.Get(new Account()).Where(j => j.AccountNumber == i).FirstOrDefault();
                 total += res.TotalBalance;
             }
             return total;
@@ -223,10 +223,10 @@ namespace Library.Data.DataBaseService
         public Dictionary<String, double> GetAllAccountBalance(string userId)
         {
             var allAccountBalance = new Dictionary<String,double>();
-            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
+            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                var res = adapter.GetAll(new Account()).Where(j => j.AccountNumber == i).FirstOrDefault();
+                var res = adapter.Get(new Account()).Where(j => j.AccountNumber == i).FirstOrDefault();
                 allAccountBalance.Add(i, res.TotalBalance);
             }
             return allAccountBalance;
@@ -236,7 +236,7 @@ namespace Library.Data.DataBaseService
         public bool EditPayee(Payee payee)
         {
             adapter.Update(payee);
-            var ReCheckingquery = adapter.GetAll(new Payee()).Where(c => c.AccountNumber == payee.AccountNumber && c.AccountHolderName == payee.AccountHolderName).FirstOrDefault();
+            var ReCheckingquery = adapter.Get(new Payee()).Where(c => c.AccountNumber == payee.AccountNumber && c.AccountHolderName == payee.AccountHolderName).FirstOrDefault();
             if (ReCheckingquery != null) return true;
             return false;
 
@@ -265,10 +265,10 @@ namespace Library.Data.DataBaseService
         public double GetTotalIncome(string userId)
         {
             double income=0.0;
-            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                double totalIncome = adapter.GetAll(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i).Sum(c => c.Amount);
+                double totalIncome = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i).Sum(c => c.Amount);
                 income += totalIncome;
             }
             return income;
@@ -277,10 +277,10 @@ namespace Library.Data.DataBaseService
         public double GetTotalExpense(string userId)
         {
             double income = 0.0;
-            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                var singleAccountExpense = adapter.GetAll(new Transaction()).Where(c => c.UserId == userId && c.FromAccount == i).Sum(c => c.Amount);
+                var singleAccountExpense = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.FromAccount == i).Sum(c => c.Amount);
                 income += singleAccountExpense;
             }
             return income;
@@ -289,11 +289,11 @@ namespace Library.Data.DataBaseService
         public List<Transaction> GetCurrentMonthIncome(string userId)
         {
            
-            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
             List<Transaction> monthlyincome=new List<Transaction>();
             foreach (var i in AllAccounts)
             {
-                var singleAccountTransaction = adapter.GetAll(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i).ToList();
+                var singleAccountTransaction = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i).ToList();
                 foreach (var j in singleAccountTransaction)
                 {
                     monthlyincome.Add(j);
@@ -303,12 +303,12 @@ namespace Library.Data.DataBaseService
         }
 
         public List<Transaction> GetCurrentMonthExpense(string userId)
-        {
-            var AllAccounts = adapter.GetAll(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
+        { 
+            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
             List<Transaction> monthlyexpense = new List<Transaction>();
             foreach (var i in AllAccounts)
             {
-                var singleAccountTransaction = adapter.GetAll(new Transaction()).Where(c => c.UserId == userId && c.FromAccount == i).ToList();
+                var singleAccountTransaction = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.FromAccount == i).ToList();
                 foreach (var j in singleAccountTransaction)
                 {
                     monthlyexpense.Add(j);
@@ -322,7 +322,7 @@ namespace Library.Data.DataBaseService
         #region "branches"
         public Branch GetBranchDetails(String BId)
         {
-            return adapter.GetAll(new Branch()).Where(i => i.BId == BId).FirstOrDefault();
+            return adapter.Get(new Branch()).Where(i => i.BId == BId).FirstOrDefault();
         }
         public void InsertBankBranchDetails(List<Branch> branches)
         {
@@ -331,18 +331,18 @@ namespace Library.Data.DataBaseService
 
         public List<Branch> GetAllBranches()
         {
-            return adapter.GetAll(new Branch()).ToList();
+            return adapter.Get(new Branch()).ToList();
         }
 
         public bool IfUserAlreadyExists(string email, long mobileNo, string Pan)
         {
-            var query = adapter.GetAll(new User()).Where(i => i.EmailId == email || i.MobileNumber == mobileNo || i.PAN == Pan).FirstOrDefault();
+            var query = adapter.Get(new User()).Where(i => i.EmailId == email || i.MobileNumber == mobileNo || i.PAN == Pan).FirstOrDefault();
             return (query != null);
         }
 
         public string GetProfile(string userId)
         {
-            return adapter.GetAll(new User()).Where(i => i.UserId == userId).FirstOrDefault().ProfilePath;
+            return adapter.Get(new User()).Where(i => i.UserId == userId).FirstOrDefault().ProfilePath;
         }
 
 

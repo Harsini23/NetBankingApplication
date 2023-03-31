@@ -110,14 +110,15 @@ namespace NetBankingApplication.View
 
         public void SwitchToResetPasswordContainer()
         {
+            // This will realize the deferred element.
+            this.FindName("ResetGrid"); 
             LoginContainer.Visibility = Visibility.Collapsed;
             LoginContainerShadow.Visibility = Visibility.Collapsed;
-            //ResetGrid.Visibility = Visibility.Visible;
             ResetGrid.IsOpen = true;
-            double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetGrid.ActualWidth / 2+450;
-            double verticalOffset = Window.Current.Bounds.Height / 2 - ResetGrid.ActualHeight / 2 +50;
+            double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetGrid.ActualWidth / 2-200;
+            double verticalOffset = Window.Current.Bounds.Height / 2 - ResetGrid.ActualHeight / 2 -250;
             ResetGrid.HorizontalOffset = horizontalOffset;
-            ResetGrid.VerticalOffset = verticalOffset;
+           ResetGrid.VerticalOffset = verticalOffset;
         }
 
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)

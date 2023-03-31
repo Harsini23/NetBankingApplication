@@ -13,7 +13,7 @@ namespace Library.Data.DbAdapter
         int Update<T>(T value) where T : new();
         int Delete<T>(T value) where T : new();
         int Insert<T>(T value) where T : new();
-        IEnumerable<T> GetAll<T>(T value) where T : new();
+        IEnumerable<T> Get<T>(T value) where T : new();
     }
     public class SqliteDbAdapter : IDbAdapter
     {
@@ -43,7 +43,7 @@ namespace Library.Data.DbAdapter
            return connection.Delete(value);
         }
 
-        public IEnumerable<T> GetAll<T>(T value) where T : new()
+        public IEnumerable<T> Get<T>(T value) where T : new()
         {
             return connection.Table<T>();
         }

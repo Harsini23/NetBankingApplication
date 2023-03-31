@@ -39,16 +39,13 @@ namespace NetBankingApplication.View.UserControls
 
         public event PropertyChangedEventHandler PropertyChanged;
         String ProfilePath;
-
-        public SettingsView()
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public User User
         {
-            this.InitializeComponent();
-            LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
-            LoginViewModel.settingsNotification = this;
-
-            LoginViewModel.ClosePopUp = this;
-            passwordVerificationViewModel.TextBoxVisibility = Visibility.Collapsed;
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
         }
+      
 
         private string _notificationMessage;
         public string NotificationMessage
@@ -65,20 +62,18 @@ namespace NetBankingApplication.View.UserControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public SettingsView(User currentuser)
+        public SettingsView()
         {
-            //this.currentuser = currentuser; 
             this.InitializeComponent();
-          //  this.UserInitial = currentuser.UserName.Substring(0, 1)[0];
             LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             LoginViewModel.ClosePopUp = this;
-
+            LoginViewModel.settingsNotification = this;
             updateViewModel = PresenterService.GetInstance().Services.GetService<UpdateUserBaseViewModel>();
-            updateViewModel.CurrentUser = currentuser;
             updateViewModel.settingsView = this;
-            updateViewModel.CurrentUserInitial= currentuser.UserName.Substring(0, 1)[0];
             passwordVerificationViewModel = PresenterService.GetInstance().Services.GetService<PasswordVerificationBaseViewModel>();
             passwordVerificationViewModel.settingsView = this;
+            passwordVerificationViewModel.TextBoxVisibility = Visibility.Collapsed;
+
         }
 
 
@@ -283,6 +278,12 @@ namespace NetBankingApplication.View.UserControls
 
                 Initial.ProfilePicture = temp;
             }
+        }
+
+        private void Settings_Loaded(object sender, RoutedEventArgs e)
+        {
+            updateViewModel.CurrentUser = User;
+            updateViewModel.CurrentUserInitial = User.UserName.Substring(0, 1)[0];
         }
     }
 }

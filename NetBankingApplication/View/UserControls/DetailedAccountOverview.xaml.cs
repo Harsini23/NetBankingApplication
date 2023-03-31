@@ -33,37 +33,24 @@ namespace NetBankingApplication.View.UserControls
 
         private AccountTransactionsBaseViewModel AccountTransactionsViewModel;
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
-        public static string UserId;
-
-        private string currentUserId;
-
         private static bool ItemSelected;
         private bool NarrowLayout;
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public User User
+        {
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
+        }
 
-        public DetailedAccountOverview(String userId)
+
+        public DetailedAccountOverview()
         {
             this.InitializeComponent();
             AccountTransactionsViewModel = PresenterService.GetInstance().Services.GetService<AccountTransactionsBaseViewModel>();
             GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
             GetAllAccountsViewModel.TransferAmountView = this;
 
-            currentUserId = userId;
-            ItemSelected = false;
-
-            if (userId != null)
-            {
-                GetAllAccountsViewModel.GetAllAccounts(userId);
-            }
-            else
-            {
-                GetAllAccountsViewModel.GetAllAccounts(currentUserId);
-            }
-            Bindings.Update();  
-
         }
-
-      
-       
 
         private void DefaultDisplayWideLayout()
         {
@@ -95,7 +82,7 @@ namespace NetBankingApplication.View.UserControls
             GetAllAccountsViewModel.CurrentAccountSelection = selectedItem.Text;
             SelectAccountDropdown.Content = selectedItem.Text;
             GetAllAccountsBaseViewModel.PreviousSelection=selectedItem.Text;
-            AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, currentUserId);
+            AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, User.UserId);
         }
 
         public void SwitchBasedOnUserAccount()
@@ -112,7 +99,7 @@ namespace NetBankingApplication.View.UserControls
                 SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
             }
 
-            AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, currentUserId);
+            AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, User.UserId);
 
 
             if (GetAllAccountsViewModel.AllAccountNumbers.Count == 1)
@@ -244,6 +231,19 @@ namespace NetBankingApplication.View.UserControls
             //{
 
             //}
+        }
+
+        private void DetailView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            ItemSelected = false;
+
+            if (User.UserId != null)
+            {
+                GetAllAccountsViewModel.GetAllAccounts(User.UserId);
+            }
+            Bindings.Update();
+
         }
     }
 }

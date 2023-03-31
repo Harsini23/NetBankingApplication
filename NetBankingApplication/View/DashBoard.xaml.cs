@@ -33,12 +33,13 @@ namespace NetBankingApplication.View
     {
 
         private LoginBaseViewModel LoginViewModel;
-     
+       // User Currentuser;
+
         public DashBoard()
         {
             this.InitializeComponent();
             UISettings uiSettings = new UISettings();
-            uiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged; ;
+            uiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged; 
 
             SwitchThemeUIValues();
             LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
@@ -59,30 +60,19 @@ namespace NetBankingApplication.View
         }
         private void UiSettings_ColorValuesChanged(UISettings sender, object args)
         {
-
             ThemeSwitch.CurrentTheme = ThemeSwitch.CurrentTheme == ElementTheme.Light ? ElementTheme.Dark : ElementTheme.Light;
-
             SwitchThemeUIValues();
-
         }
 
-        User Currentuser;
 
-      
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            Currentuser = (User)e.Parameter;
-        }
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    base.OnNavigatedTo(e);
+        //    Currentuser = (User)e.Parameter;
+        //}
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            //Overview overview = new Overview(Currentuser);
-          
-            //CurrentSelectedModule = overview;
-            //HeaderTitle = "Overview";
             DashBoardNavigation.SelectedItem = Overview;
-            //_dashboardNavigationViewModel.SetOverview();
-            // SelectedDashboardContentFrame.Navigate(typeof(Overview), Currentuser);
         }
 
 
@@ -92,28 +82,32 @@ namespace NetBankingApplication.View
             if (args.SelectedItem == Overview)
             {
 
-                Overview overview = new Overview(LoginViewModel.CurrentUser);
+                Overview overview = new Overview();
+                overview.User = LoginViewModel.CurrentUser;
                 CurrentSelectedModule = overview;
                 HeaderTitle = "Overview";
                 DashBoardNavigation.AlwaysShowHeader = false;
             }
             else if (args.SelectedItem == BankAccount)
             {
-                BankAccount bankAccount = new BankAccount(LoginViewModel.CurrentUser);
+                BankAccount bankAccount = new BankAccount();
+                bankAccount.User = LoginViewModel.CurrentUser;
                 CurrentSelectedModule = bankAccount;
                 HeaderTitle = "Account Details";
                 DashBoardNavigation.AlwaysShowHeader = true;
             }
             else if (args.SelectedItem == PaymentsAndTransfer)
             {
-                PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer(LoginViewModel.CurrentUser);
+                PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer();
+                paymentsAndTransfer.User = LoginViewModel.CurrentUser;
                 CurrentSelectedModule = paymentsAndTransfer;
                 HeaderTitle = "Payment and Transfer";
                 DashBoardNavigation.AlwaysShowHeader = true;
             }
             else if (args.SelectedItem == Settings)
             {
-                SettingsView settings = new SettingsView(LoginViewModel.CurrentUser);
+                SettingsView settings = new SettingsView();
+                settings.User = LoginViewModel.CurrentUser;
                 CurrentSelectedModule = settings;
                 HeaderTitle = "Settings";
                 DashBoardNavigation.AlwaysShowHeader = true;

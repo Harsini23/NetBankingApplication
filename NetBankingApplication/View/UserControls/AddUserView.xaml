@@ -129,73 +129,10 @@
 
             </Grid>
 
-                <local:CreateAccountView Grid.Row="1"
+                <local:CreateAccountView Grid.Row="1" FirstAccountCreation="True"
                                          x:Name="CreateAccountViewDetails"></local:CreateAccountView>
 
-                <!--<Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition> 
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-                <TextBlock Text="Account Details" Margin="5,10,10,10" FontWeight="Bold" FontSize="20" ></TextBlock>
-
-
-                <StackPanel  Grid.Row="1" Margin="5" >
-                    <StackPanel Orientation="Horizontal" Padding="0,0,0,5">
-                        <TextBlock Text="Account Type" FontSize="16"  ></TextBlock>
-                        <TextBlock FontSize="16"   FontFamily="Segoe MDL2 Assets" Text="&#xEA21;" Foreground="red"  Padding="5,5,0,0"></TextBlock>
-                    </StackPanel>
-                    <DropDownButton MinWidth="260" HorizontalContentAlignment="Left"  Name="AccountTypeBox" MinHeight="32" Background="{ThemeResource AppForegroundBg}" Style="{ThemeResource DropdownStyle}" >
-                        <DropDownButton.Flyout >
-                            <MenuFlyout Opening="MenuFlyout_Opening_AccountType" LightDismissOverlayMode="Auto" Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource MenuDropDownContentStyle}">
-                             
-                            </MenuFlyout>
-                        </DropDownButton.Flyout>
-                    </DropDownButton>
-                </StackPanel>
-
-                <StackPanel   Grid.Row="2"  Margin="5" >
-                    <StackPanel Orientation="Horizontal" Padding="0,0,0,5">
-                        <TextBlock Text="Currency" FontSize="16"  ></TextBlock>
-                        <TextBlock FontSize="16"   FontFamily="Segoe MDL2 Assets" Text="&#xEA21;" Foreground="red"  Padding="5,5,0,0"></TextBlock>
-                    </StackPanel>
-                    <DropDownButton  MinWidth="260" HorizontalContentAlignment="Left"   Name="CurrencyValues" MinHeight="32" Background="{ThemeResource AppForegroundBg}" Style="{ThemeResource DropdownStyle}" >
-                        <DropDownButton.Flyout >
-                            <MenuFlyout  Opening="MenuFlyout_Opening_Currency" LightDismissOverlayMode="Auto" Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource MenuDropDownContentStyle}">
-                            </MenuFlyout>
-                        </DropDownButton.Flyout>
-                    </DropDownButton>
-                </StackPanel>
-
-                    <TextBox Grid.Row="3"
-                             Margin="5"
-                             Style="{ThemeResource InputFieldTextBox}"
-                             BeforeTextChanging="TextBox_BalanceOnBeforeTextChanging"
-                             TextChanged="BalanceTextBox_TextChanged" InputScope="Number"  x:Name="BalanceTextBox">
-                    <TextBox.Header>
-                        <TextBlock >
-        <Run Text="Balance " > </Run><Run  Foreground="Red">*</Run>
-                        </TextBlock>
-                    </TextBox.Header>
-                </TextBox>
-
-                <StackPanel  Grid.Row="4" Margin="5" >
-                    <StackPanel Orientation="Horizontal" Padding="0,0,0,5">
-                        <TextBlock Text="Branch" FontSize="16"  ></TextBlock>
-                        <TextBlock FontSize="16"   FontFamily="Segoe MDL2 Assets" Text="&#xEA21;" Foreground="red"  Padding="5,5,0,0"></TextBlock>
-                    </StackPanel>
-                    <DropDownButton  MinWidth="260" HorizontalContentAlignment="Left" Name="SelectBranch" MinHeight="32" Background="{ThemeResource AppForegroundBg}" Style="{ThemeResource DropdownStyle}" >
-                        <DropDownButton.Flyout >
-                            <MenuFlyout  Opening="MenuFlyout_Opening" LightDismissOverlayMode="Auto" Placement="Bottom" MenuFlyoutPresenterStyle="{StaticResource MenuDropDownContentStyle}">
-                            </MenuFlyout>
-                        </DropDownButton.Flyout>
-                    </DropDownButton>
-                </StackPanel>
-            </Grid>-->
-
+               
         <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>

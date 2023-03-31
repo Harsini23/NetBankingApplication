@@ -93,8 +93,8 @@ namespace NetBankingApplication.ViewModel
     }
     public interface IMainPageNavigation
     {
-        void NavigateToDashBoard(User user);
-        void NavigateToAdminDashBoard(User user);
+        void NavigateToDashBoard();
+        void NavigateToAdminDashBoard();
         void NavigateToLoginPage();
         //future logout change frame
     }

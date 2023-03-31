@@ -8,7 +8,6 @@ namespace Library.Util
 {
     public static class CurrentDateTime
     {
-        //making it singleton?
         public static String GetCurrentDate()
         {
             var now = DateTime.Now.ToString("d-M-yyyy h:mm tt");
