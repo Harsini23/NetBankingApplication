@@ -28,11 +28,6 @@ namespace NetBankingApplication.View.UserControls
     {
 
         private AddUserBaseViewModel AddUserViewModel;
-     
-     
-
-   
-
         public AddUserView()
         {
             this.InitializeComponent();
@@ -68,7 +63,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 AddUserViewModel.ErrorMessage = "Enter a valid mobile number";
             }
-            else if (!this.EmailIdTextBox.Text.Contains('@') || !this.EmailIdTextBox.Text.Contains('.') || !this.EmailIdTextBox.Text.Contains("com"))
+            else if (!this.EmailIdTextBox.Text.Contains('@') || !this.EmailIdTextBox.Text.Contains('.'))
             {
                 AddUserViewModel.ErrorMessage = "Enter a valid email id";
             }

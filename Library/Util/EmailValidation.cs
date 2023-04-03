@@ -15,7 +15,6 @@ namespace Library.Util
             {
                 return false;
             }
-
             try
             {
                 // Use the MailAddress class to validate the email address (syntax validation)

@@ -205,7 +205,7 @@
     
 
         </Grid>
-            <controls:InAppNotification  Content="{x:Bind AddUserViewModel.Response,Mode=OneWay}" Margin="5,5,0,30" Template="{StaticResource InAppNotificationTemplate1}" Width="300" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Height="70"  x:Name="InAppNotification" Background="{ThemeResource NotificationColour}" BorderBrush="Black" BorderThickness="0.5" CornerRadius="10"  ShowDismissButton="True"  >
+            <controls:InAppNotification  Content="{x:Bind AddUserViewModel.Response,Mode=OneWay}" Template="{StaticResource InAppNotificationTemplate1}" Width="300" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Height="70"  x:Name="InAppNotification" Background="{ThemeResource NotificationColour}" BorderBrush="Black" BorderThickness="0.5" CornerRadius="10"  ShowDismissButton="True"  >
             </controls:InAppNotification>
         </Grid>
     </ScrollViewer>
