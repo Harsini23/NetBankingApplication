@@ -9,6 +9,7 @@ namespace Library.Model.Enum
  
         public enum AccountType
         {
+            None,
             SalaryAccount,
             SavingsAccount,
             FDAccount,

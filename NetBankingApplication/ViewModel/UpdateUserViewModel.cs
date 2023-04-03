@@ -29,8 +29,13 @@ namespace NetBankingApplication.ViewModel
         }
         NotificationServiceUser eventProvider = new NotificationServiceUser();
 
-        public void OnError(BException errorMessage)
+        public async void OnError(BException errorMessage)
         {
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                _updateUserViewModel.ResponseValue =errorMessage.exceptionMessage;
+                _updateUserViewModel.settingsView.UpdateUserNotification();
+            });
         }
 
         public void OnFailure(ZResponse<User> response)

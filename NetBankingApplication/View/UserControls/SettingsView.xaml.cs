@@ -180,10 +180,12 @@ namespace NetBankingApplication.View.UserControls
                     ProfilePath = ProfilePathUri
                 };
 
-                UpdateCurrentPage();
+              //  UpdateCurrentPage();
                 ProfilePath = null;
                 updateViewModel.UpdateUser(updatedUserValue);
                 UserProfileError.Visibility = Visibility.Collapsed;
+                EditingFields.Visibility = Visibility.Collapsed;
+                EditProfile.Visibility = Visibility.Visible;
                 //AcknowledgementDialogue.ShowAsync();
                 //DispatcherTimer timer = new DispatcherTimer();
                 //timer.Interval = TimeSpan.FromSeconds(1);
@@ -215,6 +217,14 @@ namespace NetBankingApplication.View.UserControls
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
             UserProfileError.Visibility = Visibility.Collapsed;
+            if(EmailId.Text.Trim() == updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == updateViewModel.CurrentUser.MobileNumber)
+            {
+                SaveUserProfile.IsEnabled = false;
+            }
+            else
+            {
+                SaveUserProfile.IsEnabled = true;
+            }
 
         }
 
@@ -284,6 +294,18 @@ namespace NetBankingApplication.View.UserControls
         {
             updateViewModel.CurrentUser = User;
             updateViewModel.CurrentUserInitial = User.UserName.Substring(0, 1)[0];
+        }
+
+        private void EditProfile_Click(object sender, RoutedEventArgs e)
+        {
+            EditingFields.Visibility = Visibility.Visible;
+            EditProfile.Visibility = Visibility.Collapsed;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            EditingFields.Visibility = Visibility.Collapsed;
+            EditProfile.Visibility = Visibility.Visible;
         }
     }
 }

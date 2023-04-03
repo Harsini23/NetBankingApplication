@@ -126,7 +126,7 @@ namespace NetBankingApplication.View.UserControls
             //add new account for existing user
             AccountVobj accountDetails = CreateNewAccountViewComponent.FetchData();
 
-            if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || accountDetails.AccountType==null)
+            if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || accountDetails.AccountType==AccountType.None)
             {
                 ErrorMessage.Text = "Kindly fill account details";
             }

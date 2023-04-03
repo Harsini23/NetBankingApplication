@@ -30,7 +30,7 @@ namespace NetBankingApplication.View.Converter
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            if(value != null)
+            if(!string.IsNullOrEmpty(value as string))
             {
                 string convertVal= Regex.Replace(value as string, @"\s+", "");
 

@@ -44,8 +44,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <ScrollViewer>
+        <Grid>
 
-        <Grid Padding="30,0,30,30"
+            <Grid Padding="30,0,30,30"
               Background="{ThemeResource AppBackground}"
               VerticalAlignment="Stretch"
               HorizontalAlignment="Stretch">
@@ -58,94 +59,134 @@
                          HorizontalAlignment="Stretch"
                          Padding="10"
                          CornerRadius="10">
+                <TextBlock Text="Profile"
+                           Padding="0,0,100,0"
+                           FontSize="22"
+                           Margin="20,5,5,5"
+                           FontWeight="Normal"></TextBlock>
+
                 <StackPanel Orientation="Horizontal"
                             Margin="20,5,5,5">
-                    <TextBlock Text="Edit Profile"
-                               Padding="0,0,100,0"
-                               FontSize="22"
-                               FontWeight="Normal"></TextBlock>
-                    <Button Content="Save"
-                            Name="SaveUserProfile"
-                            Click="SaveUserProfile_Click"
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2.5*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <PersonPicture HorizontalAlignment="Left"
+                                       MaxWidth="80"
+                                       Margin="0,10,10,0"
+                                       MaxHeight="80"
+                                       Grid.RowSpan="2"
+                                       Name="Initial"
+                                       ProfilePicture="{x:Bind updateViewModel.CurrentUser.ProfilePath,Mode=OneWay,Converter={StaticResource StringToBitmap}}"
+                                       Initials="{x:Bind updateViewModel.CurrentUserInitial,Mode=OneWay}"
+                                       Grid.Column="0"
+                                       Tapped="Initial_Tapped"></PersonPicture>
+                        <TextBlock HorizontalAlignment="Left"
+                                   Margin="5,20,0,0"
+                                   Grid.Row="0"
+                                   Grid.Column="1"
+                                   Name="Username"
+                                   Text="{x:Bind updateViewModel.CurrentUser.UserName,Mode=OneWay}"
+                                   FontSize="22"
+                                   FontWeight="Normal"></TextBlock>
+                        <TextBlock HorizontalAlignment="Left"
+                                   Margin="5,0,0,10"
+                                   Grid.Row="1"
+                                   FontSize="18"
+                                   Name="DisplayEmailId"
+                                   Grid.Column="1"
+                                   Text="{x:Bind updateViewModel.CurrentUser.EmailId,Mode=OneWay}"></TextBlock>
+                    </Grid>
+                    <Button Content="Edit"
+                            Name="EditProfile"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Click="EditProfile_Click"
                             Style="{StaticResource AccentButtonStyleCustom}"
-                            Padding="10,5,10,5" Margin="45,0,0,0"></Button>
+                            Padding="10,5,10,5"
+                            Margin="45,0,0,0"></Button>
+                </StackPanel>
+                <StackPanel x:Name="EditingFields"
+                            Visibility="Collapsed">
+                    <TextBox TextChanged="Name_TextChanged"
+                             Margin="20,25,5,5"
+                             Width="300"
+                             HorizontalAlignment="Left"
+                             BorderBrush="Transparent"
+                             FontSize="18"
+                             BorderThickness="0,0,0,0"
+                             Style="{ThemeResource EditFieldTextBox}"
+                             x:Name="Name"
+                             Text="{x:Bind updateViewModel.CurrentUser.UserName,Mode=OneWay}">
+                        <TextBox.Header>
+                            <TextBlock Padding="10,0,0,0" FontSize="14">
+            <Run Text="Name "> </Run><Run  Foreground="Red">*</Run>
+                            </TextBlock>
+                        </TextBox.Header>
+                    </TextBox>
+                    <TextBox TextChanged="Name_TextChanged"
+                             Margin="20,5,5,5"
+                             Width="300"
+                             FontSize="18"
+                             HorizontalAlignment="Left"
+                             BorderBrush="Transparent"
+                             BorderThickness="0,0,0,0"
+                             Style="{ThemeResource EditFieldTextBox}"
+                             BeforeTextChanging="TextBox_OnBeforeTextChanging"
+                             x:Name="Phonenumber"
+                             Text="{x:Bind updateViewModel.CurrentUser.MobileNumber,Mode=OneWay}">
+                        <TextBox.Header>
+                            <TextBlock Padding="10,0,0,0" FontSize="14">
+        <Run Text="Phone number "> </Run><Run  Foreground="Red">*</Run>
+                            </TextBlock>
+                        </TextBox.Header>
+                    </TextBox>
+                    <TextBox TextChanged="Name_TextChanged"
+                             Margin="20,5,5,5"
+                             Width="300"
+                             BorderBrush="Transparent"
+                             BorderThickness="0,0,0,0"
+                             FontSize="18"
+                             HorizontalAlignment="Left"
+                             Style="{ThemeResource EditFieldTextBox}"
+                             x:Name="EmailId"
+                             Text="{x:Bind updateViewModel.CurrentUser.EmailId,Mode=OneWay}">
+                        <TextBox.Header>
+                            <TextBlock Padding="10,0,0,0"
+                                       Margin="0"
+                                       FontSize="14">
+        <Run Text="Email id "> </Run><Run  Foreground="Red">*</Run>
+                            </TextBlock>
+                        </TextBox.Header>
+                    </TextBox>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="30,10,10,10"
+                                HorizontalAlignment="Left">
+                        <Button Content="Save"
+                                Name="SaveUserProfile"
+                                VerticalAlignment="Center"
+                                MinWidth="70"
+                                Click="SaveUserProfile_Click"
+                                Style="{StaticResource AccentButtonStyleCustom}"
+                                Padding="10,5,10,5"></Button>
+                        <Button Content="Cancel"
+                                Name="Cancel"
+                                Margin="30,0,0,0"
+                                VerticalAlignment="Center"
+                                Click="Cancel_Click"
+                                MinWidth="70"
+                                Style="{StaticResource AccentButtonStyleCustom}"
+                                Padding="10,5,10,5"></Button>
+                    </StackPanel>
+
                 </StackPanel>
 
-                <Grid Margin="20,5,5,5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2.5*"></RowDefinition>
-                        <RowDefinition Height="1*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <PersonPicture HorizontalAlignment="Left"
-                                   MaxWidth="80"
-                                   Margin="0,10,10,0"
-                                   MaxHeight="80"
-                                   Grid.RowSpan="2"
-                                   Name="Initial"
-                                   ProfilePicture="{x:Bind updateViewModel.CurrentUser.ProfilePath,Mode=OneWay,Converter={StaticResource StringToBitmap}}"
-                                   Initials="{x:Bind updateViewModel.CurrentUserInitial,Mode=OneWay}"
-                                   Grid.Column="0"
-                                   Tapped="Initial_Tapped"></PersonPicture>
-                    <TextBlock HorizontalAlignment="Left"
-                               Margin="5,20,0,0"
-                               Grid.Row="0"
-                               Grid.Column="1"
-                               Name="Username"
-                               Text="{x:Bind updateViewModel.CurrentUser.UserName,Mode=OneWay}"
-                               FontSize="22"
-                               FontWeight="Normal"></TextBlock>
-                    <TextBlock HorizontalAlignment="Left"
-                               Margin="5,0,0,10"
-                               Grid.Row="1"
-                               FontSize="18"
-                               Name="DisplayEmailId"
-                               Grid.Column="1"
-                               Text="{x:Bind updateViewModel.CurrentUser.EmailId,Mode=OneWay}"></TextBlock>
-                </Grid>
-                <TextBox TextChanged="Name_TextChanged"
-                         Margin="20,25,5,5"
-                         Width="300"
-                         HorizontalAlignment="Left"
-                         Style="{ThemeResource InputFieldTextBox}"
-                         x:Name="Name"
-                         Text="{x:Bind updateViewModel.CurrentUser.UserName,Mode=OneWay}">
-                    <TextBox.Header>
-                        <TextBlock>
-        <Run Text="Name "> </Run><Run  Foreground="Red">*</Run>
-                        </TextBlock>
-                    </TextBox.Header>
-                </TextBox>
-                <TextBox TextChanged="Name_TextChanged"
-                         Margin="20,5,5,5"
-                         Width="300"
-                         HorizontalAlignment="Left"
-                         Style="{ThemeResource InputFieldTextBox}"
-                         BeforeTextChanging="TextBox_OnBeforeTextChanging"
-                         x:Name="Phonenumber"
-                         Text="{x:Bind updateViewModel.CurrentUser.MobileNumber,Mode=OneWay}">
-                    <TextBox.Header>
-                        <TextBlock>
-        <Run Text="Phone number "> </Run><Run  Foreground="Red">*</Run>
-                        </TextBlock>
-                    </TextBox.Header>
-                </TextBox>
-                <TextBox TextChanged="Name_TextChanged"
-                         Margin="20,5,5,5"
-                         Width="300"
-                         HorizontalAlignment="Left"
-                         Style="{ThemeResource InputFieldTextBox}"
-                         x:Name="EmailId"
-                         Text="{x:Bind updateViewModel.CurrentUser.EmailId,Mode=OneWay}">
-                    <TextBox.Header>
-                        <TextBlock>
-        <Run Text="Email id "> </Run><Run  Foreground="Red">*</Run>
-                        </TextBlock>
-                    </TextBox.Header>
-                </TextBox>
                 <TextBlock Visibility="Collapsed"
                            Name="UserProfileError"
                            Style="{ThemeResource FailureText}"
@@ -204,7 +245,8 @@
                    Grid.RowSpan="2"
                    Closed="ResetPasswordGrid_Closed"
                    Name="ResetPasswordGrid">
-                <local:ResetPassword Name="ResetPasswordComponent" redirect="False"></local:ResetPassword>
+                <local:ResetPassword Name="ResetPasswordComponent"
+                                     redirect="False"></local:ResetPassword>
             </Popup>
             <!--<ContentDialog x:Name="AcknowledgementDialogue"
        Background="{ThemeResource SupportingColour}" CornerRadius="10"
@@ -216,6 +258,8 @@
                 </StackPanel>
 
             </ContentDialog>-->
+         
+        </Grid>
             <controls:InAppNotification  Content="{x:Bind NotificationMessage,Mode=OneWay}"
                                          Template="{StaticResource InAppNotificationTemplate1}"
                                          Width="400"

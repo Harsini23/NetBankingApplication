@@ -146,8 +146,8 @@
                             Style="{StaticResource AccentButtonStyleCustom}"></Button>
         </Grid>
 
-
-            <ContentDialog x:Name="ContentDialog" CornerRadius="5"  CloseButtonText="Done"
+                <ContentDialog x:DeferLoadStrategy="Lazy"
+                               x:Name="ContentDialog" CornerRadius="5"  CloseButtonText="Done"
          CloseButtonStyle="{StaticResource ContentDialogPrimaryButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center">
                     
                 <Grid  x:Name="TransactionDetails" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" >

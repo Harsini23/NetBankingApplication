@@ -35,26 +35,28 @@ namespace NetBankingApplication.View.UserControls
             LoginViewModel.ResetPasswordResponseValue = String.Empty;
         }
 
-        private void RevealModeCheckbox_ChangedReset(object sender, RoutedEventArgs e)
-        {
-            if (revealModeCheckBoxPassword.IsChecked == true)
-            {
-                PasswordReset.PasswordRevealMode = PasswordRevealMode.Visible;
-            }
-            else
-            {
-                PasswordReset.PasswordRevealMode = PasswordRevealMode.Hidden;
-            }
-        }
+        //private void RevealModeCheckbox_ChangedReset(object sender, RoutedEventArgs e)
+        //{
+        //    if (revealModeCheckBoxPassword.IsChecked == true)
+        //    {
+        //        PasswordReset.PasswordRevealMode = PasswordRevealMode.Visible;
+        //    }
+        //    else
+        //    {
+        //        PasswordReset.PasswordRevealMode = PasswordRevealMode.Hidden;
+        //    }
+        //}
 
         private void RevealModeCheckbox_Changed_RePassword(object sender, RoutedEventArgs e)
         {
             if (revealModeCheckBox_RePassword.IsChecked == true)
             {
+                PasswordReset.PasswordRevealMode = PasswordRevealMode.Visible;
                 RePasswordReset.PasswordRevealMode = PasswordRevealMode.Visible;
             }
             else
             {
+                PasswordReset.PasswordRevealMode = PasswordRevealMode.Hidden;
                 RePasswordReset.PasswordRevealMode = PasswordRevealMode.Hidden;
             }
         }
@@ -63,7 +65,7 @@ namespace NetBankingApplication.View.UserControls
         {
             var passwordBox = (PasswordBox)sender;
             var password = passwordBox.Password.ToString();
-            if (password.Length > 8 && password.Length < 14 && password.Any(char.IsLower) && password.Any(char.IsUpper) && (!password.Contains(" ")) && CheckForSpecialCharacter(password))
+            if (password.Length > 8 && password.Length < 128 && password.Any(char.IsLower) && password.Any(char.IsUpper) && (!password.Contains(" ")) && CheckForSpecialCharacter(password))
             {
                 RePasswordReset.IsEnabled = true;
                 NewPassword = password;
@@ -119,7 +121,7 @@ namespace NetBankingApplication.View.UserControls
         public void ResetUI()
         {
             PasswordReset.Password = String.Empty;
-            revealModeCheckBoxPassword.IsChecked = false;
+            //revealModeCheckBoxPassword.IsChecked = false;
             RePasswordReset.Password = String.Empty;
             revealModeCheckBox_RePassword.IsChecked = false;
             ErrorTextBlock.Visibility = Visibility.Collapsed;

@@ -71,7 +71,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 AddUserViewModel.ErrorMessage = "PAN number must be of 10 values";
             }
-            else if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || accountDetails.AccountType==null)
+            else if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || accountDetails.AccountType==AccountType.None)
             {
                 AddUserViewModel.ErrorMessage = "Enter all account details";
             }

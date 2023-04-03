@@ -81,7 +81,7 @@ namespace NetBankingApplication.View.UserControls
                     AllAccountTypes.Items.Add(item);
                 }
             }
-         
+
         }
         private void AccountType_Selection(object sender, RoutedEventArgs e)
         {
@@ -195,7 +195,15 @@ namespace NetBankingApplication.View.UserControls
         }
         public AccountVobj FetchData()
         {
-            AccountType accountType = (AccountType)(accountTypeToStringConverter.ConvertBack(SelectedAccountType, typeof(AccountType), null, null));
+           AccountType accountType ;
+            if (SelectedAccountType != null)
+            {
+                 accountType = (AccountType)(accountTypeToStringConverter.ConvertBack(SelectedAccountType, typeof(AccountType), null, null));
+            }
+            else
+            {
+                accountType = AccountType.None;
+            }
             return new AccountVobj(accountType, BalanceTextBox.Text, SelectedCurrency, SelectedBranch);
 
         }

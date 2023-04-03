@@ -2,6 +2,7 @@
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
+using Library.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +19,24 @@ namespace Library.Data.DataManager
         public void UpdateUser(UpdateUserRequest request, IUsecaseCallbackBaseCase<User> response)
         {
             ZResponse<User> Response = new ZResponse<User>();
-            var res = DbHandler.UpdateUser(request.UpdatedUser);
-            if (res)
+            if (EmailValidation.ValidateEmail(request.UpdatedUser.EmailId))
             {
-                Response.Response = "Sucessfully updated user";
-                Response.Data = request.UpdatedUser;
-                response?.OnResponseSuccess(Response);
-
+                var res = DbHandler.UpdateUser(request.UpdatedUser);
+                if (res)
+                {
+                    Response.Response = "Sucessfully updated user";
+                    Response.Data = request.UpdatedUser;
+                    response?.OnResponseSuccess(Response);
+                }
             }
+            else
+            {
+                response.OnResponseError(new BException
+                {
+                    exceptionMessage = "Invalid Email, try again!"
+                });
+            }
+            
         }
     }
 }

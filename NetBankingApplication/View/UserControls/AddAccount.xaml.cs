@@ -122,7 +122,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 ErrorMessage.Text = "Kindly fill user details!";
             }
-            else if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || accountDetails.AccountType==null)
+            else if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || accountDetails.AccountType==AccountType.None)
             {
                 ErrorMessage.Text = "Kindly fill account details";
             }
