@@ -23,23 +23,36 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class AddPayeeView : UserControl, INotificationAlert
     {
-        private string currentUserId;
         private AddPayeeBaseViewModel AddPayeeViewModel;
 
         public event Action<string> RaiseNotification;
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public User User
+        {
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
+        }
 
-        public AddPayeeView(string userId,string payeeName="",string accountNumber="")
+        public static readonly DependencyProperty PayeeNameProperty = DependencyProperty.Register(nameof(PassedPayeeName), typeof(string), typeof(Overview), new PropertyMetadata(null));
+        public string PassedPayeeName
+        {
+            get { return (string)GetValue(PayeeNameProperty); }
+            set { SetValue(PayeeNameProperty, value); }
+        }
+        public static readonly DependencyProperty AccountNumberProperty = DependencyProperty.Register(nameof(PassedAccountNumber), typeof(string), typeof(Overview), new PropertyMetadata(null));
+        public string PassedAccountNumber
+        {
+            get { return (string)GetValue(AccountNumberProperty); }
+            set { SetValue(AccountNumberProperty, value); }
+        }
+
+        public AddPayeeView()
         {
             this.InitializeComponent();
             AddPayeeViewModel = PresenterService.GetInstance().Services.GetService<AddPayeeBaseViewModel>();
             AddPayeeViewModel.AddPayeeView = this;
-            currentUserId = userId;
-            PayeeName.Text = payeeName;
-            Accountnumber.Text = accountNumber;
-         //   Result.Text = "";
 
         }
-        public AddPayeeView() { }
         private void AddPayee_Click(object sender, RoutedEventArgs e)
         {
             if (AccountHolderName.Text==String.Empty|| Accountnumber.Text==String.Empty|| IfscCode.Text==String.Empty|| BankName.Text==String.Empty|| PayeeName.Text==String.Empty)
@@ -49,7 +62,7 @@ namespace NetBankingApplication.View.UserControls
             }
             else
             {
-                Payee newRecipent = new Payee { UserID = currentUserId, AccountHolderName = AccountHolderName.Text, AccountNumber = Accountnumber.Text, IfscCode = IfscCode.Text, BankName = BankName.Text, PayeeName = PayeeName.Text };
+                Payee newRecipent = new Payee { UserID = User.UserId, AccountHolderName = AccountHolderName.Text, AccountNumber = Accountnumber.Text, IfscCode = IfscCode.Text, BankName = BankName.Text, PayeeName = PayeeName.Text };
                 AddPayeeViewModel.AddPayee(newRecipent);
                 PayeeName.Text = String.Empty;
                 AccountHolderName.Text = String.Empty;
@@ -58,18 +71,7 @@ namespace NetBankingApplication.View.UserControls
                 BankName.Text = String.Empty;
                 ErrorMessage.Text= String.Empty;
 
-                //AddPayeeDialog.ShowAsync();
-                //DispatcherTimer timer = new DispatcherTimer();
-                //timer.Interval = TimeSpan.FromSeconds(1);
-                //timer.Tick += (s, args) =>
-                //{
-                //    AddPayeeDialog.Hide();
-                //    timer.Stop();
-                //};
-                //timer.Start();
-
-
-
+           
             }
 
            
@@ -90,6 +92,15 @@ namespace NetBankingApplication.View.UserControls
         private void TextChanged(object sender, TextChangedEventArgs e)
         {
             ErrorMessage.Visibility = Visibility.Collapsed;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(PassedPayeeName!=null && PassedAccountNumber != null)
+            {
+                PayeeName.Text = PassedPayeeName;
+                Accountnumber.Text = PassedAccountNumber;
+            }
         }
     }
 }

@@ -30,9 +30,13 @@ namespace NetBankingApplication.ViewModel
         {   
             this.addUserViewModel = addUserViewModel;
         }
-        public void OnError(BException response)
+        public async void OnError(BException response)
         {
-            
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                addUserViewModel.Response = response.exceptionMessage;
+                addUserViewModel.addUserNotification?.NotificationUpdate();
+            });
         }
 
         public void OnFailure(ZResponse<AddUserResponse> response)
@@ -46,12 +50,8 @@ namespace NetBankingApplication.ViewModel
             {
                 addUserViewModel.Response = response.Response;
                 addUserViewModel.addUserNotification?.NotificationUpdate();
-                if (response.Data.UserExists)
-                {
-                    //user details already exists
-                }
-                else
-                {
+                if (!response.Data.UserExists)
+                { 
                     addUserViewModel.UserId = response.Data.credentials.UserId;
                     addUserViewModel.Password = response.Data.credentials.Password;
                     addUserViewModel.AccountNo = response.Data.account.AccountNumber;

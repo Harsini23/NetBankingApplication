@@ -25,16 +25,20 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class BankAccount : UserControl, INotifyPropertyChanged
     {
-        public static string currentUserId;
-        public User CurrentUser;
+        //public static string currentUserId;
+        //public User CurrentUser;
         private AddAccountBaseViewModel addAccountBaseViewModel;
 
-        public BankAccount(User currentUser)
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public User User
+        {
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
+        }
+
+        public BankAccount()
         {
             this.InitializeComponent();
-            BankAccount.currentUserId = currentUser.UserId;
-            CurrentUser=currentUser;
-
             addAccountBaseViewModel = PresenterService.GetInstance().Services.GetService<AddAccountBaseViewModel>();
 
         }
@@ -58,7 +62,7 @@ namespace NetBankingApplication.View.UserControls
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            CurrentSelectedItem = new AllAccountsPreview(currentUserId);
+            //CurrentSelectedItem = new AllAccountsPreview(User.UserId);
             BankAccountNavigation.SelectedItem = AccountsPreview;
         }
 
@@ -68,15 +72,21 @@ namespace NetBankingApplication.View.UserControls
 
             if (args.SelectedItem == AccountsPreview)
             {
-                CurrentSelectedItem = new AllAccountsPreview(currentUserId);
+                AllAccountsPreview allAccountsPreview = new AllAccountsPreview();
+                allAccountsPreview.User = User;
+                CurrentSelectedItem = allAccountsPreview;
             }
             else if (args.SelectedItem == AccountDetails)
             {
-                CurrentSelectedItem = new DetailedAccountOverview(currentUserId);
+                DetailedAccountOverview detailedAccountOverview = new DetailedAccountOverview();
+                detailedAccountOverview.User = User;
+                CurrentSelectedItem = detailedAccountOverview;
             }
             else
             {
-                CurrentSelectedItem = new AllAccountsPreview(currentUserId);
+                AllAccountsPreview allAccountsPreview = new AllAccountsPreview();
+                allAccountsPreview.User = User;
+                CurrentSelectedItem = allAccountsPreview;
             }
 
         }
@@ -116,17 +126,17 @@ namespace NetBankingApplication.View.UserControls
             //add new account for existing user
             AccountVobj accountDetails = CreateNewAccountViewComponent.FetchData();
 
-            if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || string.IsNullOrEmpty(accountDetails.AccountType))
+            if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || accountDetails.AccountType==null)
             {
                 ErrorMessage.Text = "Kindly fill account details";
             }
-            else if (Double.Parse(accountDetails.Balance) <= 1 && accountDetails.AccountType != "SalaryAccount")
+            else if (Double.Parse(accountDetails.Balance) <= 1 && accountDetails.AccountType != AccountType.SalaryAccount)
             {
                 ErrorMessage.Text = "Only savings account can have zero balance!";
             }
             else
             {
-                addAccountBaseViewModel.AddAccount(new AccountBObj(CurrentUser.UserId, (AccountType)Enum.Parse(typeof(AccountType), accountDetails.AccountType), Double.Parse(accountDetails.Balance), (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency), accountDetails.Branch, CurrentUser.UserName));
+                addAccountBaseViewModel.AddAccount(new AccountBObj(User.UserId,accountDetails.AccountType, Double.Parse(accountDetails.Balance), (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency), accountDetails.Branch, User.UserName));
                 CreateNewAccountViewComponent.ClearUI();
                 CreateAccountGrid.IsOpen = false;
             }

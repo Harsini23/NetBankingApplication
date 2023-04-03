@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:Library.Model" xmlns:Controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
+    Loaded="UserControl_Loaded"
     xmlns:converter="using:NetBankingApplication.View.Converter"
     d:DesignHeight="300"
     SizeChanged="UserControl_SizeChanged"
@@ -65,7 +66,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <converter:EnumToStringConverter x:Key="EnumConverter" />
             <converter:AccountTypeToStringConverter x:Key="AccountTypeConverter" />
         </ResourceDictionary>
         
@@ -157,7 +157,8 @@
 
         <StackPanel x:Name="WelcomeGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  Margin="40,5,10,10" Padding="10,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Welcome," Foreground="#808080" FontSize="32"></TextBlock>
-            <TextBlock Margin="5,0,0,0" Text="{x:Bind _overviewViewModel.User.UserName,Mode=OneWay}" FontSize="32"></TextBlock>
+                <TextBlock Margin="5,0,0,0"
+                           Text="{x:Bind User.UserName,Mode=OneWay}" FontSize="32"></TextBlock>
         </StackPanel>
 
             <Grid Grid.Row="1"  x:Name="OverallBalanceCard" Background="{ThemeResource AppForegroundBg}" CornerRadius="10" Margin="50,10,10,10" Padding="10" Grid.Column="0">
@@ -269,7 +270,9 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="Recent Transactions" Grid.Row="0" Margin="10" FontSize="16" FontWeight="SemiBold"></TextBlock>
-                <local:TransactionHistory ShowOnlyRecentTransactions="True"  Grid.Row="1" UserId="{x:Bind UserId,Mode=OneWay}" ></local:TransactionHistory>
+                <local:TransactionHistory ShowOnlyRecentTransactions="True"
+                                          Grid.Row="1" User="{x:Bind User,Mode=OneWay}"
+                                         ></local:TransactionHistory>
 
             </Grid>
 

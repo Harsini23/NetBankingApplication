@@ -36,12 +36,15 @@ namespace NetBankingApplication.View.UserControls
 
         //List<Payee> allRecipients = new List<Payee>();
         public event Action<string> RaiseNotification;
-
-        private string currentUserId;
-        public ViewAndEditPayee(string userId)
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public User User
+        {
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
+        }
+        public ViewAndEditPayee()
         {
             this.InitializeComponent();
-            currentUserId = userId;
             GetAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
             DeletePayeeViewModel = PresenterService.GetInstance().Services.GetService<DeletePayeeBaseViewModel>();
             EditPayeeViewModel = PresenterService.GetInstance().Services.GetService<EditPayeeBaseViewModel>();
@@ -53,40 +56,20 @@ namespace NetBankingApplication.View.UserControls
         {
            // GetAllPayeeBaseViewModel.ChangeVisibility = this;
             PayeeCollection.Clear();
-            GetAllPayeeViewModel.GetAllPayee(currentUserId);
+            GetAllPayeeViewModel.GetAllPayee(User.UserId);
             PayeeCollection = GetAllPayeeViewModel.AllPayeeCollection;
            
             //allRecipients.Clear();
             //allRecipients = GetAllPayeeViewModel.AllPayee;
         }
 
-        private async void DeletePayee_Click(object sender, RoutedEventArgs e)
+        private void DeletePayee_Click(object sender, RoutedEventArgs e)
         {
-            //Button button = (Button)sender;
-            //var listViewItem = button.Parent;
-            //Debug.WriteLine(listViewItem,"  ----------- ");
+
             var button = (Button)sender;
             var recipient = (Payee)button.DataContext;
 
             DeletePayeeViewModel.DeletePayee(recipient);
-            //SelctionPayeeCollection.Clear();
-            //GetAllPayeeViewModel.GetAllPayee(currentUserId);
-            //PayeeCollection = GetAllPayeeViewModel.AllPayeeCollection;
-            //AllTransactionListView.ItemsSource = PayeeCollection;
-            //SuggestboxPayeeChange.Text = String.Empty;
-            //EmptyList.Visibility = Visibility.Collapsed;
-          
-
-            //DeletePayeeAcknowledgementDialogue.ShowAsync();
-            //DispatcherTimer timer = new DispatcherTimer();
-            //timer.Interval = TimeSpan.FromSeconds(1);
-            //timer.Tick += (s, args) =>
-            //{
-            //    DeletePayeeAcknowledgementDialogue.Hide();
-            //    timer.Stop();
-            //};
-            //timer.Start();
-
         }
 
       
@@ -203,7 +186,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 Payee editedPayee = new Payee
                 {
-                    UserID = currentUserId,
+                    UserID = User.UserId,
                     PayeeName = PayeeNameTextBox.Text,
                     AccountHolderName = AccountHolderTextBox.Text,
                     AccountNumber = AccountNumberTextBox.Text,

@@ -23,14 +23,18 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class PaymentsAndTransfer : UserControl, INotifyPropertyChanged
     {
         //CurrentSelectedItem
-        User currentUser;
         private bool _newPayeeSuggestionAccepted;
         private string _payeeName;
         private string _accountNumber;
-        public PaymentsAndTransfer(User currentUSer)
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public User User
+        {
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
+        }
+        public PaymentsAndTransfer()
         {
             this.InitializeComponent();
-            this.currentUser = currentUSer;
         }
 
 
@@ -65,47 +69,43 @@ namespace NetBankingApplication.View.UserControls
 
         private void PaymentsAndTransferNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            //FrameNavigationOptions navOptions = new FrameNavigationOptions();
-            //navOptions.TransitionInfoOverride = args.RecommendedNavigationTransitionInfo;
-            //if (sender.PaneDisplayMode == NavigationViewPaneDisplayMode.Top)
-            //{
-            //    navOptions.IsNavigationStackEnabled = false;
-            //}
 
             if (args.SelectedItem == Transfer)
             {
-                    var transferAmount= new TransferAmount(currentUser.UserId);
+                var transferAmount = new TransferAmount();
+                transferAmount.User = User;
                 CurrentSelectedItem = transferAmount;
                 transferAmount.RaiseNotification += TransferAmount_RaiseNotification;
                 transferAmount.SendPayee += TransferAmount_SendPayee;
 
             }
-            else if(args.SelectedItem == ViewTransactions)
+            else if (args.SelectedItem == ViewTransactions)
             {
-                CurrentSelectedItem = new TransactionHistory(currentUser.UserId);
+                TransactionHistory transactionHistory = new TransactionHistory();
+                transactionHistory.User = User;
+                CurrentSelectedItem = transactionHistory;
             }
-            else if(args.SelectedItem == AddPayee)
+            else if (args.SelectedItem == AddPayee)
             {
-                AddPayeeView addPayeeView;
+                AddPayeeView addPayeeView= new AddPayeeView();
+                addPayeeView.User = User;
                 if (_newPayeeSuggestionAccepted)
                 {
                     _newPayeeSuggestionAccepted = false;
-                    addPayeeView = new AddPayeeView(currentUser.UserId,_payeeName,_accountNumber);
-                }
-                else
-                {
-                    addPayeeView = new AddPayeeView(currentUser.UserId);
+                    addPayeeView.PassedPayeeName = _payeeName;
+                    addPayeeView.PassedAccountNumber=_accountNumber;
                 }
                 CurrentSelectedItem = addPayeeView;
                 addPayeeView.RaiseNotification += TransferAmount_RaiseNotification;
             }
             else
             {
-                var viewAndEditPayee = new ViewAndEditPayee(currentUser.UserId);
+                var viewAndEditPayee = new ViewAndEditPayee();
+                viewAndEditPayee.User = User;
                 CurrentSelectedItem = viewAndEditPayee;
-                viewAndEditPayee.RaiseNotification+= TransferAmount_RaiseNotification;
+                viewAndEditPayee.RaiseNotification += TransferAmount_RaiseNotification;
             }
-          
+
         }
 
         private void TransferAmount_SendPayee(string arg1, string arg2)
@@ -136,9 +136,7 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            CurrentSelectedItem = new TransferAmount(currentUser.UserId);
             PaymentsAndTransferNavigation.SelectedItem = Transfer;
-          
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

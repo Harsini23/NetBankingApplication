@@ -158,7 +158,7 @@ namespace NetBankingApplication.ViewModel
         
             private void LoadDashBoard(User user)
             {
-                loginViewModel.mainPageNavigation?.NavigateToDashBoard(loginViewModel.CurrentUser);
+                loginViewModel.mainPageNavigation?.NavigateToDashBoard();
             }
 
            
@@ -168,7 +168,7 @@ namespace NetBankingApplication.ViewModel
             }
             private void handleAdminAccess()
             {
-                  loginViewModel.mainPageNavigation?.NavigateToAdminDashBoard(loginViewModel.CurrentUser);
+                  loginViewModel.mainPageNavigation?.NavigateToAdminDashBoard();
             }
 
             //Presenter call back methods -----------------------------------------------------------------------------------------------------------

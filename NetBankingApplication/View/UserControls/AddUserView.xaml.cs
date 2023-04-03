@@ -28,11 +28,6 @@ namespace NetBankingApplication.View.UserControls
     {
 
         private AddUserBaseViewModel AddUserViewModel;
-     
-     
-
-   
-
         public AddUserView()
         {
             this.InitializeComponent();
@@ -68,7 +63,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 AddUserViewModel.ErrorMessage = "Enter a valid mobile number";
             }
-            else if (!this.EmailIdTextBox.Text.Contains('@') || !this.EmailIdTextBox.Text.Contains('.') || !this.EmailIdTextBox.Text.Contains("com"))
+            else if (!this.EmailIdTextBox.Text.Contains('@') || !this.EmailIdTextBox.Text.Contains('.'))
             {
                 AddUserViewModel.ErrorMessage = "Enter a valid email id";
             }
@@ -76,11 +71,11 @@ namespace NetBankingApplication.View.UserControls
             {
                 AddUserViewModel.ErrorMessage = "PAN number must be of 10 values";
             }
-            else if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || string.IsNullOrEmpty(accountDetails.AccountType))
+            else if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || accountDetails.AccountType==null)
             {
                 AddUserViewModel.ErrorMessage = "Enter all account details";
             }
-            else if (Double.Parse(accountDetails.Balance) <= 1 && accountDetails.AccountType != "SalaryAccount")
+            else if (Double.Parse(accountDetails.Balance) <= 1 && accountDetails.AccountType != AccountType.SalaryAccount)
             {
                 ErrorMessage.Text = "Only savings account can have zero balance!";
             }
@@ -91,7 +86,7 @@ namespace NetBankingApplication.View.UserControls
                     UserName = UserNameTextBox.Text.Trim(),
                     MobileNumber = long.Parse(MobileNumberTextBox.Text),
                     EmailId = EmailIdTextBox.Text.Trim(),
-                    AccountType = (AccountType)Enum.Parse(typeof(AccountType), accountDetails.AccountType),
+                    AccountType = accountDetails.AccountType,
                     TotalBalance = Double.Parse(accountDetails.Balance),
                     Currency = (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency),
                     BId = accountDetails.Branch,

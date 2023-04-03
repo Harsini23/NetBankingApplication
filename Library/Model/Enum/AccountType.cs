@@ -11,11 +11,28 @@ namespace Library.Model.Enum
         {
             SalaryAccount,
             SavingsAccount,
+            FDAccount,
             JointAccount,
             ChildrensAccount,
             LoanAccount,
             PensionAccount
         }
 
+    public enum BasicInitialUserAccountType
+    {
+        SalaryAccount,
+        SavingsAccount
+    }
+
+    public static class EnumToStringConversion
+    {
+        public static readonly string SalaryAccount = "Salary Account";
+        public static readonly string SavingsAccount = "Savings Account";
+        public static readonly string FDAccount = "FD Account";
+        public static readonly string JointAccount = "Joint Account";
+        public static readonly string ChildrensAccount = "Childrens Account";
+        public static readonly string LoanAccount = "Loan Account";
+        public static readonly string PensionAccount = "Pension Account";
+    }
     
 }

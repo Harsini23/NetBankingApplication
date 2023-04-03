@@ -122,17 +122,17 @@ namespace NetBankingApplication.View.UserControls
             {
                 ErrorMessage.Text = "Kindly fill user details!";
             }
-            else if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || string.IsNullOrEmpty(accountDetails.AccountType))
+            else if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || accountDetails.AccountType==null)
             {
                 ErrorMessage.Text = "Kindly fill account details";
             }
-            else if(Double.Parse(accountDetails.Balance)<=1 && accountDetails.AccountType != "SalaryAccount")
+            else if(Double.Parse(accountDetails.Balance)<=1 && accountDetails.AccountType != AccountType.SalaryAccount)
             {
                 ErrorMessage.Text = "Only savings account can have zero balance!";
             }
             else
             {
-                addAccountBaseViewModel.AddAccount(new AccountBObj(CurrentSelectedUser.UserId, (AccountType)Enum.Parse(typeof(AccountType), accountDetails.AccountType), Double.Parse(accountDetails.Balance), (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency), accountDetails.Branch,CurrentSelectedUser.UserName));
+                addAccountBaseViewModel.AddAccount(new AccountBObj(CurrentSelectedUser.UserId, accountDetails.AccountType, Double.Parse(accountDetails.Balance), (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency), accountDetails.Branch,CurrentSelectedUser.UserName));
                 ClearUI();
                 CreateAccountViewDetails.ClearUI();
             }

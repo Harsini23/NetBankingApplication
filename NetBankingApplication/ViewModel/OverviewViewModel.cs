@@ -77,6 +77,7 @@ namespace NetBankingApplication.ViewModel
                     OverviewViewModel.ExpensePercentageText =Math.Round(finalexpense,2);
                     OverviewViewModel.ExpensePercentage = expense;
                     OverviewViewModel.IncomePercentage = Math.Round(100 - finalexpense,2);
+                    OverviewViewModel.User = response.Data.Data;
                 });
 
             }

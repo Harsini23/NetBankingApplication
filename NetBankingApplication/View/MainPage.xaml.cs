@@ -62,9 +62,9 @@ namespace NetBankingApplication
             //m_AppWindow.TitleBar.BackgroundColor = color;
         }
       
-        public void NavigateToDashBoard(User user)
+        public void NavigateToDashBoard()
         {
-            LoadContentFrame.Navigate(typeof(DashBoard),user);
+            LoadContentFrame.Navigate(typeof(DashBoard));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -101,7 +101,7 @@ namespace NetBankingApplication
         }
 
         //load admin authorized panel
-        public void NavigateToAdminDashBoard(User user)
+        public void NavigateToAdminDashBoard()
         {
             LoadContentFrame.Navigate(typeof(AdminPage));
         }

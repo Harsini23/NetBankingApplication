@@ -7,6 +7,7 @@
       xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:converter="using:NetBankingApplication.View.Converter"
       mc:Ignorable="d"
+      Loaded="Settings_Loaded"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <UserControl.Resources>
         <ResourceDictionary>

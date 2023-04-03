@@ -84,7 +84,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <!--<RowDefinition Height="Auto"></RowDefinition>-->
         </Grid.RowDefinitions>
         <TextBlock Text="Account Details"
                    Margin="5,10,10,10"
@@ -120,7 +120,7 @@
             </DropDownButton>
         </StackPanel>
 
-        <StackPanel   Grid.Row="2"
+        <!--<StackPanel   Grid.Row="2"
                       Margin="5">
             <StackPanel Orientation="Horizontal"
                         Padding="0,0,0,5">
@@ -146,9 +146,9 @@
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
-        </StackPanel>
+        </StackPanel>-->
 
-        <TextBox Grid.Row="3"
+        <TextBox Grid.Row="2"
                  Style="{ThemeResource InputFieldTextBox}"
                  Margin="5"
                  BeforeTextChanging="TextBox_BalanceOnBeforeTextChanging"
@@ -162,7 +162,7 @@
             </TextBox.Header>
         </TextBox>
 
-        <StackPanel  Grid.Row="4"
+        <StackPanel  Grid.Row="3"
                      Margin="5">
             <StackPanel Orientation="Horizontal"
                         Padding="0,0,0,5">

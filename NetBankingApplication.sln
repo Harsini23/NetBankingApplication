@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBankingApplication", "NetBankingApplication\NetBankingApplication.csproj", "{E5AFE656-16BC-4573-84E1-48A176F4A498}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{22CC69EF-2205-4742-8CB4-C8C3165D6C2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBankingLibrary", "Library\NetBankingLibrary.csproj", "{22CC69EF-2205-4742-8CB4-C8C3165D6C2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

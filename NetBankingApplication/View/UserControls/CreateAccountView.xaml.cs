@@ -1,6 +1,7 @@
 ﻿using Library.Model;
 using Library.Model.Enum;
 using Microsoft.Extensions.DependencyInjection;
+using NetBankingApplication.View.Converter;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -25,19 +26,25 @@ namespace NetBankingApplication.View.UserControls
     {
         public string ErrorMessage;
         IEnumerable<AccountType> _AccountTypeValues;
+        IEnumerable<BasicInitialUserAccountType> _basicInitialUserAccountTypes;
         IEnumerable<Currency> _CurrencyValues;
         private string SelectedBranch;
         private string SelectedAccountType;
         private string SelectedCurrency;
         private string _amount;
         private GetBranchDetailsBaseViewModel GetBranchDetailsViewModel;
+        public bool FirstAccountCreation { get; set; }
+        AccountTypeToStringConverter accountTypeToStringConverter;
         public CreateAccountView()
         {
             this.InitializeComponent();
             _AccountTypeValues = Enum.GetValues(typeof(AccountType)).Cast<AccountType>();
+           _basicInitialUserAccountTypes= Enum.GetValues(typeof(BasicInitialUserAccountType)).Cast<BasicInitialUserAccountType>();
             _CurrencyValues = Enum.GetValues(typeof(Currency)).Cast<Currency>();
             GetBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
             GetBranchDetailsViewModel.FetchBranchDetails();
+            SelectedCurrency= "INR";
+            accountTypeToStringConverter = new AccountTypeToStringConverter();
         }
 
         MenuFlyout Currencies;
@@ -46,18 +53,35 @@ namespace NetBankingApplication.View.UserControls
         {
             AllAccountTypes = sender as MenuFlyout;
             AllAccountTypes.Items.Clear();
-            foreach (var accType in _AccountTypeValues)
+            if (FirstAccountCreation)
             {
-
-                var item = new MenuFlyoutItem();
-                item.Text = accType.ToString();
-                item.HorizontalAlignment = HorizontalAlignment.Stretch;
-                item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-                item.CornerRadius = new CornerRadius(5);
-                //item.Width = 270;
-                item.Click += AccountType_Selection;
-                AllAccountTypes.Items.Add(item);
+                foreach (var accType in _basicInitialUserAccountTypes)
+                {
+                    var item = new MenuFlyoutItem();
+                    item.Text = (string)accountTypeToStringConverter.Convert(accType, typeof(string), null, string.Empty);
+                    item.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+                    item.CornerRadius = new CornerRadius(5);
+                    //item.Width = 270;
+                    item.Click += AccountType_Selection;
+                    AllAccountTypes.Items.Add(item);
+                }
             }
+            else
+            {
+                foreach (var accType in _AccountTypeValues)
+                {
+                    var item = new MenuFlyoutItem();
+                    item.Text = (string)accountTypeToStringConverter.Convert(accType, typeof(string), null, string.Empty);
+                    item.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+                    item.CornerRadius = new CornerRadius(5);
+                    //item.Width = 270;
+                    item.Click += AccountType_Selection;
+                    AllAccountTypes.Items.Add(item);
+                }
+            }
+         
         }
         private void AccountType_Selection(object sender, RoutedEventArgs e)
         {
@@ -67,31 +91,31 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
-        private void MenuFlyout_Opening_Currency(object sender, object e)
-        {
-            Currencies = sender as MenuFlyout;
-            Currencies.Items.Clear();
-            foreach (var currency in _CurrencyValues)
-            {
+        //private void MenuFlyout_Opening_Currency(object sender, object e)
+        //{
+        //    Currencies = sender as MenuFlyout;
+        //    Currencies.Items.Clear();
+        //    foreach (var currency in _CurrencyValues)
+        //    {
 
-                var item = new MenuFlyoutItem();
-                item.Text = currency.ToString();
-                item.HorizontalAlignment = HorizontalAlignment.Stretch;
-                item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-                item.CornerRadius = new CornerRadius(5);
-                //item.Width = 270;
-                item.Click += Currency_Selection;
-                Currencies.Items.Add(item);
-            }
+        //        var item = new MenuFlyoutItem();
+        //        item.Text = currency.ToString();
+        //        item.HorizontalAlignment = HorizontalAlignment.Stretch;
+        //        item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+        //        item.CornerRadius = new CornerRadius(5);
+        //        //item.Width = 270;
+        //        item.Click += Currency_Selection;
+        //        Currencies.Items.Add(item);
+        //    }
 
-        }
-        private void Currency_Selection(object sender, RoutedEventArgs e)
-        {
-            var selectedItem = sender as MenuFlyoutItem;
-            SelectedCurrency = selectedItem.Text;
-            CurrencyValues.Content = selectedItem.Text;
+        //}
+        //private void Currency_Selection(object sender, RoutedEventArgs e)
+        //{
+        //    var selectedItem = sender as MenuFlyoutItem;
+        //    SelectedCurrency = selectedItem.Text;
+        //    CurrencyValues.Content = selectedItem.Text;
 
-        }
+        //}
         private void BalanceTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var amountBox = (TextBox)sender;
@@ -171,14 +195,15 @@ namespace NetBankingApplication.View.UserControls
         }
         public AccountVobj FetchData()
         {
-            return new AccountVobj(SelectedAccountType, BalanceTextBox.Text, SelectedCurrency, SelectedBranch);
+            AccountType accountType = (AccountType)(accountTypeToStringConverter.ConvertBack(SelectedAccountType, typeof(AccountType), null, null));
+            return new AccountVobj(accountType, BalanceTextBox.Text, SelectedCurrency, SelectedBranch);
 
         }
         public void ClearUI()
         {
             BalanceTextBox.Text = "";
             AccountTypeBox.Content = "";
-            CurrencyValues.Content = "";
+            //CurrencyValues.Content = "";
             SelectBranch.Content = "";
         }
     }

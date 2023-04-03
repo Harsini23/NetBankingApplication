@@ -20,7 +20,6 @@ namespace NetBankingApplication.ViewModel
         }
     }
 
-
     public class PresenterUpdateUserCallback : IPresenterUpdateUserCallback
     {
         private UpdateUserViewModel _updateUserViewModel;

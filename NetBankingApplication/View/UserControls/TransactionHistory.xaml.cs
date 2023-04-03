@@ -23,45 +23,27 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class TransactionHistory : UserControl
     { 
-        private string currentUserId;
         public static bool IsNarrowLayout;
         private TransactionHistoryBaseViewModel TransactionViewModel;
         public double windowHeight;
         public double windowWidth;
         public bool ShowOnlyRecentTransactions { get;set; }
-
-        public TransactionHistory(string userId)
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public User User
         {
-            TransactionViewModel = PresenterService.GetInstance().Services.GetService<TransactionHistoryBaseViewModel>();
-            this.InitializeComponent();
-            currentUserId = userId;
-            IsNarrowLayout = false;
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
         }
         public TransactionHistory()
         {
             TransactionViewModel = PresenterService.GetInstance().Services.GetService<TransactionHistoryBaseViewModel>();
-            currentUserId = UserId;
             this.InitializeComponent();
             IsNarrowLayout = false;
         }
 
-         public string UserId
-        {
-            get { return (string)GetValue(UserIdProperty); }
-            set { SetValue(UserIdProperty, value);
-                currentUserId = UserId;
-            }
-        }
-
-        public static readonly DependencyProperty UserIdProperty =
-            DependencyProperty.Register("UserId", typeof(string), typeof(TransactionHistory), new PropertyMetadata(null));
-    
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-        
-                TransactionViewModel.GetTransactionData(currentUserId, ShowOnlyRecentTransactions);
-          
+                TransactionViewModel.GetTransactionData(User.UserId, ShowOnlyRecentTransactions);
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)

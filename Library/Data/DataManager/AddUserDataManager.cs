@@ -26,7 +26,19 @@ namespace Library.Data.DataManager
             AddUserResponse addUserResponse = new AddUserResponse();
 
             var credentials= CreateUserCredentials();
-            var user =CreateUser(request.newUser.UserName,request.newUser.MobileNumber,request.newUser.EmailId,request.newUser.PAN);
+            User user= new User();
+            if (EmailValidation.ValidateEmail(request.newUser.EmailId))
+            {
+                user = CreateUser(request.newUser.UserName, request.newUser.MobileNumber, request.newUser.EmailId, request.newUser.PAN);
+            }
+            else
+            {
+                response.OnResponseError(new BException
+                {
+                    exceptionMessage = "Invalid Email, try again!"
+                });
+            }
+          
             var GeneratedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 999999999).ToString()+ GenerateUniqueId.RandomNumber(100, 999).ToString();
             var account= CreateAccount(GeneratedAccountNumber,request.newUser.AccountType,request.newUser.TotalBalance,request.newUser.BId,request.newUser.Currency);
             var userAccount= CreateUserAccounts(GeneratedAccountNumber);
@@ -41,7 +53,7 @@ namespace Library.Data.DataManager
                 DbHandler.AddAccountForUser(userAccount);
                 DbHandler.CreateCredential(credentials);
                 DbHandler.AddTransaction(currentTransaction);
-                Debug.WriteLine("Created and added new account and user details");
+                //Debug.WriteLine("Created and added new account and user details");
 
                 addUserResponse.credentials = new Credentials
                 {
@@ -57,7 +69,7 @@ namespace Library.Data.DataManager
             else
             {
                 addUserResponse.UserExists = true;
-                responseStatus = "Ouch, Looks like the user already exists";
+                responseStatus = "Ouch, User already exists!";
             }
 
             Response.Data = addUserResponse;

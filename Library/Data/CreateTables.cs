@@ -21,17 +21,9 @@ namespace Library.Data
         {
            adapter= Domain.ServiceProvider.GetInstance().Services.GetService<IDbAdapter>();
         }
-        //public SQLiteConnection connection;
-        //DatabaseConnection conn;
-        //public CreateTables(DatabaseConnection dbConn)
-        //{
-        //    conn = dbConn;
-        //    InstantiateAllTables();
-        //}
-
+      
         public void InstantiateAllTables()
         {
-            //   connection = conn.GetDbConnection();
             adapter.Create(new Credentials());
             adapter.Create(new User());
             adapter.Create(new Admin());

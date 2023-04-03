@@ -31,38 +31,28 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class AllAccountsPreview : UserControl, ICloseAllWindows
     {
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
-        private string userId;
-        private string currentUserId;
+      
         static Dictionary<int, AppWindow> appWindows = new Dictionary<int, AppWindow>();
 
         private LoginBaseViewModel LoginViewModel;
-
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public User User
+        {
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
+        }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-          
+            GetAllAccountsViewModel.GetAllAccounts(User.UserId);
         }
+   
         public AllAccountsPreview()
-        {
-          
-        }
-        public AllAccountsPreview(string userId)
         {
             this.InitializeComponent();
             GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
-            currentUserId = userId;
-            GetAllAccountsViewModel.GetAllAccounts(currentUserId);
             Bindings.Update();
         }
-       
-        public string UserId
-        {
-            get { return (string)GetValue(UserIdProperty); }
-            set
-            {
-                SetValue(UserIdProperty, value);
-                currentUserId = UserId;
-            }
-        }
+      
 
         public static readonly DependencyProperty UserIdProperty =
             DependencyProperty.Register("UserId", typeof(string), typeof(TransactionHistory), new PropertyMetadata(null));
@@ -77,7 +67,7 @@ namespace NetBankingApplication.View.UserControls
             var selectedAccountDetails = new AccountBobj
             {
                 Account = Account,
-                UserId = userId,
+                UserId = User.UserId,
             };
 
           

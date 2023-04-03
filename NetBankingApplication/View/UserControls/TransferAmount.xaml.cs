@@ -27,9 +27,6 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class TransferAmount : UserControl, ISwitchUserView, ZeroBalance, ISuggestAndAddPayeeView
     {
-        private string _currentUserId;
-
-        // private string UserId;
         private string Name;
         private string FromAccount;
         private string ToAccount;
@@ -37,11 +34,14 @@ namespace NetBankingApplication.View.UserControls
         private double Amount;
         private string NewPayeeEnteredName;
         private string UserAccountNumber;
-        private string UserAccountBalance;
         private string _amount;
         private bool IsNewPayee;
-        private bool ContentDialogClosed;
-
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public User User
+        {
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
+        }
 
         private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
         private TransferAmountBaseViewModel TransferAmountViewModel;
@@ -60,22 +60,15 @@ namespace NetBankingApplication.View.UserControls
 
         public event Action<String, String> SendPayee;
 
-        public TransferAmount(string userId)
+        public TransferAmount()
         {
             this.InitializeComponent();
         
-
-            _currentUserId = userId;
-
             GetAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
             TransferAmountViewModel = PresenterService.GetInstance().Services.GetService<TransferAmountBaseViewModel>();
             GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
-
             GetAllAccountsViewModel.ZerobalanceView = this;
             GetAllAccountsViewModel.TransferAmountView = this;
-
-            GetAllPayeeViewModel.GetAllPayee(_currentUserId);
-            GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
             MakeTransaction.IsEnabled = true;
 
         }
@@ -120,7 +113,7 @@ namespace NetBankingApplication.View.UserControls
                 //get from account from using user id from datamanager
                 AmountTransfer amountTransfer = new AmountTransfer
                 {
-                    UserId = _currentUserId,
+                    UserId = User.UserId,
                     Name = Name,
                     FromAccount = FromAccount,
                     ToAccount = ToAccount,
@@ -138,7 +131,7 @@ namespace NetBankingApplication.View.UserControls
 
                 ResetUI();
                 await ContentDialog.ShowAsync();
-                GetAllAccountsViewModel.GetAllAccounts(_currentUserId);
+                GetAllAccountsViewModel.GetAllAccounts(User.UserId);
 
                 // TransferAmountViewModel.SendTransaction(currentTransaction);
             }
@@ -189,23 +182,8 @@ namespace NetBankingApplication.View.UserControls
             AccountNumberTextBox.IsEnabled = false;
             AccountNumberTextBox.IsReadOnly = true;
 
-            
-            //allAccountNumbers.Clear();
-            //allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
-            //allAccounts.Clear();
-            //allAccounts = GetAllAccountsViewModel.AllAccounts;
-            //MultipleAccounts.Visibility = Visibility.Visible;
-            //if (allAccountNumbers.Count > 1)
-            //{
-               // MultipleAccounts.Visibility = Visibility.Visible;
-            //}
-            //else
-            //{
-            //    SingleAccount.Visibility = Visibility.Visible;
-            //    UserAccountNumber = allAccountNumbers[0];
-            //}
-            // TransactionResult.Text = String.Empty;
-
+            GetAllPayeeViewModel.GetAllPayee(User.UserId);
+            GetAllAccountsViewModel.GetAllAccounts(User.UserId);
         }
 
 

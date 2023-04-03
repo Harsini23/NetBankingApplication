@@ -10,39 +10,43 @@ using System.Text.RegularExpressions;
 
 namespace NetBankingApplication.View.Converter
 {
-    public class EnumToStringConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            if (value == null || !value.GetType().IsEnum)
-                return "";
-
-            var stringVal= value.ToString();
-            return typeof(CurrencyValues).GetField(stringVal, BindingFlags.Public | BindingFlags.Static).ToString();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
+    
     public class AccountTypeToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value == null)
                 return "";
-            string outputString="";
-         
-           outputString = Regex.Replace(value.ToString(), "(?<=[a-z])([A-Z])", " $1");
-
-            return outputString;
-        }
+                // Check if the input value is an enum value
+                if (value is Enum enumValue)
+                {
+                    // Get the value of the static variable with the same name
+                    string staticVariableValue = typeof(EnumToStringConversion).GetField(enumValue.ToString())?.GetValue(null) as string;
+                    // Return the value of the static variable, or the enum name if no matching variable was found
+                    return staticVariableValue ?? enumValue.ToString();
+                }
+                return null;
+            }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            if(value != null)
+            {
+                string convertVal= Regex.Replace(value as string, @"\s+", "");
+
+                if (string.IsNullOrWhiteSpace(convertVal))
+                    return null;
+
+                // Check if the input string matches a static variable value
+                var matchingField = typeof(EnumToStringConversion).GetFields()
+                    .FirstOrDefault(field => (string)field.GetValue(null) == convertVal);
+                if (matchingField != null)
+                    return Enum.Parse(targetType, matchingField.Name);
+
+                // Otherwise, try to parse the input string directly as an enum name
+                return Enum.Parse(targetType, convertVal);
+            }
+            return null;
         }
     }
 }
