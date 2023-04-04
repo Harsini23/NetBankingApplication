@@ -14,6 +14,68 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="MenuFlyoutPresenter"
+                   x:Key="MenuDropDownContentStyle">
+                <Setter Property="MinWidth"
+                        Value="160"></Setter>
+                <Setter Property="CornerRadius"
+                        Value="5"></Setter>
+                <Setter Property="Background"
+                        Value="{ThemeResource AppForegroundBg}" />
+                <Setter Property="BorderBrush"
+                        Value="{ThemeResource MenuFlyoutPresenterBorderBrush}" />
+                <Setter Property="BorderThickness"
+                        Value="{ThemeResource MenuFlyoutPresenterBorderThemeThickness}" />
+                <Setter Property="Padding"
+                        Value="{ThemeResource MenuFlyoutPresenterThemePadding}" />
+                <Setter Property="ScrollViewer.HorizontalScrollMode"
+                        Value="Disabled" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                        Value="Disabled" />
+                <Setter Property="ScrollViewer.VerticalScrollMode"
+                        Value="Auto" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                        Value="Auto" />
+                <Setter Property="ScrollViewer.IsHorizontalRailEnabled"
+                        Value="False" />
+                <Setter Property="ScrollViewer.IsVerticalRailEnabled"
+                        Value="False" />
+                <Setter Property="ScrollViewer.ZoomMode"
+                        Value="Disabled" />
+                <Setter Property="MaxWidth"
+                        Value="{ThemeResource FlyoutThemeMaxWidth}" />
+                <Setter Property="MinHeight"
+                        Value="{ThemeResource MenuFlyoutThemeMinHeight}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="MenuFlyoutPresenter">
+                            <Grid Background="{TemplateBinding Background}"
+                                  CornerRadius="10">
+                                <ScrollViewer x:Name="MenuFlyoutPresenterScrollViewer"
+                                              Margin="{TemplateBinding Padding}"
+                                              MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.FlyoutContentMinWidth}"
+                                              HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                              VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                              IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                              IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                              ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                                              CornerRadius="5"
+                                              AutomationProperties.AccessibilityView="Raw">
+                                    <ItemsPresenter Margin="{ThemeResource MenuFlyoutScrollerMargin}" />
+                                </ScrollViewer>
+                                <Border x:Name="MenuFlyoutPresenterBorder"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="5" />
+
+                            </Grid>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <converter:StringToBitmapImageConverter x:Key="StringToBitmap" />
             <ControlTemplate x:Key="InAppNotificationTemplate1"
                              TargetType="controls:InAppNotification">
@@ -65,10 +127,13 @@
                            Margin="20,5,5,5"
                            FontWeight="Normal"></TextBlock>
 
-                <StackPanel Orientation="Horizontal"
-                            Margin="20,5,5,5">
+                <Grid   Margin="20,5,5,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-                    <Grid>
+                    <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2.5*"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
@@ -78,7 +143,7 @@
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <PersonPicture HorizontalAlignment="Left"
-                                       MaxWidth="80"
+                                       MaxWidth="90"
                                        Margin="0,10,10,0"
                                        MaxHeight="80"
                                        Grid.RowSpan="2"
@@ -87,7 +152,26 @@
                                        Initials="{x:Bind updateViewModel.CurrentUserInitial,Mode=OneWay}"
                                        Grid.Column="0"
                                        Tapped="Initial_Tapped"></PersonPicture>
-                        <TextBlock HorizontalAlignment="Left"
+                            <Button Width="30"
+                                    Height="30"
+                                    Margin="60,50,10,0"
+                                    Style="{StaticResource AccentButtonStyleCustom}"
+                                    Grid.RowSpan="2" CornerRadius="20"
+                                    Grid.Column="0"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Content="&#xE104;"
+                                    Name="EditIcon" 
+                                    Click="EditIcon_Click">
+                                <!--<Button.Flyout>
+                                    <MenuFlyout 
+                                                LightDismissOverlayMode="Auto"
+                                                Placement="Bottom"
+                                                MenuFlyoutPresenterStyle="{StaticResource MenuDropDownContentStyle}">
+                                    </MenuFlyout>
+                                </Button.Flyout>-->
+                            </Button>
+                          
+                            <TextBlock HorizontalAlignment="Left"
                                    Margin="5,20,0,0"
                                    Grid.Row="0"
                                    Grid.Column="1"
@@ -103,15 +187,16 @@
                                    Grid.Column="1"
                                    Text="{x:Bind updateViewModel.CurrentUser.EmailId,Mode=OneWay}"></TextBlock>
                     </Grid>
-                    <Button Content="Edit"
-                            Name="EditProfile"
-                            HorizontalAlignment="Center"
+                    <Button Content="Edit" Grid.Column="1"
+                                Style="{StaticResource AccentButtonStyleCustom}"
+                                Name="EditProfile" 
+                            HorizontalAlignment="Right"
+                            Width="70"
                             VerticalAlignment="Center"
                             Click="EditProfile_Click"
-                            Style="{StaticResource AccentButtonStyleCustom}"
                             Padding="10,5,10,5"
-                            Margin="45,0,0,0"></Button>
-                </StackPanel>
+                            Margin="45,0,20,0"></Button>
+                </Grid>
                 <StackPanel x:Name="EditingFields"
                             Visibility="Collapsed">
                     <TextBox TextChanged="Name_TextChanged"
@@ -203,8 +288,12 @@
                            FontSize="22"
                            Padding="20,20,20,10"
                            FontWeight="Normal"></TextBlock>
-                <StackPanel Orientation="Horizontal">
-                    <PasswordBox PasswordChanged="ResetPassword_PasswordChanged"
+                <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                    <PasswordBox Grid.Column="0" PasswordChanged="ResetPassword_PasswordChanged"
                                  Margin="20,0,0,5"
                                  Width="300"
                                  HorizontalAlignment="Left"
@@ -217,13 +306,16 @@
                         </PasswordBox.Header>
                     </PasswordBox>
 
-                    <Button Content="Verify"
-                            Name="ResetPasswordFromLogin"
-                            Click="ResetPassword_Click"
-                            Margin="10,20,0,0"
+                    <Button Grid.Column="1" Content="Verify"
+                                HorizontalAlignment="Right"
+                                Width="70"
+                            VerticalAlignment="Center"
+                                Name="ResetPasswordFromLogin"
+                            Click="ResetPassword_Click" 
+                            Margin="10,20,40,0"
                             Style="{StaticResource AccentButtonStyleCustom}"
                             Padding="10,5,10,5"></Button>
-                </StackPanel>
+                </Grid>
                 <CheckBox Margin="20,0,0,10"
                           Name="revealModeCheckBox"
                           Content="Show password"

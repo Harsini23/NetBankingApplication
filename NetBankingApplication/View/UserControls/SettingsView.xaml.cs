@@ -1,5 +1,6 @@
 ﻿using Library.Model;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -186,6 +187,7 @@ namespace NetBankingApplication.View.UserControls
                 UserProfileError.Visibility = Visibility.Collapsed;
                 EditingFields.Visibility = Visibility.Collapsed;
                 EditProfile.Visibility = Visibility.Visible;
+                EmailId.Text = updateViewModel.CurrentUser.EmailId;
                 //AcknowledgementDialogue.ShowAsync();
                 //DispatcherTimer timer = new DispatcherTimer();
                 //timer.Interval = TimeSpan.FromSeconds(1);
@@ -267,6 +269,11 @@ namespace NetBankingApplication.View.UserControls
 
         private async void Initial_Tapped(object sender, TappedRoutedEventArgs e)
         {
+
+            SetProfile();
+        }
+        private async void SetProfile()
+        {
             var picker = new FileOpenPicker();
             picker.ViewMode = PickerViewMode.Thumbnail;
             picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
@@ -276,18 +283,38 @@ namespace NetBankingApplication.View.UserControls
 
             StorageFile file = await picker.PickSingleFileAsync();
 
-            // If a file was selected, save it in the app folder
+            //If a file was selected, save it in the app folder
             if (file != null)
             {
                 StorageFolder appFolder = ApplicationData.Current.LocalFolder;
                 StorageFile newFile = await file.CopyAsync(appFolder, file.Name, NameCollisionOption.ReplaceExisting);
 
                 // Update the image source with the new file
-                var temp= new BitmapImage(new Uri(newFile.Path));
-                ProfilePath = temp.UriSource.LocalPath.ToString();
 
+                var temp = new BitmapImage(new Uri(newFile.Path));
+                ProfilePath = temp.UriSource.LocalPath.ToString();
                 Initial.ProfilePicture = temp;
+
+                //update db
+                var updatedUserValue = new User
+                {
+                    UserId = updateViewModel.CurrentUser.UserId,
+                    EmailId = updateViewModel.CurrentUser.EmailId,
+                    UserName = updateViewModel.CurrentUser.UserName,
+                    MobileNumber = updateViewModel.CurrentUser.MobileNumber,
+                    IsBlocked = updateViewModel.CurrentUser.IsBlocked,
+                    PAN = updateViewModel.CurrentUser.PAN,
+                    ProfilePath = ProfilePath
+                };
+
+                //  UpdateCurrentPage();
+            
+                updateViewModel.UpdateUser(updatedUserValue);
+                ProfilePath = null;
+
             }
+            //prompt to save profile or reset back only if file !=null
+            //save and show notification
         }
 
         private void Settings_Loaded(object sender, RoutedEventArgs e)
@@ -306,6 +333,86 @@ namespace NetBankingApplication.View.UserControls
         {
             EditingFields.Visibility = Visibility.Collapsed;
             EditProfile.Visibility = Visibility.Visible;
+            EmailId.Text = updateViewModel.CurrentUser.EmailId;
+            Name.Text = updateViewModel.CurrentUser.UserName;
+            Phonenumber.Text = updateViewModel.CurrentUser.MobileNumber.ToString();
         }
+
+        private void EditIcon_Click(object sender, RoutedEventArgs e)
+        {
+            if (updateViewModel.CurrentUser.ProfilePath != null)
+            {
+                //ask to upload new or remove
+                var menuFlyout = new MenuFlyout()
+                {
+                    Placement = FlyoutPlacementMode.Bottom,
+                    LightDismissOverlayMode=LightDismissOverlayMode.Auto,
+                    MenuFlyoutPresenterStyle = (Style)this.Resources["MenuDropDownContentStyle"],
+                    
+                };
+                 
+                // Create the menu flyout items
+                var menuItem1 = new MenuFlyoutItem { Text = "Set new" };
+                var menuItem2 = new MenuFlyoutItem { Text = "Remove" };
+                menuItem1.Click += MenuItem1_Click;
+                menuItem2.Click += MenuItem2_Click;
+
+                // Add the menu flyout items to the menu flyout
+                menuFlyout.Items.Add(menuItem1);
+                menuFlyout.Items.Add(menuItem2);
+
+                // Attach the menu flyout to the button
+                menuFlyout.ShowAt(EditIcon);
+            }
+            else
+            {
+                SetProfile();
+            }
+           // SetProfile();
+        }
+
+        private void MenuItem2_Click(object sender, RoutedEventArgs e)
+        {
+            //remove and show notification
+            var updatedUserValue = new User
+            {
+                UserId = updateViewModel.CurrentUser.UserId,
+                EmailId = updateViewModel.CurrentUser.EmailId,
+                UserName = updateViewModel.CurrentUser.UserName,
+                MobileNumber = updateViewModel.CurrentUser.MobileNumber,
+                IsBlocked = updateViewModel.CurrentUser.IsBlocked,
+                PAN = updateViewModel.CurrentUser.PAN,
+                ProfilePath = null
+            };
+
+            //  UpdateCurrentPage();
+            ProfilePath = null;
+            updateViewModel.UpdateUser(updatedUserValue);
+        }
+
+        private void MenuItem1_Click(object sender, RoutedEventArgs e)
+        {
+            SetProfile();
+        }
+
+        //private void Initial_PointerEntered(object sender, PointerRoutedEventArgs e)
+        //{
+        //    Initial.ProfilePicture = new BitmapImage(new Uri("ms-appx:///Assets/bgfinal.jpg"));
+        //}
+
+        //private void Initial_PointerExited(object sender, PointerRoutedEventArgs e)
+        //{
+        //    if (updateViewModel.CurrentUser.ProfilePath is string imagePath)
+        //    {
+        //        BitmapImage bitmapImage = new BitmapImage();
+        //        //bitmapImage.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+        //        if (imagePath != null || string.IsNullOrWhiteSpace(imagePath))
+        //        {
+        //            bitmapImage = new BitmapImage(new Uri(imagePath));
+        //        }
+        //        Initial.ProfilePicture = bitmapImage;
+        //    }
+
+        //}
     }
 }
