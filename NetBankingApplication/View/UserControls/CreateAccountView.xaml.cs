@@ -71,6 +71,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 foreach (var accType in _AccountTypeValues)
                 {
+                    if (accType == AccountType.None) { continue; }
                     var item = new MenuFlyoutItem();
                     item.Text = (string)accountTypeToStringConverter.Convert(accType, typeof(string), null, string.Empty);
                     item.HorizontalAlignment = HorizontalAlignment.Stretch;
