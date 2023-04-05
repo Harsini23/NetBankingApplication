@@ -8,77 +8,77 @@
              d:DesignHeight="300"
              d:DesignWidth="400">
     <UserControl.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
-        </ResourceDictionary.MergedDictionaries>
-      
-        <Style TargetType="MenuFlyoutPresenter"
-               x:Key="MenuDropDownContentStyle">
-            <Setter Property="MinWidth"
-                    Value="260"></Setter>
-            <Setter Property="CornerRadius"
-                    Value="5"></Setter>
-            <Setter Property="Background"
-                    Value="{ThemeResource AppForegroundBg}" />
-            <Setter Property="BorderBrush"
-                    Value="{ThemeResource MenuFlyoutPresenterBorderBrush}" />
-            <Setter Property="BorderThickness"
-                    Value="{ThemeResource MenuFlyoutPresenterBorderThemeThickness}" />
-            <Setter Property="Padding"
-                    Value="{ThemeResource MenuFlyoutPresenterThemePadding}" />
-            <Setter Property="ScrollViewer.HorizontalScrollMode"
-                    Value="Disabled" />
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
-                    Value="Disabled" />
-            <Setter Property="ScrollViewer.VerticalScrollMode"
-                    Value="Auto" />
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
-                    Value="Auto" />
-            <Setter Property="ScrollViewer.IsHorizontalRailEnabled"
-                    Value="False" />
-            <Setter Property="ScrollViewer.IsVerticalRailEnabled"
-                    Value="False" />
-            <Setter Property="ScrollViewer.ZoomMode"
-                    Value="Disabled" />
-            <Setter Property="MaxWidth"
-                    Value="{ThemeResource FlyoutThemeMaxWidth}" />
-            <Setter Property="MinHeight"
-                    Value="{ThemeResource MenuFlyoutThemeMinHeight}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="MenuFlyoutPresenter">
-                        <Grid Background="{TemplateBinding Background}"
-                              CornerRadius="10">
-                            <ScrollViewer x:Name="MenuFlyoutPresenterScrollViewer"
-                                          Margin="{TemplateBinding Padding}"
-                                          MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.FlyoutContentMinWidth}"
-                                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
-                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
-                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
-                                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
-                                          ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
-                                          CornerRadius="5"
-                                          AutomationProperties.AccessibilityView="Raw">
-                                <ItemsPresenter Margin="{ThemeResource MenuFlyoutScrollerMargin}" />
-                            </ScrollViewer>
-                            <Border x:Name="MenuFlyoutPresenterBorder"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="5" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
 
-                        </Grid>
+            <Style TargetType="MenuFlyoutPresenter"
+                   x:Key="MenuDropDownContentStyle">
+                <Setter Property="MinWidth"
+                        Value="260"></Setter>
+                <Setter Property="CornerRadius"
+                        Value="5"></Setter>
+                <Setter Property="Background"
+                        Value="{ThemeResource AppForegroundBg}" />
+                <Setter Property="BorderBrush"
+                        Value="{ThemeResource MenuFlyoutPresenterBorderBrush}" />
+                <Setter Property="BorderThickness"
+                        Value="{ThemeResource MenuFlyoutPresenterBorderThemeThickness}" />
+                <Setter Property="Padding"
+                        Value="{ThemeResource MenuFlyoutPresenterThemePadding}" />
+                <Setter Property="ScrollViewer.HorizontalScrollMode"
+                        Value="Disabled" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                        Value="Disabled" />
+                <Setter Property="ScrollViewer.VerticalScrollMode"
+                        Value="Auto" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                        Value="Auto" />
+                <Setter Property="ScrollViewer.IsHorizontalRailEnabled"
+                        Value="False" />
+                <Setter Property="ScrollViewer.IsVerticalRailEnabled"
+                        Value="False" />
+                <Setter Property="ScrollViewer.ZoomMode"
+                        Value="Disabled" />
+                <Setter Property="MaxWidth"
+                        Value="{ThemeResource FlyoutThemeMaxWidth}" />
+                <Setter Property="MinHeight"
+                        Value="{ThemeResource MenuFlyoutThemeMinHeight}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="MenuFlyoutPresenter">
+                            <Grid Background="{TemplateBinding Background}"
+                                  CornerRadius="10">
+                                <ScrollViewer x:Name="MenuFlyoutPresenterScrollViewer"
+                                              Margin="{TemplateBinding Padding}"
+                                              MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.FlyoutContentMinWidth}"
+                                              HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                              VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                              IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                              IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                              ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                                              CornerRadius="5"
+                                              AutomationProperties.AccessibilityView="Raw">
+                                    <ItemsPresenter Margin="{ThemeResource MenuFlyoutScrollerMargin}" />
+                                </ScrollViewer>
+                                <Border x:Name="MenuFlyoutPresenterBorder"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="5" />
 
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </ResourceDictionary>
+                            </Grid>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid  >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>

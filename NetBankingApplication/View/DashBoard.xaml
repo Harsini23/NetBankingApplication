@@ -913,6 +913,14 @@
                         <FontIcon Glyph="&#xE724;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
+                <NavigationViewItem Margin="-1.5,0,0,0"
+                                    ScrollViewer.VerticalScrollMode="Disabled"
+                                    x:Name="FixedDeposit"
+                                    Content="Fixed Deposit">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#x1F4B5;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItem Margin="-1.5,0,0,0" ScrollViewer.VerticalScrollMode="Disabled" x:Name="Settings" Content="Settings" Tag="Settings" >
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE115;" ></FontIcon>

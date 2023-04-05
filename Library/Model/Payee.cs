@@ -9,6 +9,7 @@ namespace Library.Model
 {
     public class Payee
     {
+        
         public string UserID { get; set; }
         public string AccountHolderName { get; set; }
         [PrimaryKey]
@@ -25,7 +26,9 @@ namespace Library.Model
             BankName = bankName;
             PayeeName = payeeName;
             UserID = userID;
+          
         }
+
         public Payee()
         {
 

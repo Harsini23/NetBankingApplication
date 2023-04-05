@@ -20,6 +20,7 @@ namespace Library.Data
         public CreateTables()
         {
            adapter= Domain.ServiceProvider.GetInstance().Services.GetService<IDbAdapter>();
+            InstantiateAllTables();
         }
       
         public void InstantiateAllTables()
@@ -33,6 +34,7 @@ namespace Library.Data
             adapter.Create(new Account());
             adapter.Create(new Payee());
             adapter.Create(new UserAccounts());
+            adapter.Create(new FDAccount());
         }
        
     }
