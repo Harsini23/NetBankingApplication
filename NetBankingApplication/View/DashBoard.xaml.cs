@@ -112,8 +112,19 @@ namespace NetBankingApplication.View
                 HeaderTitle = "Settings";
                 DashBoardNavigation.AlwaysShowHeader = true;
             }
+            else if (args.SelectedItem == FixedDeposit)
+            {
+                FDNavigationOverview FDAccount = new FDNavigationOverview();
+                FDAccount.User = LoginViewModel.CurrentUser;
+                CurrentSelectedModule = FDAccount;
+                HeaderTitle = "Fixed Deposit";
+                DashBoardNavigation.AlwaysShowHeader = true;
+            }
             else
             {
+                Overview overview = new Overview();
+                overview.User = LoginViewModel.CurrentUser;
+                CurrentSelectedModule = overview;
                 HeaderTitle = "Overview";
                 DashBoardNavigation.AlwaysShowHeader = false;
             }

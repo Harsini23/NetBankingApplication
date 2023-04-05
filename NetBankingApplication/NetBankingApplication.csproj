@@ -126,6 +126,7 @@
     <Compile Include="ViewModel\CheckPasswordViewModel.cs" />
     <Compile Include="ViewModel\DeletePayeeViewModel.cs" />
     <Compile Include="ViewModel\EditPayeeViewModel.cs" />
+    <Compile Include="ViewModel\FDAccountViewModel.cs" />
     <Compile Include="ViewModel\GetAllUsersViewModel.cs" />
     <Compile Include="ViewModel\PasswordVerificationViewModel.cs" />
     <Compile Include="ViewModel\SwitchToMainUIThread.cs" />
@@ -181,6 +182,12 @@
     </Compile>
     <Compile Include="View\UserControls\DetailedAccountOverview.xaml.cs">
       <DependentUpon>DetailedAccountOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\FDAccountView.xaml.cs">
+      <DependentUpon>FDAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControls\FDNavigationOverview.xaml.cs">
+      <DependentUpon>FDNavigationOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\FullAccountDetails.xaml.cs">
       <DependentUpon>FullAccountDetails.xaml</DependentUpon>
@@ -342,6 +349,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControls\DetailedAccountOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\FDAccountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControls\FDNavigationOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

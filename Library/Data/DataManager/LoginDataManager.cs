@@ -38,11 +38,7 @@ namespace Library.Data.DataManager
             //}
        
         }
-        private void InvalidLogin()
-        {
-            //decrement count_
-            //call back implementation to view model
-        }
+     
 
         public void ValidateUserLogin(UserLoginRequest request, IUsecaseCallbackBaseCase<LoginResponse> response)
         {

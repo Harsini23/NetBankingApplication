@@ -22,7 +22,7 @@ namespace NetBankingApplication.ViewModel
         public override void GetAllAccounts(string userId)
         {
             SetValueForCallback();
-            getAllAccounts = new GetAllAccounts(new GetAllAccountsRequest(userId, new CancellationTokenSource()),  new PresenterGetAllAccountsCallback(this));
+            getAllAccounts = new GetAllAccounts(new GetAllAccountsRequest(userId, new CancellationTokenSource()), new PresenterGetAllAccountsCallback(this));
             getAllAccounts.Execute();
         }
         private void SetValueForCallback()
@@ -61,8 +61,8 @@ namespace NetBankingApplication.ViewModel
                 populateBalanceData(response.Data.allAccountBalance);
                 handleCallbackAsync();
             });
-             
-           
+
+
             //GetAllAccountsViewModel.AllAccounts.Clear();
             //GetAllAccountsViewModel.AllAccountNumbers.Clear();
 
@@ -74,31 +74,33 @@ namespace NetBankingApplication.ViewModel
 
             //}
         }
-            private void handleCallbackAsync()
-            {
-           
-                  GetAllAccountsViewModel?.TransferAmountView?.SwitchBasedOnUserAccount();
-            }
-
-        public  void populateData(List<Account> allAccounts)
+        private void handleCallbackAsync()
         {
-       
-                  GetAllAccountsViewModel.AllAccounts.Clear();
-                  GetAllAccountsViewModel.accounts.Clear();
 
-                  GetAllAccountsViewModel.AllAccountNumbers.Clear();
-                 // GetAllAccountsViewModel.AllAccounts = allAccounts;
-                  foreach (var i in allAccounts)
-                  {
-                      GetAllAccountsViewModel.AllAccountNumbers.Add(i.AccountNumber);
-                      GetAllAccountsViewModel.AllAccounts.Add(i);
-                      GetAllAccountsViewModel.accounts.Add(i);
+            GetAllAccountsViewModel?.TransferAmountView?.SwitchBasedOnUserAccount();
+        }
 
-                  }
+        public void populateData(List<Account> allAccounts)
+        {
+
+            GetAllAccountsViewModel.AllAccounts.Clear();
+            GetAllAccountsViewModel.accounts.Clear();
+
+            GetAllAccountsViewModel.AllAccountNumbers.Clear();
+
+
+            // GetAllAccountsViewModel.AllAccounts = allAccounts;
+            foreach (var i in allAccounts)
+            {
+                GetAllAccountsViewModel.AllAccountNumbers.Add(i.AccountNumber);
+                GetAllAccountsViewModel.AllAccounts.Add(i);
+                GetAllAccountsViewModel.accounts.Add(i);
+
+            }
 
         }
 
-        public  void populateBalanceData(List<AccountBalance> allBalances)
+        public void populateBalanceData(List<AccountBalance> allBalances)
         {
             if (allBalances.Count == 1)
             {
@@ -108,29 +110,30 @@ namespace NetBankingApplication.ViewModel
                     GetAllAccountsViewModel.ZerobalanceView?.ZeroBalanceNotification();
                 }
             }
-                  GetAllAccountsViewModel.allBalances.Clear();
-                  foreach(var i in allBalances)
-                  {
-                      
-                      GetAllAccountsViewModel.allBalances.Add(i);
-                  }
-           
-        }    
+            GetAllAccountsViewModel.allBalances.Clear();
+            foreach (var i in allBalances)
+            {
+
+                GetAllAccountsViewModel.allBalances.Add(i);
+            }
+
+        }
     }
     public abstract class GetAllAccountsBaseViewModel : NotifyPropertyBase
     {
         public abstract void GetAllAccounts(string userId);
         public List<Account> AllAccounts = new List<Account>();
         public ObservableCollection<String> AllAccountNumbers = new ObservableCollection<string>();
-        public ObservableCollection<Account> accounts= new ObservableCollection<Account>();
-        public ObservableCollection<AccountBalance> allBalances= new ObservableCollection<AccountBalance>();
+        public ObservableCollection<Account> accounts = new ObservableCollection<Account>();
+        public ObservableCollection<AccountBalance> allBalances = new ObservableCollection<AccountBalance>();
         public ISwitchUserView TransferAmountView { get; set; }
-        public ZeroBalance ZerobalanceView { get;set; }
+        public ZeroBalance ZerobalanceView { get; set; }
 
-        private  string _currentAccountSelection = String.Empty;
-        public  string CurrentAccountSelection
+        private string _currentAccountSelection = String.Empty;
+        public string CurrentAccountSelection
         {
-            get {
+            get
+            {
                 if (PreviousSelection != null)
                 {
                     return PreviousSelection;
@@ -168,7 +171,7 @@ namespace NetBankingApplication.ViewModel
             }
             set
             {
-                if(value == "Choose Account")
+                if (value == "Choose Account")
                 {
                     _currentAccountBalance = value;
                 }

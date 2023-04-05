@@ -180,7 +180,9 @@
     <Compile Include="Model\Enum\AccountType.cs" />
     <Compile Include="Model\Enum\CardType.cs" />
     <Compile Include="Model\Enum\Currency.cs" />
+    <Compile Include="Model\Enum\FDType.cs" />
     <Compile Include="Model\Enum\TransactionType.cs" />
+    <Compile Include="Model\FDAccount.cs" />
     <Compile Include="Model\Payee.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Model\User.cs" />
@@ -189,6 +191,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\CurrentDateTime.cs" />
     <Compile Include="Util\EmailValidation.cs" />
+    <Compile Include="Util\FDCalculator\DaysCalculator.cs" />
+    <Compile Include="Util\FDCalculator\FDCalculator.cs" />
     <Compile Include="Util\GenerateUniqueId.cs" />
     <Compile Include="Util\PasswordEncryption.cs" />
     <EmbeddedResource Include="Properties\Library.rd.xml" />
@@ -219,6 +223,7 @@
       <Version>2.1.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
