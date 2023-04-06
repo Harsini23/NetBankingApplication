@@ -55,6 +55,8 @@ namespace Library.Domain
             services.AddSingleton<IUpdateUserDataManager, UpdateUserDataManager>();
             services.AddSingleton<ICheckPasswordDataManager, CheckPasswordDataManager>();
             services.AddSingleton<IGetAllUsersDataManager, GetAllUsersDataManager>();
+            services.AddSingleton<IGetFDRateDataManager, GetFDRateDataManager>();
+            services.AddSingleton<IOpenFDDataManager, OpenFDDataManager>();
 
             services.AddSingleton<IDbHandler, DbHandler>();
             services.AddSingleton<INetHandler, NetHandler>();

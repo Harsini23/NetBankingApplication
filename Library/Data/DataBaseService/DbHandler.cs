@@ -326,7 +326,7 @@ namespace Library.Data.DataBaseService
         }
         public void InsertBankBranchDetails(List<Branch> branches)
         {
-            adapter.Insert(branches);
+            adapter.InsertAll(branches);
         }
 
         public List<Branch> GetAllBranches()
@@ -345,9 +345,18 @@ namespace Library.Data.DataBaseService
             return adapter.Get(new User()).Where(i => i.UserId == userId).FirstOrDefault().ProfilePath;
         }
 
+        #endregion
 
+        #region
+        public void InsertDefaultFDRates(List<FDRates> fDRates)
+        {
+            adapter.InsertAll(fDRates);
+        }
 
-
+        public double GetFDRate(int tenureDuration)
+        {
+          return  adapter.Get(new FDRates()).Where(i => tenureDuration >= i.MinDuration && tenureDuration <= i.MaxDuration).FirstOrDefault().Rate;
+        }
         #endregion
     }
 }

@@ -14,6 +14,8 @@ namespace Library.Data.DbAdapter
         int Delete<T>(T value) where T : new();
         int Insert<T>(T value) where T : new();
         IEnumerable<T> Get<T>(T value) where T : new();
+        int InsertAll<T>(List<T> values) where T : new();
+
     }
     public class SqliteDbAdapter : IDbAdapter
     {
@@ -28,8 +30,11 @@ namespace Library.Data.DbAdapter
                 connection = conn.GetDbConnection();
 
                 //check on create table conn process
+                //initialize db
+                LibraryInitialization libraryInitialization;
+                libraryInitialization = LibraryInitialization.GetInstance();
+                libraryInitialization.InitializeDb();
             }
-
         }
 
         public void Create<T>(T value) where T : new()
@@ -57,6 +62,11 @@ namespace Library.Data.DbAdapter
         public int Insert<T>(T value) where T: new()
         {
             return connection.Insert(value);
+        }
+
+        public int InsertAll<T>(List<T> values) where T : new()
+        {
+            return values.Sum(value => connection.Insert(value));
         }
     }
 }

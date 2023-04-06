@@ -27,6 +27,7 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class FDAccountView : UserControl, INotifyPropertyChanged, ISwitchUserView
     {
         IEnumerable<FDType> _FDTypeValues;
+        IEnumerable<CustomerType> _CustomerTypeValues;
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
         private FDAccountBaseViewModel FDAccountViewModel;
         private string UserAccountNumber;
@@ -55,6 +56,7 @@ namespace NetBankingApplication.View.UserControls
         {
             this.InitializeComponent();
             _FDTypeValues = Enum.GetValues(typeof(FDType)).Cast<FDType>();
+            _CustomerTypeValues = Enum.GetValues(typeof(CustomerType)).Cast<CustomerType>();
             GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
             FDAccountViewModel = PresenterService.GetInstance().Services.GetService<FDAccountBaseViewModel>();
             GetAllAccountsViewModel.TransferAmountView = this;
@@ -78,7 +80,7 @@ namespace NetBankingApplication.View.UserControls
                 item.HorizontalAlignment = HorizontalAlignment.Stretch;
                 item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
                 item.CornerRadius = new CornerRadius(5);
-                item.Click += Item_Click; ;
+                item.Click += Item_Click; 
                 AllAccountTypes.Items.Add(item);
             }
         }
@@ -174,6 +176,7 @@ namespace NetBankingApplication.View.UserControls
             int selectedMonths=0;
             int selectedYears=0;
             int selectedDays=0;
+            FDType accountType=FDType.None; CustomerType customerType=CustomerType.None;
             ComboBoxItem MonthselectedItem = MonthComboBox.SelectedItem as ComboBoxItem;
             ComboBoxItem YearselectedItem = YearComboBox.SelectedItem as ComboBoxItem;
             ComboBoxItem DayselectedItem = DayComboBox.SelectedItem as ComboBoxItem;
@@ -189,9 +192,73 @@ namespace NetBankingApplication.View.UserControls
             {
                 selectedDays = int.Parse(DayselectedItem.Content as string);
             }
-            if (!string.IsNullOrEmpty(AmountTextBox.Text))
+            if(AccountTypeBox.Content!=null && CustomerTypeBox.Content != null)
             {
-                FDAccountViewModel.CalculateFD(double.Parse(AmountTextBox.Text), selectedYears, selectedMonths, selectedDays);
+                accountType = (FDType)Enum.Parse(typeof(FDType), AccountTypeBox.Content as string);
+                customerType = (CustomerType)Enum.Parse(typeof(CustomerType), CustomerTypeBox.Content as string);
+                if (!string.IsNullOrEmpty(AmountTextBox.Text) && (selectedMonths!=0 || selectedYears!=0 || selectedDays!=0))
+                {
+                    FDAccountViewModel.OpenAccount = false;
+                    FDAccountViewModel.CalculateFD(double.Parse(AmountTextBox.Text), selectedYears, selectedMonths, selectedDays, customerType, accountType,User.UserId);
+                }
+            }
+           
+        }
+        MenuFlyout AllCustomerTypes;
+        private void MenuFlyout_Opening_CustomerType(object sender, object e)
+        {
+            AllCustomerTypes = sender as MenuFlyout;
+            AllCustomerTypes.Items.Clear();
+            foreach (var cutomerType in _CustomerTypeValues)
+            {
+                if (cutomerType == CustomerType.None) { continue; }
+                var item = new MenuFlyoutItem();
+                item.Text = cutomerType.ToString();
+                item.HorizontalAlignment = HorizontalAlignment.Stretch;
+                item.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+                item.CornerRadius = new CornerRadius(5);
+                item.Click += Item_Click1; 
+                AllCustomerTypes.Items.Add(item);
+            }
+        }
+
+        private void Item_Click1(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = sender as MenuFlyoutItem;
+            CustomerTypeBox.Content = selectedItem.Text;
+        }
+
+        private void OpenFDAccount_Click(object sender, RoutedEventArgs e)
+        {
+            int selectedMonths = 0;
+            int selectedYears = 0;
+            int selectedDays = 0;
+            FDType accountType = FDType.None; CustomerType customerType = CustomerType.None;
+            ComboBoxItem MonthselectedItem = MonthComboBox.SelectedItem as ComboBoxItem;
+            ComboBoxItem YearselectedItem = YearComboBox.SelectedItem as ComboBoxItem;
+            ComboBoxItem DayselectedItem = DayComboBox.SelectedItem as ComboBoxItem;
+            if (MonthselectedItem != null)
+            {
+                selectedMonths = int.Parse(MonthselectedItem.Content as string);
+            }
+            if (YearselectedItem != null)
+            {
+                selectedYears = int.Parse(YearselectedItem.Content as string);
+            }
+            if (DayselectedItem != null)
+            {
+                selectedDays = int.Parse(DayselectedItem.Content as string);
+            }
+            if (AccountTypeBox.Content != null && CustomerTypeBox.Content != null)
+            {
+                accountType = (FDType)Enum.Parse(typeof(FDType), AccountTypeBox.Content as string);
+                customerType = (CustomerType)Enum.Parse(typeof(CustomerType), CustomerTypeBox.Content as string);
+                if (!string.IsNullOrEmpty(AmountTextBox.Text) && (selectedMonths != 0 || selectedYears != 0 || selectedDays != 0) && SelectAccount.Content != "Select From Account")
+                {
+                    var Account = SelectAccount.Content as string;
+                    FDAccountViewModel.OpenAccount = true;
+                    FDAccountViewModel.CalculateFD(double.Parse(AmountTextBox.Text), selectedYears, selectedMonths, selectedDays, customerType, accountType,Account);
+                }
             }
         }
     }

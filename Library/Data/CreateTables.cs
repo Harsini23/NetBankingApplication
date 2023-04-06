@@ -35,6 +35,7 @@ namespace Library.Data
             adapter.Create(new Payee());
             adapter.Create(new UserAccounts());
             adapter.Create(new FDAccount());
+            adapter.Create(new FDRates());
         }
        
     }

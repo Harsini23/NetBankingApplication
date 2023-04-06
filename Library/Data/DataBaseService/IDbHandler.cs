@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library.Data.DataBaseService
 {
-    public interface IDbHandler: IUserDbHandler, ICredentialDbHandler, IAccountDbHandler, IAdminDbHandler, ITransactiondbHandler, IPayeeDbHandler, IUserAccountDbHandler,IBranchDbHandler
+    public interface IDbHandler: IUserDbHandler, ICredentialDbHandler, IAccountDbHandler, IAdminDbHandler, ITransactiondbHandler, IPayeeDbHandler, IUserAccountDbHandler,IBranchDbHandler, IFDRateHandler
     {
      
        
@@ -84,6 +84,12 @@ namespace Library.Data.DataBaseService
         Branch GetBranchDetails(String BId);
         void InsertBankBranchDetails(List<Branch> branches);
         List<Branch> GetAllBranches();
+    }
+
+    public interface IFDRateHandler
+    {
+        void InsertDefaultFDRates(List<FDRates> fDRates);
+        double GetFDRate(int tenureDuration);
     }
 
 }
