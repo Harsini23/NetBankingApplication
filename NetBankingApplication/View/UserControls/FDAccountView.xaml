@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:converter="using:NetBankingApplication.View.Converter"
              Loaded="UserControl_Loaded"
              d:DesignHeight="300"
              d:DesignWidth="400">
@@ -13,6 +14,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <converter:NullConverter x:Key="NullTypeConverter" />
             <Style TargetType="MenuFlyoutPresenter"
                    x:Key="MenuDropDownContentStyle">
                 <Setter Property="MinWidth"
@@ -77,18 +79,19 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid x:Name="OverallFDGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid x:Name="FDAccountGrid"
-              Margin="0,30,0,0"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Center"
-              Width="300">
+    <ScrollViewer>
+        <Grid x:Name="OverallFDGrid" ScrollViewer.HorizontalScrollMode="Enabled" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+           
+            <Grid x:Name="FDAccountGrid"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
 
-            <Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -97,13 +100,12 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Text="Open an FD Account"
-                       Margin="10"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"></TextBlock>
-            <StackPanel  Grid.Row="1"
+                <TextBlock Text="FD Details"
+                           Margin="6,0,0,20"
+                           FontSize="20"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"></TextBlock>
+                <StackPanel  Grid.Row="1"
                          HorizontalAlignment="Center"
                          VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal"
@@ -133,9 +135,39 @@
                 </DropDownButton>
             </StackPanel>
 
+            <StackPanel  Grid.Row="2"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal"
+                            Padding="0,0,0,5">
+                    <TextBlock Text="FD Customer Type"
+                               FontSize="16"></TextBlock>
+                    <TextBlock FontSize="16"
+                               FontFamily="Segoe MDL2 Assets"
+                               Text="&#xEA21;"
+                               Foreground="red"
+                               Padding="5,5,0,0"></TextBlock>
+                </StackPanel>
+                <DropDownButton MinWidth="260"
+                                HorizontalContentAlignment="Left"
+                                Name="CustomerTypeBox"
+                                MinHeight="32"
+                                Background="{ThemeResource AppForegroundBg}"
+                                Style="{ThemeResource DropdownStyle}">
+                    <DropDownButton.Flyout>
+                        <MenuFlyout Opening="MenuFlyout_Opening_CustomerType"
+                                    LightDismissOverlayMode="Auto"
+                                    Placement="Bottom"
+                                    MenuFlyoutPresenterStyle="{StaticResource MenuDropDownContentStyle}">
+
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+            </StackPanel>
+
             <!--in grid row 2 if single account show acc no and balance if multiple account show drop down and balance accordingly-->
             <StackPanel x:Name="MultipleAccounts"
-                        Grid.Row="2"
+                        Grid.Row="3"
                         Visibility="Collapsed"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
@@ -181,7 +213,7 @@
             </StackPanel>
 
             <Grid x:Name="SingleAccount"
-                  Grid.Row="2"
+                  Grid.Row="3"
                   Visibility="Collapsed"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center">
@@ -209,7 +241,7 @@
                 </StackPanel>
             </Grid>
 
-            <TextBox Grid.Row="3"
+            <TextBox Grid.Row="4"
                      BeforeTextChanging="TextBox_BalanceOnBeforeTextChanging"
                      Style="{ThemeResource InputFieldTextBox}"
                      HorizontalAlignment="Center"
@@ -223,7 +255,7 @@
                     </TextBlock>
                 </TextBox.Header>
             </TextBox>
-            <StackPanel Grid.Row="4"
+            <!--<StackPanel Grid.Row="5"
                         Orientation="Horizontal"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
@@ -234,8 +266,8 @@
                 <TextBlock Padding="5,0,0,0"
                            FontSize="16"
                            Text="{x:Bind Today,Mode=OneWay}"></TextBlock>
-            </StackPanel>
-            <Grid Grid.Row="5"
+            </StackPanel>-->
+            <Grid Grid.Row="6"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Center">
                 <Grid.RowDefinitions>
@@ -273,17 +305,79 @@
                 </StackPanel>
 
             </Grid>
-            <Button Grid.Row="6"
+            <Button Grid.Row="7"
                     Style="{StaticResource AccentButtonStyleCustom}"
                     Content="Calculate"
                     Name="CalculateFD"
                     Click="CalculateFD_Click"
                     Margin="10"></Button>
         </Grid>
-        <Grid Grid.Row="1">
-            <TextBlock Text="{x:Bind FDAccountViewModel.CalculatedFd.MaturityAmount,Mode=OneWay}"></TextBlock>
-        </Grid>
-    </Grid>
+            <Grid Grid.Column="1"
+                  Margin="0,30,0,0" Padding="20"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Left"
+                  Background="{ThemeResource AppForegroundBg}"
+                  MinHeight="400" CornerRadius="10"
+                  MinWidth="300">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Maturity Details"
+                           FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Padding="10" VerticalAlignment="Center">
+                    <Image Source="ms-appx:///Assets/money.jfif"
+                           MaxHeight="60"
+                           MaxWidth="50"
+                           Stretch="Fill" Margin="5"></Image>
+                    <StackPanel Padding="20,0,10,10" VerticalAlignment="Center">
+                        <TextBlock Text="Maturity Value" FontSize="16"></TextBlock>
+                        <TextBlock Grid.Row="1"
+                                   FontSize="20"
+                                   FontFamily="Cascadia Mono"
+                                   Text="{x:Bind FDAccountViewModel.CalculatedFd.MaturityAmount,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
 
- 
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Padding="10">
+                    <TextBlock Text="Maturity Date" FontSize="12"></TextBlock>
+                    <TextBlock Grid.Row="1"
+                               FontSize="20"
+                               FontFamily="Cascadia Mono" 
+                               Text="{x:Bind FDAccountViewModel.CalculatedFd.MaturityDate,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Padding="10">
+                    <TextBlock Text="Interest Amount" FontSize="12"></TextBlock>
+                    <TextBlock Grid.Row="1"
+                               FontSize="20"
+                               FontFamily="Cascadia Mono"
+                               Text="{x:Bind FDAccountViewModel.CalculatedFd.InterestAmount,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Row="4" Padding="10">
+                    <TextBlock Text="Rate of Interest" FontSize="12"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Grid.Row="1"
+                               FontSize="20"
+                               FontFamily="Cascadia Mono"
+                               Text="{x:Bind FDAccountViewModel.CalculatedFd.Rate,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
+                    <TextBlock Text="%"
+                               FontSize="20"
+                                   FontFamily="Cascadia Mono"
+                                   Padding="5,0,0,0"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <Button Grid.Row="5"
+                        Style="{StaticResource AccentButtonStyleCustom}" Content="Open FD" Name="OpenFDAccount" Click="OpenFDAccount_Click">
+                </Button>
+             
+            </Grid>
+    </Grid>
+    </ScrollViewer>
+
 </UserControl>

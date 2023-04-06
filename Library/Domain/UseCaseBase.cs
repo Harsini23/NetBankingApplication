@@ -15,12 +15,6 @@ namespace Library.Domain
         private readonly CancellationToken _token;
         private IResponseCallbackBaseCase<T> responseCallback;
 
-        //public UseCaseBase()
-        //{
-        //    Source = new CancellationTokenSource();
-        //    _token = Source.Token;
-
-        //}
         public UseCaseBase() { }
         protected UseCaseBase(IResponseCallbackBaseCase<T> responseCallback,CancellationTokenSource CtsSource)
         {
@@ -43,8 +37,8 @@ namespace Library.Domain
                 }
                 catch(Exception ex)
                 {
-                    Debug.WriteLine("Exception has been caught:");
-                    Debug.WriteLine(ex.ToString());
+                    //Debug.WriteLine("Exception has been caught:");
+                    //Debug.WriteLine(ex.ToString());
                     //thread marshalled exception --
                     responseCallback?.OnError((BException)ex);
                 }

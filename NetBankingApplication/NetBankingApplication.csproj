@@ -146,6 +146,7 @@
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Converter\EnumToStringConverter.cs" />
+    <Compile Include="View\Converter\NullConverter.cs" />
     <Compile Include="View\Converter\TrimConverter.cs" />
     <Compile Include="View\DashBoard.xaml.cs">
       <DependentUpon>DashBoard.xaml</DependentUpon>
@@ -240,6 +241,7 @@
     <Content Include="Assets\loginlogo.png" />
     <Content Include="Assets\loginpage.jpg" />
     <Content Include="Assets\logo.png" />
+    <Content Include="Assets\money.jfif" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />

@@ -14,7 +14,7 @@ namespace Library.Data.DataManager
     {
         public void AddDefaultAdmin()
         {
-            
+
         }
         public DefaultAdminDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
@@ -29,12 +29,14 @@ namespace Library.Data.DataManager
                 });
                 List<Branch> branches = new List<Branch>();
                 populateBranch(ref branches);
-                
+                List<FDRates> fDRates = new List<FDRates>();
+                populateFDRates(ref fDRates);
 
                 DbHandler.InsertBankBranchDetails(branches);
+                DbHandler.InsertDefaultFDRates(fDRates);
             }
-           
-          
+
+
         }
 
         private void populateBranch(ref List<Branch> branches)
@@ -73,6 +75,53 @@ namespace Library.Data.DataManager
                 BName = "Tenkasi - Guduvanchery",
                 BCity = "Tenkasi",
                 IfscCode = "Zoho005"
+            });
+
+        }
+
+        private void populateFDRates(ref List<FDRates> fDRates)
+        {
+            fDRates.Add(new FDRates
+            {
+                MinDuration = 7,
+                MaxDuration = 29,
+                Rate = 4.25
+            }); 
+            fDRates.Add(new FDRates
+            {
+                MinDuration = 30,
+                MaxDuration = 45,
+                Rate = 4.50
+            }); 
+            fDRates.Add(new FDRates
+            {
+                MinDuration = 46,
+                MaxDuration = 184,
+                Rate = 5
+            }); 
+            fDRates.Add(new FDRates
+            {
+                MinDuration = 185,
+                MaxDuration = 364,
+                Rate = 5.5
+            });
+            fDRates.Add(new FDRates
+            {
+                MinDuration = 366,
+                MaxDuration = 1095,
+                Rate = 6
+            }); 
+            fDRates.Add(new FDRates
+            {
+                MinDuration = 1096,
+                MaxDuration = 1825,
+                Rate = 6.5
+            });
+            fDRates.Add(new FDRates
+            {
+                MinDuration = 1826,
+                MaxDuration = 10000,
+                Rate = 7
             });
 
         }

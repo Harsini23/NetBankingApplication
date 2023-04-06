@@ -34,18 +34,18 @@ namespace Library.Domain.UseCase
     }
     public class EditPayee: UseCaseBase<String>
     {
-        private IEditPayeeDataManager DeletePayeeDataManager;
+        private IEditPayeeDataManager EditPayeeDataManager;
         private EditPayeeRequest EditPayeeRequest;
         IPresenterEditPayeeCallback EditPayeeResponseCallback;
         public EditPayee(EditPayeeRequest request, IPresenterEditPayeeCallback responseCallback)
         {
-            DeletePayeeDataManager = ServiceProvider.GetInstance().Services.GetService<IEditPayeeDataManager>();    
+            EditPayeeDataManager = ServiceProvider.GetInstance().Services.GetService<IEditPayeeDataManager>();    
             EditPayeeRequest = request;
             EditPayeeResponseCallback = responseCallback;
         }
         public override void Action()
         {
-            this.DeletePayeeDataManager.EditPayee(EditPayeeRequest, new EditPayeeCallback(this));
+            this.EditPayeeDataManager.EditPayee(EditPayeeRequest, new EditPayeeCallback(this));
         }
 
 
