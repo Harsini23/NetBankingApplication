@@ -22,20 +22,19 @@ namespace Library.Data.DataManager
             List<AccountTransactionBObj> allAccountTransactions = new List<AccountTransactionBObj>();
             var Alltransactions=DbHandler.GetTransactionsForAccount(request.AccountNumber);
             Dictionary<String,String> UserMapping = new Dictionary<String,String>();
-            List<String> userId = new List<string>();
-            foreach(var i in Alltransactions)
-            {
-                userId.Add(i.UserId);
-            }
-            var uniqueId = userId.Select(x => x).Distinct();
+            List<String> uniqueId = Alltransactions.Select(i=>i.UserId).Distinct().ToList();
+            //foreach(var i in Alltransactions)
+            //{
+            //    userId.Add(i.UserId);
+            //}
+            //var uniqueId = userId.Select(x => x).Distinct();
             foreach(var i in uniqueId)
             {
                 UserMapping.Add(i, DbHandler.GetUserName(i));
             }
-
             foreach(var i in Alltransactions)
             {
-               string Account;
+                string Account;
                 string picPath;
                 if (i.TransactionType == Model.Enum.TransactionType.Credited)
                 {

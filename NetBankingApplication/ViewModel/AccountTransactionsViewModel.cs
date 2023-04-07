@@ -66,6 +66,7 @@ namespace NetBankingApplication.ViewModel
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
                 AccountTransactionsViewModel.AccountDetails = response.Data.account;
+                AccountTransactionsViewModel.AccountView?.SwichBasedOnAccountType(response.Data.account.AccountNumber);
                 populateData(response.Data.allTransactions);
             });
         }
@@ -123,6 +124,7 @@ namespace NetBankingApplication.ViewModel
     public abstract class AccountTransactionsBaseViewModel : NotifyPropertyBase
     {
         public ObservableCollection<AccountTransactionBObj> AllSortedAccountTransactions = new ObservableCollection<AccountTransactionBObj>();
+        public IAccountView AccountView { get; set; }
         public abstract void GetAllTransactions(string accountno,string userid);
 
         private Account _accountDetails;
@@ -138,10 +140,6 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChanged(nameof(AccountDetails));
             }
         }
-        //public string CurrentMonthExpense { get; set; }
-       // public string CurrentMonthIncome { get; set; }
-        //public string CurrentMonthExpenseTransactionCount { get; set; }
-        //public string CurrentMonthIncomeTransactionCount { get; set; }
 
         private string _currentMonthIncomeTransactionCount = "0";
         public string CurrentMonthIncomeTransactionCount
@@ -166,9 +164,6 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
-
-        //public string LastTransactionDate { get; set; }
-
         private string _lastTransactionDate = "No transactions yet ;)";
         public string LastTransactionDate
         {
@@ -179,8 +174,6 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChanged(nameof(LastTransactionDate));
             }
         }
-
-
         private string _currentMonthExpense = "0";
         public string CurrentMonthExpense
         {
@@ -203,9 +196,6 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
-
-
-
         private Visibility _textBoxVisibility = Visibility.Collapsed;
         public Visibility TextBoxVisibility
         {
@@ -217,23 +207,10 @@ namespace NetBankingApplication.ViewModel
 
             }
         }
-
-
-        //private Visibility _gridSplitterVisibility = Visibility.Collapsed;
-        //public Visibility GridSplitterVisibility
-        //{
-        //    get { return _gridSplitterVisibility; }
-        //    set
-        //    {
-        //        _gridSplitterVisibility = value;
-        //        OnPropertyChanged(nameof(GridSplitterVisibility));
-
-        //    }
-        //}
-
-
-
     }
-
+    public interface IAccountView
+    {
+        void SwichBasedOnAccountType(string AccountNumber);
+    }
 
 }

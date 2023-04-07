@@ -21,11 +21,12 @@ namespace Library.Data.DataManager
         }
         private TransactionType transactionType;
 
-        private bool ValidateCurrentAccountAndDeductBalance(Account currentAccount, double Amount)
+        public bool ValidateCurrentAccountAndDeductBalance(Account currentAccount, double Amount)
         {
             if (currentAccount != null)
             {
-                double AccountBalance = currentAccount.TotalBalance;
+                var Account = DbHandler.GetAccount(currentAccount.AccountNumber);
+                var AccountBalance = Account.TotalBalance;
                 double amount =Amount;
                 if (AccountBalance >= amount)
                 {
@@ -34,11 +35,11 @@ namespace Library.Data.DataManager
                     Account account = new Account
                     {
                         //UserId = currentAccount.UserId,
-                        AccountNumber = currentAccount.AccountNumber,
-                        AccountType = currentAccount.AccountType,
+                        AccountNumber = Account.AccountNumber,
+                        AccountType = Account.AccountType,//fd account or existing account
                         AvailableBalanceAsOn = CurrentDateTime.GetCurrentDate(),
-                        BId = currentAccount.BId,
-                        Currency = currentAccount.Currency,
+                        BId = Account.BId,
+                        Currency = Account.Currency,
                         TotalBalance = deductedValue
                     };
                     var res = DbHandler.UpdateBalance(account);

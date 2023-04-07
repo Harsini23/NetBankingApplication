@@ -34,9 +34,9 @@ namespace NetBankingApplication.ViewModel
             FdRate.Execute();
         }
 
-        public override void CreateFD(FDCalculatedVobj fDCalculatedBobj, FDBObj fDBObj)
+        public override void CreateFD(FDAccountBObj fdAccount)
         {
-            OpenFD = new OpenFD(new OpenFDRequest(fDCalculatedBobj, fDBObj,new CancellationTokenSource()), new PresenterOpenFDCallback(this));
+            OpenFD = new OpenFD(new OpenFDRequest(fdAccount,new CancellationTokenSource()), new PresenterOpenFDCallback(this));
             OpenFD.Execute();
         }
     }
@@ -50,9 +50,13 @@ namespace NetBankingApplication.ViewModel
             this.fDAccountViewModel = fDAccountViewModel;
         }
 
-        public void OnError(BException errorMessage)
+        public async void OnError(BException errorMessage)
         {
-            throw new NotImplementedException();
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                fDAccountViewModel.NotificationMessage = errorMessage.exceptionMessage;
+                fDAccountViewModel.NotificationAlert?.CallNotification();
+            });
         }
 
         public void OnFailure(ZResponse<GetFDRateResponse> response)
@@ -64,7 +68,18 @@ namespace NetBankingApplication.ViewModel
         {
             if (fDAccountViewModel.OpenAccount)
             {
-                fDAccountViewModel.CreateFD(response.Data.FDDetails, fDAccountViewModel.FDBObj);
+                fDAccountViewModel.CreateFD(new FDAccountBObj
+                {
+                    TenureDate=response.Data.FDDetails.MaturityDate,
+                    MaturityAmount=response.Data.FDDetails.MaturityAmount,
+                    FDType= fDAccountViewModel.FDBObj.FDType,
+                    CustomerType= fDAccountViewModel.FDBObj.CustomerType,
+                    FromAccount=fDAccountViewModel.FDBObj.FromAccountNumber,
+                    Principle=fDAccountViewModel.FDBObj.PrincipalAmount,
+                    Rate=response.Data.FDDetails.Rate,
+                    InterestAmount=response.Data.FDDetails.InterestAmount,
+                    UserID=fDAccountViewModel.FDBObj.UserID
+                });
             }
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
@@ -87,14 +102,18 @@ namespace NetBankingApplication.ViewModel
             throw new NotImplementedException();
         }
 
-        public void OnFailure(ZResponse<GetFDRateResponse> response)
+        public void OnFailure(ZResponse<bool> response)
         {
             throw new NotImplementedException();
         }
 
-        public void OnSuccessAsync(ZResponse<GetFDRateResponse> response)
+        public async void OnSuccessAsync(ZResponse<bool> response)
         {
-          
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                fDAccountViewModel.NotificationMessage = response.Response;
+                fDAccountViewModel.NotificationAlert?.CallNotification();
+            });
         }
     }
 
@@ -104,7 +123,7 @@ namespace NetBankingApplication.ViewModel
         public abstract void CalculateFD(double principle, int year, int month, int day, CustomerType customerType, FDType fDType, string userdId, string Account="");
 
         public bool OpenAccount;
-        public abstract void CreateFD(FDCalculatedVobj fDCalculatedBobj,FDBObj fDBObj);
+        public abstract void CreateFD(FDAccountBObj fDAccountBObj);
 
         private FDCalculatedVobj _calculatedFd =null;
         public FDCalculatedVobj CalculatedFd
@@ -117,6 +136,18 @@ namespace NetBankingApplication.ViewModel
             {
                 _calculatedFd = value;
                 OnPropertyChanged(nameof(CalculatedFd));
+            }
+        }
+        public INotificationAlert NotificationAlert { get; set; }
+
+        private string _notificationMessage;
+        public string NotificationMessage
+        {
+            get { return _notificationMessage; }
+            set
+            {
+                _notificationMessage = value;
+                OnPropertyChanged(nameof(NotificationMessage));
             }
         }
 

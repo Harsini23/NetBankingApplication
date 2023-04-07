@@ -62,11 +62,11 @@ namespace NetBankingApplication.View.UserControls
                 var selectedItem = (sender as FrameworkElement).DataContext;
             // Use the selected item as needed          
                 var account = selectedItem as Account;
-                var Account = new Account();
-                Account = account;
+                //var Account = new Account();
+                //Account = account;
             var selectedAccountDetails = new AccountBobj
             {
-                Account = Account,
+                Account = account,
                 UserId = User.UserId,
             };
 

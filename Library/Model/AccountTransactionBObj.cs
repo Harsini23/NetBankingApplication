@@ -12,6 +12,7 @@ namespace Library.Model
     {
         public string UserName { get; set; }
         public string AccountNumber { get; set; }
+        public AccountType AccountType { get; set; }
         public TransactionType TransactionType { get; set; }
         public double Amount { get; set; }
         public string DateOfTransaction { get; set; }
@@ -21,7 +22,7 @@ namespace Library.Model
 
         public TransactionDateType TransactionDateType { get; set; }
 
-        public AccountTransactionBObj(string userName, string accountNumber, TransactionType transactionType, double amount, string dateOfTransaction, string initial)
+        public AccountTransactionBObj(string userName, string accountNumber, TransactionType transactionType, double amount, string dateOfTransaction, string initial, AccountType accountType)
         {
             UserName = userName;
             AccountNumber = accountNumber;
@@ -29,8 +30,9 @@ namespace Library.Model
             Amount = amount;
             DateOfTransaction = dateOfTransaction;
             Initial = initial;
+            AccountType = accountType;
         }
-        public AccountTransactionBObj(string userName, string accountNumber, TransactionType transactionType, double amount, string dateOfTransaction, string initial,Transaction transaction, string personPicPath="")
+        public AccountTransactionBObj(string userName, string accountNumber, TransactionType transactionType, double amount, string dateOfTransaction, string initial,Transaction transaction, AccountType accountType,string personPicPath="")
         {
             UserName = userName;
             AccountNumber = accountNumber;
@@ -40,6 +42,7 @@ namespace Library.Model
             Initial = initial;
             Transaction = transaction;
             PersonPicPath = personPicPath;
+            AccountType=accountType;
         }
         public AccountTransactionBObj()
         {

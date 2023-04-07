@@ -1,4 +1,5 @@
 ﻿using Library.Model;
+using Library.Model.Enum;
 using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
@@ -32,43 +33,49 @@ namespace NetBankingApplication.View.UserControls
     /// </summary>
     /// 
 
-    public sealed partial class FullAccountDetails : Page
+    public sealed partial class FullAccountDetails : Page, IAccountView
     {
         AccountBobj selectedAccount;
         private string selectedAccountNumber;
         private string selectedUserId;
         private string expense;
-       // private string test;
+        // private string test;
 
         public Account CurrentSelectedAccount;
 
-        private AccountTransactionsBaseViewModel AccountTransactionsViewModel;
+        private AccountTransactionsBaseViewModel AccountTransactionViewModel;
 
         private GetBranchDetailsBaseViewModel GetBranchDetailsViewModel;
+        private FDAccountDetailsBaseViewModel FDAccountDetailsViewModel;
 
         public FullAccountDetails()
         {
             this.InitializeComponent();
-            AccountTransactionsViewModel = PresenterService.GetInstance().Services.GetService<AccountTransactionsBaseViewModel>();
+            AccountTransactionViewModel = PresenterService.GetInstance().Services.GetService<AccountTransactionsBaseViewModel>();
+            AccountTransactionViewModel.AccountView = this;
+
             GetBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
+            FDAccountDetailsViewModel = PresenterService.GetInstance().Services.GetService<FDAccountDetailsBaseViewModel>();
             Bindings.Update();
-         
+
+            // if AccountTransactionsViewModel AccountDetails type is fd change template!
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             selectedAccount = e.Parameter as AccountBobj;
-            CurrentSelectedAccount= selectedAccount.Account;
+            CurrentSelectedAccount = selectedAccount.Account;
             selectedAccountNumber = selectedAccount.Account.AccountNumber.ToString();
             selectedUserId = selectedAccount.UserId;
-          
-            AccountTransactionsViewModel.GetAllTransactions(selectedAccountNumber, selectedUserId);
+
+            AccountTransactionViewModel.GetAllTransactions(selectedAccountNumber, selectedUserId);
 
             GetBranchDetailsViewModel.FetchBranchDetails(selectedAccount.Account.BId);
             Bindings.Update();
 
         }
+
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -95,6 +102,22 @@ namespace NetBankingApplication.View.UserControls
 
 
             }
+        }
+
+        public void SwichBasedOnAccountType(string AccountNumber)
+        {
+
+            if (AccountTransactionViewModel.AccountDetails.AccountType == AccountType.FDAccount)
+            {
+                FDAccountDetailsViewModel.GetFDDetails(AccountNumber);
+                OverallFDSummary.Visibility = Visibility.Visible;
+
+            }
+            else
+            {
+                OverallSummary.Visibility = Visibility.Visible;
+            }
+
         }
     }
 

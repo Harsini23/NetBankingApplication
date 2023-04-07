@@ -1,4 +1,5 @@
 ﻿using Library.Model.Enum;
+using Library.Util;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -19,16 +20,32 @@ namespace Library.Model
         public string BId { get; set; }
         public Currency Currency { get; set; }
 
-        public Account(string accountNumber, AccountType accountType, double totalBalance,string TotalBalanceAsOn,string bId)
+        public Account(AccountType accountType, double totalBalance,string TotalBalanceAsOn,string bId, string accountNumber = "")
         {
             AccountNumber = accountNumber;
             AccountType = accountType;
-            TotalBalance = totalBalance;
+            TotalBalance = Math.Round(totalBalance,2);
             AvailableBalanceAsOn = TotalBalanceAsOn;
             BId = bId;
         }
         public Account() { }
 
+    }
+
+    public class AccountBObj : Account
+    {
+        public string UserId { get; set; }
+        public string Name { get; set; }
+        public Currency Currency { get; set; }
+        public AccountBObj(string userId, AccountType accountType, double totalBalance, Currency currency, string bId, string name) : base(accountType, totalBalance, CurrentDateTime.GetCurrentDate(), bId)
+        {
+            UserId = userId;
+            Name = name;
+        }
+        public AccountBObj()
+        {
+
+        }
     }
 
     public class AccountVobj

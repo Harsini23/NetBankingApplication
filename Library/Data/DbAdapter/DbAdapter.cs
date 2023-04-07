@@ -61,7 +61,7 @@ namespace Library.Data.DbAdapter
 
         public int Insert<T>(T value) where T: new()
         {
-            return connection.Insert(value);
+            return connection.Insert(value, typeof(T));
         }
 
         public int InsertAll<T>(List<T> values) where T : new()

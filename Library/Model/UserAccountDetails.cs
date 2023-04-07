@@ -1,4 +1,5 @@
 ﻿using Library.Model.Enum;
+using Library.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,26 +40,5 @@ namespace Library.Model
         }
     }
 
-    public class AccountBObj
-    {
-        public string UserId { get; set; }
-        public string Name { get; set; }
-        public AccountType AccountType { get; set; }
-        public double TotalBalance { get; set; }
-        public Currency Currency { get; set; }
-        public string BId { get; set; }
-        public AccountBObj(string userId, AccountType accountType, double totalBalance, Currency currency, string bId, string name)
-        {
-            UserId = userId;
-            AccountType = accountType;
-            TotalBalance = totalBalance;
-            Currency = currency;
-            BId = bId;
-            Name = name;
-        }
-        public AccountBObj()
-        {
-
-        }
-    }
+   
 }

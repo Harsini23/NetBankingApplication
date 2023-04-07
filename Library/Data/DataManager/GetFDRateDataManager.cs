@@ -18,13 +18,22 @@ namespace Library.Data.DataManager
         public void GetFDRate(FDRateRequest request, GetFdRate.GetFDRateCallback response)
         {
             double Rate = 0.0;
-            Rate = DbHandler.GetFDRate(request.TenureDuration);
-            GetFDRateResponse getFDRateResponse = new GetFDRateResponse();
-            getFDRateResponse.Data = Rate;
-            ZResponse<GetFDRateResponse> zResponse = new ZResponse<GetFDRateResponse>();
-            zResponse.Data = getFDRateResponse;
-            zResponse.Response = "Successfully got FD rate";
-            response.OnResponseSuccess(zResponse);
+            try
+            {
+                Rate = DbHandler.GetFDRate(request.TenureDuration);
+                GetFDRateResponse getFDRateResponse = new GetFDRateResponse();
+                getFDRateResponse.Data = Rate;
+                ZResponse<GetFDRateResponse> zResponse = new ZResponse<GetFDRateResponse>();
+                zResponse.Data = getFDRateResponse;
+                zResponse.Response = "Successfully got FD rate";
+                response.OnResponseSuccess(zResponse);
+            }
+            catch (Exception ex)
+            {
+                response.OnResponseError(new BException { exceptionMessage = "FD must be mininum of 7 days maximum of 10 years" });
+            }
+            
+       
 
         }
     }

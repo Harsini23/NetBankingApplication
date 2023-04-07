@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class FDAccountView : UserControl, INotifyPropertyChanged, ISwitchUserView
+    public sealed partial class FDAccountView : UserControl, INotifyPropertyChanged, ISwitchUserView,INotificationAlert
     {
         IEnumerable<FDType> _FDTypeValues;
         IEnumerable<CustomerType> _CustomerTypeValues;
@@ -32,6 +32,11 @@ namespace NetBankingApplication.View.UserControls
         private FDAccountBaseViewModel FDAccountViewModel;
         private string UserAccountNumber;
         private string today;
+        private string FromAccount;
+        int selectedMonths = 0;
+        int selectedYears = 0;
+        int selectedDays = 0;
+        FDType accountType = FDType.None; CustomerType customerType = CustomerType.None;
         private string Today
         {
             get { return today; }
@@ -59,6 +64,7 @@ namespace NetBankingApplication.View.UserControls
             _CustomerTypeValues = Enum.GetValues(typeof(CustomerType)).Cast<CustomerType>();
             GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
             FDAccountViewModel = PresenterService.GetInstance().Services.GetService<FDAccountBaseViewModel>();
+            FDAccountViewModel.NotificationAlert = this;
             GetAllAccountsViewModel.TransferAmountView = this;
         }
 
@@ -94,7 +100,8 @@ namespace NetBankingApplication.View.UserControls
             {
                 SingleAccount.Visibility = Visibility.Visible;
                 if (GetAllAccountsViewModel.AllAccountNumbers.Count > 0)
-                    UserAccountNumber = GetAllAccountsViewModel.AllAccountNumbers[0];
+                UserAccountNumber = GetAllAccountsViewModel.AllAccountNumbers[0];
+                FromAccount = UserAccountNumber;
                 // allAccountBalances[0].TotalBalance.ToString();
             }
             else
@@ -121,6 +128,9 @@ namespace NetBankingApplication.View.UserControls
         {
             GetAllAccountsViewModel.GetAllAccounts(User.UserId);
             today = CurrentDateTime.GetCurrentDate();
+            YearComboBox.Items.Add(new ComboBoxItem { Content="--"});
+            MonthComboBox.Items.Add(new ComboBoxItem { Content="--"});
+            DayComboBox.Items.Add(new ComboBoxItem { Content="--"});
             for (int i = 1; i <= 10; i++)
             {
                 ComboBoxItem item = new ComboBoxItem();
@@ -167,42 +177,27 @@ namespace NetBankingApplication.View.UserControls
         private void Account_Selection(object sender, RoutedEventArgs e)
         {
             var selectedItem = sender as MenuFlyoutItem;
+            FromAccount = selectedItem.Text;
             SelectAccount.Content = selectedItem.Text;
             GetAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
         }
 
         private void CalculateFD_Click(object sender, RoutedEventArgs e)
         {
-            int selectedMonths=0;
-            int selectedYears=0;
-            int selectedDays=0;
-            FDType accountType=FDType.None; CustomerType customerType=CustomerType.None;
-            ComboBoxItem MonthselectedItem = MonthComboBox.SelectedItem as ComboBoxItem;
-            ComboBoxItem YearselectedItem = YearComboBox.SelectedItem as ComboBoxItem;
-            ComboBoxItem DayselectedItem = DayComboBox.SelectedItem as ComboBoxItem;
-            if (MonthselectedItem != null )
-            {
-                 selectedMonths = int.Parse(MonthselectedItem.Content as string);
-            }
-            if(YearselectedItem != null)
-            {
-                selectedYears = int.Parse(YearselectedItem.Content as string);
-            }
-            if (DayselectedItem!=null)
-            {
-                selectedDays = int.Parse(DayselectedItem.Content as string);
-            }
-            if(AccountTypeBox.Content!=null && CustomerTypeBox.Content != null)
+            BasicValidation();
+            if (AccountTypeBox.Content!=null && CustomerTypeBox.Content != null && !string.IsNullOrEmpty(AmountTextBox.Text) && (selectedMonths != 0 || selectedYears != 0 || selectedDays != 0))
             {
                 accountType = (FDType)Enum.Parse(typeof(FDType), AccountTypeBox.Content as string);
                 customerType = (CustomerType)Enum.Parse(typeof(CustomerType), CustomerTypeBox.Content as string);
-                if (!string.IsNullOrEmpty(AmountTextBox.Text) && (selectedMonths!=0 || selectedYears!=0 || selectedDays!=0))
-                {
+               
                     FDAccountViewModel.OpenAccount = false;
                     FDAccountViewModel.CalculateFD(double.Parse(AmountTextBox.Text), selectedYears, selectedMonths, selectedDays, customerType, accountType,User.UserId);
-                }
             }
-           
+            else
+            {
+                ErrorMessage.Visibility = Visibility.Visible;
+                ErrorMessage.Text = "Enter all fileds";
+            }
         }
         MenuFlyout AllCustomerTypes;
         private void MenuFlyout_Opening_CustomerType(object sender, object e)
@@ -227,39 +222,76 @@ namespace NetBankingApplication.View.UserControls
             var selectedItem = sender as MenuFlyoutItem;
             CustomerTypeBox.Content = selectedItem.Text;
         }
-
-        private void OpenFDAccount_Click(object sender, RoutedEventArgs e)
+        private void ClearUI()
         {
-            int selectedMonths = 0;
-            int selectedYears = 0;
-            int selectedDays = 0;
-            FDType accountType = FDType.None; CustomerType customerType = CustomerType.None;
+            ErrorMessage.Visibility = Visibility.Collapsed;
+            SelectAccount.Content = "Select From Account";
+            YearComboBox.SelectedIndex = -1; MonthComboBox.SelectedIndex=-1; DayComboBox.SelectedIndex = -1;
+            CustomerTypeBox.Content = string.Empty;
+            AccountTypeBox.Content = string.Empty;
+            AmountTextBox.Text = "";
+            ErrorMessage.Text = String.Empty;
+            BalanceText.Text = "Choose Account";
+            GetAllAccountsViewModel.CurrentAccountBalance = "Choose Account";
+
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InAppNotification.Dismiss();
+        }
+        private void BasicValidation()
+        {
+            ErrorMessage.Visibility = Visibility.Collapsed;
+         
             ComboBoxItem MonthselectedItem = MonthComboBox.SelectedItem as ComboBoxItem;
             ComboBoxItem YearselectedItem = YearComboBox.SelectedItem as ComboBoxItem;
             ComboBoxItem DayselectedItem = DayComboBox.SelectedItem as ComboBoxItem;
-            if (MonthselectedItem != null)
+            if (MonthselectedItem != null && MonthComboBox.SelectedIndex != 0)
             {
                 selectedMonths = int.Parse(MonthselectedItem.Content as string);
             }
-            if (YearselectedItem != null)
+            if (YearselectedItem != null && YearComboBox.SelectedIndex != 0)
             {
                 selectedYears = int.Parse(YearselectedItem.Content as string);
             }
-            if (DayselectedItem != null)
+            if (DayselectedItem != null && DayComboBox.SelectedIndex != 0)
             {
                 selectedDays = int.Parse(DayselectedItem.Content as string);
             }
-            if (AccountTypeBox.Content != null && CustomerTypeBox.Content != null)
+        }
+
+        private void OpenFDAccount_Click(object sender, RoutedEventArgs e)
+        {
+            BasicValidation();
+            if ((string)SelectAccount.Content == (string)"Select From Account" && MultipleAccounts.Visibility != Visibility.Collapsed)
             {
-                accountType = (FDType)Enum.Parse(typeof(FDType), AccountTypeBox.Content as string);
-                customerType = (CustomerType)Enum.Parse(typeof(CustomerType), CustomerTypeBox.Content as string);
-                if (!string.IsNullOrEmpty(AmountTextBox.Text) && (selectedMonths != 0 || selectedYears != 0 || selectedDays != 0) && SelectAccount.Content != "Select From Account")
-                {
-                    var Account = SelectAccount.Content as string;
-                    FDAccountViewModel.OpenAccount = true;
-                    FDAccountViewModel.CalculateFD(double.Parse(AmountTextBox.Text), selectedYears, selectedMonths, selectedDays, customerType, accountType,Account);
-                }
+                ErrorMessage.Visibility = Visibility.Visible;
+                ErrorMessage.Text = "Select your account";
             }
+            else
+            {
+                if (AccountTypeBox.Content != null && CustomerTypeBox.Content != null && !string.IsNullOrEmpty(AmountTextBox.Text) && (selectedMonths != 0 || selectedYears != 0 || selectedDays != 0) && SelectAccount.Content != "Select From Account")
+                {
+                    accountType = (FDType)Enum.Parse(typeof(FDType), AccountTypeBox.Content as string);
+                    customerType = (CustomerType)Enum.Parse(typeof(CustomerType), CustomerTypeBox.Content as string);
+
+                    FDAccountViewModel.OpenAccount = true;
+                    FDAccountViewModel.CalculateFD(double.Parse(AmountTextBox.Text), selectedYears, selectedMonths, selectedDays, customerType, accountType, User.UserId, FromAccount);
+                    ClearUI();
+                }
+                else
+                {
+                    ErrorMessage.Visibility = Visibility.Visible;
+                    ErrorMessage.Text = "Enter all fileds";
+                }
+                
+            }
+
+        }
+
+        public void CallNotification()
+        {
+            InAppNotification.Show(3000);
         }
     }
 }
