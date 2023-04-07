@@ -49,6 +49,8 @@ namespace Library.Data.DataBaseService
         bool UpdateBalance(Account account);
         double GetTotalBalanceOfUser(string userId);
         Dictionary<String, double> GetAllAccountBalance(string userId);
+        double GetBalance(string AccountNumber);
+
     }
 
     public interface IAdminDbHandler
@@ -90,6 +92,8 @@ namespace Library.Data.DataBaseService
     {
         void InsertDefaultFDRates(List<FDRates> fDRates);
         double GetFDRate(int tenureDuration);
+        void AddFDAccount(FDAccount fDAccount);
+        FDAccount FetchFDDetails(string AccountNumber);
     }
 
 }

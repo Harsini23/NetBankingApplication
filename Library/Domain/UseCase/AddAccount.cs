@@ -1,4 +1,5 @@
 ﻿using Library.Model;
+using Library.Model.Enum;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

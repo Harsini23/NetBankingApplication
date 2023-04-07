@@ -10,7 +10,8 @@ namespace Library.Model.Enum
         {
             Credited,
             Debited,
-            Rejected
+            Rejected,
+            FDTransation
         }
 
     public enum TransactionDateType

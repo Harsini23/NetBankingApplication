@@ -19,16 +19,14 @@ namespace Library.Domain.UseCase
     public class OpenFDRequest
     {
         public CancellationTokenSource CtsSource { get; set; }
-        public FDBObj FDBObj { get; set; }
-        public FDCalculatedVobj FDDetails { get; set; }
-        public OpenFDRequest(FDCalculatedVobj fDCalculatedVobj, FDBObj fDBObj, CancellationTokenSource ctsSource)
-        {      
-            FDDetails = fDCalculatedVobj;
-            FDBObj = fDBObj;
+        public FDAccountBObj FDAccountBObj { get; set; }
+        public OpenFDRequest(FDAccountBObj fDAccountBObj, CancellationTokenSource ctsSource)
+        {
+            FDAccountBObj = fDAccountBObj;
             CtsSource = ctsSource;
         }
     }
-    public interface IPresenterOpenFDCallback : IResponseCallbackBaseCase<GetFDRateResponse>
+    public interface IPresenterOpenFDCallback : IResponseCallbackBaseCase<bool>
     {
     }
     public class OpenFD : UseCaseBase<String>
@@ -44,7 +42,7 @@ namespace Library.Domain.UseCase
         }
         public override void Action()
         {
-           this.OpenFDDataManager.OpenFD(OpenFDRequest, new OpenFDCallback(this));
+            this.OpenFDDataManager.OpenFD(OpenFDRequest, new OpenFDCallback(this));
         }
 
         public class OpenFDCallback : ZResponse<String>
@@ -61,11 +59,11 @@ namespace Library.Domain.UseCase
             {
                 OpenFD.OpenFDResponseCallback?.OnError(response);
             }
-            public void OnResponseFailure(ZResponse<GetFDRateResponse> response)
+            public void OnResponseFailure(ZResponse<bool> response)
             {
                 OpenFD.OpenFDResponseCallback?.OnFailure(response);
             }
-            public void OnResponseSuccess(ZResponse<GetFDRateResponse> response)
+            public void OnResponseSuccess(ZResponse<bool> response)
             {
                 //  response.Data.FDDetails = GetFDRate.CalculateFD(response.Data.Data);
                 OpenFD.OpenFDResponseCallback?.OnSuccessAsync(response);
@@ -74,8 +72,4 @@ namespace Library.Domain.UseCase
         }
     }
 
-    public class OpenFDResponse : ZResponse<double>
-    {
-        
-    }
 }

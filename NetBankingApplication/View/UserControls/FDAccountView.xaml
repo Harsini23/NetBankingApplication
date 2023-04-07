@@ -6,6 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:converter="using:NetBankingApplication.View.Converter"
+             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              Loaded="UserControl_Loaded"
              d:DesignHeight="300"
              d:DesignWidth="400">
@@ -14,6 +15,32 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <ControlTemplate x:Key="InAppNotificationTemplate1"
+                             TargetType="controls:InAppNotification">
+                <Grid Width="400"
+                      Background="{ThemeResource NotificationColour}"
+                      Height="65"
+                      CornerRadius="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="NotificationText" HorizontalTextAlignment="Center"
+                               Text="{TemplateBinding Content}"
+                               Margin="30,10,10,10" 
+                               HorizontalAlignment="Left" TextWrapping="Wrap"
+                               VerticalAlignment="Center"></TextBlock>
+                    <Button   FontFamily="Segoe MDL2 Assets"
+                              FontSize="12"
+                              Grid.Column="1"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              Content="&#xE106;"
+                              Style="{ThemeResource ButtonStyling}"
+                              Click="Button_Click"></Button>
+                </Grid>
+            </ControlTemplate>
             <converter:NullConverter x:Key="NullTypeConverter" />
             <Style TargetType="MenuFlyoutPresenter"
                    x:Key="MenuDropDownContentStyle">
@@ -215,7 +242,7 @@
             <Grid x:Name="SingleAccount"
                   Grid.Row="3"
                   Visibility="Collapsed"
-                  HorizontalAlignment="Center"
+                  HorizontalAlignment="Left" Padding="5"
                   VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"></RowDefinition>
@@ -305,12 +332,24 @@
                 </StackPanel>
 
             </Grid>
-            <Button Grid.Row="7"
-                    Style="{StaticResource AccentButtonStyleCustom}"
-                    Content="Calculate"
-                    Name="CalculateFD"
-                    Click="CalculateFD_Click"
-                    Margin="10"></Button>
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="7" Margin="0,10,0,0">
+                    <Button 
+                            Style="{StaticResource AccentButtonStyleCustom}"
+                            Content="Calculate"
+                            Name="CalculateFD"
+                            Click="CalculateFD_Click"
+                            Margin="10"></Button>
+                    <Button Grid.Row="5"
+                            Style="{StaticResource AccentButtonStyleCustom}"
+                            Content="Open FD"
+                            Name="OpenFDAccount"
+                            Click="OpenFDAccount_Click">
+                    </Button>
+                </StackPanel>
+          
         </Grid>
             <Grid Grid.Column="1"
                   Margin="0,30,0,0" Padding="20"
@@ -326,8 +365,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
+
                 </Grid.RowDefinitions>
                 <TextBlock Text="Maturity Details"
                            FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
@@ -372,12 +410,28 @@
                                    Padding="5,0,0,0"></TextBlock>
                     </StackPanel>
                 </StackPanel>
-                <Button Grid.Row="5"
-                        Style="{StaticResource AccentButtonStyleCustom}" Content="Open FD" Name="OpenFDAccount" Click="OpenFDAccount_Click">
-                </Button>
+              
              
             </Grid>
-    </Grid>
+            <TextBlock Grid.ColumnSpan="1" 
+                       x:Name="ErrorMessage"
+                       Style="{ThemeResource FailureText}" VerticalAlignment="Bottom"></TextBlock>
+            <controls:InAppNotification  Content="{x:Bind FDAccountViewModel.NotificationMessage,Mode=OneWay}"
+                                         Template="{StaticResource InAppNotificationTemplate1}"
+                                         Width="400"
+                                         HorizontalContentAlignment="Left"
+                                         HorizontalAlignment="Right"
+                                         Height="70"
+                                         Grid.ColumnSpan="2"
+                                         x:Name="InAppNotification"
+                                         Background="{ThemeResource NotificationColour}"
+                                         BorderBrush="Black" 
+                                         BorderThickness="0.5"
+                                         CornerRadius="10"
+                                         VerticalAlignment="Bottom"
+                                         ShowDismissButton="True">
+            </controls:InAppNotification>
+        </Grid>
     </ScrollViewer>
 
 </UserControl>

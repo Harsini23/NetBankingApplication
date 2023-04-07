@@ -2,6 +2,7 @@
 using Library.Data.DbAdapter;
 using Library.Domain;
 using Library.Model;
+using Library.Model.Enum;
 using Microsoft.Extensions.DependencyInjection;
 using SQLite;
 using System;
@@ -140,7 +141,11 @@ namespace Library.Data.DataBaseService
 
         public void AddAccount(Account account)
         {
-            adapter.Update(account);
+            adapter.Insert<Account>(account);
+        }
+        public double GetBalance(string AccountNumber)
+        {
+            return adapter.Get(new Account()).Where(i => i.AccountNumber == AccountNumber).FirstOrDefault().TotalBalance;
         }
 
         #endregion
@@ -226,7 +231,8 @@ namespace Library.Data.DataBaseService
             var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                var res = adapter.Get(new Account()).Where(j => j.AccountNumber == i).FirstOrDefault();
+                var res = adapter.Get(new Account()).Where(j => j.AccountNumber == i && j.AccountType!=AccountType.FDAccount).FirstOrDefault();
+                if(res!=null)
                 allAccountBalance.Add(i, res.TotalBalance);
             }
             return allAccountBalance;
@@ -268,7 +274,7 @@ namespace Library.Data.DataBaseService
             var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
             foreach (var i in AllAccounts)
             {
-                double totalIncome = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i).Sum(c => c.Amount);
+                double totalIncome = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i && c.TransactionType!= TransactionType.FDTransation).Sum(c => c.Amount);
                 income += totalIncome;
             }
             return income;
@@ -293,7 +299,7 @@ namespace Library.Data.DataBaseService
             List<Transaction> monthlyincome=new List<Transaction>();
             foreach (var i in AllAccounts)
             {
-                var singleAccountTransaction = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i).ToList();
+                var singleAccountTransaction = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i && c.TransactionType != TransactionType.FDTransation).ToList();
                 foreach (var j in singleAccountTransaction)
                 {
                     monthlyincome.Add(j);
@@ -355,7 +361,17 @@ namespace Library.Data.DataBaseService
 
         public double GetFDRate(int tenureDuration)
         {
-          return  adapter.Get(new FDRates()).Where(i => tenureDuration >= i.MinDuration && tenureDuration <= i.MaxDuration).FirstOrDefault().Rate;
+           return adapter.Get(new FDRates()).Where(i => tenureDuration >= i.MinDuration && tenureDuration <= i.MaxDuration).FirstOrDefault().Rate;
+        }
+
+        public void AddFDAccount(FDAccount fDAccount)
+        {
+            adapter.Insert<FDAccount>(fDAccount);
+        }
+
+        public FDAccount FetchFDDetails(string AccountNumber)
+        {
+            return adapter.Get(new FDAccount()).Where(account => account.AccountNumber == AccountNumber).FirstOrDefault();
         }
         #endregion
     }

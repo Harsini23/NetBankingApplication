@@ -140,6 +140,7 @@
     <Compile Include="Data\DataManager\GetAllPayeeDataManager.cs" />
     <Compile Include="Data\DataManager\GetAllUsersDataManager.cs" />
     <Compile Include="Data\DataManager\GetBranchDetailsDataManager.cs" />
+    <Compile Include="Data\DataManager\GetFDDetailsDataManager.cs" />
     <Compile Include="Data\DataManager\GetFDRateDataManager.cs" />
     <Compile Include="Data\DataManager\LoginDataManager.cs" />
     <Compile Include="Data\DataManager\OpenFDDataManager.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Domain\UseCase\GetAllPayee.cs" />
     <Compile Include="Domain\UseCase\GetAllUsers.cs" />
     <Compile Include="Domain\UseCase\GetBranchDetails.cs" />
+    <Compile Include="Domain\UseCase\GetFDDetails.cs" />
     <Compile Include="Domain\UseCase\GetFdRate.cs" />
     <Compile Include="Domain\UseCase\Login.cs" />
     <Compile Include="Domain\UseCaseBase.cs" />
