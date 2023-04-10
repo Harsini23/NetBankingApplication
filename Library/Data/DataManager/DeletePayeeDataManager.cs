@@ -21,7 +21,7 @@ namespace Library.Data.DataManager
             ZResponse<String> Response = new ZResponse<String>();
             Response.Response = "Deleted successfully";
             Response.Data = "Payee Deleted";
-
+            BankingNotification.BankingNotification.NotifyPayeeDeleted(request.payeeToDelete);
             response.OnResponseSuccess(Response);
         }
     }

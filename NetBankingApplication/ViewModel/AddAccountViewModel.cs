@@ -26,7 +26,7 @@ namespace NetBankingApplication.ViewModel
     public class PresenterAddAccountCallback : IPresenterAddAccountCallback
     {
         private AddAccountViewModel addAccountViewModel;
-        NotificationServiceAccount accountEventProvider = new NotificationServiceAccount();
+        //NotificationServiceAccount accountEventProvider = new NotificationServiceAccount();
         public PresenterAddAccountCallback(AddAccountViewModel addAccountViewModel)
         {
             this.addAccountViewModel = addAccountViewModel;
@@ -47,8 +47,8 @@ namespace NetBankingApplication.ViewModel
             {
                 addAccountViewModel.Response = response.Response;
                 addAccountViewModel.addAccountView?.AccountNotification();
-                accountEventProvider.Subscribe(new AccountUpdate());
-                accountEventProvider.RaiseEvent(addAccountViewModel.accountBObj.UserId);
+               // accountEventProvider.Subscribe(new AccountUpdate());
+              //  accountEventProvider.RaiseEvent(addAccountViewModel.accountBObj.UserId);
             });
         }
     }

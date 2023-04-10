@@ -27,6 +27,8 @@ namespace Library.Data.DataManager
             request.newAccount.AccountNumber = GeneratedAccountNumber;
             var account = request.newAccount;
             DbHandler.AddAccount(account);
+            BankingNotification.BankingNotification.NotifyAccountUpdated(account);
+
             DbHandler.AddAccountForUser(userAccount);
             DbHandler.AddTransaction(currentTransaction);
             return GeneratedAccountNumber;

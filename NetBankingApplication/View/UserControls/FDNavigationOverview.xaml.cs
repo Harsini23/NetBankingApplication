@@ -62,7 +62,7 @@ namespace NetBankingApplication.View.UserControls
                 fdAccount.User = User;
                 CurrentSelectedItem = fdAccount;
             }
-            else if (args.SelectedItem == ViewFDAccounts )
+            else if (args.SelectedItem == ViewFDRates )
             {
             
             }

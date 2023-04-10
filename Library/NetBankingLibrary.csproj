@@ -120,6 +120,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BankingNotification\BankingNotification.cs" />
     <Compile Include="BException.cs" />
     <Compile Include="Data\CreateTables.cs" />
     <Compile Include="Data\DatabaseConnection.cs" />

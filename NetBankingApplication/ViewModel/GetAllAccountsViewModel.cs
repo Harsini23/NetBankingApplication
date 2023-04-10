@@ -1,4 +1,5 @@
 ﻿using Library;
+using Library.BankingNotification;
 using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
@@ -57,9 +58,12 @@ namespace NetBankingApplication.ViewModel
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
                 var allAccounts = response.Data.allAccount;
+
                 populateData(allAccounts);
                 populateBalanceData(response.Data.allAccountBalance);
                 handleCallbackAsync();
+                BankingNotification.AccountUpdated += BankingNotification_AccountUpdated;
+
             });
 
 
@@ -74,6 +78,17 @@ namespace NetBankingApplication.ViewModel
 
             //}
         }
+
+        private async void BankingNotification_AccountUpdated(Account account)
+        {
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                GetAllAccountsViewModel.AllAccountNumbers.Add(account.AccountNumber);
+                GetAllAccountsViewModel.AllAccounts.Add(account);
+                GetAllAccountsViewModel.accounts.Add(account);
+            });
+        }
+
         private void handleCallbackAsync()
         {
 
@@ -122,7 +137,7 @@ namespace NetBankingApplication.ViewModel
     public abstract class GetAllAccountsBaseViewModel : NotifyPropertyBase
     {
         public abstract void GetAllAccounts(string userId);
-        public List<Account> AllAccounts = new List<Account>();
+        public ObservableCollection<Account> AllAccounts = new ObservableCollection<Account>();
         public ObservableCollection<String> AllAccountNumbers = new ObservableCollection<string>();
         public ObservableCollection<Account> accounts = new ObservableCollection<Account>();
         public ObservableCollection<AccountBalance> allBalances = new ObservableCollection<AccountBalance>();

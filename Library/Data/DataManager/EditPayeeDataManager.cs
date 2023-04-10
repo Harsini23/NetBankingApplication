@@ -21,7 +21,7 @@ namespace Library.Data.DataManager
             ZResponse<String> Response = new ZResponse<String>();
             Response.Response = "Payee Edited successfully";
             Response.Data = "Payee Edited";
-
+            BankingNotification.BankingNotification.NotifyPayeeUpdated(request.EditedPayee);
             response.OnResponseSuccess(Response);
         }
     }

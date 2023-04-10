@@ -49,10 +49,10 @@ namespace NetBankingApplication.View.UserControls
 
         public event Action<string> RaiseNotification;
 
-        List<String> allRecipientNames = new List<String>();
-        List<Payee> allRecipients = new List<Payee>();
+        ObservableCollection<String> allRecipientNames = new ObservableCollection<string>();
+        ObservableCollection<Payee> allRecipients = new ObservableCollection<Payee>();
 
-        List<Account> allAccounts = new List<Account>();
+        ObservableCollection<Account> allAccounts = new ObservableCollection<Account>();
         ObservableCollection<String> allAccountNumbers = new ObservableCollection<String>();
 
        // List<AccountBalance> allBalances = new List<AccountBalance>();

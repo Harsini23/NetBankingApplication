@@ -44,9 +44,9 @@ namespace NetBankingApplication.View
             services.AddSingleton<OverviewBaseViewModel, OverviewViewModel>();
             services.AddTransient<TransactionHistoryBaseViewModel, TransactionHistoryViewModel>();
             services.AddTransient<AddPayeeBaseViewModel,AddPayeeViewModel>();
-            services.AddSingleton<GetAllPayeeBaseViewModel,GetAllPayeeViewModel>();
-            services.AddSingleton<GetAllAccountsBaseViewModel,GetAllAccountsViewModel>();
-            services.AddSingleton<FDAccountDetailsBaseViewModel, FDAccountDetailsViewModel>();
+            services.AddTransient<GetAllPayeeBaseViewModel,GetAllPayeeViewModel>();
+            services.AddTransient<GetAllAccountsBaseViewModel,GetAllAccountsViewModel>();
+            services.AddTransient<FDAccountDetailsBaseViewModel, FDAccountDetailsViewModel>();
             services.AddSingleton<UserUpdate>();
 
 

@@ -1,4 +1,5 @@
 ﻿using Library;
+using Library.BankingNotification;
 using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
@@ -66,9 +67,40 @@ namespace NetBankingApplication.ViewModel
             {
                 var allPayee = response.Data.allRecipients;
                 var SortedPayee = allPayee.OrderBy(i => i.PayeeName);
+                BankingNotification.PayeeUpdated += BankingNotification_PayeeUpdated ;
+                BankingNotification.PayeeDeleted += BankingNotification_PayeeDeleted;
                 populateData(SortedPayee);
             });
                
+        }
+
+        private async void BankingNotification_PayeeDeleted(Payee payee)
+        {
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                getAllPayeeViewModel.AllPayeeCollection.Remove(payee);
+                getAllPayeeViewModel.PayeeNames.Remove(payee.PayeeName);
+                getAllPayeeViewModel.AllPayee.Remove(payee);
+            });
+        }
+
+        private async void BankingNotification_PayeeUpdated(Payee payee)
+        {
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                Payee payeeToUpdate = getAllPayeeViewModel.AllPayeeCollection.FirstOrDefault(p => p.AccountNumber == payee.AccountNumber);
+                if (payeeToUpdate != null)
+                {
+                    int index= getAllPayeeViewModel.AllPayeeCollection.IndexOf(payeeToUpdate);
+                    payeeToUpdate.AccountHolderName = payee.AccountHolderName;
+                    payeeToUpdate.BankName = payee.BankName;
+                    payeeToUpdate.PayeeName = payee.PayeeName;
+                    payeeToUpdate.IfscCode = payee.IfscCode;
+                    getAllPayeeViewModel.AllPayeeCollection[index] = payeeToUpdate;
+
+                }
+            });
+              
         }
 
         public async void populateData(IEnumerable<Payee> allPayee)
@@ -106,8 +138,8 @@ namespace NetBankingApplication.ViewModel
     {
         public ObservableCollection<Payee> AllPayeeCollection = new ObservableCollection<Payee>();
         public abstract void GetAllPayee(string userId);
-        public List<Payee> AllPayee = new List<Payee>() { };
-        public List<String> PayeeNames = new List<String>();
+        public ObservableCollection<Payee> AllPayee = new ObservableCollection<Payee>() { };
+        public ObservableCollection<String> PayeeNames = new ObservableCollection<string>();
        // public static IViewAndEditPayeeVM ChangeVisibility;
 
         private Visibility _textBoxVisibility = Visibility.Collapsed;
