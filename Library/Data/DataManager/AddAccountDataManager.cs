@@ -27,6 +27,8 @@ namespace Library.Data.DataManager
             request.newAccount.AccountNumber = GeneratedAccountNumber;
             var account = request.newAccount;
             DbHandler.AddAccount(account);
+            BankingNotification.BankingNotification.NotifyAccountUpdated(account);
+
             DbHandler.AddAccountForUser(userAccount);
             DbHandler.AddTransaction(currentTransaction);
             return GeneratedAccountNumber;
@@ -49,9 +51,9 @@ namespace Library.Data.DataManager
                 AccountNumber = AccountNo,
             };
         }
-        private Transaction CreateTransaction(AccountBObj account,string accNo, TransactionType transactionType= TransactionType.Credited)
+        private AmountTransaction CreateTransaction(AccountBObj account,string accNo, TransactionType transactionType= TransactionType.Credited)
         {
-            return  new Transaction
+            return  new AmountTransaction
             {
                 UserId = account.UserId,
                 Name = account.Name,

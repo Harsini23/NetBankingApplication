@@ -26,7 +26,7 @@ namespace NetBankingApplication.ViewModel
     public class PresenterEditPayeeCallback : IPresenterEditPayeeCallback
     {
         private EditPayeeViewModel EditPayeeViewModel;
-        NotificationService eventProvider = new NotificationService();
+      //  NotificationService eventProvider = new NotificationService();
         public PresenterEditPayeeCallback()
         {
 
@@ -50,8 +50,8 @@ namespace NetBankingApplication.ViewModel
                 EditPayeeViewModel.ResponseValue = response.Response;
                 EditPayeeViewModel.AddEditPayeeView?.CallEditNotificationNotification();
                 //refresh list after updation!
-                eventProvider.Subscribe(new PayeeUpdate());
-                eventProvider.RaiseEvent(EditPayeeViewModel.Currentpayee.UserID);
+                //eventProvider.Subscribe(new PayeeUpdate());
+                //eventProvider.RaiseEvent(EditPayeeViewModel.Currentpayee.UserID);
             });
         }
     }

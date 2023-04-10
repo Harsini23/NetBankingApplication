@@ -1,4 +1,5 @@
 ﻿using Library;
+using Library.BankingNotification;
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
@@ -31,7 +32,7 @@ namespace NetBankingApplication.ViewModel
         private DeletePayeeViewModel deletePayeeViewModel;
        // public static event DeletePayeeViewModel.ValueChangedEventHandler ValueChanged;
 
-        NotificationService eventProvider = new NotificationService();
+     //   NotificationService eventProvider = new NotificationService();
 
 
         public PresenterDeletePayeeCallback()
@@ -60,12 +61,16 @@ namespace NetBankingApplication.ViewModel
                 deletePayeeViewModel.AddEditPayeeView?.CallDeleteNotificationNotification();
                 //ValueChanged?.Invoke(DeletePayeeViewModel.userId);
 
-                eventProvider.Subscribe(new PayeeUpdate());
-                eventProvider.RaiseEvent(DeletePayeeViewModel.userId);
+                //eventProvider.Subscribe(new PayeeUpdate());
+                //eventProvider.RaiseEvent(DeletePayeeViewModel.userId);
+               // BankingNotification.PayeeUpdated += BankingNotification_PayeeUpdated; 
             });
         }
 
-       
+        //private void BankingNotification_PayeeUpdated(Payee obj)
+        //{
+        //    //throw new NotImplementedException();
+        //}
     }
     public abstract class DeletePayeeBaseViewModel : NotifyPropertyBase
     {

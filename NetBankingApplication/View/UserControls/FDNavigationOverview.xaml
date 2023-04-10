@@ -30,8 +30,8 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem   Content="Open Account"
                                       x:Name="OpenFD" />
-                <NavigationViewItem  Content="View Accounts"
-                                     x:Name="ViewFDAccounts" />
+                <NavigationViewItem  Content="View FD Rates"
+                                     x:Name="ViewFDRates" />
 
             </NavigationView.MenuItems>
 

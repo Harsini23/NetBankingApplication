@@ -79,9 +79,9 @@ namespace Library.Domain.UseCase
             }
         }
 
-        public class TransactionHistoryResponse : ZResponse<Transaction>
+        public class TransactionHistoryResponse : ZResponse<AmountTransaction>
         {
-            public List<Transaction> allTransactions;
+            public List<AmountTransaction> allTransactions;
         }
     }
 }

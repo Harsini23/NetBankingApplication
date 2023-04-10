@@ -2,6 +2,7 @@
 using Library.Domain;
 using Library.Domain.UseCase;
 using Library.Model;
+using Library.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,12 @@ namespace Library.Data.DataManager
                 var userId = request.UserId;
                
                 overViewResponse.Balance = DbHandler.GetTotalBalanceOfUser(userId).ToString("0.00");
-               overViewResponse.Income= DbHandler.GetTotalIncome(userId).ToString("0.00");
-               overViewResponse.Expense= DbHandler.GetTotalExpense(userId).ToString("0.00");
+               overViewResponse.Income= DbHandler.GetTotalIncome(new UserTransactionType { UserId=userId,TransactionType=TransactionType.Credited}).ToString("0.00");
+               overViewResponse.Expense= DbHandler.GetTotalExpense(new UserTransactionType { UserId = userId, TransactionType = TransactionType.Debited }).ToString("0.00");
 
                 //------------------------------
-                var IncomeTransactionList = DbHandler.GetCurrentMonthIncome(userId);
-                var ExpenseTransactionList = DbHandler.GetCurrentMonthExpense(userId);
+                var IncomeTransactionList = DbHandler.GetCurrentMonthIncome(new UserTransactionType { UserId=userId,TransactionType=TransactionType.Credited});
+                var ExpenseTransactionList = DbHandler.GetCurrentMonthExpense(new UserTransactionType { UserId = userId, TransactionType = TransactionType.Debited });
                 double monthlyIncome = 0.0, monthlyExpense = 0.0;
                 foreach(var i in IncomeTransactionList)
                 {
