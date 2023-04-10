@@ -8,6 +8,7 @@
     mc:Ignorable="d"
     Loaded="UserControl_Loaded"
              xmlns:converter="using:NetBankingApplication.View.Converter"
+             xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              d:DesignHeight="300"
     d:DesignWidth="400">
 
@@ -17,12 +18,40 @@
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <converter:AccountTypeToStringConverter x:Key="AccountTypeConverter" />
+            <ControlTemplate x:Key="InAppNotificationTemplate1"
+                             TargetType="controls:InAppNotification">
+                <Grid Width="400"
+                      Background="{ThemeResource NotificationColour}"
+                      Height="65"
+                      CornerRadius="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="NotificationText"
+                               HorizontalTextAlignment="Center"
+                               Text="{TemplateBinding Content}"
+                               Margin="30,10,10,10"
+                               HorizontalAlignment="Left"
+                               TextWrapping="Wrap"
+                               VerticalAlignment="Center"></TextBlock>
+                    <Button   FontFamily="Segoe MDL2 Assets"
+                              FontSize="12"
+                              Grid.Column="1"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              Content="&#xE106;"
+                              Style="{ThemeResource ButtonStyling}"
+                              Click="Button_Click"></Button>
+                </Grid>
+            </ControlTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
 
-        <GridView SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.accounts,Mode=OneWay}"  x:Name="AllTransactionListView">
+        <GridView SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.AllAccounts,Mode=OneWay}"  x:Name="AllTransactionListView">
     
             <!--ItemTemplate="{ThemeResource TransactionListViewTemplate}"-->
             <GridView.ItemTemplate>
@@ -117,5 +146,20 @@
                 <Style TargetType="GridViewItem" BasedOn="{StaticResource AllAccountsPreviewGridView}"></Style>
             </GridView.ItemContainerStyle>
         </GridView>
+        <controls:InAppNotification  Content="{x:Bind GetAllAccountsViewModel.NotificationMessage,Mode=OneWay}"
+                                     Template="{StaticResource InAppNotificationTemplate1}"
+                                     Width="400"
+                                     HorizontalContentAlignment="Left"
+                                     HorizontalAlignment="Right"
+                                     Height="70"
+                                     Grid.ColumnSpan="2"
+                                     x:Name="InAppNotification"
+                                     Background="{ThemeResource NotificationColour}"
+                                     BorderBrush="Black"
+                                     BorderThickness="0.5"
+                                     CornerRadius="10"
+                                     VerticalAlignment="Bottom"
+                                     ShowDismissButton="True">
+        </controls:InAppNotification>
     </Grid>
 </UserControl>

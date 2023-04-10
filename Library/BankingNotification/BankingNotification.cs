@@ -26,6 +26,16 @@ namespace Library.BankingNotification
         {
             AccountUpdated?.Invoke(account);
         }
+        public static event Action<Account> AccountDeleted;
+        internal static void NotifyAccountDeleted(Account account)
+        {
+            AccountDeleted?.Invoke(account);
+        }
+        public static event Action<Account> AccountBalanceEdited;
+        internal static void NotifyAccountBalanceEdited(Account account)
+        {
+            AccountBalanceEdited?.Invoke(account);
+        }
 
     }
 }

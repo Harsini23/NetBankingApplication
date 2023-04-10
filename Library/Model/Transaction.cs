@@ -24,7 +24,7 @@ namespace Library.Model
         //public string ToAccount { get; set; }
         public bool Status { get; set; }
 
-        public AmountTransaction(string transactionId, string time, TransactionType transactionType, string remark, double transactionAmout, string fromAccount, string toAccount, bool status, string accountNumber, string name)
+        public AmountTransaction(string transactionId, string time, TransactionType transactionType, double transactionAmout, string fromAccount, string toAccount, bool status, string accountNumber, string name, string remark="")
         {
             TransactionId = transactionId;
             Date = time;

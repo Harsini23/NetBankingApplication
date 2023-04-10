@@ -268,7 +268,7 @@ namespace Library.Data.DataBaseService
         public double GetTotalIncome(UserTransactionType userTransactionType)
         {
             var query= "SELECT amountTransaction.Amount FROM AmountTransaction amountTransaction JOIN UserAccounts userAccounts ON amountTransaction.ToAccount = userAccounts.AccountNumber WHERE userAccounts.UserId = @UserId and amountTransaction.TransactionType=@TransactionType;";
-            var results = adapter.GetJoinQuery<AmountTransaction>(query, userTransactionType.UserId,userTransactionType.TransactionType);
+            var results = adapter.GetFromQuery<AmountTransaction>(query, userTransactionType.UserId,userTransactionType.TransactionType);
             return Math.Round(results.Sum(i => i.Amount),2);
 
         }
@@ -276,21 +276,21 @@ namespace Library.Data.DataBaseService
         public double GetTotalExpense(UserTransactionType userTransactionType)
         {
             var query = "SELECT amountTransaction.Amount FROM AmountTransaction amountTransaction JOIN UserAccounts userAccounts ON amountTransaction.FromAccount = userAccounts.AccountNumber WHERE userAccounts.UserId = @UserId and amountTransaction.TransactionType=@TransactionType;";
-            var results = adapter.GetJoinQuery<AmountTransaction>(query, userTransactionType.UserId, userTransactionType.TransactionType);
+            var results = adapter.GetFromQuery<AmountTransaction>(query, userTransactionType.UserId, userTransactionType.TransactionType);
             return Math.Round(results.Sum(i => i.Amount), 2);
         }
 
         public List<AmountTransaction> GetCurrentMonthIncome(UserTransactionType userTransactionType)
         {
             var query = "SELECT * FROM AmountTransaction amountTransaction JOIN UserAccounts userAccounts ON amountTransaction.ToAccount = userAccounts.AccountNumber WHERE userAccounts.UserId = @UserId and amountTransaction.TransactionType=@TransactionType;";
-            return  adapter.GetJoinQuery<AmountTransaction>(query, userTransactionType.UserId, userTransactionType.TransactionType);
+            return  adapter.GetFromQuery<AmountTransaction>(query, userTransactionType.UserId, userTransactionType.TransactionType);
         }
 
         public List<AmountTransaction> GetCurrentMonthExpense(UserTransactionType userTransactionType)
         {
           
             var query = "SELECT * FROM AmountTransaction amountTransaction JOIN UserAccounts userAccounts ON amountTransaction.FromAccount = userAccounts.AccountNumber WHERE userAccounts.UserId = @UserId and amountTransaction.TransactionType=@TransactionType;";
-            return adapter.GetJoinQuery<AmountTransaction>(query, userTransactionType.UserId, userTransactionType.TransactionType);
+            return adapter.GetFromQuery<AmountTransaction>(query, userTransactionType.UserId, userTransactionType.TransactionType);
         }
         #endregion
 
@@ -342,6 +342,21 @@ namespace Library.Data.DataBaseService
         public FDAccount FetchFDDetails(string AccountNumber)
         {
             return adapter.Get(new FDAccount()).Where(account => account.AccountNumber == AccountNumber).FirstOrDefault();
+        }
+
+        public void CloseFD(string userId, FDAccount fDAccount)
+        {
+            adapter.Delete<FDAccount>(fDAccount);
+           var result= adapter.Get(new UserAccounts()).Where(userAccount => userAccount.AccountNumber == fDAccount.AccountNumber && userAccount.UserId== userId).FirstOrDefault();
+            if (result != null)
+            {
+                adapter.Delete(result);
+            }
+            var Account = adapter.Get(new Account()).Where(account => account.AccountNumber == fDAccount.AccountNumber).FirstOrDefault();
+            if(Account != null)
+            {
+                adapter.Delete(Account);
+            }
         }
         #endregion
     }

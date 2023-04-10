@@ -14,8 +14,6 @@ namespace Library.Model.Enum
             SavingsAccount,
             FDAccount,
             JointAccount,
-            ChildrensAccount,
-            LoanAccount,
             PensionAccount
         }
 
@@ -31,8 +29,6 @@ namespace Library.Model.Enum
         public static readonly string SavingsAccount = "Savings Account";
         public static readonly string FDAccount = "FD Account";
         public static readonly string JointAccount = "Joint Account";
-        public static readonly string ChildrensAccount = "Childrens Account";
-        public static readonly string LoanAccount = "Loan Account";
         public static readonly string PensionAccount = "Pension Account";
     }
     

@@ -42,6 +42,7 @@ namespace NetBankingApplication.ViewModel
         public PresenterGetAllAccountsCallback(GetAllAccountsViewModel getAllAccountsViewModel)
         {
             this.GetAllAccountsViewModel = getAllAccountsViewModel;
+            BankingNotification.AccountDeleted += BankingNotification_AccountDeleted;
         }
 
         public void OnError(BException response)
@@ -63,6 +64,7 @@ namespace NetBankingApplication.ViewModel
                 populateBalanceData(response.Data.allAccountBalance);
                 handleCallbackAsync();
                 BankingNotification.AccountUpdated += BankingNotification_AccountUpdated;
+                BankingNotification.AccountBalanceEdited += BankingNotification_AccountBalanceEdited;
 
             });
 
@@ -79,13 +81,45 @@ namespace NetBankingApplication.ViewModel
             //}
         }
 
+        private async void BankingNotification_AccountBalanceEdited(Account account)
+        {
+
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                Account accountToEdit = GetAllAccountsViewModel.AllAccounts.FirstOrDefault(p => p.AccountNumber == account.AccountNumber);
+                if (accountToEdit != null)
+                {
+                    int index = GetAllAccountsViewModel.AllAccounts.IndexOf(accountToEdit);
+                    accountToEdit.TotalBalance = account.TotalBalance;
+                    GetAllAccountsViewModel.AllAccounts[index] = accountToEdit;
+                }
+            });
+        }
+
+        private async void BankingNotification_AccountDeleted(Account account)
+        {
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                GetAllAccountsViewModel.AllAccountNumbers.Remove(account.AccountNumber);
+                Account accountToDelete = GetAllAccountsViewModel.AllAccounts.FirstOrDefault(p => p.AccountNumber == account.AccountNumber);
+                if (accountToDelete != null)
+                {
+                    int index = GetAllAccountsViewModel.AllAccounts.IndexOf(accountToDelete);
+                    GetAllAccountsViewModel.AllAccounts[index] = accountToDelete;
+                    GetAllAccountsViewModel.AllAccounts.Remove(accountToDelete);
+                }
+                GetAllAccountsViewModel.NotificationMessage = "Successfully Closed Account";
+                GetAllAccountsViewModel.NotificationAlert?.CallNotification();
+            });
+        }
+
         private async void BankingNotification_AccountUpdated(Account account)
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
                 GetAllAccountsViewModel.AllAccountNumbers.Add(account.AccountNumber);
                 GetAllAccountsViewModel.AllAccounts.Add(account);
-                GetAllAccountsViewModel.accounts.Add(account);
+                //GetAllAccountsViewModel.accounts.Add(account);
             });
         }
 
@@ -99,7 +133,7 @@ namespace NetBankingApplication.ViewModel
         {
 
             GetAllAccountsViewModel.AllAccounts.Clear();
-            GetAllAccountsViewModel.accounts.Clear();
+            //GetAllAccountsViewModel.accounts.Clear();
 
             GetAllAccountsViewModel.AllAccountNumbers.Clear();
 
@@ -109,7 +143,7 @@ namespace NetBankingApplication.ViewModel
             {
                 GetAllAccountsViewModel.AllAccountNumbers.Add(i.AccountNumber);
                 GetAllAccountsViewModel.AllAccounts.Add(i);
-                GetAllAccountsViewModel.accounts.Add(i);
+                //GetAllAccountsViewModel.accounts.Add(i);
 
             }
 
@@ -139,9 +173,10 @@ namespace NetBankingApplication.ViewModel
         public abstract void GetAllAccounts(string userId);
         public ObservableCollection<Account> AllAccounts = new ObservableCollection<Account>();
         public ObservableCollection<String> AllAccountNumbers = new ObservableCollection<string>();
-        public ObservableCollection<Account> accounts = new ObservableCollection<Account>();
         public ObservableCollection<AccountBalance> allBalances = new ObservableCollection<AccountBalance>();
+
         public ISwitchUserView TransferAmountView { get; set; }
+        public INotificationAlert NotificationAlert { get; set; }
         public ZeroBalance ZerobalanceView { get; set; }
 
         private string _currentAccountSelection = String.Empty;
@@ -198,7 +233,11 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
-
+        private string _notificationMessage;
+        public string NotificationMessage { 
+            get { return this._notificationMessage; }
+            set { this._notificationMessage = value; OnPropertyChanged(nameof(NotificationMessage)); } 
+        }
         public static string PreviousSelection
         {
             get; set;

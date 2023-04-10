@@ -41,7 +41,7 @@ namespace NetBankingApplication.View
             services.AddTransient<UpdateUserBaseViewModel, UpdateUserViewModel>();
             services.AddTransient<PasswordVerificationBaseViewModel, PasswordVerificationViewModel>();
             services.AddSingleton<LoginBaseViewModel, LoginViewModel>();
-            services.AddSingleton<OverviewBaseViewModel, OverviewViewModel>();
+            services.AddTransient<OverviewBaseViewModel, OverviewViewModel>();
             services.AddTransient<TransactionHistoryBaseViewModel, TransactionHistoryViewModel>();
             services.AddTransient<AddPayeeBaseViewModel,AddPayeeViewModel>();
             services.AddTransient<GetAllPayeeBaseViewModel,GetAllPayeeViewModel>();

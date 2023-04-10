@@ -15,8 +15,8 @@ namespace Library.Data.DbAdapter
         int Insert<T>(T value) where T : new();
         IEnumerable<T> Get<T>(T value) where T : new();
         int InsertAll<T>(List<T> values) where T : new();
-        List<T> GetFromQuery<T>(string query, string value) where T : new();
-        List<T> GetJoinQuery<T>(string query, params object[] value) where T : new() ;
+        //List<T> GetFromQuery<T>(string query, string value) where T : new();
+        List<T> GetFromQuery<T>(string query, params object[] value) where T : new() ;
 
     }
     public class SqliteDbAdapter : IDbAdapter
@@ -71,11 +71,11 @@ namespace Library.Data.DbAdapter
             return values.Sum(value => connection.Insert(value));
         }
 
-        public List<T> GetFromQuery<T>(string query, string value) where T : new()
-        {
-         return connection.Query<T>(query, value);   
-        }
-        public List<T> GetJoinQuery<T>(string query, params object[] value) where T : new() 
+        //public List<T> GetFromQuery<T>(string query, string value) where T : new()
+        //{
+        // return connection.Query<T>(query, value);   
+        //}
+        public List<T> GetFromQuery<T>(string query, params object[] value) where T : new() 
         {
             return connection.Query<T>(query, value);
         }
