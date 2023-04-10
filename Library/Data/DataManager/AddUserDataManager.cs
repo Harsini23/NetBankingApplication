@@ -42,7 +42,7 @@ namespace Library.Data.DataManager
             var GeneratedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 999999999).ToString()+ GenerateUniqueId.RandomNumber(100, 999).ToString();
             var account= CreateAccount(GeneratedAccountNumber,request.newUser.AccountType,request.newUser.TotalBalance,request.newUser.BId,request.newUser.Currency);
             var userAccount= CreateUserAccounts(GeneratedAccountNumber);
-            Transaction currentTransaction = AddInitialTransaction(user.UserId, user.UserName, userAccount.AccountNumber, request.newUser.TotalBalance);
+            AmountTransaction currentTransaction = AddInitialTransaction(user.UserId, user.UserName, userAccount.AccountNumber, request.newUser.TotalBalance);
 
             var checkForExistingAccount = CheckPreviousUsers(request.newUser.EmailId,request.newUser.MobileNumber,request.newUser.PAN);
             String responseStatus="";
@@ -126,9 +126,9 @@ namespace Library.Data.DataManager
             };
         }
 
-        private Transaction AddInitialTransaction(string userId,string name,string ToAcc,double balance)
+        private AmountTransaction AddInitialTransaction(string userId,string name,string ToAcc,double balance)
         {
-            Transaction currentTransaction = new Transaction
+            AmountTransaction currentTransaction = new AmountTransaction
             {
                 UserId = userId,
                 Name = name,

@@ -60,13 +60,13 @@ namespace Library.Data.DataBaseService
 
     public interface ITransactiondbHandler
     {
-        bool AddTransaction(Transaction transaction);
-        List<Transaction> GetAllTransactions(string userId, bool fetchRecentTransactions);
-        List<Transaction> GetTransactionsForAccount(string accountNumber);
-        double GetTotalIncome(string userId);
-        double GetTotalExpense(string userId);
-        List<Transaction> GetCurrentMonthIncome(string userId);
-        List<Transaction> GetCurrentMonthExpense(string userId);
+        bool AddTransaction(AmountTransaction transaction);
+        List<AmountTransaction> GetAllTransactions(string userId, bool fetchRecentTransactions);
+        List<AmountTransaction> GetTransactionsForAccount(string accountNumber);
+        double GetTotalIncome(UserTransactionType userTransactionType);
+        double GetTotalExpense(UserTransactionType userTransactionType);
+        List<AmountTransaction> GetCurrentMonthIncome(UserTransactionType userTransactionType);
+        List<AmountTransaction> GetCurrentMonthExpense(UserTransactionType userTransactionType);
 
     }
     public interface IPayeeDbHandler

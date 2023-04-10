@@ -151,30 +151,30 @@ namespace Library.Data.DataBaseService
         #endregion
 
         #region "Transactions"
-        public bool AddTransaction(Transaction transaction)
+        public bool AddTransaction(AmountTransaction transaction)
         {
            var check= adapter.Update(transaction);
             return (check != 0) ;
         }
 
-        public List<Transaction> GetAllTransactions(string userId,bool getRecentTransactions)
+        public List<AmountTransaction> GetAllTransactions(string userId,bool getRecentTransactions)
         {
             if (getRecentTransactions)
             {
                 //return only recent 10 transactions
-                var AllTransactions = adapter.Get(new Transaction()).Where(c => c.UserId == userId).ToList();
+                var AllTransactions = adapter.Get(new AmountTransaction()).Where(c => c.UserId == userId).ToList();
                 return  AllTransactions.OrderByDescending(c => DateTimeOffset.Parse(c.Date)).Take(10).ToList();
             }
             else
             {
                 //return all transactions
-                return adapter.Get(new Transaction()).Where(c => c.UserId == userId).ToList();
+                return adapter.Get(new AmountTransaction()).Where(c => c.UserId == userId).ToList();
             }
         }
 
-        public List<Transaction> GetTransactionsForAccount(string accountNumber)
+        public List<AmountTransaction> GetTransactionsForAccount(string accountNumber)
         {
-            return adapter.Get(new Transaction()).Where(c => c.FromAccount == accountNumber || c.ToAccount == accountNumber).ToList();
+            return adapter.Get(new AmountTransaction()).Where(c => c.FromAccount == accountNumber || c.ToAccount == accountNumber).ToList();
         }
 
         #endregion
@@ -215,14 +215,11 @@ namespace Library.Data.DataBaseService
 
        public double GetTotalBalanceOfUser(string userId)
         {
-            double total = 0;  
-            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c=>c.AccountNumber).ToList();
-            foreach (var i in AllAccounts)
-            {
-                var res = adapter.Get(new Account()).Where(j => j.AccountNumber == i).FirstOrDefault();
-                total += res.TotalBalance;
-            }
-            return total;
+
+            var query = "SELECT account.TotalBalance FROM Account account JOIN UserAccounts userAccounts ON account.AccountNumber = userAccounts.AccountNumber WHERE userAccounts.UserId = @UserID;";
+           var results= adapter.GetFromQuery<Account>(query,userId);
+            return results.Sum(i => i.TotalBalance);
+          
         }
 
         public Dictionary<String, double> GetAllAccountBalance(string userId)
@@ -268,59 +265,32 @@ namespace Library.Data.DataBaseService
         }
 
         #region "Overview"
-        public double GetTotalIncome(string userId)
+        public double GetTotalIncome(UserTransactionType userTransactionType)
         {
-            double income=0.0;
-            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
-            foreach (var i in AllAccounts)
-            {
-                double totalIncome = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i && c.TransactionType!= TransactionType.FDTransation).Sum(c => c.Amount);
-                income += totalIncome;
-            }
-            return income;
+            var query= "SELECT amountTransaction.Amount FROM AmountTransaction amountTransaction JOIN UserAccounts userAccounts ON amountTransaction.ToAccount = userAccounts.AccountNumber WHERE userAccounts.UserId = @UserId and amountTransaction.TransactionType=@TransactionType;";
+            var results = adapter.GetJoinQuery<AmountTransaction>(query, userTransactionType.UserId,userTransactionType.TransactionType);
+            return Math.Round(results.Sum(i => i.Amount),2);
+
         }
 
-        public double GetTotalExpense(string userId)
+        public double GetTotalExpense(UserTransactionType userTransactionType)
         {
-            double income = 0.0;
-            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
-            foreach (var i in AllAccounts)
-            {
-                var singleAccountExpense = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.FromAccount == i).Sum(c => c.Amount);
-                income += singleAccountExpense;
-            }
-            return income;
+            var query = "SELECT amountTransaction.Amount FROM AmountTransaction amountTransaction JOIN UserAccounts userAccounts ON amountTransaction.FromAccount = userAccounts.AccountNumber WHERE userAccounts.UserId = @UserId and amountTransaction.TransactionType=@TransactionType;";
+            var results = adapter.GetJoinQuery<AmountTransaction>(query, userTransactionType.UserId, userTransactionType.TransactionType);
+            return Math.Round(results.Sum(i => i.Amount), 2);
         }
 
-        public List<Transaction> GetCurrentMonthIncome(string userId)
+        public List<AmountTransaction> GetCurrentMonthIncome(UserTransactionType userTransactionType)
         {
-           
-            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
-            List<Transaction> monthlyincome=new List<Transaction>();
-            foreach (var i in AllAccounts)
-            {
-                var singleAccountTransaction = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.ToAccount == i && c.TransactionType != TransactionType.FDTransation).ToList();
-                foreach (var j in singleAccountTransaction)
-                {
-                    monthlyincome.Add(j);
-                }
-            }
-            return monthlyincome;
+            var query = "SELECT * FROM AmountTransaction amountTransaction JOIN UserAccounts userAccounts ON amountTransaction.ToAccount = userAccounts.AccountNumber WHERE userAccounts.UserId = @UserId and amountTransaction.TransactionType=@TransactionType;";
+            return  adapter.GetJoinQuery<AmountTransaction>(query, userTransactionType.UserId, userTransactionType.TransactionType);
         }
 
-        public List<Transaction> GetCurrentMonthExpense(string userId)
-        { 
-            var AllAccounts = adapter.Get(new UserAccounts()).Where(c => c.UserId == userId).Select(c => c.AccountNumber).ToList();
-            List<Transaction> monthlyexpense = new List<Transaction>();
-            foreach (var i in AllAccounts)
-            {
-                var singleAccountTransaction = adapter.Get(new Transaction()).Where(c => c.UserId == userId && c.FromAccount == i).ToList();
-                foreach (var j in singleAccountTransaction)
-                {
-                    monthlyexpense.Add(j);
-                }
-            }
-            return monthlyexpense;
+        public List<AmountTransaction> GetCurrentMonthExpense(UserTransactionType userTransactionType)
+        {
+          
+            var query = "SELECT * FROM AmountTransaction amountTransaction JOIN UserAccounts userAccounts ON amountTransaction.FromAccount = userAccounts.AccountNumber WHERE userAccounts.UserId = @UserId and amountTransaction.TransactionType=@TransactionType;";
+            return adapter.GetJoinQuery<AmountTransaction>(query, userTransactionType.UserId, userTransactionType.TransactionType);
         }
         #endregion
 

@@ -68,5 +68,12 @@ namespace Library.Model
         public double TotalBalance { get; set; }
     }
 
+    public class UserTransactionType
+    {
+        public string UserId { get; set; }
+        public TransactionType TransactionType { get; set; }    
+    }
+
+
 }
 

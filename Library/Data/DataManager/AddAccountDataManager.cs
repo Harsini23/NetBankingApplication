@@ -49,9 +49,9 @@ namespace Library.Data.DataManager
                 AccountNumber = AccountNo,
             };
         }
-        private Transaction CreateTransaction(AccountBObj account,string accNo, TransactionType transactionType= TransactionType.Credited)
+        private AmountTransaction CreateTransaction(AccountBObj account,string accNo, TransactionType transactionType= TransactionType.Credited)
         {
-            return  new Transaction
+            return  new AmountTransaction
             {
                 UserId = account.UserId,
                 Name = account.Name,

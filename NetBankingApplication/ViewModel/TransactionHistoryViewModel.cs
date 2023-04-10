@@ -73,7 +73,7 @@ namespace NetBankingApplication.ViewModel
         //    ContactSort.Clear();
         //    foreach (var item in newContacts)
         //        ContactSort.Add(item);
-        public async void populateData(List<Transaction> TransactionList)
+        public async void populateData(List<AmountTransaction> TransactionList)
         {
 
             int temp = 0;
@@ -228,12 +228,12 @@ namespace NetBankingApplication.ViewModel
 
     public abstract class TransactionHistoryBaseViewModel : NotifyPropertyBase
     {
-        public ObservableCollection<Transaction> AllSortedTransactions = new ObservableCollection<Transaction>();
+        public ObservableCollection<AmountTransaction> AllSortedTransactions = new ObservableCollection<AmountTransaction>();
         public ObservableCollection<TransactionBObj> AllSortedIndexedTransactions = new ObservableCollection<TransactionBObj>();
         public ObservableCollection<GroupInfosList> FinalSortedIndexedTransactions = new ObservableCollection<GroupInfosList>();
         //public abstract void GetTransactionData(string UserId);
         public abstract void GetTransactionData(string UserId, bool showOnlyRecentTransactions);
-        public List<Transaction> AllTransactionList = new List<Transaction>() { };
+        public List<AmountTransaction> AllTransactionList = new List<AmountTransaction>() { };
 
         public List<String> RecipientNameInitials = new List<string>();
 

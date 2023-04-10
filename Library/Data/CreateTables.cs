@@ -28,7 +28,7 @@ namespace Library.Data
             adapter.Create(new Credentials());
             adapter.Create(new User());
             adapter.Create(new Admin());
-            adapter.Create(new Transaction());
+            adapter.Create(new AmountTransaction());
             adapter.Create(new Branch());
             adapter.Create(new Card());
             adapter.Create(new Account());

@@ -74,9 +74,9 @@ namespace Library.Domain.UseCase
             }
         }
 
-        public class TransferAmountResponse : ZResponse<Transaction>
+        public class TransferAmountResponse : ZResponse<AmountTransaction>
         {
-            public Transaction transaction;
+            public AmountTransaction transaction;
             public string Status { get; set; }
         }
     }

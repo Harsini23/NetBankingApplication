@@ -23,7 +23,7 @@ namespace Library.Data.DataManager
             ZResponse<TransactionHistoryResponse> Response = new ZResponse<TransactionHistoryResponse>();
             
             var userId = request.UserId;
-            List<Transaction> allTransactions= DbHandler.GetAllTransactions(userId,request.ShowOnlyRecentTransactions);
+            List<AmountTransaction> allTransactions= DbHandler.GetAllTransactions(userId,request.ShowOnlyRecentTransactions);
            
             TransactionHistoryResponse transactionHistoryResponse = new TransactionHistoryResponse();
             transactionHistoryResponse.allTransactions = allTransactions;

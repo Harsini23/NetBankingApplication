@@ -65,7 +65,7 @@ namespace Library.Data.DataManager
             {
                 transactionType = Model.Enum.TransactionType.Rejected;
             }
-            Transaction currentTransaction = new Transaction
+            AmountTransaction currentTransaction = new AmountTransaction
             {
                 UserId = request.UserId,
                 Name = request.Transaction.Name,
@@ -78,7 +78,7 @@ namespace Library.Data.DataManager
                 ToAccount = request.Transaction.ToAccount,
                 Status = status,
             };
-            Transaction responseTransactions=new Transaction();
+            AmountTransaction responseTransactions =new AmountTransaction();
             var TresponseStatus = DbHandler.AddTransaction(currentTransaction);
             if (TresponseStatus)
             {

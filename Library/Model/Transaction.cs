@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Library.Model
 {
-    public class Transaction : AmountTransfer
+    public class AmountTransaction : AmountTransfer
     {
         //public string UserId { get; set; }
         //public string Name { get; set; }
@@ -24,7 +24,7 @@ namespace Library.Model
         //public string ToAccount { get; set; }
         public bool Status { get; set; }
 
-        public Transaction(string transactionId, string time, TransactionType transactionType, string remark, double transactionAmout, string fromAccount, string toAccount, bool status, string accountNumber, string name)
+        public AmountTransaction(string transactionId, string time, TransactionType transactionType, string remark, double transactionAmout, string fromAccount, string toAccount, bool status, string accountNumber, string name)
         {
             TransactionId = transactionId;
             Date = time;
@@ -37,7 +37,7 @@ namespace Library.Model
             Name = name;
         }
 
-        public Transaction()
+        public AmountTransaction()
         {
         }
     }
