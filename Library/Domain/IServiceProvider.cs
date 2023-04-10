@@ -58,6 +58,7 @@ namespace Library.Domain
             services.AddSingleton<IGetFDRateDataManager, GetFDRateDataManager>();
             services.AddSingleton<IOpenFDDataManager, OpenFDDataManager>();
             services.AddSingleton<IGetFDDetailsDataManager, GetFDDetailsDataManager>();
+            services.AddSingleton<ICloseFDDataManager, CloseFDDataManager>();
             services.AddSingleton<AddAccountDataManager>();
             services.AddSingleton<TransferAmountDataManager>();
 

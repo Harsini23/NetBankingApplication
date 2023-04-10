@@ -356,7 +356,7 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="Account Details" FontSize="16" FontWeight="SemiBold" Margin="10"></TextBlock>
-            <FlipView Background="Transparent" Padding="10" ItemsSource="{x:Bind _getAllAccountsViewModel.accounts,Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+            <FlipView Background="Transparent" Padding="10" ItemsSource="{x:Bind _getAllAccountsViewModel.AllAccounts,Mode=OneWay}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch">
 
                 <FlipView.ItemTemplate>
                     <DataTemplate  x:DataType="data:Account">

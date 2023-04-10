@@ -246,17 +246,17 @@ namespace NetBankingApplication.View.UserControls
             ComboBoxItem MonthselectedItem = MonthComboBox.SelectedItem as ComboBoxItem;
             ComboBoxItem YearselectedItem = YearComboBox.SelectedItem as ComboBoxItem;
             ComboBoxItem DayselectedItem = DayComboBox.SelectedItem as ComboBoxItem;
-            if (MonthselectedItem != null && MonthComboBox.SelectedIndex != 0)
+            if (MonthselectedItem != null )
             {
-                selectedMonths = int.Parse(MonthselectedItem.Content as string);
+                selectedMonths = MonthComboBox.SelectedIndex==0? 0: int.Parse(MonthselectedItem.Content as string);
             }
-            if (YearselectedItem != null && YearComboBox.SelectedIndex != 0)
+            if (YearselectedItem != null )
             {
-                selectedYears = int.Parse(YearselectedItem.Content as string);
+                selectedYears = YearComboBox.SelectedIndex==0? 0:int.Parse(YearselectedItem.Content as string);
             }
-            if (DayselectedItem != null && DayComboBox.SelectedIndex != 0)
+            if (DayselectedItem != null )
             {
-                selectedDays = int.Parse(DayselectedItem.Content as string);
+                selectedDays = DayComboBox.SelectedIndex==0?0:int.Parse(DayselectedItem.Content as string);
             }
         }
 

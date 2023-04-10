@@ -28,7 +28,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class AllAccountsPreview : UserControl, ICloseAllWindows
+    public sealed partial class AllAccountsPreview : UserControl, ICloseAllWindows, INotificationAlert
     {
         private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
       
@@ -50,6 +50,7 @@ namespace NetBankingApplication.View.UserControls
         {
             this.InitializeComponent();
             GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
+            GetAllAccountsViewModel.NotificationAlert = this;
             Bindings.Update();
         }
       
@@ -76,7 +77,10 @@ namespace NetBankingApplication.View.UserControls
             var container = AllTransactionListView.ContainerFromItem(item);
             var index = AllTransactionListView.IndexFromContainer(container);
             await GoToOpenPage(selectedAccountDetails,index);
-
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InAppNotification.Dismiss();
         }
 
 
@@ -91,7 +95,7 @@ namespace NetBankingApplication.View.UserControls
                 appWindows[buttonIndex] = appWindow;
                 appWindow.Closed += AppWindow_Closed;
                 Frame newFrame = new Frame();
-                newFrame.Navigate(typeof(FullAccountDetails), selectedAccountDetails);
+                newFrame.Navigate(typeof(FullAccountDetails), new object[] { appWindow, selectedAccountDetails });
                 //newFrame.Loaded += NewFrame_Loaded;
                 ElementCompositionPreview.SetAppWindowContent(appWindow, newFrame);
                 ThemeSwitch.AddUIRootElement(newFrame);//change theme by registering
@@ -123,6 +127,11 @@ namespace NetBankingApplication.View.UserControls
                 i.Value.CloseAsync();
             }
         }
-      
+
+        public void CallNotification()
+        {
+            InAppNotification.Show(3000);
+        }
+
     }
 }

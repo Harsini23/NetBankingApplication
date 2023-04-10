@@ -33,7 +33,7 @@ namespace Library.Data.DataManager
                 TotalBalance = request.FDAccountBObj.Principle,
                 Currency = Currency.INR,
                 BId = "B001",
-                Name = "FD Transaction",
+                Name = DbHandler.GetUserName(request.FDAccountBObj.UserID),
                 AccountNumber=request.FDAccountBObj.FromAccount,
                 AvailableBalanceAsOn=CurrentDateTime.GetCurrentDate(),  
             };

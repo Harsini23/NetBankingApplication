@@ -16,6 +16,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
+using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -39,12 +40,12 @@ namespace NetBankingApplication.View.UserControls
         private string selectedAccountNumber;
         private string selectedUserId;
         private string expense;
+        private AppWindow _appWindow;
         // private string test;
 
         public Account CurrentSelectedAccount;
 
         private AccountTransactionsBaseViewModel AccountTransactionViewModel;
-
         private GetBranchDetailsBaseViewModel GetBranchDetailsViewModel;
         private FDAccountDetailsBaseViewModel FDAccountDetailsViewModel;
 
@@ -64,7 +65,8 @@ namespace NetBankingApplication.View.UserControls
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            selectedAccount = e.Parameter as AccountBobj;
+            _appWindow = (AppWindow)((object[])e.Parameter)[0];
+            selectedAccount = (AccountBobj)((object[])e.Parameter)[1];
             CurrentSelectedAccount = selectedAccount.Account;
             selectedAccountNumber = selectedAccount.Account.AccountNumber.ToString();
             selectedUserId = selectedAccount.UserId;
@@ -117,7 +119,13 @@ namespace NetBankingApplication.View.UserControls
             {
                 OverallSummary.Visibility = Visibility.Visible;
             }
+        }
 
+        private void CloseFD_Click(object sender, RoutedEventArgs e)
+        {
+            FDAccountDetailsViewModel.CloseFD(FDAccountDetailsViewModel.CurrentFDAccount, selectedAccount.UserId);
+            //close app window
+            _appWindow.CloseAsync();
         }
     }
 

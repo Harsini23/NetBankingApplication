@@ -339,7 +339,7 @@
                                    Margin="5"
                                    Text="{x:Bind FDAccountDetailsViewModel.CurrentFDAccount.TenureDate,Mode=OneWay}"></TextBlock>
                         <Button Grid.Row="6"
-                                Grid.ColumnSpan="3"
+                                Grid.ColumnSpan="3" Click="CloseFD_Click"  Name="CloseFD"
                                 Content="Close FD" Margin="0,30,0,0"
                                 Style="{StaticResource AccentButtonStyleCustom}" VerticalAlignment="Center" HorizontalAlignment="Center"></Button>
 

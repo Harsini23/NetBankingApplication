@@ -50,6 +50,7 @@ namespace Library.Data.DataBaseService
         double GetTotalBalanceOfUser(string userId);
         Dictionary<String, double> GetAllAccountBalance(string userId);
         double GetBalance(string AccountNumber);
+        void CloseFD(string userId,FDAccount fDAccount);
 
     }
 

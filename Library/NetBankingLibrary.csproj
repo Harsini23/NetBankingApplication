@@ -134,6 +134,7 @@
     <Compile Include="Data\DataManager\AddUserDataManager.cs" />
     <Compile Include="Data\DataManager\BankingDataManager.cs" />
     <Compile Include="Data\DataManager\CheckPasswordDataManager.cs" />
+    <Compile Include="Data\DataManager\CloseFDDataManager.cs" />
     <Compile Include="Data\DataManager\DefaultAdminDataManager.cs" />
     <Compile Include="Data\DataManager\DeletePayeeDataManager.cs" />
     <Compile Include="Data\DataManager\EditPayeeDataManager.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Domain\UseCase\AddPayee.cs" />
     <Compile Include="Domain\UseCase\AddUser.cs" />
     <Compile Include="Domain\UseCase\CheckPassword.cs" />
+    <Compile Include="Domain\UseCase\CloseFD.cs" />
     <Compile Include="Domain\UseCase\DeletePayee.cs" />
     <Compile Include="Domain\UseCase\EditPayee.cs" />
     <Compile Include="Domain\UseCase\GetAllAccounts.cs" />
