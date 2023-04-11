@@ -28,9 +28,8 @@ namespace NetBankingApplication.View
     /// </summary>
     public sealed partial class LoginPage : Page, ILoginViewModel
     {
-        private LoginBaseViewModel LoginViewModel;
-        public string NewPassword;
-        DispatcherTimer _timer = new DispatcherTimer();
+        private LoginBaseViewModel _loginViewModel;
+        private DispatcherTimer _timer = new DispatcherTimer();
 
         public LoginPage()
         {
@@ -38,13 +37,13 @@ namespace NetBankingApplication.View
             var coreWindow = Window.Current.CoreWindow;
             coreWindow.KeyDown += CoreWindow_KeyDown;
 
-            LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+            _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             //setting login view value for callback
-            LoginViewModel.LoginViewModelCallback = this;
-            LoginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
+            _loginViewModel.LoginViewModelCallback = this;
+            _loginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
 
-            LoginViewModel.ResetPasswordResponseValue = String.Empty;
-            UserUpdate.LoginViewModelInstance = LoginViewModel;
+            _loginViewModel.ResetPasswordResponseValue = String.Empty;
+            UserUpdate.LoginViewModelInstance = _loginViewModel;
 
 
         }
@@ -54,13 +53,13 @@ namespace NetBankingApplication.View
 
             if (UserId.Text == "")
             {
-                LoginViewModel.TextBoxVisibility = Visibility.Visible;
+                _loginViewModel.TextBoxVisibility = Visibility.Visible;
                 ResultText.Text = "Enter User ID";
             }
             else
             {
               
-                LoginViewModel.ValidateUserInput(UserId.Text, Password.Password);
+                _loginViewModel.ValidateUserInput(UserId.Text, Password.Password);
                 UserId.Text = ""; Password.Password = "";
             }
               
@@ -83,7 +82,7 @@ namespace NetBankingApplication.View
 
         private void Password_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            LoginViewModel.TextBoxVisibility = Windows.UI.Xaml.Visibility.Collapsed;
+            _loginViewModel.TextBoxVisibility = Windows.UI.Xaml.Visibility.Collapsed;
             var passwordBox = (PasswordBox)sender;
             var password = passwordBox.Password.ToString();
             if (password.Length > 8 && password.Length < 14 && password.Any(char.IsLower) && password.Any(char.IsUpper) && (!password.Contains(" ")) && CheckForSpecialCharacter(password))

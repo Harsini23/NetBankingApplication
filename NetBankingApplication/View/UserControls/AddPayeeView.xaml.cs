@@ -23,8 +23,6 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class AddPayeeView : UserControl, INotificationAlert
     {
-        private AddPayeeBaseViewModel AddPayeeViewModel;
-
         public event Action<string> RaiseNotification;
         public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
         public User User
@@ -45,12 +43,13 @@ namespace NetBankingApplication.View.UserControls
             get { return (string)GetValue(AccountNumberProperty); }
             set { SetValue(AccountNumberProperty, value); }
         }
+        private AddPayeeBaseViewModel _addPayeeViewModel;
 
         public AddPayeeView()
         {
             this.InitializeComponent();
-            AddPayeeViewModel = PresenterService.GetInstance().Services.GetService<AddPayeeBaseViewModel>();
-            AddPayeeViewModel.AddPayeeView = this;
+            _addPayeeViewModel = PresenterService.GetInstance().Services.GetService<AddPayeeBaseViewModel>();
+            _addPayeeViewModel.AddPayeeView = this;
 
         }
         private void AddPayee_Click(object sender, RoutedEventArgs e)
@@ -63,7 +62,7 @@ namespace NetBankingApplication.View.UserControls
             else
             {
                 Payee newRecipent = new Payee { UserID = User.UserId, AccountHolderName = AccountHolderName.Text, AccountNumber = Accountnumber.Text, IfscCode = IfscCode.Text, BankName = BankName.Text, PayeeName = PayeeName.Text };
-                AddPayeeViewModel.AddPayee(newRecipent);
+                _addPayeeViewModel.AddPayee(newRecipent);
                 PayeeName.Text = String.Empty;
                 AccountHolderName.Text = String.Empty;
                 Accountnumber.Text = String.Empty;
@@ -85,7 +84,7 @@ namespace NetBankingApplication.View.UserControls
 
         public void CallNotification()
         {
-            RaiseNotification?.Invoke(AddPayeeViewModel.AddPayeeResponseValue);
+            RaiseNotification?.Invoke(_addPayeeViewModel.AddPayeeResponseValue);
 
         }
 

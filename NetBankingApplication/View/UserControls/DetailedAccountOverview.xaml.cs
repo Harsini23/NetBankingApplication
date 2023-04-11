@@ -28,13 +28,12 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class DetailedAccountOverview : Page, ISwitchUserView
     {
 
-        public AccountTransactionBObj CurrentSelectedTransaction;
-        public AccountTransactionBObj SelectedItem;
-
-        private AccountTransactionsBaseViewModel AccountTransactionsViewModel;
-        private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
-        private static bool ItemSelected;
-        private bool NarrowLayout;
+        private AccountTransactionBObj _currentSelectedTransaction;
+        private AccountTransactionBObj _selectedItem;
+        private AccountTransactionsBaseViewModel _accountTransactionsViewModel;
+        private GetAllAccountsBaseViewModel _getAllAccountsViewModel;
+        private static bool _itemSelected;
+        private bool _narrowLayout;
         public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
         public User User
         {
@@ -46,9 +45,9 @@ namespace NetBankingApplication.View.UserControls
         public DetailedAccountOverview()
         {
             this.InitializeComponent();
-            AccountTransactionsViewModel = PresenterService.GetInstance().Services.GetService<AccountTransactionsBaseViewModel>();
-            GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
-            GetAllAccountsViewModel.TransferAmountView = this;
+            _accountTransactionsViewModel = PresenterService.GetInstance().Services.GetService<AccountTransactionsBaseViewModel>();
+            _getAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
+            _getAllAccountsViewModel.TransferAmountView = this;
 
         }
 
@@ -63,9 +62,9 @@ namespace NetBankingApplication.View.UserControls
 
             selectAccountList = sender as MenuFlyout;
             selectAccountList.Items.Clear();
-            foreach (var i in GetAllAccountsViewModel.AllAccountNumbers)
+            foreach (var i in _getAllAccountsViewModel.AllAccountNumbers)
             {
-                if (i != GetAllAccountsViewModel.CurrentAccountSelection)
+                if (i != _getAllAccountsViewModel.CurrentAccountSelection)
                 {
                     var item = new MenuFlyoutItem();
                     item.Text = i;
@@ -79,10 +78,10 @@ namespace NetBankingApplication.View.UserControls
         private void Account_Selection(object sender, RoutedEventArgs e)
         {
             var selectedItem = sender as MenuFlyoutItem;
-            GetAllAccountsViewModel.CurrentAccountSelection = selectedItem.Text;
+            _getAllAccountsViewModel.CurrentAccountSelection = selectedItem.Text;
             SelectAccountDropdown.Content = selectedItem.Text;
             GetAllAccountsBaseViewModel.PreviousSelection=selectedItem.Text;
-            AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, User.UserId);
+            _accountTransactionsViewModel.GetAllTransactions(_getAllAccountsViewModel.CurrentAccountSelection, User.UserId);
         }
 
         public void SwitchBasedOnUserAccount()
@@ -90,23 +89,23 @@ namespace NetBankingApplication.View.UserControls
 
             if (GetAllAccountsBaseViewModel.PreviousSelection != null)
             {
-                GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsBaseViewModel.PreviousSelection;
-                SelectAccountDropdown.Content = GetAllAccountsViewModel.CurrentAccountSelection;
+                _getAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsBaseViewModel.PreviousSelection;
+                SelectAccountDropdown.Content = _getAllAccountsViewModel.CurrentAccountSelection;
             }
-            else if (GetAllAccountsViewModel.AllAccountNumbers.Count() > 0)
+            else if (_getAllAccountsViewModel.AllAccountNumbers.Count() > 0)
             {
-                GetAllAccountsViewModel.CurrentAccountSelection = GetAllAccountsViewModel.AllAccountNumbers[0];
-                SelectAccountDropdown.Content = GetAllAccountsViewModel.AllAccountNumbers[0];
+                _getAllAccountsViewModel.CurrentAccountSelection = _getAllAccountsViewModel.AllAccountNumbers[0];
+                SelectAccountDropdown.Content = _getAllAccountsViewModel.AllAccountNumbers[0];
             }
 
-            AccountTransactionsViewModel.GetAllTransactions(GetAllAccountsViewModel.CurrentAccountSelection, User.UserId);
+            _accountTransactionsViewModel.GetAllTransactions(_getAllAccountsViewModel.CurrentAccountSelection, User.UserId);
 
 
-            if (GetAllAccountsViewModel.AllAccountNumbers.Count == 1)
+            if (_getAllAccountsViewModel.AllAccountNumbers.Count == 1)
             {
                 SingleAccountnumberTextblock.Visibility = Visibility.Visible;
             }
-            else if(GetAllAccountsViewModel.AllAccountNumbers.Count > 1)
+            else if(_getAllAccountsViewModel.AllAccountNumbers.Count > 1)
             {
                 SelectAccountDropdown.Visibility = Visibility.Visible;
             }
@@ -119,7 +118,7 @@ namespace NetBankingApplication.View.UserControls
         {
             AllTransactionsOnAccountListView.Visibility = Visibility.Visible;
             BackToList.Visibility = Visibility.Collapsed;
-            ItemSelected = false;
+            _itemSelected = false;
             Grid.SetColumn(TransactionListings,0);
             Grid.SetColumnSpan(TransactionListings,3);
             TransactionListings.Visibility = Visibility.Visible;
@@ -135,10 +134,10 @@ namespace NetBankingApplication.View.UserControls
 
             if (windowHeight < 300 || windowWidth < 850)
             {
-                NarrowLayout = true;
+                _narrowLayout = true;
                 CloseButton.Visibility = Visibility.Collapsed;
 
-                if (ItemSelected)
+                if (_itemSelected)
                 {
 
                     TransactionGridSplitter.Visibility = Visibility.Collapsed;
@@ -155,10 +154,10 @@ namespace NetBankingApplication.View.UserControls
             }
             else
             {
-                NarrowLayout = false;
+                _narrowLayout = false;
                 CloseButton.Visibility = Visibility.Visible ;
 
-                if (ItemSelected)
+                if (_itemSelected)
                 {
                     Grid.SetColumn(TransactionListings, 0);
                     Grid.SetColumn(TransactionGridSplitter, 1);
@@ -179,10 +178,10 @@ namespace NetBankingApplication.View.UserControls
 
         private void AllTransactionsOnAccountListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ItemSelected = true;
-            if (NarrowLayout)
+            _itemSelected = true;
+            if (_narrowLayout)
             {
-                NarrowLayout = true;
+                _narrowLayout = true;
                 TransactionListings.Visibility = Visibility.Collapsed;
                 TransactionGridSplitter.Visibility = Visibility.Collapsed;
                 TransactionDetailGrid.Visibility = Visibility.Visible;
@@ -192,7 +191,7 @@ namespace NetBankingApplication.View.UserControls
             }
             else
             {
-                NarrowLayout = false;
+                _narrowLayout = false;
                 Grid.SetColumn(TransactionListings, 0);
                 Grid.SetColumn(TransactionGridSplitter, 1);
                 Grid.SetColumn(TransactionDetailGrid, 2);
@@ -203,8 +202,8 @@ namespace NetBankingApplication.View.UserControls
                 TransactionGridSplitter.Visibility = Visibility.Visible;
                 TransactionDetailGrid.Visibility = Visibility.Visible;
             }
-                CurrentSelectedTransaction = e.ClickedItem as AccountTransactionBObj;
-            TransactionDetails.DataContext = CurrentSelectedTransaction;
+                _currentSelectedTransaction = e.ClickedItem as AccountTransactionBObj;
+            TransactionDetails.DataContext = _currentSelectedTransaction;
          
         }
 
@@ -215,7 +214,7 @@ namespace NetBankingApplication.View.UserControls
             TransactionDetailGrid.Visibility = Visibility.Collapsed;
             Grid.SetColumn(TransactionListings, 0);
             Grid.SetColumnSpan(TransactionListings, 3);
-            ItemSelected = false;
+            _itemSelected = false;
             //if (NarrowLayout)
             //{
             //    AllTransactionsOnAccountListView.Visibility = Visibility.Visible;
@@ -236,11 +235,11 @@ namespace NetBankingApplication.View.UserControls
         private void DetailView_Loaded(object sender, RoutedEventArgs e)
         {
 
-            ItemSelected = false;
+            _itemSelected = false;
 
             if (User.UserId != null)
             {
-                GetAllAccountsViewModel.GetAllAccounts(User.UserId);
+                _getAllAccountsViewModel.GetAllAccounts(User.UserId);
             }
             Bindings.Update();
 

@@ -461,7 +461,7 @@
                                               EvenTemplate="{StaticResource EvenTemplate}"
                                               OddTemplate="{StaticResource OddTemplate}" />-->
             <CollectionViewSource x:Name="TransactionSource"
-                                  Source="{x:Bind TransactionViewModel.FinalSortedIndexedTransactions,Mode=OneWay}"
+                                  Source="{x:Bind _transactionViewModel.FinalSortedIndexedTransactions,Mode=OneWay}"
                                   IsSourceGrouped="true" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -469,7 +469,7 @@
     <Grid ScrollViewer.HorizontalScrollMode="Enabled"
           HorizontalAlignment="Stretch">
 
-        <TextBlock Visibility="{x:Bind TransactionViewModel.TextBoxVisibility,Mode=OneWay}"
+        <TextBlock Visibility="{x:Bind _transactionViewModel.TextBoxVisibility,Mode=OneWay}"
                    Name="EmptyDataDisplay"
                    Text="No Transactions yet ;)"
                    VerticalAlignment="Center"

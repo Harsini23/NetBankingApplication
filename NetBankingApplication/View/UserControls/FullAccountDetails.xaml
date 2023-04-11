@@ -57,11 +57,11 @@
                                         FontSize="22"
                                         FontWeight="SemiBold"
                                         CharacterSpacing="80"
-                                        Text="{x:Bind AccountTransactionViewModel.AccountDetails.AccountNumber,Mode=OneWay}"></TextBlock>
+                                        Text="{x:Bind _accountTransactionViewModel.AccountDetails.AccountNumber,Mode=OneWay}"></TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"  Grid.Column="0">
                         <TextBlock Text="Your last transaction was on :" FontSize="16" FontWeight="Light"></TextBlock>
-                        <TextBlock Margin="5,0,0,0" Text="{x:Bind AccountTransactionViewModel.LastTransactionDate,Mode=OneWay}" TextWrapping="Wrap" FontSize="16" FontWeight="Light">
+                        <TextBlock Margin="5,0,0,0" Text="{x:Bind _accountTransactionViewModel.LastTransactionDate,Mode=OneWay}" TextWrapping="Wrap" FontSize="16" FontWeight="Light">
                             </TextBlock>
                         </StackPanel>
 
@@ -70,7 +70,7 @@
                     <StackPanel Grid.Row="0" Grid.Column="1" Name="BalanceBlock">
                         <StackPanel Orientation="Horizontal"  >
                             <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="SemiBold"></TextBlock>
-                            <TextBlock Text="{x:Bind AccountTransactionViewModel.AccountDetails.TotalBalance,Mode=OneWay}" FontSize="20" FontWeight="SemiBold"></TextBlock>
+                            <TextBlock Text="{x:Bind _accountTransactionViewModel.AccountDetails.TotalBalance,Mode=OneWay}" FontSize="20" FontWeight="SemiBold"></TextBlock>
                         </StackPanel>
                         <TextBlock   Text="Current Balance" FontSize="16" FontWeight="Light"></TextBlock>
                        
@@ -112,7 +112,7 @@
                                     FontSize="16"
                                     Grid.Row="0"
                                     Grid.Column="2"
-                                    Text="{x:Bind AccountTransactionViewModel.AccountDetails.AccountType,Mode=OneWay,Converter={StaticResource AccountTypeConverter}}"></TextBlock>
+                                    Text="{x:Bind _accountTransactionViewModel.AccountDetails.AccountType,Mode=OneWay,Converter={StaticResource AccountTypeConverter}}"></TextBlock>
 
                         <TextBlock  Margin="5"
                                     FontSize="16"
@@ -129,7 +129,7 @@
                                     Grid.Row="1"
                                     Grid.Column="2"
                                     FontSize="16"
-                                    Text="{x:Bind AccountTransactionViewModel.AccountDetails.BId,Mode=OneWay}"></TextBlock>
+                                    Text="{x:Bind _accountTransactionViewModel.AccountDetails.BId,Mode=OneWay}"></TextBlock>
 
                         <TextBlock Grid.Row="2"
                                    FontSize="16"
@@ -145,7 +145,7 @@
                                    Grid.Column="2"
                                    Margin="5"
                                    FontSize="16"
-                                   Text="{x:Bind GetBranchDetailsViewModel.BName,Mode=OneWay}"></TextBlock>
+                                   Text="{x:Bind _getBranchDetailsViewModel.BName,Mode=OneWay}"></TextBlock>
 
                         <TextBlock Grid.Row="3"
                                    FontSize="16"
@@ -161,7 +161,7 @@
                                    Grid.Column="2"
                                    FontSize="16"
                                    Margin="5"
-                                   Text="{x:Bind GetBranchDetailsViewModel.City,Mode=OneWay}"></TextBlock>
+                                   Text="{x:Bind _getBranchDetailsViewModel.City,Mode=OneWay}"></TextBlock>
 
                         <TextBlock Grid.Row="4"
                                    FontSize="16"
@@ -177,7 +177,7 @@
                                     Grid.Column="2"
                                     FontSize="16"
                                     Margin="5"
-                                    Text="{x:Bind GetBranchDetailsViewModel.IfscCode,Mode=OneWay}"></TextBlock>
+                                    Text="{x:Bind _getBranchDetailsViewModel.IfscCode,Mode=OneWay}"></TextBlock>
 
                         <TextBlock Grid.Row="5"
                                    FontSize="16"
@@ -193,7 +193,7 @@
                                     Grid.Column="2"
                                     FontSize="16"
                                     Margin="5"
-                                    Text="{x:Bind AccountTransactionViewModel.AccountDetails.Currency,Mode=OneWay}"></TextBlock>
+                                    Text="{x:Bind _accountTransactionViewModel.AccountDetails.Currency,Mode=OneWay}"></TextBlock>
                     </Grid>
 
                
@@ -210,11 +210,11 @@
                             <TextBlock Grid.Row="0" Text="Spendings this month" FontSize="14" FontWeight="Light"></TextBlock>
                             <StackPanel Orientation="Horizontal" Grid.Row="1" >
                                 <TextBlock Text="₹"  Padding="0,0,5,0" FontSize="20" FontWeight="SemiBold"></TextBlock>
-                                <TextBlock Text="{x:Bind AccountTransactionViewModel.CurrentMonthExpense,Mode=OneWay}" FontSize="20" FontWeight="SemiBold"></TextBlock>
+                                <TextBlock Text="{x:Bind _accountTransactionViewModel.CurrentMonthExpense,Mode=OneWay}" FontSize="20" FontWeight="SemiBold"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0">
                                 <TextBlock Text="No of Transactions" FontSize="16"></TextBlock>
-                                <TextBlock Text="{x:Bind AccountTransactionViewModel.CurrentMonthExpenseTransactionCount,Mode=OneWay}"  Margin="5,0,0,0"  FontSize="16"></TextBlock>
+                                <TextBlock Text="{x:Bind _accountTransactionViewModel.CurrentMonthExpenseTransactionCount,Mode=OneWay}"  Margin="5,0,0,0"  FontSize="16"></TextBlock>
                             </StackPanel>
                         </Grid>
                         <Grid  BorderThickness="0.4" BorderBrush="Black" HorizontalAlignment="Stretch"   Name="IncomeColumn" Style="{ThemeResource FormBackground}"  Background="{ThemeResource SupportingColour}">
@@ -226,11 +226,11 @@
                             <TextBlock Grid.Row="0" Text="Income this month" FontSize="14" FontWeight="Light"></TextBlock>
                             <StackPanel Orientation="Horizontal" Grid.Row="1" >
                                 <TextBlock Text="₹" Padding="0,0,5,0" FontSize="20" FontWeight="SemiBold"></TextBlock>
-                                <TextBlock Text="{x:Bind AccountTransactionViewModel.CurrentMonthIncome,Mode=OneWay}" FontSize="20" FontWeight="SemiBold"></TextBlock>
+                                <TextBlock Text="{x:Bind _accountTransactionViewModel.CurrentMonthIncome,Mode=OneWay}" FontSize="20" FontWeight="SemiBold"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Row="2"  Margin="0,10,0,0">
                                 <TextBlock Text="No of Transactions" FontSize="16"></TextBlock>
-                                <TextBlock Text="{x:Bind AccountTransactionViewModel.CurrentMonthIncomeTransactionCount,Mode=OneWay}"  Margin="5,0,0,0"  FontSize="16"></TextBlock>
+                                <TextBlock Text="{x:Bind _accountTransactionViewModel.CurrentMonthIncomeTransactionCount,Mode=OneWay}"  Margin="5,0,0,0"  FontSize="16"></TextBlock>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -272,7 +272,7 @@
                                    Grid.Column="2"
                                    FontSize="16"
                                    Margin="5"
-                                   Text="{x:Bind FDAccountDetailsViewModel.CurrentFDAccount.FDType,Mode=OneWay}"></TextBlock>
+                                   Text="{x:Bind _fDAccountDetailsViewModel.CurrentFDAccount.FDType,Mode=OneWay}"></TextBlock>
 
                         <TextBlock Grid.Row="2"
                                    Grid.Column="0"
@@ -288,7 +288,7 @@
                                    Grid.Column="2"
                                    FontSize="16"
                                    Margin="5"
-                                   Text="{x:Bind FDAccountDetailsViewModel.CurrentFDAccount.CustomerType,Mode=OneWay}"></TextBlock>
+                                   Text="{x:Bind _fDAccountDetailsViewModel.CurrentFDAccount.CustomerType,Mode=OneWay}"></TextBlock>
 
                         <TextBlock Grid.Row="3"
                                    Grid.Column="0"
@@ -304,7 +304,7 @@
                                    Grid.Column="2"
                                    FontSize="16"
                                    Margin="5"
-                                   Text="{x:Bind FDAccountDetailsViewModel.CurrentFDAccount.MaturityAmount,Mode=OneWay}"></TextBlock>
+                                   Text="{x:Bind _fDAccountDetailsViewModel.CurrentFDAccount.MaturityAmount,Mode=OneWay}"></TextBlock>
 
                         <TextBlock Grid.Row="4"
                                    Grid.Column="0"
@@ -320,7 +320,7 @@
                             Grid.Column="2"
                             Margin="5" Orientation="Horizontal">
                             <TextBlock  FontSize="16"
-                                       Text="{x:Bind FDAccountDetailsViewModel.CurrentFDAccount.Rate,Mode=OneWay}"></TextBlock>
+                                       Text="{x:Bind _fDAccountDetailsViewModel.CurrentFDAccount.Rate,Mode=OneWay}"></TextBlock>
                             <TextBlock Text="%" FontSize="16" Padding="5,0,0,0"></TextBlock>
                         </StackPanel>
                         <TextBlock Grid.Row="5"
@@ -337,7 +337,7 @@
                                    Grid.Column="2"
                                    FontSize="16"
                                    Margin="5"
-                                   Text="{x:Bind FDAccountDetailsViewModel.CurrentFDAccount.TenureDate,Mode=OneWay}"></TextBlock>
+                                   Text="{x:Bind _fDAccountDetailsViewModel.CurrentFDAccount.TenureDate,Mode=OneWay}"></TextBlock>
                         <Button Grid.Row="6"
                                 Grid.ColumnSpan="3" Click="CloseFD_Click"  Name="CloseFD"
                                 Content="Close FD" Margin="0,30,0,0"

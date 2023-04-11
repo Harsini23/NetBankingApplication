@@ -30,15 +30,15 @@ namespace NetBankingApplication
 {
     public sealed partial class MainPage : Page, IMainPageNavigation
     {
-        private LoginBaseViewModel LoginViewModel;
-        private AppWindow m_AppWindow;
+        private LoginBaseViewModel _loginViewModel;
+        private AppWindow _appWindow;
         public MainPage()
         {
          
             this.InitializeComponent();
-            LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
-            LoginViewModel.MainPageNavigationCallback = this;
-            LoginViewModel.CreateAdminAccount();
+            _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+            _loginViewModel.MainPageNavigationCallback = this;
+            _loginViewModel.CreateAdminAccount();
 
 
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;

@@ -24,11 +24,11 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class ViewAndEditPayee : UserControl, IDeleteNotificationAlert,IEditNotificationAlert //, IViewAndEditPayeeVM
     {
-        private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
-        private DeletePayeeBaseViewModel DeletePayeeViewModel;
-        private EditPayeeBaseViewModel EditPayeeViewModel;
-        private double windowWidth;
-        private double windowHeight;
+        private GetAllPayeeBaseViewModel _getAllPayeeViewModel;
+        private DeletePayeeBaseViewModel _deletePayeeViewModel;
+        private EditPayeeBaseViewModel _editPayeeViewModel;
+        private double _windowWidth;
+        private double _windowHeight;
         private Payee _currentPayee;
 
         public ObservableCollection<Payee> PayeeCollection = new ObservableCollection<Payee>();
@@ -45,19 +45,19 @@ namespace NetBankingApplication.View.UserControls
         public ViewAndEditPayee()
         {
             this.InitializeComponent();
-            GetAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
-            DeletePayeeViewModel = PresenterService.GetInstance().Services.GetService<DeletePayeeBaseViewModel>();
-            EditPayeeViewModel = PresenterService.GetInstance().Services.GetService<EditPayeeBaseViewModel>();
-            DeletePayeeViewModel.AddEditPayeeView = this;
-            EditPayeeViewModel.AddEditPayeeView = this;
+            _getAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
+            _deletePayeeViewModel = PresenterService.GetInstance().Services.GetService<DeletePayeeBaseViewModel>();
+            _editPayeeViewModel = PresenterService.GetInstance().Services.GetService<EditPayeeBaseViewModel>();
+            _deletePayeeViewModel.AddEditPayeeView = this;
+            _editPayeeViewModel.AddEditPayeeView = this;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
            // GetAllPayeeBaseViewModel.ChangeVisibility = this;
             PayeeCollection.Clear();
-            GetAllPayeeViewModel.GetAllPayee(User.UserId);
-            PayeeCollection = GetAllPayeeViewModel.AllPayeeCollection;
+            _getAllPayeeViewModel.GetAllPayee(User.UserId);
+            PayeeCollection = _getAllPayeeViewModel.AllPayeeCollection;
            
             //allRecipients.Clear();
             //allRecipients = GetAllPayeeViewModel.AllPayee;
@@ -69,7 +69,7 @@ namespace NetBankingApplication.View.UserControls
             var button = (Button)sender;
             var recipient = (Payee)button.DataContext;
 
-            DeletePayeeViewModel.DeletePayee(recipient);
+            _deletePayeeViewModel.DeletePayee(recipient);
         }
 
       
@@ -83,7 +83,7 @@ namespace NetBankingApplication.View.UserControls
                 {
                     AllTransactionListView.ItemsSource = SelctionPayeeCollection;
                     SelctionPayeeCollection.Clear();
-                    foreach (var i in GetAllPayeeViewModel.AllPayeeCollection)
+                    foreach (var i in _getAllPayeeViewModel.AllPayeeCollection)
                     {
                         var found = splitText.All((key) =>
                         {
@@ -141,8 +141,8 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-             windowHeight = e.NewSize.Height;
-             windowWidth = e.NewSize.Width;
+             _windowHeight = e.NewSize.Height;
+            _windowWidth = e.NewSize.Width;
         }
         private void populateEdittingDetails(Payee dataItem)
         {
@@ -193,7 +193,7 @@ namespace NetBankingApplication.View.UserControls
                     IfscCode = IFSCCodeTextBox.Text,
                     BankName = BankNameTextBox.Text,
                 };
-                EditPayeeViewModel.EditPayee(editedPayee);
+                _editPayeeViewModel.EditPayee(editedPayee);
 
 
                 EditPayeePopup.IsOpen = false;
@@ -213,12 +213,12 @@ namespace NetBankingApplication.View.UserControls
        
         public void CallEditNotificationNotification()
         {
-            RaiseNotification?.Invoke(EditPayeeViewModel.ResponseValue);
+            RaiseNotification?.Invoke(_editPayeeViewModel.ResponseValue);
         }
 
         public void CallDeleteNotificationNotification()
         {
-            RaiseNotification?.Invoke(DeletePayeeViewModel.ResponseValue);
+            RaiseNotification?.Invoke(_deletePayeeViewModel.ResponseValue);
         }
 
     }

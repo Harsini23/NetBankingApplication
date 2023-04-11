@@ -148,8 +148,8 @@
                                        MaxHeight="80"
                                        Grid.RowSpan="2"
                                        Name="Initial"
-                                       ProfilePicture="{x:Bind updateViewModel.CurrentUser.ProfilePath,Mode=OneWay,Converter={StaticResource StringToBitmap}}"
-                                       Initials="{x:Bind updateViewModel.CurrentUserInitial,Mode=OneWay}"
+                                       ProfilePicture="{x:Bind _updateViewModel.CurrentUser.ProfilePath,Mode=OneWay,Converter={StaticResource StringToBitmap}}"
+                                       Initials="{x:Bind _updateViewModel.CurrentUserInitial,Mode=OneWay}"
                                        Grid.Column="0"
                                        Tapped="Initial_Tapped"></PersonPicture>
                             <Button Width="30"
@@ -176,7 +176,7 @@
                                    Grid.Row="0"
                                    Grid.Column="1"
                                    Name="Username"
-                                   Text="{x:Bind updateViewModel.CurrentUser.UserName,Mode=OneWay}"
+                                   Text="{x:Bind _updateViewModel.CurrentUser.UserName,Mode=OneWay}"
                                    FontSize="22"
                                    FontWeight="Normal"></TextBlock>
                         <TextBlock HorizontalAlignment="Left"
@@ -185,7 +185,7 @@
                                    FontSize="18"
                                    Name="DisplayEmailId"
                                    Grid.Column="1"
-                                   Text="{x:Bind updateViewModel.CurrentUser.EmailId,Mode=OneWay}"></TextBlock>
+                                   Text="{x:Bind _updateViewModel.CurrentUser.EmailId,Mode=OneWay}"></TextBlock>
                     </Grid>
                     <Button Content="Edit" Grid.Column="1"
                                 Style="{StaticResource AccentButtonStyleCustom}"
@@ -208,7 +208,7 @@
                              BorderThickness="0,0,0,0"
                              Style="{ThemeResource EditFieldTextBox}"
                              x:Name="Name"
-                             Text="{x:Bind updateViewModel.CurrentUser.UserName,Mode=OneWay}">
+                             Text="{x:Bind _updateViewModel.CurrentUser.UserName,Mode=OneWay}">
                         <TextBox.Header>
                             <TextBlock Padding="10,0,0,0" FontSize="14">
             <Run Text="Name "> </Run><Run  Foreground="Red">*</Run>
@@ -225,7 +225,7 @@
                              Style="{ThemeResource EditFieldTextBox}"
                              BeforeTextChanging="TextBox_OnBeforeTextChanging"
                              x:Name="Phonenumber"
-                             Text="{x:Bind updateViewModel.CurrentUser.MobileNumber,Mode=OneWay}">
+                             Text="{x:Bind _updateViewModel.CurrentUser.MobileNumber,Mode=OneWay}">
                         <TextBox.Header>
                             <TextBlock Padding="10,0,0,0" FontSize="14">
         <Run Text="Phone number "> </Run><Run  Foreground="Red">*</Run>
@@ -241,7 +241,7 @@
                              HorizontalAlignment="Left"
                              Style="{ThemeResource EditFieldTextBox}"
                              x:Name="EmailId"
-                             Text="{x:Bind updateViewModel.CurrentUser.EmailId,Mode=OneWay}">
+                             Text="{x:Bind _updateViewModel.CurrentUser.EmailId,Mode=OneWay}">
                         <TextBox.Header>
                             <TextBlock Padding="10,0,0,0"
                                        Margin="0"
@@ -323,9 +323,9 @@
                           Style="{StaticResource CheckBoxCustom}"
                           Checked="RevealModeCheckbox_Changed"
                           Unchecked="RevealModeCheckbox_Changed" />
-                <TextBlock Visibility="{x:Bind passwordVerificationViewModel.TextBoxVisibility,Mode=OneWay}"
+                <TextBlock Visibility="{x:Bind _passwordVerificationViewModel.TextBoxVisibility,Mode=OneWay}"
                            Name="ErrorMessage"
-                           Text="{x:Bind passwordVerificationViewModel.ResponseValue,Mode=OneWay}"
+                           Text="{x:Bind _passwordVerificationViewModel.ResponseValue,Mode=OneWay}"
                            Style="{ThemeResource FailureText}"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
@@ -338,7 +338,7 @@
                    Closed="ResetPasswordGrid_Closed"
                    Name="ResetPasswordGrid">
                 <local:ResetPassword Name="ResetPasswordComponent"
-                                     redirect="False"></local:ResetPassword>
+                                     Redirect="False"></local:ResetPassword>
             </Popup>
             <!--<ContentDialog x:Name="AcknowledgementDialogue"
        Background="{ThemeResource SupportingColour}" CornerRadius="10"

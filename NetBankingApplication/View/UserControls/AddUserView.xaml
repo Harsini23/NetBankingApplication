@@ -138,7 +138,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="ErrorMessage" TextWrapping="Wrap"  Text="{x:Bind AddUserViewModel.ErrorMessage ,Mode=OneWay}" Style="{ThemeResource FailureText}"></TextBlock>
+                <TextBlock x:Name="ErrorMessage" TextWrapping="Wrap"  Text="{x:Bind _addUserViewModel.ErrorMessage ,Mode=OneWay}" Style="{ThemeResource FailureText}"></TextBlock>
                     <Button x:Name="Submit"
                             Grid.Row="1"
                             Click="Submit_Click"
@@ -169,7 +169,7 @@
                    
                         <TextBlock Margin="5" Text="User ID " Grid.Row="1" Padding="3" FontSize="16" FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
                         <TextBlock Margin="5" Text=":" FontSize="16" Grid.Row="1" FontWeight="SemiBold"  Grid.Column="1"></TextBlock>
-                        <TextBlock Margin="5" Grid.Column="2" Grid.Row="1" Padding="3" Text="{x:Bind AddUserViewModel.UserId,Mode=OneWay}"></TextBlock>
+                        <TextBlock Margin="5" Grid.Column="2" Grid.Row="1" Padding="3" Text="{x:Bind _addUserViewModel.UserId,Mode=OneWay}"></TextBlock>
                         <Button Width="25"  Grid.Row="1" Grid.Column="3" Name="copy" Height="25" FontSize="16" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Margin="5,0,0,0"  FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="Idcopy_Click" ></Button>
                  
                         <TextBlock Margin="5" Grid.Row="2" FontSize="16" Text="Password " Padding="3" FontWeight="SemiBold" CharacterSpacing="60" ></TextBlock>
@@ -179,7 +179,7 @@
                                    Grid.Row="2"
                                    Grid.Column="1" Margin="5"></TextBlock>
 
-                        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16" Margin="5" Padding="3" Text="{x:Bind AddUserViewModel.Password,Mode=OneWay}"></TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16" Margin="5" Padding="3" Text="{x:Bind _addUserViewModel.Password,Mode=OneWay}"></TextBlock>
                     
                         <Button Margin="5,0,0,0" Width="25" Height="25" FontSize="16" Padding="3" FontWeight="Normal" Style="{ThemeResource ButtonStyling}" Grid.Column="3" Grid.Row="2" FontFamily="Segoe MDL2 Assets" BorderThickness="0" VerticalAlignment="Center" Content="&#xE16F;" Click="Passwordcopy_Click" ></Button>
 
@@ -194,7 +194,7 @@
                                    FontWeight="SemiBold"
                                    Grid.Row="3"
                                    Grid.Column="1"></TextBlock>
-                        <TextBlock Grid.Row="3" Margin="5" Text="{x:Bind AddUserViewModel.AccountNo,Mode=OneWay}" Grid.Column="2" Grid.ColumnSpan="2"   FontFamily="Consolas"
+                        <TextBlock Grid.Row="3" Margin="5" Text="{x:Bind _addUserViewModel.AccountNo,Mode=OneWay}" Grid.Column="2" Grid.ColumnSpan="2"   FontFamily="Consolas"
                                                FontSize="18" FontWeight="SemiBold" CharacterSpacing="80"></TextBlock>
                  
                     
@@ -205,7 +205,7 @@
     
 
         </Grid>
-            <controls:InAppNotification  Content="{x:Bind AddUserViewModel.Response,Mode=OneWay}" Template="{StaticResource InAppNotificationTemplate1}" Width="300" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Height="70"  x:Name="InAppNotification" Background="{ThemeResource NotificationColour}" BorderBrush="Black" BorderThickness="0.5" CornerRadius="10"  ShowDismissButton="True"  >
+            <controls:InAppNotification  Content="{x:Bind _addUserViewModel.Response,Mode=OneWay}" Template="{StaticResource InAppNotificationTemplate1}" Width="300" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Height="70"  x:Name="InAppNotification" Background="{ThemeResource NotificationColour}" BorderBrush="Black" BorderThickness="0.5" CornerRadius="10"  ShowDismissButton="True"  >
             </controls:InAppNotification>
         </Grid>
     </ScrollViewer>

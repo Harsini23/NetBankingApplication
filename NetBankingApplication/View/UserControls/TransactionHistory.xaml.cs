@@ -23,10 +23,10 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class TransactionHistory : UserControl
     { 
-        public static bool IsNarrowLayout;
-        private TransactionHistoryBaseViewModel TransactionViewModel;
-        public double windowHeight;
-        public double windowWidth;
+        private static bool _isNarrowLayout;
+        private TransactionHistoryBaseViewModel _transactionViewModel;
+        private double _windowHeight;
+        private double _windowWidth;
         public bool ShowOnlyRecentTransactions { get;set; }
         public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
         public User User
@@ -36,33 +36,33 @@ namespace NetBankingApplication.View.UserControls
         }
         public TransactionHistory()
         {
-            TransactionViewModel = PresenterService.GetInstance().Services.GetService<TransactionHistoryBaseViewModel>();
+            _transactionViewModel = PresenterService.GetInstance().Services.GetService<TransactionHistoryBaseViewModel>();
             this.InitializeComponent();
-            IsNarrowLayout = false;
+            _isNarrowLayout = false;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-                TransactionViewModel.GetTransactionData(User.UserId, ShowOnlyRecentTransactions);
+                _transactionViewModel.GetTransactionData(User.UserId, ShowOnlyRecentTransactions);
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-             windowHeight = e.NewSize.Height;
-             windowWidth = e.NewSize.Width;
+             _windowHeight = e.NewSize.Height;
+             _windowWidth = e.NewSize.Width;
 
-            if (windowHeight < 300 || windowWidth < 700)
+            if (_windowHeight < 300 || _windowWidth < 700)
             {
                 AllTransactionListView.ItemTemplate = (DataTemplate)Resources["NarrowTemplate"];
                 AllTransactionListView.HeaderTemplate = (DataTemplate)Resources["NarrowHeader"];
-                IsNarrowLayout = true;
+                _isNarrowLayout = true;
 
             }
             else
             {
                 AllTransactionListView.ItemTemplate = (DataTemplate)Resources["WideTemplate"];
                 AllTransactionListView.HeaderTemplate = (DataTemplate)Resources["WideHeader"];
-                IsNarrowLayout = false;
+                _isNarrowLayout = false;
             }
         }
 
@@ -89,7 +89,7 @@ namespace NetBankingApplication.View.UserControls
     //        //    return OddTemplate;
     //        //}
     //        var element = container as FrameworkElement;
-    //        if (TransactionHistory.IsNarrowLayout)
+    //        if (TransactionHistory._isNarrowLayout)
     //        {
     //            return OddTemplate;
     //        }

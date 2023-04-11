@@ -148,7 +148,7 @@ namespace NetBankingApplication.ViewModel
                     TransactionDateType = transactionDateType
                 };
                 transactionHistoryViewModel.AllSortedIndexedTransactions.Add(t);
-                if (i.Name != null)
+                if ( String.IsNullOrEmpty(i.Name))
                 {
                     transactionHistoryViewModel.RecipientNameInitials.Add(i.Name.Substring(0, 1));
                 }

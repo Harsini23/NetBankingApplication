@@ -14,7 +14,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
-                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/DataTemplateModules"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <!--<Style TargetType="NavigationViewItemHeader">
                 <Setter Property="Margin" Value="100,0,0,0"></Setter>

@@ -559,7 +559,7 @@
                     </MenuFlyout>
                 </DropDownButton.Flyout>
             </DropDownButton>
-            <TextBlock FontSize="16" x:Name="SingleAccountnumberTextblock" Visibility="Collapsed" Margin="5" Text="{x:Bind  GetAllAccountsViewModel.CurrentAccountSelection,Mode=OneWay}"></TextBlock>  
+            <TextBlock FontSize="16" x:Name="SingleAccountnumberTextblock" Visibility="Collapsed" Margin="5" Text="{x:Bind  _getAllAccountsViewModel.CurrentAccountSelection,Mode=OneWay}"></TextBlock>  
         </StackPanel>
    
         <Grid Grid.Row="1">
@@ -580,9 +580,9 @@
                     <TextBlock Margin="10" Text="Transactions " HorizontalAlignment="Left" FontSize="16 "  FontWeight="SemiBold" Name="asdf"></TextBlock>
                 </StackPanel>
 
-                <TextBlock Grid.Row="1" Visibility="{x:Bind AccountTransactionsViewModel.TextBoxVisibility,Mode=OneWay}" Text="No Transactions yet ;)" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="1" Visibility="{x:Bind _accountTransactionsViewModel.TextBoxVisibility,Mode=OneWay}" Text="No Transactions yet ;)" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
 
-                <ListView  ItemContainerStyle="{StaticResource TransactionItemContainer}"  Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind AccountTransactionsViewModel.AllSortedAccountTransactions,Mode=OneWay}" x:Name="AllTransactionsOnAccountListView"
+                <ListView  ItemContainerStyle="{StaticResource TransactionItemContainer}"  Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollMode="Enabled" ScrollViewer.IsVerticalScrollChainingEnabled="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind _accountTransactionsViewModel.AllSortedAccountTransactions,Mode=OneWay}" x:Name="AllTransactionsOnAccountListView"
                       IsItemClickEnabled="True" SelectionMode="Single" ItemClick="AllTransactionsOnAccountListView_ItemClick">
 
                 <ListView.ItemTemplate>

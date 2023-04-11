@@ -27,7 +27,7 @@ namespace NetBankingApplication.View.UserControls
     {
         //public static string currentUserId;
         //public User CurrentUser;
-        private AddAccountBaseViewModel addAccountBaseViewModel;
+        private AddAccountBaseViewModel _addAccountBaseViewModel;
 
         public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
         public User User
@@ -39,7 +39,7 @@ namespace NetBankingApplication.View.UserControls
         public BankAccount()
         {
             this.InitializeComponent();
-            addAccountBaseViewModel = PresenterService.GetInstance().Services.GetService<AddAccountBaseViewModel>();
+            _addAccountBaseViewModel = PresenterService.GetInstance().Services.GetService<AddAccountBaseViewModel>();
 
         }
 
@@ -136,7 +136,7 @@ namespace NetBankingApplication.View.UserControls
             }
             else
             {
-                addAccountBaseViewModel.AddAccount(new AccountBObj(User.UserId,accountDetails.AccountType, Double.Parse(accountDetails.Balance), (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency), accountDetails.Branch, User.UserName));
+                _addAccountBaseViewModel.AddAccount(new AccountBObj(User.UserId,accountDetails.AccountType, Double.Parse(accountDetails.Balance), (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency), accountDetails.Branch, User.UserName));
                 CreateNewAccountViewComponent.ClearUI();
                 CreateAccountGrid.IsOpen = false;
             }

@@ -36,27 +36,27 @@ namespace NetBankingApplication.View.UserControls
 
     public sealed partial class FullAccountDetails : Page, IAccountView
     {
-        AccountBobj selectedAccount;
-        private string selectedAccountNumber;
-        private string selectedUserId;
-        private string expense;
+        private AccountBobj _selectedAccount;
+        private string _selectedAccountNumber;
+        private string _selectedUserId;
+        private string _expense;
         private AppWindow _appWindow;
         // private string test;
 
         public Account CurrentSelectedAccount;
 
-        private AccountTransactionsBaseViewModel AccountTransactionViewModel;
-        private GetBranchDetailsBaseViewModel GetBranchDetailsViewModel;
-        private FDAccountDetailsBaseViewModel FDAccountDetailsViewModel;
+        private AccountTransactionsBaseViewModel _accountTransactionViewModel;
+        private GetBranchDetailsBaseViewModel _getBranchDetailsViewModel;
+        private FDAccountDetailsBaseViewModel _fDAccountDetailsViewModel;
 
         public FullAccountDetails()
         {
             this.InitializeComponent();
-            AccountTransactionViewModel = PresenterService.GetInstance().Services.GetService<AccountTransactionsBaseViewModel>();
-            AccountTransactionViewModel.AccountView = this;
+            _accountTransactionViewModel = PresenterService.GetInstance().Services.GetService<AccountTransactionsBaseViewModel>();
+            _accountTransactionViewModel.AccountView = this;
 
-            GetBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
-            FDAccountDetailsViewModel = PresenterService.GetInstance().Services.GetService<FDAccountDetailsBaseViewModel>();
+            _getBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
+            _fDAccountDetailsViewModel = PresenterService.GetInstance().Services.GetService<FDAccountDetailsBaseViewModel>();
             Bindings.Update();
 
             // if AccountTransactionsViewModel AccountDetails type is fd change template!
@@ -66,14 +66,14 @@ namespace NetBankingApplication.View.UserControls
         {
             base.OnNavigatedTo(e);
             _appWindow = (AppWindow)((object[])e.Parameter)[0];
-            selectedAccount = (AccountBobj)((object[])e.Parameter)[1];
-            CurrentSelectedAccount = selectedAccount.Account;
-            selectedAccountNumber = selectedAccount.Account.AccountNumber.ToString();
-            selectedUserId = selectedAccount.UserId;
+            _selectedAccount = (AccountBobj)((object[])e.Parameter)[1];
+            CurrentSelectedAccount = _selectedAccount.Account;
+            _selectedAccountNumber = _selectedAccount.Account.AccountNumber.ToString();
+            _selectedUserId = _selectedAccount.UserId;
 
-            AccountTransactionViewModel.GetAllTransactions(selectedAccountNumber, selectedUserId);
+            _accountTransactionViewModel.GetAllTransactions(_selectedAccountNumber, _selectedUserId);
 
-            GetBranchDetailsViewModel.FetchBranchDetails(selectedAccount.Account.BId);
+            _getBranchDetailsViewModel.FetchBranchDetails(_selectedAccount.Account.BId);
             Bindings.Update();
 
         }
@@ -109,9 +109,9 @@ namespace NetBankingApplication.View.UserControls
         public void SwichBasedOnAccountType(string AccountNumber)
         {
 
-            if (AccountTransactionViewModel.AccountDetails.AccountType == AccountType.FDAccount)
+            if (_accountTransactionViewModel.AccountDetails.AccountType == AccountType.FDAccount)
             {
-                FDAccountDetailsViewModel.GetFDDetails(AccountNumber);
+                _fDAccountDetailsViewModel.GetFDDetails(AccountNumber);
                 OverallFDSummary.Visibility = Visibility.Visible;
 
             }
@@ -123,7 +123,7 @@ namespace NetBankingApplication.View.UserControls
 
         private void CloseFD_Click(object sender, RoutedEventArgs e)
         {
-            FDAccountDetailsViewModel.CloseFD(FDAccountDetailsViewModel.CurrentFDAccount, selectedAccount.UserId);
+            _fDAccountDetailsViewModel.CloseFD(_fDAccountDetailsViewModel.CurrentFDAccount, _selectedAccount.UserId);
             //close app window
             _appWindow.CloseAsync();
         }

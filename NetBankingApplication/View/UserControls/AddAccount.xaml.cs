@@ -26,22 +26,21 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class AddAccount : UserControl, INotifyPropertyChanged, IAccountAddedNotification
     {
-        private GetAllUsersBaseViewModel allUsersViewModel;
-        private ObservableCollection<User> users;
         public event PropertyChangedEventHandler PropertyChanged;
-        private AddAccountBaseViewModel addAccountBaseViewModel;
 
-  
+        private GetAllUsersBaseViewModel _allUsersViewModel;
+        private ObservableCollection<User> _users;
+        private AddAccountBaseViewModel _addAccountBaseViewModel;
 
         public AddAccount()
         {
             this.InitializeComponent();
-            allUsersViewModel = PresenterService.GetInstance().Services.GetService<GetAllUsersBaseViewModel>();
-            allUsersViewModel.GetAllUsers();
-            users = allUsersViewModel.AllUsers;
+            _allUsersViewModel = PresenterService.GetInstance().Services.GetService<GetAllUsersBaseViewModel>();
+            _allUsersViewModel.GetAllUsers();
+            _users = _allUsersViewModel.AllUsers;
 
-            addAccountBaseViewModel = PresenterService.GetInstance().Services.GetService<AddAccountBaseViewModel>();
-            addAccountBaseViewModel.addAccountView = this;
+            _addAccountBaseViewModel = PresenterService.GetInstance().Services.GetService<AddAccountBaseViewModel>();
+            _addAccountBaseViewModel.addAccountView = this;
 
         }
 
@@ -60,16 +59,14 @@ namespace NetBankingApplication.View.UserControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            users = allUsersViewModel.AllUsers;
+            _users = _allUsersViewModel.AllUsers;
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 var suitableItems = new ObservableCollection<string>();
                 var splitText = sender.Text.ToLower().Split(" ");
-                foreach (var user in users)
+                foreach (var user in _users)
                 {
                     var found = splitText.All((key) =>
                     {
@@ -97,7 +94,7 @@ namespace NetBankingApplication.View.UserControls
         private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
             UserInfoGrid.Visibility = Visibility.Visible;
-            CurrentSelectedUser= users.FirstOrDefault(user => user.UserId == args.SelectedItem.ToString());
+            CurrentSelectedUser= _users.FirstOrDefault(user => user.UserId == args.SelectedItem.ToString());
             UserAutoSuggestBox.Text = args.SelectedItem.ToString();
 
         }
@@ -110,7 +107,7 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserAutoSuggestBox_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            users = allUsersViewModel.AllUsers;
+            _users = _allUsersViewModel.AllUsers;
         }
 
         private void Submit_Click(object sender, RoutedEventArgs e)
@@ -132,7 +129,7 @@ namespace NetBankingApplication.View.UserControls
             }
             else
             {
-                addAccountBaseViewModel.AddAccount(new AccountBObj(CurrentSelectedUser.UserId, accountDetails.AccountType, Double.Parse(accountDetails.Balance), (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency), accountDetails.Branch,CurrentSelectedUser.UserName));
+                _addAccountBaseViewModel.AddAccount(new AccountBObj(CurrentSelectedUser.UserId, accountDetails.AccountType, Double.Parse(accountDetails.Balance), (Currency)Enum.Parse(typeof(Currency), accountDetails.Currency), accountDetails.Branch,CurrentSelectedUser.UserName));
                 ClearUI();
                 CreateAccountViewDetails.ClearUI();
             }
@@ -160,7 +157,7 @@ namespace NetBankingApplication.View.UserControls
 
         public void AccountNotification()
         {
-            InAppNotification.Show(addAccountBaseViewModel.Response, 3000);
+            InAppNotification.Show(_addAccountBaseViewModel.Response, 3000);
 
         }
 

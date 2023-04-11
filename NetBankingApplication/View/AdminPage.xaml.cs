@@ -32,12 +32,12 @@ namespace NetBankingApplication.View
     public sealed partial class AdminPage : Page, INotifyPropertyChanged
     {
        
-        private LoginBaseViewModel LoginViewModel;
+        private LoginBaseViewModel _loginViewModel;
 
         public AdminPage()
         {
             this.InitializeComponent();
-            LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+            _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             SwitchThemeUIValues();
         }
         private void SwitchThemeUIValues()
@@ -122,7 +122,7 @@ namespace NetBankingApplication.View
         private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
         {
             //logout logic
-            LoginViewModel.Logout();
+            _loginViewModel.Logout();
         }
 
         private String _oppositeTheme;

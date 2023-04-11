@@ -21,18 +21,18 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class ResetPassword : UserControl
     {
-        private LoginBaseViewModel LoginViewModel;
-        public string NewPassword;
-        public bool redirect { get; set; }
+        private LoginBaseViewModel _loginViewModel;
+        private string _newPassword;
+        public bool Redirect { get; set; }
         public ResetPassword()
         {
             this.InitializeComponent();
-            LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+            _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             //setting login view value for callback
             //LoginViewModel.LoginViewModelCallback = this;
-            LoginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
+            _loginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
             //LoginViewModel.ClosePopUp = new SettingsView();
-            LoginViewModel.ResetPasswordResponseValue = String.Empty;
+            _loginViewModel.ResetPasswordResponseValue = String.Empty;
         }
 
         //private void RevealModeCheckbox_ChangedReset(object sender, RoutedEventArgs e)
@@ -68,7 +68,7 @@ namespace NetBankingApplication.View.UserControls
             if (password.Length > 8 && password.Length < 128 && password.Any(char.IsLower) && password.Any(char.IsUpper) && (!password.Contains(" ")) && CheckForSpecialCharacter(password))
             {
                 RePasswordReset.IsEnabled = true;
-                NewPassword = password;
+                _newPassword = password;
             }
             else
             {
@@ -91,7 +91,7 @@ namespace NetBankingApplication.View.UserControls
         {
             var passwordBox = (PasswordBox)sender;
             var password = passwordBox.Password.ToString();
-            if (password == NewPassword)
+            if (password == _newPassword)
             {
                 ReSetPassword.IsEnabled = true;
                 ErrorTextBlock.Visibility = Visibility.Collapsed;
@@ -106,8 +106,8 @@ namespace NetBankingApplication.View.UserControls
         {
           if(RePasswordReset.Password== PasswordReset.Password)
             {
-                LoginViewModel.Redirect = redirect;
-                LoginViewModel.ResetPassword(RePasswordReset.Password);
+                _loginViewModel.Redirect = Redirect;
+                _loginViewModel.ResetPassword(RePasswordReset.Password);
                 PasswordReset.Password = "";
                 RePasswordReset.Password = "";
                 ErrorTextBlock.Visibility = Visibility.Collapsed;

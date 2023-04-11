@@ -235,7 +235,7 @@
                                 Margin="5,0,0,0"
                                 FontSize="16"
                                 FontWeight="Light"
-                                Text="{x:Bind  GetAllAccountsViewModel.CurrentAccountBalance,Mode=OneWay}"></TextBlock>
+                                Text="{x:Bind  _getAllAccountsViewModel.CurrentAccountBalance,Mode=OneWay}"></TextBlock>
                 </StackPanel>
             </StackPanel>
 
@@ -253,7 +253,7 @@
                             Orientation="Horizontal">
                     <TextBlock Text="Account number : "
                                FontSize="16"></TextBlock>
-                    <TextBlock Text="{x:Bind UserAccountNumber,Mode=OneWay}"
+                    <TextBlock Text="{x:Bind _userAccountNumber,Mode=OneWay}"
                                FontSize="16"
                                Margin="5,0,0,0"></TextBlock>
                 </StackPanel>
@@ -262,7 +262,7 @@
                             Margin="0,10,0,0">
                     <TextBlock Text="Balance : "
                                FontSize="16"></TextBlock>
-                    <TextBlock Text="{x:Bind GetAllAccountsViewModel.SingleAccountBalance,Mode=OneWay}"
+                    <TextBlock Text="{x:Bind _getAllAccountsViewModel.SingleAccountBalance,Mode=OneWay}"
                                FontSize="16"
                                Margin="5,0,0,0"></TextBlock>
                 </StackPanel>
@@ -379,7 +379,7 @@
                         <TextBlock Grid.Row="1"
                                    FontSize="20"
                                    FontFamily="Cascadia Mono"
-                                   Text="{x:Bind FDAccountViewModel.CalculatedFd.MaturityAmount,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
+                                   Text="{x:Bind _fDAccountViewModel.CalculatedFd.MaturityAmount,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
 
                     </StackPanel>
                 </StackPanel>
@@ -388,14 +388,14 @@
                     <TextBlock Grid.Row="1"
                                FontSize="20"
                                FontFamily="Cascadia Mono" 
-                               Text="{x:Bind FDAccountViewModel.CalculatedFd.MaturityDate,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
+                               Text="{x:Bind _fDAccountViewModel.CalculatedFd.MaturityDate,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="3" Padding="10">
                     <TextBlock Text="Interest Amount" FontSize="12"></TextBlock>
                     <TextBlock Grid.Row="1"
                                FontSize="20"
                                FontFamily="Cascadia Mono"
-                               Text="{x:Bind FDAccountViewModel.CalculatedFd.InterestAmount,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
+                               Text="{x:Bind _fDAccountViewModel.CalculatedFd.InterestAmount,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="4" Padding="10">
                     <TextBlock Text="Rate of Interest" FontSize="12"></TextBlock>
@@ -403,7 +403,7 @@
                         <TextBlock Grid.Row="1"
                                FontSize="20"
                                FontFamily="Cascadia Mono"
-                               Text="{x:Bind FDAccountViewModel.CalculatedFd.Rate,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
+                               Text="{x:Bind _fDAccountViewModel.CalculatedFd.Rate,Mode=OneWay,Converter={StaticResource NullTypeConverter},FallbackValue=-}"></TextBlock>
                     <TextBlock Text="%"
                                FontSize="20"
                                    FontFamily="Cascadia Mono"
@@ -416,7 +416,7 @@
             <TextBlock Grid.ColumnSpan="1" 
                        x:Name="ErrorMessage"
                        Style="{ThemeResource FailureText}" VerticalAlignment="Bottom"></TextBlock>
-            <controls:InAppNotification  Content="{x:Bind FDAccountViewModel.NotificationMessage,Mode=OneWay}"
+            <controls:InAppNotification  Content="{x:Bind _fDAccountViewModel.NotificationMessage,Mode=OneWay}"
                                          Template="{StaticResource InAppNotificationTemplate1}"
                                          Width="400"
                                          HorizontalContentAlignment="Left"

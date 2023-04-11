@@ -62,7 +62,7 @@
 
 
 
-            <ListView Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllPayeeViewModel.AllPayeeCollection,Mode=OneWay}" IsItemClickEnabled="True" x:Name="AllTransactionListView" SelectionMode="None">
+            <ListView Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind _getAllPayeeViewModel.AllPayeeCollection,Mode=OneWay}" IsItemClickEnabled="True" x:Name="AllTransactionListView" SelectionMode="None">
 
                 <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="data:Payee">
@@ -573,7 +573,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-            <TextBlock Visibility="{x:Bind GetAllPayeeViewModel.TextBoxVisibility,Mode=OneWay}" Text="No records found!" Name="EmptyList" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"></TextBlock>
+            <TextBlock Visibility="{x:Bind _getAllPayeeViewModel.TextBoxVisibility,Mode=OneWay}" Text="No records found!" Name="EmptyList" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1"></TextBlock>
 
             <Popup Height="Auto" Grid.Row="0" ScrollViewer.HorizontalScrollMode="Auto" Grid.RowSpan="2"  x:Name="EditPayeePopup"  IsLightDismissEnabled="True" LightDismissOverlayMode="on" >
                 <Grid CornerRadius="10" MinWidth="350" MinHeight="450" Background="{ThemeResource SupportingColour}" Padding="40" VerticalAlignment="Center" HorizontalAlignment="Center" Width="380">

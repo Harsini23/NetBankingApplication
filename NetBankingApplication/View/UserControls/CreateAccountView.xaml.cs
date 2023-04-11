@@ -25,14 +25,14 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class CreateAccountView : UserControl
     {
         public string ErrorMessage;
-        IEnumerable<AccountType> _AccountTypeValues;
-        IEnumerable<BasicInitialUserAccountType> _basicInitialUserAccountTypes;
-        IEnumerable<Currency> _CurrencyValues;
+        private IEnumerable<AccountType> _AccountTypeValues;
+        private IEnumerable<BasicInitialUserAccountType> _basicInitialUserAccountTypes;
+        private IEnumerable<Currency> _CurrencyValues;
         private string SelectedBranch;
         private string SelectedAccountType;
         private string SelectedCurrency;
         private string _amount;
-        private GetBranchDetailsBaseViewModel GetBranchDetailsViewModel;
+        private GetBranchDetailsBaseViewModel _getBranchDetailsViewModel;
         public bool FirstAccountCreation { get; set; }
         AccountTypeToStringConverter accountTypeToStringConverter;
         public CreateAccountView()
@@ -41,8 +41,8 @@ namespace NetBankingApplication.View.UserControls
             _AccountTypeValues = Enum.GetValues(typeof(AccountType)).Cast<AccountType>();
            _basicInitialUserAccountTypes= Enum.GetValues(typeof(BasicInitialUserAccountType)).Cast<BasicInitialUserAccountType>();
             _CurrencyValues = Enum.GetValues(typeof(Currency)).Cast<Currency>();
-            GetBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
-            GetBranchDetailsViewModel.FetchBranchDetails();
+            _getBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
+            _getBranchDetailsViewModel.FetchBranchDetails();
             SelectedCurrency= "INR";
             accountTypeToStringConverter = new AccountTypeToStringConverter();
         }
@@ -166,7 +166,7 @@ namespace NetBankingApplication.View.UserControls
         {
             allBranches = sender as MenuFlyout;
             allBranches.Items.Clear();
-            foreach (var i in GetBranchDetailsViewModel.allBranchDetails)
+            foreach (var i in _getBranchDetailsViewModel.allBranchDetails)
             {
                 var item = new MenuFlyoutItem();
                 item.Text = i.BId + " - " + i.BCity;

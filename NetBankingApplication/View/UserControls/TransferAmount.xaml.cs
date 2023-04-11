@@ -27,15 +27,15 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class TransferAmount : UserControl, ISwitchUserView, ZeroBalance, ISuggestAndAddPayeeView
     {
-        private string Name;
-        private string FromAccount;
-        private string ToAccount;
-        private string RemarkDescription="-";
-        private double Amount;
-        private string NewPayeeEnteredName;
-        private string UserAccountNumber;
-        private string _amount;
-        private bool IsNewPayee;
+        private string _name;
+        private string _fromAccount;
+        private string _toAccount;
+        private string _remarkDescription="-";
+        private double _amount;
+        private string _newPayeeEnteredName;
+        private string _userAccountNumber;
+        private string _amountStr;
+        private bool _isNewPayee;
         public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
         public User User
         {
@@ -43,9 +43,9 @@ namespace NetBankingApplication.View.UserControls
             set { SetValue(UserProperty, value); }
         }
 
-        private GetAllPayeeBaseViewModel GetAllPayeeViewModel;
-        private TransferAmountBaseViewModel TransferAmountViewModel;
-        private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
+        private GetAllPayeeBaseViewModel _getAllPayeeViewModel;
+        private TransferAmountBaseViewModel _transferAmountViewModel;
+        private GetAllAccountsBaseViewModel _getAllAccountsViewModel;
 
         public event Action<string> RaiseNotification;
 
@@ -64,11 +64,11 @@ namespace NetBankingApplication.View.UserControls
         {
             this.InitializeComponent();
         
-            GetAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
-            TransferAmountViewModel = PresenterService.GetInstance().Services.GetService<TransferAmountBaseViewModel>();
-            GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
-            GetAllAccountsViewModel.ZerobalanceView = this;
-            GetAllAccountsViewModel.TransferAmountView = this;
+            _getAllPayeeViewModel = PresenterService.GetInstance().Services.GetService<GetAllPayeeBaseViewModel>();
+            _transferAmountViewModel = PresenterService.GetInstance().Services.GetService<TransferAmountBaseViewModel>();
+            _getAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
+            _getAllAccountsViewModel.ZerobalanceView = this;
+            _getAllAccountsViewModel.TransferAmountView = this;
             MakeTransaction.IsEnabled = true;
 
         }
@@ -86,7 +86,7 @@ namespace NetBankingApplication.View.UserControls
             {
                 ErrorMessage.Text = "Fill out amount field";
             }
-            else if (!IsFloatOrInt(_amount) || Double.Parse(_amount) <= 0)
+            else if (!IsFloatOrInt(_amountStr) || Double.Parse(_amountStr) <= 0)
             {
                 ErrorMessage.Text = "Enter valid amount";
             }
@@ -101,37 +101,37 @@ namespace NetBankingApplication.View.UserControls
                 //get transaction fields
                 if (!String.IsNullOrEmpty(NewPayeeName.Text))
                 {
-                    Name = NewPayeeName.Text;
-                    ToAccount = AccountNumberTextBox.Text;
+                    _name = NewPayeeName.Text;
+                    _toAccount = AccountNumberTextBox.Text;
                 }
 
-                Amount = Double.Parse(AmountTextBox.Text);
+                _amount = Double.Parse(AmountTextBox.Text);
                 if (!string.IsNullOrWhiteSpace(RemarkTextBox.Text))
                 {
-                    RemarkDescription = RemarkTextBox.Text;
+                    _remarkDescription = RemarkTextBox.Text;
                 }
                 //get from account from using user id from datamanager
                 AmountTransfer amountTransfer = new AmountTransfer
                 {
                     UserId = User.UserId,
-                    Name = Name,
-                    FromAccount = FromAccount,
-                    ToAccount = ToAccount,
-                    Remark = RemarkDescription,
-                    Amount = Amount
+                    Name = _name,
+                    FromAccount = _fromAccount,
+                    ToAccount = _toAccount,
+                    Remark = _remarkDescription,
+                    Amount = _amount
                 };
                 if (amountTransfer.ToAccount != null && amountTransfer.Amount != null && amountTransfer.Name != null)
                 {
-                    TransferAmountViewModel.suggestionPopUp = this;
-                    TransferAmountViewModel.SendTransaction(amountTransfer, amountTransfer.UserId);
+                    _transferAmountViewModel.suggestionPopUp = this;
+                    _transferAmountViewModel.SendTransaction(amountTransfer, amountTransfer.UserId);
                     //set instance in VM to call usercontrol to conver it into added payee
 
-                    TransferAmountViewModel.NewPayee = IsNewPayee;
+                    _transferAmountViewModel.NewPayee = _isNewPayee;
                 }
 
                 ResetUI();
                 await ContentDialog.ShowAsync();
-                GetAllAccountsViewModel.GetAllAccounts(User.UserId);
+                _getAllAccountsViewModel.GetAllAccounts(User.UserId);
 
                 // TransferAmountViewModel.SendTransaction(currentTransaction);
             }
@@ -155,7 +155,7 @@ namespace NetBankingApplication.View.UserControls
             //MakeTransaction.IsEnabled = false;
             ErrorMessage.Text = String.Empty;
             BalanceText.Text = "Choose Account";
-            GetAllAccountsViewModel.CurrentAccountBalance = "Choose Account";
+            _getAllAccountsViewModel.CurrentAccountBalance = "Choose Account";
 
         }
 
@@ -164,26 +164,26 @@ namespace NetBankingApplication.View.UserControls
             //load list of payee with all details as payee object
             
             allRecipientNames.Clear();
-            allRecipientNames = GetAllPayeeViewModel.PayeeNames;
+            allRecipientNames = _getAllPayeeViewModel.PayeeNames;
             allRecipients.Clear();
-            allRecipients = GetAllPayeeViewModel.AllPayee;
+            allRecipients = _getAllPayeeViewModel.AllPayee;
             ErrorMessage.Text = String.Empty;
 
 
             allAccountNumbers.Clear();
-            allAccountNumbers = GetAllAccountsViewModel.AllAccountNumbers;
+            allAccountNumbers = _getAllAccountsViewModel.AllAccountNumbers;
             allAccounts.Clear();
-            allAccounts = GetAllAccountsViewModel.AllAccounts;
+            allAccounts = _getAllAccountsViewModel.AllAccounts;
             allAccountBalances.Clear();
-            allAccountBalances = GetAllAccountsViewModel.allBalances;
+            allAccountBalances = _getAllAccountsViewModel.allBalances;
             SwitchBasedOnUserAccount();
 
 
             AccountNumberTextBox.IsEnabled = false;
             AccountNumberTextBox.IsReadOnly = true;
 
-            GetAllPayeeViewModel.GetAllPayee(User.UserId);
-            GetAllAccountsViewModel.GetAllAccounts(User.UserId);
+            _getAllPayeeViewModel.GetAllPayee(User.UserId);
+            _getAllAccountsViewModel.GetAllAccounts(User.UserId);
         }
 
 
@@ -216,7 +216,7 @@ namespace NetBankingApplication.View.UserControls
             var selectedItem = sender as MenuFlyoutItem;
             NewPayeeName.Visibility = Visibility.Collapsed;
             SelectPayee.Content = selectedItem.Text;
-            ToAccount = selectedItem.Text;
+            _toAccount = selectedItem.Text;
             foreach (var i in allRecipients)
             {
                 if (selectedItem.Text == i.PayeeName)
@@ -224,13 +224,13 @@ namespace NetBankingApplication.View.UserControls
                     AccountNumberTextBox.Text = i.AccountNumber;
                     AccountNumberTextBox.IsReadOnly = true;
                     AccountNumberTextBox.IsEnabled = true;
-                    Name = i.PayeeName;
-                    ToAccount = i.AccountNumber;
-                    Name = i.AccountHolderName;
+                    _name = i.PayeeName;
+                    _toAccount = i.AccountNumber;
+                    _name = i.AccountHolderName;
                     break;
                 }
             }
-            IsNewPayee = false;
+            _isNewPayee = false;
 
         }
 
@@ -241,9 +241,9 @@ namespace NetBankingApplication.View.UserControls
             AccountNumberTextBox.IsReadOnly = false;
             var selectedItem = sender as MenuFlyoutItem;
             SelectPayee.Content = selectedItem.Text;
-            ToAccount = selectedItem.Text;
+            _toAccount = selectedItem.Text;
             NewPayeeName.Visibility = Visibility.Visible;
-            IsNewPayee=true;
+            _isNewPayee=true;
 
     }
 
@@ -272,7 +272,7 @@ namespace NetBankingApplication.View.UserControls
 
 
             selectAccountList.Items.Clear();
-            foreach (var i in GetAllAccountsViewModel.allBalances)
+            foreach (var i in _getAllAccountsViewModel.allBalances)
             {
                 var item = new MenuFlyoutItem();
                 item.Text = i.AccountNumber;
@@ -287,17 +287,17 @@ namespace NetBankingApplication.View.UserControls
         private void Account_Selection(object sender, RoutedEventArgs e)
         {
             var selectedItem = sender as MenuFlyoutItem;
-            FromAccount = selectedItem.Text;
+           _fromAccount = selectedItem.Text;
             SelectAccount.Content = selectedItem.Text;
-            GetAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
-            Debug.WriteLine(ToAccount);
+            _getAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
+            Debug.WriteLine(_toAccount);
 
         }
 
         private void NewPayeeName_TextChanged(object sender, TextChangedEventArgs e)
         {
             var name = (TextBox)sender;
-            NewPayeeEnteredName = name.Text.ToString();
+            _newPayeeEnteredName = name.Text.ToString();
 
         }
 
@@ -305,7 +305,7 @@ namespace NetBankingApplication.View.UserControls
         {
             var amountBox = (TextBox)sender;
             ErrorMessage.Text = String.Empty;
-             _amount = amountBox.Text.ToString();
+             _amountStr = amountBox.Text.ToString();
             double val = 0.0;
             if(amountBox.Text.Length > 0 )
             {
@@ -319,12 +319,12 @@ namespace NetBankingApplication.View.UserControls
             }
 
          
-            if (_amount == String.Empty)
+            if (_amountStr == String.Empty)
             {
                 ErrorMessage.Text = String.Empty;
             }
 
-           else if (!IsFloatOrInt(_amount) || Double.Parse(_amount) <= 0 && !String.IsNullOrEmpty(_amount) )
+           else if (!IsFloatOrInt(_amountStr) || Double.Parse(_amountStr) <= 0 && !String.IsNullOrEmpty(_amountStr) )
             {
                 ErrorMessage.Text = "Kindly check and enter valid amount";
                 //MakeTransaction.IsEnabled = false;
@@ -359,8 +359,8 @@ namespace NetBankingApplication.View.UserControls
             {
                 SingleAccount.Visibility = Visibility.Visible;
                 if(allAccountNumbers.Count > 0)
-                UserAccountNumber = allAccountNumbers[0];
-                FromAccount = UserAccountNumber;
+                _userAccountNumber = allAccountNumbers[0];
+                _fromAccount = _userAccountNumber;
              // allAccountBalances[0].TotalBalance.ToString();
             }
             else
@@ -397,7 +397,7 @@ namespace NetBankingApplication.View.UserControls
         private void YesProceed_Click(object sender, RoutedEventArgs e)
         {
             //redirect to addpayee with params - payee name and acc no.
-            SendPayee?.Invoke(Name, ToAccount);
+            SendPayee?.Invoke(_name, _toAccount);
         }
 
         private void NoLater_Click(object sender, RoutedEventArgs e)
@@ -407,9 +407,9 @@ namespace NetBankingApplication.View.UserControls
 
         private void ContentDialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
         {
-            if (IsNewPayee)
+            if (_isNewPayee)
             {
-                IsNewPayee = false;
+                _isNewPayee = false;
                 AddPayeePopup.IsOpen = true;
                 double horizontalOffset = Window.Current.Bounds.Width / 2 - AddPayeePopup.ActualWidth / 2 + 200;
                 double verticalOffset = Window.Current.Bounds.Height / 2 - AddPayeePopup.ActualHeight / 2+100;

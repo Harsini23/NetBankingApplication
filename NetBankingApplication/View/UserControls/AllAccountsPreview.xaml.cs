@@ -30,11 +30,10 @@ namespace NetBankingApplication.View.UserControls
 {
     public sealed partial class AllAccountsPreview : UserControl, ICloseAllWindows, INotificationAlert
     {
-        private GetAllAccountsBaseViewModel GetAllAccountsViewModel;
-      
-        static Dictionary<int, AppWindow> appWindows = new Dictionary<int, AppWindow>();
+        private GetAllAccountsBaseViewModel _getAllAccountsViewModel;
+        private LoginBaseViewModel _loginViewModel;
 
-        private LoginBaseViewModel LoginViewModel;
+        private static Dictionary<int, AppWindow> _appWindows = new Dictionary<int, AppWindow>();
         public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
         public User User
         {
@@ -43,14 +42,14 @@ namespace NetBankingApplication.View.UserControls
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            GetAllAccountsViewModel.GetAllAccounts(User.UserId);
+            _getAllAccountsViewModel.GetAllAccounts(User.UserId);
         }
    
         public AllAccountsPreview()
         {
             this.InitializeComponent();
-            GetAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
-            GetAllAccountsViewModel.NotificationAlert = this;
+            _getAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
+            _getAllAccountsViewModel.NotificationAlert = this;
             Bindings.Update();
         }
       
@@ -83,16 +82,12 @@ namespace NetBankingApplication.View.UserControls
             InAppNotification.Dismiss();
         }
 
-
-        private FrameworkElement SomeElemnt;
-        //private Frame newFrame;
-
         public  async Task GoToOpenPage(AccountBobj selectedAccountDetails,int buttonIndex)
         {
-            if (!appWindows.TryGetValue(buttonIndex, out AppWindow appWin))
+            if (!_appWindows.TryGetValue(buttonIndex, out AppWindow appWin))
             {
                 AppWindow appWindow = await AppWindow.TryCreateAsync();
-                appWindows[buttonIndex] = appWindow;
+                _appWindows[buttonIndex] = appWindow;
                 appWindow.Closed += AppWindow_Closed;
                 Frame newFrame = new Frame();
                 newFrame.Navigate(typeof(FullAccountDetails), new object[] { appWindow, selectedAccountDetails });
@@ -101,7 +96,7 @@ namespace NetBankingApplication.View.UserControls
                 ThemeSwitch.AddUIRootElement(newFrame);//change theme by registering
                 await appWindow.TryShowAsync();
             }
-            else if(appWindows.TryGetValue(buttonIndex, out AppWindow appW))
+            else if(_appWindows.TryGetValue(buttonIndex, out AppWindow appW))
             {
               await appW.TryShowAsync();
             }
@@ -111,18 +106,15 @@ namespace NetBankingApplication.View.UserControls
 
         private void AppWindow_Closed(AppWindow sender, object args)
         {
-
-            var keysToRemove = appWindows.Where(x => x.Value == sender).Select(x => x.Key).ToList();
+            var keysToRemove = _appWindows.Where(x => x.Value == sender).Select(x => x.Key).ToList();
             foreach (var key in keysToRemove)
             {
-                appWindows.Remove(key);
+                _appWindows.Remove(key);
             }
-
         }
-
         public void closeAllWindows()
         {
-            foreach (var i in appWindows)
+            foreach (var i in _appWindows)
             {
                 i.Value.CloseAsync();
             }

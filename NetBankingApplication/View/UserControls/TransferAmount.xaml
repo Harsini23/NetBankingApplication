@@ -87,7 +87,7 @@
                     <StackPanel Orientation="Horizontal" Margin="5">
                         <TextBlock Text="Available Balance :" FontSize="16" FontWeight="Light"></TextBlock>
                         
-                            <TextBlock  x:Name="BalanceText" Margin="5,0,0,0" FontSize="16" FontWeight="Light" Text="{x:Bind  GetAllAccountsViewModel.CurrentAccountBalance,Mode=OneWay}" ></TextBlock>
+                            <TextBlock  x:Name="BalanceText" Margin="5,0,0,0" FontSize="16" FontWeight="Light" Text="{x:Bind  _getAllAccountsViewModel.CurrentAccountBalance,Mode=OneWay}" ></TextBlock>
                      
                     </StackPanel>
 
@@ -101,11 +101,11 @@
                     
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <TextBlock Text="Account number : " FontSize="16"></TextBlock>
-                        <TextBlock Text="{x:Bind UserAccountNumber,Mode=OneWay}" FontSize="16" Margin="5,0,0,0"></TextBlock>
+                        <TextBlock Text="{x:Bind _userAccountNumber,Mode=OneWay}" FontSize="16" Margin="5,0,0,0"></TextBlock>
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,10,0,0">
                         <TextBlock Text="Balance : " FontSize="16"></TextBlock>
-                        <TextBlock Text="{x:Bind GetAllAccountsViewModel.SingleAccountBalance,Mode=OneWay}" FontSize="16" Margin="5,0,0,0"></TextBlock>
+                        <TextBlock Text="{x:Bind _getAllAccountsViewModel.SingleAccountBalance,Mode=OneWay}" FontSize="16" Margin="5,0,0,0"></TextBlock>
                     </StackPanel>
                 </Grid>
 
@@ -122,7 +122,7 @@
                     </TextBox.Header>
                 </TextBox>
 
-                <TextBlock Grid.Row="7" Text="{x:Bind TransferAmountViewModel.ResultText,Mode=OneWay}" x:Name="ErrorMessage" Style="{ThemeResource FailureText}"></TextBlock>
+                <TextBlock Grid.Row="7" Text="{x:Bind _transferAmountViewModel.ResultText,Mode=OneWay}" x:Name="ErrorMessage" Style="{ThemeResource FailureText}"></TextBlock>
 
                 <Button Click="MakeTransaction_Click"
                         x:Name="MakeTransaction"
@@ -160,8 +160,8 @@
                     </Grid.ColumnDefinitions>
                     
                     <StackPanel HorizontalAlignment="Center" Margin="10" Grid.ColumnSpan="3">
-                        <TextBlock FontSize="20"  FontWeight="Bold" HorizontalAlignment="Center" Text="{x:Bind TransferAmountViewModel.Status,Mode=OneWay}" Margin="5"  x:Name="Transaction_status"></TextBlock>
-                        <TextBlock FontWeight="Medium" FontSize="14"  Text="{x:Bind TransferAmountViewModel.ResultStatus,Mode=OneWay}"  HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock FontSize="20"  FontWeight="Bold" HorizontalAlignment="Center" Text="{x:Bind _transferAmountViewModel.Status,Mode=OneWay}" Margin="5"  x:Name="Transaction_status"></TextBlock>
+                        <TextBlock FontWeight="Medium" FontSize="14"  Text="{x:Bind _transferAmountViewModel.ResultStatus,Mode=OneWay}"  HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
                     </StackPanel>
                     
                         <TextBlock Margin="10"
@@ -173,7 +173,7 @@
                                 />
                     <TextBlock Margin="0,10,10,10"
                                     Grid.Row="1" Grid.Column="2"
-                                    x:Name="TransactionId"  Text="{x:Bind TransferAmountViewModel.TransactionIdValue,Mode=OneWay}"  FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                                    x:Name="TransactionId"  Text="{x:Bind _transferAmountViewModel.TransactionIdValue,Mode=OneWay}"  FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
 
                     <TextBlock Margin="10"
                                Grid.Row="2"
@@ -191,7 +191,7 @@
                                Grid.Row="2"
                                Grid.Column="2"
                                x:Name="TransactionDate"
-                               Text="{x:Bind TransferAmountViewModel.DateTime,Mode=OneWay}"
+                               Text="{x:Bind _transferAmountViewModel.DateTime,Mode=OneWay}"
                                FontSize="16"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"></TextBlock>
@@ -212,7 +212,7 @@
                                Grid.Row="3"
                                Grid.Column="2"
                                x:Name="FromAccountNumber"
-                               Text="{x:Bind TransferAmountViewModel.FromAccountNumber,Mode=OneWay}"
+                               Text="{x:Bind _transferAmountViewModel.FromAccountNumber,Mode=OneWay}"
                                FontSize="16"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"></TextBlock>
@@ -233,7 +233,7 @@
                                Grid.Row="4"
                                Grid.Column="2"
                                x:Name="ToAccountNumber"
-                               Text="{x:Bind TransferAmountViewModel.ToAccountNumber,Mode=OneWay}"
+                               Text="{x:Bind _transferAmountViewModel.ToAccountNumber,Mode=OneWay}"
                                FontSize="16"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"></TextBlock>
@@ -254,7 +254,7 @@
                                Grid.Row="5"
                                Grid.Column="2"
                                x:Name="ToAccountName"
-                               Text="{x:Bind TransferAmountViewModel.ToName,Mode=OneWay}"
+                               Text="{x:Bind _transferAmountViewModel.ToName,Mode=OneWay}"
                                FontSize="16"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"></TextBlock>
@@ -275,7 +275,7 @@
                                Grid.Row="6"
                                Grid.Column="2"
                                x:Name="AmountTransfered"
-                               Text="{x:Bind TransferAmountViewModel.AmountTransfered,Mode=OneWay}"
+                               Text="{x:Bind _transferAmountViewModel.AmountTransfered,Mode=OneWay}"
                                FontSize="16"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"></TextBlock>
@@ -296,7 +296,7 @@
                                Grid.Row="7"
                                Grid.Column="2"
                                x:Name="Remark"
-                               Text="{x:Bind TransferAmountViewModel.Remark,Mode=OneWay}"
+                               Text="{x:Bind _transferAmountViewModel.Remark,Mode=OneWay}"
                                TextWrapping="Wrap"
                                MaxWidth="200"
                                FontSize="16"

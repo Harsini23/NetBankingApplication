@@ -34,9 +34,9 @@ namespace NetBankingApplication.View.UserControls
     {
        // private User currentuser;
        // private char UserInitial;
-        private LoginBaseViewModel LoginViewModel;
-        private UpdateUserBaseViewModel updateViewModel;
-        private PasswordVerificationBaseViewModel passwordVerificationViewModel;
+        private LoginBaseViewModel _loginViewModel;
+        private UpdateUserBaseViewModel _updateViewModel;
+        private PasswordVerificationBaseViewModel _passwordVerificationViewModel;
 
         public event PropertyChangedEventHandler PropertyChanged;
         String ProfilePath;
@@ -66,14 +66,14 @@ namespace NetBankingApplication.View.UserControls
         public SettingsView()
         {
             this.InitializeComponent();
-            LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
-            LoginViewModel.ClosePopUp = this;
-            LoginViewModel.settingsNotification = this;
-            updateViewModel = PresenterService.GetInstance().Services.GetService<UpdateUserBaseViewModel>();
-            updateViewModel.settingsView = this;
-            passwordVerificationViewModel = PresenterService.GetInstance().Services.GetService<PasswordVerificationBaseViewModel>();
-            passwordVerificationViewModel.settingsView = this;
-            passwordVerificationViewModel.TextBoxVisibility = Visibility.Collapsed;
+            _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+            _loginViewModel.ClosePopUp = this;
+            _loginViewModel.settingsNotification = this;
+            _updateViewModel = PresenterService.GetInstance().Services.GetService<UpdateUserBaseViewModel>();
+            _updateViewModel.settingsView = this;
+            _passwordVerificationViewModel = PresenterService.GetInstance().Services.GetService<PasswordVerificationBaseViewModel>();
+            _passwordVerificationViewModel.settingsView = this;
+            _passwordVerificationViewModel.TextBoxVisibility = Visibility.Collapsed;
 
         }
 
@@ -102,13 +102,13 @@ namespace NetBankingApplication.View.UserControls
            
             if (string.IsNullOrEmpty(password))
             {
-                passwordVerificationViewModel.TextBoxVisibility = Visibility.Visible;
-                passwordVerificationViewModel.ResponseValue="Kindly enter old Password";
+                _passwordVerificationViewModel.TextBoxVisibility = Visibility.Visible;
+                _passwordVerificationViewModel.ResponseValue="Kindly enter old Password";
             }
             else
             {
                 //send and check if old password matches
-                passwordVerificationViewModel.CheckPassword(updateViewModel.CurrentUser.UserId,password);
+                _passwordVerificationViewModel.CheckPassword(_updateViewModel.CurrentUser.UserId,password);
             }
          
 
@@ -117,8 +117,8 @@ namespace NetBankingApplication.View.UserControls
         public void closePopup()
         {
             ResetPasswordGrid.IsOpen = false;
-            InAppNotification.Show(LoginViewModel.ResetPasswordResponseValue, 3000);
-            NotificationMessage = LoginViewModel.ResetPasswordResponseValue;
+            InAppNotification.Show(_loginViewModel.ResetPasswordResponseValue, 3000);
+            NotificationMessage = _loginViewModel.ResetPasswordResponseValue;
             //AcknowledgementDialogue.ShowAsync();
             //DispatcherTimer timer = new DispatcherTimer();
             //timer.Interval = TimeSpan.FromSeconds(1);
@@ -154,7 +154,7 @@ namespace NetBankingApplication.View.UserControls
                 UserProfileError.Visibility = Visibility.Visible;
                 UserProfileError.Text = "Check your emaild id;)";
             }
-            else if (EmailId.Text.Trim() == updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == updateViewModel.CurrentUser.MobileNumber && ProfilePath==null)
+            else if (EmailId.Text.Trim() == _updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == _updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == _updateViewModel.CurrentUser.MobileNumber && ProfilePath==null)
             {
                 UserProfileError.Visibility = Visibility.Visible;
                 UserProfileError.Text = "No changes to be saved;)";
@@ -168,26 +168,26 @@ namespace NetBankingApplication.View.UserControls
                 }
                 else
                 {
-                    ProfilePathUri = updateViewModel.CurrentUser.ProfilePath;
+                    ProfilePathUri = _updateViewModel.CurrentUser.ProfilePath;
                 }
                 var updatedUserValue = new User
                 {
-                    UserId = updateViewModel.CurrentUser.UserId,
+                    UserId = _updateViewModel.CurrentUser.UserId,
                     EmailId = EmailId.Text.Trim(),
                     UserName = Name.Text.Trim(),
                     MobileNumber = long.Parse(Phonenumber.Text.Trim()),
-                    IsBlocked = updateViewModel.CurrentUser.IsBlocked,
-                    PAN = updateViewModel.CurrentUser.PAN,
+                    IsBlocked = _updateViewModel.CurrentUser.IsBlocked,
+                    PAN = _updateViewModel.CurrentUser.PAN,
                     ProfilePath = ProfilePathUri
                 };
 
               //  UpdateCurrentPage();
                 ProfilePath = null;
-                updateViewModel.UpdateUser(updatedUserValue);
+                _updateViewModel.UpdateUser(updatedUserValue);
                 UserProfileError.Visibility = Visibility.Collapsed;
                 EditingFields.Visibility = Visibility.Collapsed;
                 EditProfile.Visibility = Visibility.Visible;
-                EmailId.Text = updateViewModel.CurrentUser.EmailId;
+                EmailId.Text = _updateViewModel.CurrentUser.EmailId;
                 //AcknowledgementDialogue.ShowAsync();
                 //DispatcherTimer timer = new DispatcherTimer();
                 //timer.Interval = TimeSpan.FromSeconds(1);
@@ -219,7 +219,7 @@ namespace NetBankingApplication.View.UserControls
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
             UserProfileError.Visibility = Visibility.Collapsed;
-            if(EmailId.Text.Trim() == updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == updateViewModel.CurrentUser.MobileNumber)
+            if(EmailId.Text.Trim() == _updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == _updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == _updateViewModel.CurrentUser.MobileNumber)
             {
                 SaveUserProfile.IsEnabled = false;
             }
@@ -232,12 +232,12 @@ namespace NetBankingApplication.View.UserControls
 
         private void ResetPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            passwordVerificationViewModel.TextBoxVisibility = Visibility.Collapsed;
+            _passwordVerificationViewModel.TextBoxVisibility = Visibility.Collapsed;
         }
 
         public void RemoveErrors()
         {
-            passwordVerificationViewModel.ResponseValue = "";
+            _passwordVerificationViewModel.ResponseValue = "";
             ResetPasswordPasswordBox.Password = String.Empty;
         }
 
@@ -245,8 +245,8 @@ namespace NetBankingApplication.View.UserControls
 
         public void UpdateUserNotification()
         {
-            InAppNotification.Show(passwordVerificationViewModel.ResponseValue, 3000);
-            NotificationMessage = updateViewModel.ResponseValue;
+            InAppNotification.Show(_passwordVerificationViewModel.ResponseValue, 3000);
+            NotificationMessage = _updateViewModel.ResponseValue;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -256,8 +256,8 @@ namespace NetBankingApplication.View.UserControls
 
         public void ChangePasswordNotification()
         {
-            InAppNotification.Show(LoginViewModel.ResetPasswordResponseValue, 3000);
-            NotificationMessage = updateViewModel.ResponseValue;
+            InAppNotification.Show(_loginViewModel.ResetPasswordResponseValue, 3000);
+            NotificationMessage = _loginViewModel.ResetPasswordResponseValue;
         }
 
         private void ResetPasswordGrid_Closed(object sender, object e)
@@ -298,18 +298,18 @@ namespace NetBankingApplication.View.UserControls
                 //update db
                 var updatedUserValue = new User
                 {
-                    UserId = updateViewModel.CurrentUser.UserId,
-                    EmailId = updateViewModel.CurrentUser.EmailId,
-                    UserName = updateViewModel.CurrentUser.UserName,
-                    MobileNumber = updateViewModel.CurrentUser.MobileNumber,
-                    IsBlocked = updateViewModel.CurrentUser.IsBlocked,
-                    PAN = updateViewModel.CurrentUser.PAN,
+                    UserId = _updateViewModel.CurrentUser.UserId,
+                    EmailId = _updateViewModel.CurrentUser.EmailId,
+                    UserName = _updateViewModel.CurrentUser.UserName,
+                    MobileNumber = _updateViewModel.CurrentUser.MobileNumber,
+                    IsBlocked = _updateViewModel.CurrentUser.IsBlocked,
+                    PAN = _updateViewModel.CurrentUser.PAN,
                     ProfilePath = ProfilePath
                 };
 
                 //  UpdateCurrentPage();
             
-                updateViewModel.UpdateUser(updatedUserValue);
+                _updateViewModel.UpdateUser(updatedUserValue);
                 ProfilePath = null;
 
             }
@@ -319,8 +319,8 @@ namespace NetBankingApplication.View.UserControls
 
         private void Settings_Loaded(object sender, RoutedEventArgs e)
         {
-            updateViewModel.CurrentUser = User;
-            updateViewModel.CurrentUserInitial = User.UserName.Substring(0, 1)[0];
+            _updateViewModel.CurrentUser = User;
+            _updateViewModel.CurrentUserInitial = User.UserName.Substring(0, 1)[0];
         }
 
         private void EditProfile_Click(object sender, RoutedEventArgs e)
@@ -333,14 +333,14 @@ namespace NetBankingApplication.View.UserControls
         {
             EditingFields.Visibility = Visibility.Collapsed;
             EditProfile.Visibility = Visibility.Visible;
-            EmailId.Text = updateViewModel.CurrentUser.EmailId;
-            Name.Text = updateViewModel.CurrentUser.UserName;
-            Phonenumber.Text = updateViewModel.CurrentUser.MobileNumber.ToString();
+            EmailId.Text = _updateViewModel.CurrentUser.EmailId;
+            Name.Text = _updateViewModel.CurrentUser.UserName;
+            Phonenumber.Text = _updateViewModel.CurrentUser.MobileNumber.ToString();
         }
 
         private void EditIcon_Click(object sender, RoutedEventArgs e)
         {
-            if (updateViewModel.CurrentUser.ProfilePath != null)
+            if (_updateViewModel.CurrentUser.ProfilePath != null)
             {
                 //ask to upload new or remove
                 var menuFlyout = new MenuFlyout()
@@ -376,18 +376,18 @@ namespace NetBankingApplication.View.UserControls
             //remove and show notification
             var updatedUserValue = new User
             {
-                UserId = updateViewModel.CurrentUser.UserId,
-                EmailId = updateViewModel.CurrentUser.EmailId,
-                UserName = updateViewModel.CurrentUser.UserName,
-                MobileNumber = updateViewModel.CurrentUser.MobileNumber,
-                IsBlocked = updateViewModel.CurrentUser.IsBlocked,
-                PAN = updateViewModel.CurrentUser.PAN,
+                UserId = _updateViewModel.CurrentUser.UserId,
+                EmailId = _updateViewModel.CurrentUser.EmailId,
+                UserName = _updateViewModel.CurrentUser.UserName,
+                MobileNumber = _updateViewModel.CurrentUser.MobileNumber,
+                IsBlocked = _updateViewModel.CurrentUser.IsBlocked,
+                PAN = _updateViewModel.CurrentUser.PAN,
                 ProfilePath = null
             };
 
             //  UpdateCurrentPage();
             ProfilePath = null;
-            updateViewModel.UpdateUser(updatedUserValue);
+            _updateViewModel.UpdateUser(updatedUserValue);
         }
 
         private void MenuItem1_Click(object sender, RoutedEventArgs e)

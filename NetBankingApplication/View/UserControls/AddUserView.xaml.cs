@@ -27,13 +27,13 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class AddUserView : UserControl, IAddUserView, ShowResponseNotification
     {
 
-        private AddUserBaseViewModel AddUserViewModel;
+        private AddUserBaseViewModel _addUserViewModel;
         public AddUserView()
         {
             this.InitializeComponent();
-            AddUserViewModel = PresenterService.GetInstance().Services.GetService<AddUserBaseViewModel>();
-            AddUserViewModel.adduserView = this;
-            AddUserViewModel.addUserNotification = this;
+            _addUserViewModel = PresenterService.GetInstance().Services.GetService<AddUserBaseViewModel>();
+            _addUserViewModel.adduserView = this;
+            _addUserViewModel.addUserNotification = this;
          
         }
 
@@ -56,24 +56,24 @@ namespace NetBankingApplication.View.UserControls
 
             if (UserNameTextBox.Text == String.Empty || MobileNumberTextBox.Text == String.Empty || EmailIdTextBox.Text == String.Empty )
             {
-                AddUserViewModel.ErrorMessage = "All fields are required*";
+                _addUserViewModel.ErrorMessage = "All fields are required*";
             }
 
             else if (MobileNumberTextBox.Text.Length != 10)
             {
-                AddUserViewModel.ErrorMessage = "Enter a valid mobile number";
+                _addUserViewModel.ErrorMessage = "Enter a valid mobile number";
             }
             else if (!this.EmailIdTextBox.Text.Contains('@') || !this.EmailIdTextBox.Text.Contains('.'))
             {
-                AddUserViewModel.ErrorMessage = "Enter a valid email id";
+                _addUserViewModel.ErrorMessage = "Enter a valid email id";
             }
             else if (PANTextBox.Text.Length != 10)
             {
-                AddUserViewModel.ErrorMessage = "PAN number must be of 10 values";
+                _addUserViewModel.ErrorMessage = "PAN number must be of 10 values";
             }
             else if (string.IsNullOrEmpty(accountDetails.Balance) || string.IsNullOrEmpty(accountDetails.Branch) || string.IsNullOrEmpty(accountDetails.Currency) || accountDetails.AccountType==AccountType.None)
             {
-                AddUserViewModel.ErrorMessage = "Enter all account details";
+                _addUserViewModel.ErrorMessage = "Enter all account details";
             }
             else if (Double.Parse(accountDetails.Balance) <= 1 && accountDetails.AccountType != AccountType.SalaryAccount)
             {
@@ -94,13 +94,13 @@ namespace NetBankingApplication.View.UserControls
                 };
 
 
-                AddUserViewModel.AddUser(details);
+                _addUserViewModel.AddUser(details);
 
                 CreateAccountViewDetails.ClearUI();
                 UserNameTextBox.Text = String.Empty;
                 MobileNumberTextBox.Text = String.Empty;
                 EmailIdTextBox.Text = String.Empty;
-                AddUserViewModel.ErrorMessage = String.Empty;
+                _addUserViewModel.ErrorMessage = String.Empty;
                 PANTextBox.Text = String.Empty;
                 //ShowContentDialogueAsync();
 
@@ -116,13 +116,13 @@ namespace NetBankingApplication.View.UserControls
         private void Idcopy_Click(object sender, RoutedEventArgs e)
         {
             DataPackage dataPackage = new DataPackage();
-            dataPackage.SetText(AddUserViewModel.UserId.ToString());
+            dataPackage.SetText(_addUserViewModel.UserId.ToString());
             Clipboard.SetContent(dataPackage);
         }
         private void Passwordcopy_Click(object sender, RoutedEventArgs e)
         {
             DataPackage dataPackage = new DataPackage();
-            dataPackage.SetText(AddUserViewModel.Password.ToString());
+            dataPackage.SetText(_addUserViewModel.Password.ToString());
             Clipboard.SetContent(dataPackage);
         }
         async void IAddUserView.ShowContentDialogueAsync()
@@ -133,7 +133,7 @@ namespace NetBankingApplication.View.UserControls
 
         public void NotificationUpdate()
         {
-            InAppNotification.Show(AddUserViewModel.Response, 3000);
+            InAppNotification.Show(_addUserViewModel.Response, 3000);
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

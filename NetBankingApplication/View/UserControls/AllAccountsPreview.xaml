@@ -51,7 +51,7 @@
 
     <Grid>
 
-        <GridView SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind GetAllAccountsViewModel.AllAccounts,Mode=OneWay}"  x:Name="AllTransactionListView">
+        <GridView SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind _getAllAccountsViewModel.AllAccounts,Mode=OneWay}"  x:Name="AllTransactionListView">
     
             <!--ItemTemplate="{ThemeResource TransactionListViewTemplate}"-->
             <GridView.ItemTemplate>
@@ -146,7 +146,7 @@
                 <Style TargetType="GridViewItem" BasedOn="{StaticResource AllAccountsPreviewGridView}"></Style>
             </GridView.ItemContainerStyle>
         </GridView>
-        <controls:InAppNotification  Content="{x:Bind GetAllAccountsViewModel.NotificationMessage,Mode=OneWay}"
+        <controls:InAppNotification  Content="{x:Bind _getAllAccountsViewModel.NotificationMessage,Mode=OneWay}"
                                      Template="{StaticResource InAppNotificationTemplate1}"
                                      Width="400"
                                      HorizontalContentAlignment="Left"

@@ -152,7 +152,7 @@
                                    Unchecked="RevealModeCheckbox_Changed"></CheckBox>
                     </StackPanel>
 
-                    <TextBlock Style="{ThemeResource FailureText}" Grid.Row="4" Grid.ColumnSpan="2" Visibility="{x:Bind LoginViewModel.TextBoxVisibility,Mode=OneWay}" Text="{x:Bind LoginViewModel.LoginResponseValue,Mode=OneWay }"  x:Name="ResultText" ></TextBlock>
+                    <TextBlock Style="{ThemeResource FailureText}" Grid.Row="4" Grid.ColumnSpan="2" Visibility="{x:Bind _loginViewModel.TextBoxVisibility,Mode=OneWay}" Text="{x:Bind _loginViewModel.LoginResponseValue,Mode=OneWay }"  x:Name="ResultText" ></TextBlock>
 
 
                     <StackPanel Grid.ColumnSpan="2"  Grid.Row="5" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -168,7 +168,7 @@
         
         </controls:DropShadowPanel>
             <Popup x:Load="False" Grid.Row="1"  Name="ResetGrid">
-                <data:ResetPassword redirect="True"></data:ResetPassword>
+                <data:ResetPassword Redirect="True"></data:ResetPassword>
             </Popup>
          
         </Grid>

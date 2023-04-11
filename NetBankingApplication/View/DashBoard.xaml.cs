@@ -32,7 +32,7 @@ namespace NetBankingApplication.View
     public sealed partial class DashBoard : Page,INotifyPropertyChanged
     {
 
-        private LoginBaseViewModel LoginViewModel;
+        private LoginBaseViewModel _loginViewModel;
        // User Currentuser;
 
         public DashBoard()
@@ -42,7 +42,7 @@ namespace NetBankingApplication.View
             uiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged; 
 
             SwitchThemeUIValues();
-            LoginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+            _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
         }
 
         private void SwitchThemeUIValues()
@@ -83,7 +83,7 @@ namespace NetBankingApplication.View
             {
 
                 Overview overview = new Overview();
-                overview.User = LoginViewModel.CurrentUser;
+                overview.User = _loginViewModel.CurrentUser;
                 CurrentSelectedModule = overview;
                 HeaderTitle = "Overview";
                 DashBoardNavigation.AlwaysShowHeader = false;
@@ -91,7 +91,7 @@ namespace NetBankingApplication.View
             else if (args.SelectedItem == BankAccount)
             {
                 BankAccount bankAccount = new BankAccount();
-                bankAccount.User = LoginViewModel.CurrentUser;
+                bankAccount.User = _loginViewModel.CurrentUser;
                 CurrentSelectedModule = bankAccount;
                 HeaderTitle = "Account Details";
                 DashBoardNavigation.AlwaysShowHeader = true;
@@ -99,7 +99,7 @@ namespace NetBankingApplication.View
             else if (args.SelectedItem == PaymentsAndTransfer)
             {
                 PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer();
-                paymentsAndTransfer.User = LoginViewModel.CurrentUser;
+                paymentsAndTransfer.User = _loginViewModel.CurrentUser;
                 CurrentSelectedModule = paymentsAndTransfer;
                 HeaderTitle = "Payment and Transfer";
                 DashBoardNavigation.AlwaysShowHeader = true;
@@ -107,7 +107,7 @@ namespace NetBankingApplication.View
             else if (args.SelectedItem == Settings)
             {
                 SettingsView settings = new SettingsView();
-                settings.User = LoginViewModel.CurrentUser;
+                settings.User = _loginViewModel.CurrentUser;
                 CurrentSelectedModule = settings;
                 HeaderTitle = "Settings";
                 DashBoardNavigation.AlwaysShowHeader = true;
@@ -115,7 +115,7 @@ namespace NetBankingApplication.View
             else if (args.SelectedItem == FixedDeposit)
             {
                 FDNavigationOverview FDAccount = new FDNavigationOverview();
-                FDAccount.User = LoginViewModel.CurrentUser;
+                FDAccount.User = _loginViewModel.CurrentUser;
                 CurrentSelectedModule = FDAccount;
                 HeaderTitle = "Fixed Deposit";
                 DashBoardNavigation.AlwaysShowHeader = true;
@@ -123,7 +123,7 @@ namespace NetBankingApplication.View
             else
             {
                 Overview overview = new Overview();
-                overview.User = LoginViewModel.CurrentUser;
+                overview.User = _loginViewModel.CurrentUser;
                 CurrentSelectedModule = overview;
                 HeaderTitle = "Overview";
                 DashBoardNavigation.AlwaysShowHeader = false;
@@ -188,7 +188,7 @@ namespace NetBankingApplication.View
         private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
         {
             //logout logic
-            LoginViewModel.Logout();
+            _loginViewModel.Logout();
         }
 
         private async void ThemeChange_Tapped(object sender, TappedRoutedEventArgs e)
