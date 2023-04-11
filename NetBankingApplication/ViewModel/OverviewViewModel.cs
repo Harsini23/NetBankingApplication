@@ -14,22 +14,19 @@ using static Library.Domain.UseCase.Overview;
 
 namespace NetBankingApplication.ViewModel
 {
-
-
     public class OverviewViewModel : OverviewBaseViewModel
     {
-        public Overview overview;
+        private Overview _overview;
         public override void getData(string userId)
         {
-            overview = new Overview(new OverviewRequest(userId,new CancellationTokenSource()),new PresenterOverViewCallback(this));
-            overview.Execute();
+            _overview = new Overview(new OverviewRequest(userId, new CancellationTokenSource()), new PresenterOverViewCallback(this));
+            _overview.Execute();
         }
-
-
         public override void setUser(User user)
         {
-            User=user;
+            User = user;
         }
+    }
 
         public class PresenterOverViewCallback : IPresenterOverviewCallback
         {
@@ -82,7 +79,7 @@ namespace NetBankingApplication.ViewModel
 
             }
         }
-    }
+    
         
     public abstract class OverviewBaseViewModel : NotifyPropertyBase
     {
@@ -108,8 +105,6 @@ namespace NetBankingApplication.ViewModel
                 OnPropertyChanged(nameof(TotalBalance));
             }
         }
-
-
 
         private string _income = String.Empty;
         public string Income

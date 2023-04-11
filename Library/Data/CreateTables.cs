@@ -15,27 +15,27 @@ namespace Library.Data
     public class CreateTables
     {
         private static CreateTables _instance;
-        IDbAdapter adapter;
+       private IDbAdapter _adapter;
 
         public CreateTables()
         {
-           adapter= Domain.ServiceProvider.GetInstance().Services.GetService<IDbAdapter>();
+           _adapter= Domain.ServiceProvider.GetInstance().Services.GetService<IDbAdapter>();
             InstantiateAllTables();
         }
       
         public void InstantiateAllTables()
         {
-            adapter.Create(new Credentials());
-            adapter.Create(new User());
-            adapter.Create(new Admin());
-            adapter.Create(new AmountTransaction());
-            adapter.Create(new Branch());
-            adapter.Create(new Card());
-            adapter.Create(new Account());
-            adapter.Create(new Payee());
-            adapter.Create(new UserAccounts());
-            adapter.Create(new FDAccount());
-            adapter.Create(new FDRates());
+            _adapter.Create(new Credentials());
+            _adapter.Create(new User());
+            _adapter.Create(new Admin());
+            _adapter.Create(new AmountTransaction());
+            _adapter.Create(new Branch());
+            _adapter.Create(new Card());
+            _adapter.Create(new Account());
+            _adapter.Create(new Payee());
+            _adapter.Create(new UserAccounts());
+            _adapter.Create(new FDAccount());
+            _adapter.Create(new FDRates());
         }
        
     }

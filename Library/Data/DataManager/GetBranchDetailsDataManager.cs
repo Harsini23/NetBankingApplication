@@ -19,7 +19,7 @@ namespace Library.Data.DataManager
         }
 
     
-        public void GetBranchDetails(BranchDetailsRequest request, IUsecaseCallbackBaseCase<GetBranchDetailsResponse> response)
+        public void GetBranchDetails(BranchDetailsRequest request, IUsecaseCallbackBaseCase<GetBranchDetailsResponse> callback)
         {
             Branch singleBranch=null;
             List<Branch> allBranches=null;
@@ -36,10 +36,10 @@ namespace Library.Data.DataManager
             getBranchDetailsResponse.Data = singleBranch;
             if(allBranches!=null)
             getBranchDetailsResponse.allBranchDetails = new ObservableCollection<Branch>(allBranches);
-            ZResponse<GetBranchDetailsResponse> zResponse = new ZResponse<GetBranchDetailsResponse>();
-            zResponse.Data = getBranchDetailsResponse;
-            zResponse.Response = "Successfully got branch details";
-            response.OnResponseSuccess(zResponse);
+            ZResponse<GetBranchDetailsResponse> response = new ZResponse<GetBranchDetailsResponse>();
+            response.Data = getBranchDetailsResponse;
+            response.Response = "Successfully got branch details";
+            callback.OnResponseSuccess(response);
 
         }
     }

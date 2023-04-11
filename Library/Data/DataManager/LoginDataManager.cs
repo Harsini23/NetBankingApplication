@@ -20,102 +20,82 @@ namespace Library.Data.DataManager
 {
     public class LoginDataManager : BankingDataManager,ILoginDataManager
     {
-       private int AccessDeniedCount = 5;
-   
-       //BankingDataManager bankingDataManager;
-     //  CreateTables createTableInstance;
-      
-        // BankingDataManager Handler;
+       private int _accessDeniedCount = 5;
+ 
         public LoginDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
-           
-            //  Handler = new BankingDataManager(dbHandler, netHandler);
-            //if (createTableInstance==null)
-            //{
-            //    createTableInstance = CreateTables.GetInstance();
-            //    createTableInstance.InstantiateAllTables();
-              
-            //}
-       
+        
         }
      
 
-        public void ValidateUserLogin(UserLoginRequest request, IUsecaseCallbackBaseCase<LoginResponse> response)
+        public void ValidateUserLogin(UserLoginRequest request, IUsecaseCallbackBaseCase<LoginResponse> callback)
         {
           
-            var UserId= request.UserId;
+            var userId= request.UserId;
             User user = null;
-            bool IsNewUser = false ;
+            bool _isNewUser = false ;
             string responseStatus = "";
             LoginResponse loginResponse = new LoginResponse();
-            ZResponse<LoginResponse> Response = new ZResponse<LoginResponse>();
+            ZResponse<LoginResponse> response = new ZResponse<LoginResponse>();
             var password = PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(request.Password));
 
             try {
 
-                if (AccessDeniedCount <= 0 && DbHandler.CheckUser(UserId))
+                if (_accessDeniedCount <= 0 && DbHandler.CheckUser(userId))
                 {
                     responseStatus = "Too many invalid attempts! Account is blocked";
-                    Response.Response = responseStatus;
-                    Response.Data = null;
-                    response.OnResponseFailure(Response);
-                    DbHandler.BlockAccount(UserId);
+                    response.Response = responseStatus;
+                    response.Data = null;
+                    callback.OnResponseFailure(response);
+                    DbHandler.BlockAccount(userId);
                     return;
                 }
-
-
-                var result = DbHandler.CheckUserCredential(UserId, password);
-                //DbHandler.AddAccountForUser();
-                //DbHandler.GetAllTransactions("Harsh");
-                //  DbHandler.AddAccount();
-                //var result = credentialService.CheckUserCredential(UserId, request.Password);
-
-
+                var result = DbHandler.CheckUserCredential(userId, password);
                 if (result)
                 {
                     //check if admin
-                    var IsAdmin = DbHandler.CheckIfAdmin(UserId);
+                    var IsAdmin = DbHandler.CheckIfAdmin(userId);
                     if (IsAdmin)
                     {
                         responseStatus = "Sucessfully Loged in, Welcome Admin!";
                         loginResponse.IsAdmin = true;
                     }
-                    if (DbHandler.CheckIfNewUser(UserId))
+                    if (DbHandler.CheckIfNewUser(userId))
                     {
                         responseStatus = "Sucessfully Loged in as new User - reset password!";
-                        IsNewUser = true;
+                        _isNewUser = true;
                     }
                     else
                     {
                         responseStatus = "Sucessfully Loged in, Welcome User ";
                     }
-                    user = DbHandler.GetUser(UserId);
+                    user = DbHandler.GetUser(userId);
 
                     loginResponse.currentUser = user;
-                    loginResponse.NewUser = IsNewUser;
-                    Response.Data = loginResponse;
-                    Response.Response = responseStatus;
-                    response.OnResponseSuccess(Response);
-                    AccessDeniedCount = 5;
+                    loginResponse.NewUser = _isNewUser;
+                    response.Data = loginResponse;
+                    response.Response = responseStatus;
+                    callback.OnResponseSuccess(response);
+                    _accessDeniedCount = 5;
                 }
                 else
                 {
 
-                    if (DbHandler.CheckUser(UserId))
+                    if (DbHandler.CheckUser(userId))
                     {
-                        AccessDeniedCount--;
+                        _accessDeniedCount--;
                         responseStatus = "Invalid password";
-                        Response.Response = responseStatus;
-                        Response.Data = null;
+                        response.Response = responseStatus;
+                        response.Data = null;
                         //response.OnResponseError(Response);
-                        response.OnResponseError(new BException { exceptionMessage=Response.Response });
+                        callback.OnResponseError(new BException { exceptionMessage= response.Response });
                     }
                     else
                     {
                         responseStatus = "Invalid User, Try Again";
-                        Response.Response = responseStatus;
-                        Response.Data = null;
-                        response.OnResponseFailure(Response);
+                        response.Response = responseStatus;
+                        response.Data = null;
+                        callback.OnResponseFailure(response);
                     }
 
                 }
@@ -123,7 +103,7 @@ namespace Library.Data.DataManager
             catch (NoUserException ex)
             {
                var errObj = new BException(ex);
-                response?.OnResponseError(errObj);
+                callback?.OnResponseError(errObj);
             }
 
         }

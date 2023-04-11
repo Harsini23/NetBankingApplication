@@ -17,42 +17,42 @@ namespace Library.Domain.UseCase
 
     public class GetAllUsers:UseCaseBase<GetAllUsersResponse>
     {
-        private IGetAllUsersDataManager GetAllUsersDataManager;
-        private GetAllUserRequest GetAllUserRequest;
-        IPresenterGetAllUsersCallback GetAllUsersResponseCallback;
+        private IGetAllUsersDataManager _getAllUsersDataManager;
+        private GetAllUserRequest _getAllUserRequest;
+        IPresenterGetAllUsersCallback _getAllUsersResponseCallback;
         public GetAllUsers(GetAllUserRequest request, IPresenterGetAllUsersCallback responseCallback)
         {
-            GetAllUsersDataManager = ServiceProvider.GetInstance().Services.GetService<IGetAllUsersDataManager>();
-            GetAllUserRequest = request;
-            GetAllUsersResponseCallback = responseCallback;
+            _getAllUsersDataManager = ServiceProvider.GetInstance().Services.GetService<IGetAllUsersDataManager>();
+            _getAllUserRequest = request;
+            _getAllUsersResponseCallback = responseCallback;
         }
         public override void Action()
         {
-            this.GetAllUsersDataManager.GetAllUsers(GetAllUserRequest, new GetAllUsersCallback(this));
+            this._getAllUsersDataManager.GetAllUsers(_getAllUserRequest, new GetAllUsersCallback(this));
         }
         public class GetAllUsersCallback : IUsecaseCallbackBaseCase<GetAllUsersResponse>
         {
-            private GetAllUsers getAllUsers;
+            private GetAllUsers _getAllUsers;
             public GetAllUsersCallback(GetAllUsers getAllUsers)
             {
-                this.getAllUsers = getAllUsers;
+                this._getAllUsers = getAllUsers;
             }
             public string Response { get; set; }
 
             public void OnResponseError(BException response)
             {
-                getAllUsers.GetAllUsersResponseCallback?.OnError(response);
+                _getAllUsers._getAllUsersResponseCallback?.OnError(response);
 
             }
 
             public void OnResponseFailure(ZResponse<GetAllUsersResponse> response)
             {
-                getAllUsers.GetAllUsersResponseCallback?.OnFailure(response);
+                _getAllUsers._getAllUsersResponseCallback?.OnFailure(response);
             }
 
             public void OnResponseSuccess(ZResponse<GetAllUsersResponse> response)
             {
-                getAllUsers.GetAllUsersResponseCallback?.OnSuccessAsync(response);
+                _getAllUsers._getAllUsersResponseCallback?.OnSuccessAsync(response);
             }
         }
     }

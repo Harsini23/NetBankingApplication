@@ -17,27 +17,27 @@ namespace Library.Domain.UseCase
 
     public class AddUserRequest
     {
-        public UserAccountDetails newUser { get; set; }
+        public UserAccountDetails NewUser { get; set; }
         public AddUserRequest(UserAccountDetails addNewUser, string userId)
         {
-            newUser = addNewUser;
+            NewUser = addNewUser;
         }
     }
     public class AddUser :UseCaseBase<AddUserResponse>
     {
-        private IAddUserDataManager AddUserDataManager;
-        private AddUserRequest addUserRequest;
-        IPresenterAddUserCallback presenterAddUserCallback;
+        private IAddUserDataManager _addUserDataManager;
+        private AddUserRequest _addUserRequest;
+        IPresenterAddUserCallback _presenterAddUserCallback;
         public AddUser(AddUserRequest request, IPresenterAddUserCallback responseCallback)
         {
-            AddUserDataManager = ServiceProvider.GetInstance().Services.GetService<IAddUserDataManager>();
-            addUserRequest = request;
-            presenterAddUserCallback = responseCallback;
+            _addUserDataManager = ServiceProvider.GetInstance().Services.GetService<IAddUserDataManager>();
+            _addUserRequest = request;
+            _presenterAddUserCallback = responseCallback;
         }
 
         public override void Action()
         {
-            this.AddUserDataManager.AddNewUser(addUserRequest, new AddUserCallback(this));
+            this._addUserDataManager.AddNewUser(_addUserRequest, new AddUserCallback(this));
         }
 
         public class AddUserCallback: IUsecaseCallbackBaseCase<AddUserResponse>
@@ -51,15 +51,15 @@ namespace Library.Domain.UseCase
 
             public void OnResponseError(BException response)
             {
-                addUser.presenterAddUserCallback?.OnError(response);
+                addUser._presenterAddUserCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<AddUserResponse> response)
             {
-                addUser.presenterAddUserCallback?.OnFailure(response);
+                addUser._presenterAddUserCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<AddUserResponse> response)
             {
-                addUser.presenterAddUserCallback?.OnSuccessAsync(response);
+                addUser._presenterAddUserCallback?.OnSuccessAsync(response);
 
             }
 
@@ -73,9 +73,9 @@ namespace Library.Domain.UseCase
 
     public class AddUserResponse : ZResponse<User>
     {
-        public User user;
-        public Credentials credentials;
-        public Account account;
+        public User User;
+        public Credentials Credentials;
+        public Account Account;
         public bool UserExists;
     }
 }

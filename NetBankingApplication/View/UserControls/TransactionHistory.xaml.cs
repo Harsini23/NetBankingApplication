@@ -28,7 +28,7 @@ namespace NetBankingApplication.View.UserControls
         private double _windowHeight;
         private double _windowWidth;
         public bool ShowOnlyRecentTransactions { get;set; }
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(TransactionHistory), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }

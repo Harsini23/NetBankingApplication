@@ -26,7 +26,7 @@ namespace NetBankingApplication.View.UserControls
         private bool _newPayeeSuggestionAccepted;
         private string _payeeName;
         private string _accountNumber;
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(PaymentsAndTransfer), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }

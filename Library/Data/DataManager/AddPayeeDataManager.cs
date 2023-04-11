@@ -15,16 +15,16 @@ namespace Library.Data.DataManager
         {
         }
 
-        public void AddNewPayee(AddPayeeRequest request, IUsecaseCallbackBaseCase<String> response)
+        public void AddNewPayee(AddPayeeRequest request, IUsecaseCallbackBaseCase<String> callback)
         {
-            ZResponse<String> Response = new ZResponse<String>();
+            ZResponse<String> response = new ZResponse<String>();
 
             var res = DbHandler.AddNewPayee(request.NewPayee);
             if (res)
             {
-                Response.Response = "Sucessfully added payee";
-                Response.Data = null;
-                response?.OnResponseSuccess(Response);
+                response.Response = "Sucessfully added payee";
+                response.Data = null;
+                callback?.OnResponseSuccess(response);
 
             }
 

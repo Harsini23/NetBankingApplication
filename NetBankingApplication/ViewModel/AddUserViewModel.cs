@@ -14,28 +14,28 @@ namespace NetBankingApplication.ViewModel
 {
     public class AddUserViewModel : AddUserBaseViewModel
     {
-        AddUser addNewUser;
+        private AddUser _addNewUser;
         public override void AddUser(UserAccountDetails userDetails)
         {
             AddUserRequest request = new AddUserRequest(userDetails, "userid");
-            addNewUser = new AddUser(request, new PresenterAddUserCallback(this) );
-            addNewUser.Execute();
+            _addNewUser = new AddUser(request, new PresenterAddUserCallback(this) );
+            _addNewUser.Execute();
         }
     }
 
     public class PresenterAddUserCallback : IPresenterAddUserCallback
     {
-        private AddUserViewModel addUserViewModel;
+        private AddUserViewModel _addUserViewModel;
         public PresenterAddUserCallback(AddUserViewModel addUserViewModel)
         {   
-            this.addUserViewModel = addUserViewModel;
+            this._addUserViewModel = addUserViewModel;
         }
         public async void OnError(BException response)
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                addUserViewModel.Response = response.exceptionMessage;
-                addUserViewModel.addUserNotification?.NotificationUpdate();
+                _addUserViewModel.Response = response.exceptionMessage;
+                _addUserViewModel.addUserNotification?.NotificationUpdate();
             });
         }
 
@@ -48,14 +48,14 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                addUserViewModel.Response = response.Response;
-                addUserViewModel.addUserNotification?.NotificationUpdate();
+                _addUserViewModel.Response = response.Response;
+                _addUserViewModel.addUserNotification?.NotificationUpdate();
                 if (!response.Data.UserExists)
-                { 
-                    addUserViewModel.UserId = response.Data.credentials.UserId;
-                    addUserViewModel.Password = response.Data.credentials.Password;
-                    addUserViewModel.AccountNo = response.Data.account.AccountNumber;
-                    addUserViewModel.adduserView?.ShowContentDialogueAsync();
+                {
+                    _addUserViewModel.UserId = response.Data.Credentials.UserId;
+                    _addUserViewModel.Password = response.Data.Credentials.Password;
+                    _addUserViewModel.AccountNo = response.Data.Account.AccountNumber;
+                    _addUserViewModel.adduserView?.ShowContentDialogueAsync();
 
                 }
              

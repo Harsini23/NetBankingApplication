@@ -12,11 +12,11 @@ namespace NetBankingApplication.ViewModel
 {
     public class UpdateUserViewModel : UpdateUserBaseViewModel
     {
-        UpdateUser updateUser;
+     private UpdateUser _updateUser;
         public override void UpdateUser(User user)
         {
-            updateUser = new UpdateUser(new UpdateUserRequest(user,user.UserId),new PresenterUpdateUserCallback(this)) ;
-            updateUser.Execute();
+            _updateUser = new UpdateUser(new UpdateUserRequest(user,user.UserId),new PresenterUpdateUserCallback(this)) ;
+            _updateUser.Execute();
         }
     }
 

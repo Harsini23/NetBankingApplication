@@ -13,19 +13,19 @@ namespace NetBankingApplication.ViewModel
 {
     public class FDAccountDetailsViewModel : FDAccountDetailsBaseViewModel
     {
-        GetFDDetails GetFDDetail;
-        CloseFD CloseFd;
+        private GetFDDetails _getFDDetail;
+        private CloseFD _closeFd;
 
         public override void CloseFD(FDAccount account, string userId)
         {
-            CloseFd = new CloseFD(new CloseFDRequest { UserId=userId,FDAccount= account,CtsSource= new CancellationTokenSource() },new CloseFDCallback(this));
-            CloseFd.Execute();
+            _closeFd = new CloseFD(new CloseFDRequest { UserId=userId,FDAccount= account,CtsSource= new CancellationTokenSource() },new CloseFDCallback(this));
+            _closeFd.Execute();
         }
 
         public override void GetFDDetails(string account)
         {
-            GetFDDetail = new GetFDDetails(new GetFDDetailsRequest(account, new CancellationTokenSource()), new GetFDDetailsCallback(this));
-            GetFDDetail.Execute();
+            _getFDDetail = new GetFDDetails(new GetFDDetailsRequest(account, new CancellationTokenSource()), new GetFDDetailsCallback(this));
+            _getFDDetail.Execute();
         }
 
         
@@ -33,11 +33,11 @@ namespace NetBankingApplication.ViewModel
 
     public class GetFDDetailsCallback : IPresenterGetFDDetailsCallback
     {
-        private FDAccountDetailsViewModel fDAccountDetailsViewModel;
+        private FDAccountDetailsViewModel _fDAccountDetailsViewModel;
 
         public GetFDDetailsCallback(FDAccountDetailsViewModel fDAccountDetailsViewModel)
         {
-            this.fDAccountDetailsViewModel = fDAccountDetailsViewModel;
+            this._fDAccountDetailsViewModel = fDAccountDetailsViewModel;
         }
 
         public void OnError(BException errorMessage)
@@ -54,18 +54,18 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                fDAccountDetailsViewModel.CurrentFDAccount = response.Data;
+                _fDAccountDetailsViewModel.CurrentFDAccount = response.Data;
             });
         }
     }
 
     public class CloseFDCallback : IPresenterCloseFDCallback
     {
-        private FDAccountDetailsViewModel fDAccountDetailsViewModel;
+        private FDAccountDetailsViewModel _fDAccountDetailsViewModel;
 
         public CloseFDCallback(FDAccountDetailsViewModel fDAccountDetailsViewModel)
         {
-            this.fDAccountDetailsViewModel = fDAccountDetailsViewModel;
+            this._fDAccountDetailsViewModel = fDAccountDetailsViewModel;
         }
 
         public void OnError(BException errorMessage)
@@ -78,14 +78,19 @@ namespace NetBankingApplication.ViewModel
             throw new NotImplementedException();
         }
 
-        public void OnSuccessAsync(ZResponse<bool> response)
+        public async void OnSuccessAsync(ZResponse<bool> response)
         {
-           //notification(control notification and to remove account) and close the new window manually
+            //notification(control notification and to remove account) and close the new window manually
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                _fDAccountDetailsViewModel.CloseWindow?.CloseWindow();
+            });
         }
     }
     public abstract class FDAccountDetailsBaseViewModel : NotifyPropertyBase
     {
         public abstract void GetFDDetails(String account);
+        public ICloseWindow CloseWindow { get; set; }
         public abstract void CloseFD(FDAccount account,string userId);
         private FDAccount _fDAccount ;
         public FDAccount CurrentFDAccount
@@ -98,5 +103,10 @@ namespace NetBankingApplication.ViewModel
             }
         }
 
+    }
+
+    public interface ICloseWindow
+    {
+        void CloseWindow();
     }
 }

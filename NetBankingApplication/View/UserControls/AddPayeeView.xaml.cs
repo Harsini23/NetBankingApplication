@@ -24,7 +24,7 @@ namespace NetBankingApplication.View.UserControls
     public sealed partial class AddPayeeView : UserControl, INotificationAlert
     {
         public event Action<string> RaiseNotification;
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(AddPayeeView), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }
@@ -37,7 +37,7 @@ namespace NetBankingApplication.View.UserControls
             get { return (string)GetValue(PayeeNameProperty); }
             set { SetValue(PayeeNameProperty, value); }
         }
-        public static readonly DependencyProperty AccountNumberProperty = DependencyProperty.Register(nameof(PassedAccountNumber), typeof(string), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty AccountNumberProperty = DependencyProperty.Register(nameof(PassedAccountNumber), typeof(string), typeof(AddPayeeView), new PropertyMetadata(null));
         public string PassedAccountNumber
         {
             get { return (string)GetValue(AccountNumberProperty); }

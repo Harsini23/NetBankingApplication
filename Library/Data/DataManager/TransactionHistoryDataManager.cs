@@ -17,21 +17,21 @@ namespace Library.Data.DataManager
         {
         }
 
-        public void GetAllTransactions(TransactionHistoryRequest request, IUsecaseCallbackBaseCase<TransactionHistoryResponse> response)
+        public void GetAllTransactions(TransactionHistoryRequest request, IUsecaseCallbackBaseCase<TransactionHistoryResponse> callback)
         {
             //get it frm db
-            ZResponse<TransactionHistoryResponse> Response = new ZResponse<TransactionHistoryResponse>();
+            ZResponse<TransactionHistoryResponse> response = new ZResponse<TransactionHistoryResponse>();
             
             var userId = request.UserId;
             List<AmountTransaction> allTransactions= DbHandler.GetAllTransactions(userId,request.ShowOnlyRecentTransactions);
            
             TransactionHistoryResponse transactionHistoryResponse = new TransactionHistoryResponse();
             transactionHistoryResponse.allTransactions = allTransactions;
-            Response.Data = transactionHistoryResponse;
+            response.Data = transactionHistoryResponse;
             var responseStatus = "Successfull got all transactions";
-            Response.Response = responseStatus;
+            response.Response = responseStatus;
 
-            response.OnResponseSuccess(Response);
+            callback.OnResponseSuccess(response);
 
         }
     }

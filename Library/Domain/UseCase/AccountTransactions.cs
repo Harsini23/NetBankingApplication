@@ -36,45 +36,39 @@ namespace Library.Domain.UseCase
     }
     public class AccountTransactions: UseCaseBase<AccountTransactionsResponse>
     {
-
-
-        private IAccountTransactionsDataManager AccountTransactionsDataManager;
-        private AccountTransactionsRequest AccountTransactionsRequest;
-        IPresenterAccountTransactionsCallback AccountTransactionsResponse;
+        private IAccountTransactionsDataManager _accountTransactionsDataManager;
+        private AccountTransactionsRequest _accountTransactionsRequest;
+        private IPresenterAccountTransactionsCallback _accountTransactionsResponse;
         public AccountTransactions(AccountTransactionsRequest request, IPresenterAccountTransactionsCallback responseCallback)
         {
-            AccountTransactionsDataManager = ServiceProvider.GetInstance().Services.GetService<IAccountTransactionsDataManager>();
-            AccountTransactionsRequest = request;
-            AccountTransactionsResponse = responseCallback;
+            _accountTransactionsDataManager = ServiceProvider.GetInstance().Services.GetService<IAccountTransactionsDataManager>();
+            _accountTransactionsRequest = request;
+            _accountTransactionsResponse = responseCallback;
         }
         public override void Action()
         {
-            //use call back
-       
-            this.AccountTransactionsDataManager.GetAllTransactions(AccountTransactionsRequest, new AccountTransactionsCallback(this));
+            this._accountTransactionsDataManager.GetAllTransactions(_accountTransactionsRequest, new AccountTransactionsCallback(this));
             // this.AccountTransactionsDataManager.ValidateUserLogin(AccountTransactionsRequest, new AccountTransactionsCallback(this));
         }
 
         public class AccountTransactionsCallback : IUsecaseCallbackBaseCase<AccountTransactionsResponse>
         {
-            private AccountTransactions AccountTransactions;
+            private AccountTransactions _accountTransactions;
             public AccountTransactionsCallback(AccountTransactions AccountTransactions)
             {
-                this.AccountTransactions = AccountTransactions;
+                this._accountTransactions = AccountTransactions;
             }
-            public string Response { get; set; }
-
             public void OnResponseError(BException response)
             {
-                AccountTransactions.AccountTransactionsResponse?.OnError(response);
+                _accountTransactions._accountTransactionsResponse?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<AccountTransactionsResponse> response)
             {
-                AccountTransactions.AccountTransactionsResponse?.OnFailure(response);
+                _accountTransactions._accountTransactionsResponse?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<AccountTransactionsResponse> response)
             {
-               AccountTransactions.AccountTransactionsResponse?.OnSuccessAsync(response);
+                _accountTransactions._accountTransactionsResponse?.OnSuccessAsync(response);
               //  AccountTransactions.AccountTransactionsResponse?.ExectueInMainThread(response);
 
             }

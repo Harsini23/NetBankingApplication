@@ -36,7 +36,7 @@ namespace NetBankingApplication.View.UserControls
         private string _userAccountNumber;
         private string _amountStr;
         private bool _isNewPayee;
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(TransferAmount), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }
@@ -131,7 +131,7 @@ namespace NetBankingApplication.View.UserControls
 
                 ResetUI();
                 await ContentDialog.ShowAsync();
-                _getAllAccountsViewModel.GetAllAccounts(User.UserId);
+                _getAllAccountsViewModel.GetAllAccounts(User.UserId,true);
 
                 // TransferAmountViewModel.SendTransaction(currentTransaction);
             }
@@ -183,7 +183,7 @@ namespace NetBankingApplication.View.UserControls
             AccountNumberTextBox.IsReadOnly = true;
 
             _getAllPayeeViewModel.GetAllPayee(User.UserId);
-            _getAllAccountsViewModel.GetAllAccounts(User.UserId);
+            _getAllAccountsViewModel.GetAllAccounts(User.UserId,true);
         }
 
 

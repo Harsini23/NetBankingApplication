@@ -34,42 +34,42 @@ namespace Library.Domain.UseCase
     }
     public class EditPayee: UseCaseBase<String>
     {
-        private IEditPayeeDataManager EditPayeeDataManager;
-        private EditPayeeRequest EditPayeeRequest;
-        IPresenterEditPayeeCallback EditPayeeResponseCallback;
+        private IEditPayeeDataManager _editPayeeDataManager;
+        private EditPayeeRequest _editPayeeRequest;
+        IPresenterEditPayeeCallback _editPayeeResponseCallback;
         public EditPayee(EditPayeeRequest request, IPresenterEditPayeeCallback responseCallback)
         {
-            EditPayeeDataManager = ServiceProvider.GetInstance().Services.GetService<IEditPayeeDataManager>();    
-            EditPayeeRequest = request;
-            EditPayeeResponseCallback = responseCallback;
+            _editPayeeDataManager = ServiceProvider.GetInstance().Services.GetService<IEditPayeeDataManager>();
+            _editPayeeRequest = request;
+            _editPayeeResponseCallback = responseCallback;
         }
         public override void Action()
         {
-            this.EditPayeeDataManager.EditPayee(EditPayeeRequest, new EditPayeeCallback(this));
+            this._editPayeeDataManager.EditPayee(_editPayeeRequest, new EditPayeeCallback(this));
         }
 
 
         public class EditPayeeCallback : ZResponse<String>
         {
-            EditPayee EditPayee;
+            EditPayee _editPayee;
             public EditPayeeCallback(EditPayee editPayee)
             {
-                EditPayee = editPayee;
+                _editPayee = editPayee;
             }
 
             public string Response { get; set; }
 
             public void OnResponseError(BException response)
             {
-                EditPayee.EditPayeeResponseCallback?.OnError(response);
+                _editPayee._editPayeeResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<String> response)
             {
-                EditPayee.EditPayeeResponseCallback?.OnFailure(response);
+                _editPayee._editPayeeResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<String> response)
             {
-                EditPayee.EditPayeeResponseCallback?.OnSuccessAsync(response);
+                _editPayee._editPayeeResponseCallback?.OnSuccessAsync(response);
 
             }
         }

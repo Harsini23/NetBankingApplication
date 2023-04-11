@@ -34,7 +34,7 @@ namespace NetBankingApplication.View.UserControls
     /// </summary>
     /// 
 
-    public sealed partial class FullAccountDetails : Page, IAccountView
+    public sealed partial class FullAccountDetails : Page, IAccountView, ICloseWindow
     {
         private AccountBobj _selectedAccount;
         private string _selectedAccountNumber;
@@ -57,6 +57,7 @@ namespace NetBankingApplication.View.UserControls
 
             _getBranchDetailsViewModel = PresenterService.GetInstance().Services.GetService<GetBranchDetailsBaseViewModel>();
             _fDAccountDetailsViewModel = PresenterService.GetInstance().Services.GetService<FDAccountDetailsBaseViewModel>();
+            _fDAccountDetailsViewModel.CloseWindow = this;
             Bindings.Update();
 
             // if AccountTransactionsViewModel AccountDetails type is fd change template!
@@ -125,6 +126,11 @@ namespace NetBankingApplication.View.UserControls
         {
             _fDAccountDetailsViewModel.CloseFD(_fDAccountDetailsViewModel.CurrentFDAccount, _selectedAccount.UserId);
             //close app window
+           
+        }
+
+        public void CloseWindow()
+        {
             _appWindow.CloseAsync();
         }
     }

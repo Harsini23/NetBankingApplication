@@ -34,7 +34,7 @@ namespace NetBankingApplication.View.UserControls
         private GetAllAccountsBaseViewModel _getAllAccountsViewModel;
         private static bool _itemSelected;
         private bool _narrowLayout;
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(DetailedAccountOverview), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }

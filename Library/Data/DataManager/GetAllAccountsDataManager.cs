@@ -17,40 +17,23 @@ namespace Library.Data.DataManager
         {
         }
 
-        void IGetAllAccountsDataManager.GetAllAccounts(GetAllAccountsRequest request, IUsecaseCallbackBaseCase<GetAllAccountsResponse> response)
+        void IGetAllAccountsDataManager.GetAllAccounts(GetAllAccountsRequest request, IUsecaseCallbackBaseCase<GetAllAccountsResponse> callback)
         {
             //get it frm db
-            ZResponse<GetAllAccountsResponse> Response = new ZResponse<GetAllAccountsResponse>();
-            GetAllAccountsResponse GetAllAccountsResponse = new GetAllAccountsResponse();
+            ZResponse<GetAllAccountsResponse> response = new ZResponse<GetAllAccountsResponse>();
+            GetAllAccountsResponse getAllAccountsResponse = new GetAllAccountsResponse();
 
             var userId = request.UserId;
-            var currentAccountForUser = DbHandler.GetAllAccountsForUser(userId);
+            var allCurrentAccounts = DbHandler.GetAllAccountsForUser(userId,request.GetOnlyTransferAccounts);
             var tempallAccountBalance = DbHandler.GetAllAccountBalance(userId);
-            List<Account> allCurrentAccounts = new List<Account>();
             List<AccountBalance> allCurrentAccountsBalance = tempallAccountBalance.Select(accountBalance => new AccountBalance { AccountNumber=accountBalance.Key,TotalBalance=accountBalance.Value}).ToList();
 
-            foreach (var accNo in currentAccountForUser)
-            {
-                allCurrentAccounts.Add(DbHandler.GetAccount(accNo.AccountNumber));
-            }
-            //foreach(var i in tempallAccountBalance)
-            //{
-            //    var temp = new AccountBalance
-            //    {
-            //        AccountNumber = i.Key,
-            //        TotalBalance = i.Value
-            //    };
-            //    allCurrentAccountsBalance.Add(temp);
+            getAllAccountsResponse.AllAccountBalance=allCurrentAccountsBalance;
 
-            //}
-
-            GetAllAccountsResponse.allAccountBalance=allCurrentAccountsBalance;
-            //var allCurrentAccounts = DbHandler.GetAllAccounts(userId);
-
-            GetAllAccountsResponse.allAccount = allCurrentAccounts;
-            Response.Data = GetAllAccountsResponse;
-            Response.Response = "Successfully got all accounts";
-            response.OnResponseSuccess(Response);
+            getAllAccountsResponse.AllAccount = allCurrentAccounts;
+            response.Data = getAllAccountsResponse;
+            response.Response = "Successfully got all accounts";
+            callback.OnResponseSuccess(response);
 
         }
     }

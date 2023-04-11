@@ -16,18 +16,18 @@ namespace NetBankingApplication.ViewModel
 {
     public class GetBranchDetailsViewModel : GetBranchDetailsBaseViewModel
     {
-        GetBranchDetails getBranchDetails;
+       private GetBranchDetails _getBranchDetails;
         
         public override void FetchBranchDetails(string BId)
         {
-          getBranchDetails= new GetBranchDetails(new BranchDetailsRequest() { BranchId=BId},new PresenterGetBranchDetailsCallback(this));
-            getBranchDetails.Execute();
+            _getBranchDetails = new GetBranchDetails(new BranchDetailsRequest() { BranchId=BId},new PresenterGetBranchDetailsCallback(this));
+            _getBranchDetails.Execute();
         }
 
         public override void FetchBranchDetails()
         {
-            getBranchDetails = new GetBranchDetails(new BranchDetailsRequest(), new PresenterGetBranchDetailsCallback(this));
-            getBranchDetails.Execute();
+            _getBranchDetails = new GetBranchDetails(new BranchDetailsRequest(), new PresenterGetBranchDetailsCallback(this));
+            _getBranchDetails.Execute();
         }
     }
 
@@ -35,10 +35,10 @@ namespace NetBankingApplication.ViewModel
 
     public class PresenterGetBranchDetailsCallback : IPresenterGetBranchDetailsCallback
     {
-        GetBranchDetailsViewModel GetBranchDetailsViewModel;
+        private GetBranchDetailsViewModel _getBranchDetailsViewModel;
         public PresenterGetBranchDetailsCallback(GetBranchDetailsViewModel GetBranchDetailsViewModel)
         {
-            this.GetBranchDetailsViewModel = GetBranchDetailsViewModel;
+            this._getBranchDetailsViewModel = GetBranchDetailsViewModel;
         }
         public void OnError(BException response)
         {
@@ -56,13 +56,13 @@ namespace NetBankingApplication.ViewModel
             {
                 if (response.Data.Data != null)
                 {
-                    GetBranchDetailsViewModel.City = response.Data.Data.BCity;
-                    GetBranchDetailsViewModel.BName = response.Data.Data.BName;
-                    GetBranchDetailsViewModel.IfscCode = response.Data.Data.IfscCode;
+                    _getBranchDetailsViewModel.City = response.Data.Data.BCity;
+                    _getBranchDetailsViewModel.BName = response.Data.Data.BName;
+                    _getBranchDetailsViewModel.IfscCode = response.Data.Data.IfscCode;
                 }
                 if(response.Data.allBranchDetails != null)
                 {
-                    GetBranchDetailsViewModel.allBranchDetails = response.Data.allBranchDetails;
+                    _getBranchDetailsViewModel.allBranchDetails = response.Data.allBranchDetails;
                 }
                
             });

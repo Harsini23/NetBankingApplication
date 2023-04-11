@@ -13,21 +13,21 @@ namespace NetBankingApplication.ViewModel
 {
     public class PasswordVerificationViewModel : PasswordVerificationBaseViewModel
     {
-        CheckPassword checkPassword;
+      private  CheckPassword _checkPassword;
         public override void CheckPassword(string userId, string password)
         {
             UserPasswordBObj cred = new UserPasswordBObj(userId, password);
-            checkPassword = new CheckPassword(new CheckPasswordRequest(cred), new PresenterCheckPasswordCallback(this));
-            checkPassword.Execute();
+            _checkPassword = new CheckPassword(new CheckPasswordRequest(cred), new PresenterCheckPasswordCallback(this));
+            _checkPassword.Execute();
         }
     }
     public class PresenterCheckPasswordCallback : IPresenterCheckPasswordCallback
     {
-        private PasswordVerificationViewModel passwordVerificationViewModel;
+        private PasswordVerificationViewModel _passwordVerificationViewModel;
 
         public PresenterCheckPasswordCallback(PasswordVerificationViewModel passwordVerificationViewModel)
         {
-            this.passwordVerificationViewModel = passwordVerificationViewModel;
+            this._passwordVerificationViewModel = passwordVerificationViewModel;
         }
 
         public void OnError(BException errorMessage)
@@ -45,16 +45,16 @@ namespace NetBankingApplication.ViewModel
                 if (response.Data)
                 {
                     //validated
-                    passwordVerificationViewModel.ResponseValue = response.Response;
-                    passwordVerificationViewModel.settingsView?.TriggerResetPasswordPopup();
-                    passwordVerificationViewModel.settingsView?.RemoveErrors();
+                    _passwordVerificationViewModel.ResponseValue = response.Response;
+                    _passwordVerificationViewModel.settingsView?.TriggerResetPasswordPopup();
+                    _passwordVerificationViewModel.settingsView?.RemoveErrors();
                   
                 }
                 else
                 {
                     //wrong password
-                    passwordVerificationViewModel.TextBoxVisibility = Visibility.Visible;
-                    passwordVerificationViewModel.ResponseValue = "Oops! incorrect password,try again";
+                    _passwordVerificationViewModel.TextBoxVisibility = Visibility.Visible;
+                    _passwordVerificationViewModel.ResponseValue = "Oops! incorrect password,try again";
                 }
             });
         }

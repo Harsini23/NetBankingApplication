@@ -29,7 +29,7 @@ namespace NetBankingApplication.View.UserControls
         //public User CurrentUser;
         private AddAccountBaseViewModel _addAccountBaseViewModel;
 
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(BankAccount), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }

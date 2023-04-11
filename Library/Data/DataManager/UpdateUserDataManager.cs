@@ -16,22 +16,22 @@ namespace Library.Data.DataManager
         public UpdateUserDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
-        public void UpdateUser(UpdateUserRequest request, IUsecaseCallbackBaseCase<User> response)
+        public void UpdateUser(UpdateUserRequest request, IUsecaseCallbackBaseCase<User> callback)
         {
-            ZResponse<User> Response = new ZResponse<User>();
+            ZResponse<User> response = new ZResponse<User>();
             if (EmailValidation.ValidateEmail(request.UpdatedUser.EmailId))
             {
                 var res = DbHandler.UpdateUser(request.UpdatedUser);
                 if (res)
                 {
-                    Response.Response = "Sucessfully updated user";
-                    Response.Data = request.UpdatedUser;
-                    response?.OnResponseSuccess(Response);
+                    response.Response = "Sucessfully updated user";
+                    response.Data = request.UpdatedUser;
+                    callback?.OnResponseSuccess(response);
                 }
             }
             else
             {
-                response.OnResponseError(new BException
+                callback.OnResponseError(new BException
                 {
                     exceptionMessage = "Invalid Email, try again!"
                 });

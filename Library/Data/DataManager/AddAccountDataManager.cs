@@ -21,26 +21,26 @@ namespace Library.Data.DataManager
 
         public string PopulateDataForNewAccountCreation(AddAccountRequest request,TransactionType transactionType)
         {
-            var GeneratedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 999999999).ToString() + GenerateUniqueId.RandomNumber(100, 999).ToString();
-            var userAccount = CreateUserAccount(request.newAccount.UserId, GeneratedAccountNumber);
-            var currentTransaction = CreateTransaction(request.newAccount, GeneratedAccountNumber,transactionType);
-            request.newAccount.AccountNumber = GeneratedAccountNumber;
-            var account = request.newAccount;
+            var generatedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 999999999).ToString() + GenerateUniqueId.RandomNumber(100, 999).ToString();
+            var userAccount = CreateUserAccount(request.NewAccount.UserId, generatedAccountNumber);
+            var currentTransaction = CreateTransaction(request.NewAccount, generatedAccountNumber,transactionType);
+            request.NewAccount.AccountNumber = generatedAccountNumber;
+            var account = request.NewAccount;
             DbHandler.AddAccount(account);
             BankingNotification.BankingNotification.NotifyAccountUpdated(account);
 
             DbHandler.AddAccountForUser(userAccount);
             DbHandler.AddTransaction(currentTransaction);
-            return GeneratedAccountNumber;
+            return generatedAccountNumber;
         }
 
-        public void AddAccount(AddAccountRequest request, IUsecaseCallbackBaseCase<bool> response)
+        public void AddAccount(AddAccountRequest request, IUsecaseCallbackBaseCase<bool> callback)
         {
-            ZResponse<bool> Response = new ZResponse<bool>();
+            ZResponse<bool> response = new ZResponse<bool>();
             PopulateDataForNewAccountCreation(request,TransactionType.Credited);
-            Response.Response = "Sucessfully added account";
-            Response.Data = true;
-            response?.OnResponseSuccess(Response);
+            response.Response = "Sucessfully added account";
+            response.Data = true;
+            callback?.OnResponseSuccess(response);
         }
 
         private UserAccounts CreateUserAccount(string userId,string AccountNo)

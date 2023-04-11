@@ -15,19 +15,19 @@ namespace Library.Data.DataManager
         public CheckPasswordDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
-        public void VerifyPassword(CheckPasswordRequest request, IUsecaseCallbackBaseCase<bool> response)
+        public void VerifyPassword(CheckPasswordRequest request, IUsecaseCallbackBaseCase<bool> callback)
         {
-            ZResponse<bool> Response = new ZResponse<bool>();
+            ZResponse<bool> response = new ZResponse<bool>();
             var password = PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(request.CheckCredential.Password));
-            Response.Data = DbHandler.CheckUserCredential(request.CheckCredential.UserId, password);
-            if (Response.Data){
-                Response.Response = "Credential Validated";
+            response.Data = DbHandler.CheckUserCredential(request.CheckCredential.UserId, password);
+            if (response.Data){
+                response.Response = "Credential Validated";
             }
             else
             {
-                Response.Response = "Password mismatch!";
+                response.Response = "Password mismatch!";
             }
-            response?.OnResponseSuccess(Response);
+            callback?.OnResponseSuccess(response);
            
         }
     }

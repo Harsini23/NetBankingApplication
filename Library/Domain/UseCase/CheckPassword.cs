@@ -22,44 +22,44 @@ namespace Library.Domain.UseCase
     }
     public class CheckPassword:UseCaseBase<bool>
     {
-        private ICheckPasswordDataManager CheckPasswordDataManager;
-        private CheckPasswordRequest CheckPasswordRequest;
-        IPresenterCheckPasswordCallback presenterCheckPasswordCallback;
+        private ICheckPasswordDataManager _checkPasswordDataManager;
+        private CheckPasswordRequest _checkPasswordRequest;
+        IPresenterCheckPasswordCallback _presenterCheckPasswordCallback;
         public CheckPassword(CheckPasswordRequest request, IPresenterCheckPasswordCallback responseCallback)
         {
-            CheckPasswordDataManager = ServiceProvider.GetInstance().Services.GetService<ICheckPasswordDataManager>();
-            CheckPasswordRequest = request;
-            presenterCheckPasswordCallback = responseCallback;
+            _checkPasswordDataManager = ServiceProvider.GetInstance().Services.GetService<ICheckPasswordDataManager>();
+            _checkPasswordRequest = request;
+            _presenterCheckPasswordCallback = responseCallback;
         }
 
         public override void Action()
         {
-            this.CheckPasswordDataManager.VerifyPassword(CheckPasswordRequest, new CheckPasswordCallback(this));
+            this._checkPasswordDataManager.VerifyPassword(_checkPasswordRequest, new CheckPasswordCallback(this));
         }
 
 
         public class CheckPasswordCallback : IUsecaseCallbackBaseCase<bool>
         {
-            private CheckPassword checkPassword;
+            private CheckPassword _checkPassword;
 
             public CheckPasswordCallback(CheckPassword checkPassword)
             {
-                this.checkPassword = checkPassword;
+                this._checkPassword = checkPassword;
             }
 
             public void OnResponseError(BException response)
             {
-                checkPassword.presenterCheckPasswordCallback?.OnError(response);
+                _checkPassword._presenterCheckPasswordCallback?.OnError(response);
             }
 
             public void OnResponseFailure(ZResponse<bool> response)
             {
-             checkPassword.presenterCheckPasswordCallback?.OnFailure(response);
+                _checkPassword._presenterCheckPasswordCallback?.OnFailure(response);
             }
 
             public void OnResponseSuccess(ZResponse<bool> response)
             {
-                checkPassword.presenterCheckPasswordCallback?.OnSuccessAsync(response);
+                _checkPassword._presenterCheckPasswordCallback?.OnSuccessAsync(response);
             }
         }
 

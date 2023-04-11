@@ -14,20 +14,20 @@ namespace NetBankingApplication.ViewModel
 {
     public class GetAllUsersViewModel : GetAllUsersBaseViewModel
     {
-        GetAllUsers getAllUsers;
+       private GetAllUsers _getAllUsers;
         public override void GetAllUsers()
         {
-            getAllUsers = new GetAllUsers(new GetAllUserRequest("", new CancellationTokenSource()), new PresenterGetAllUsersCallback(this));
-            getAllUsers.Execute();
+            _getAllUsers = new GetAllUsers(new GetAllUserRequest("", new CancellationTokenSource()), new PresenterGetAllUsersCallback(this));
+            _getAllUsers.Execute();
         }
     }
     public class PresenterGetAllUsersCallback : IPresenterGetAllUsersCallback
     {
-        private GetAllUsersViewModel getAllUsersViewModel;
+        private GetAllUsersViewModel _getAllUsersViewModel;
 
         public PresenterGetAllUsersCallback(GetAllUsersViewModel getAllUsersViewModel)
         {
-            this.getAllUsersViewModel = getAllUsersViewModel;
+            this._getAllUsersViewModel = getAllUsersViewModel;
         }
 
         public void OnError(BException errorMessage)
@@ -42,7 +42,7 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                getAllUsersViewModel.AllUsers = response.Data.Data;
+                _getAllUsersViewModel.AllUsers = response.Data.Data;
             });
         }
     }

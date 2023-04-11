@@ -49,7 +49,7 @@ namespace Library.Data.DataBaseService
         bool UpdateBalance(Account account);
         double GetTotalBalanceOfUser(string userId);
         Dictionary<String, double> GetAllAccountBalance(string userId);
-        double GetBalance(string AccountNumber);
+        double GetBalance(string accountNumber);
         void CloseFD(string userId,FDAccount fDAccount);
 
     }
@@ -80,11 +80,11 @@ namespace Library.Data.DataBaseService
     public interface IUserAccountDbHandler
     {
         void AddAccountForUser(UserAccounts userAccounts);
-        List<UserAccounts> GetAllAccountsForUser(string userId);
+        List<Account> GetAllAccountsForUser(string userId,bool getOnlyTransferAccounts);
     }
     public interface IBranchDbHandler
     {
-        Branch GetBranchDetails(String BId);
+        Branch GetBranchDetails(String bId);
         void InsertBankBranchDetails(List<Branch> branches);
         List<Branch> GetAllBranches();
     }
@@ -94,7 +94,7 @@ namespace Library.Data.DataBaseService
         void InsertDefaultFDRates(List<FDRates> fDRates);
         double GetFDRate(int tenureDuration);
         void AddFDAccount(FDAccount fDAccount);
-        FDAccount FetchFDDetails(string AccountNumber);
+        FDAccount FetchFDDetails(string accountNumber);
     }
 
 }

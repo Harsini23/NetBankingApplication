@@ -23,7 +23,7 @@ namespace NetBankingApplication.View.UserControls
 
     public sealed partial class FDNavigationOverview : UserControl, INotifyPropertyChanged
     {
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(FDNavigationOverview), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }

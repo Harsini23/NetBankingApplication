@@ -13,19 +13,19 @@ namespace NetBankingApplication.ViewModel
 {
     public class EditPayeeViewModel : EditPayeeBaseViewModel
     {
-        EditPayee editPayee;
-       public Payee Currentpayee;
+       private EditPayee _editPayee;
+       private Payee _currentpayee;
         public override void EditPayee(Payee payee)
         {
-            Currentpayee = payee;
-            editPayee = new EditPayee(new EditPayeeRequest(payee.UserID,payee, new CancellationTokenSource()), new PresenterEditPayeeCallback(this));
-            editPayee.Execute();
+            _currentpayee = payee;
+            _editPayee = new EditPayee(new EditPayeeRequest(payee.UserID,payee, new CancellationTokenSource()), new PresenterEditPayeeCallback(this));
+            _editPayee.Execute();
         }
     }
 
     public class PresenterEditPayeeCallback : IPresenterEditPayeeCallback
     {
-        private EditPayeeViewModel EditPayeeViewModel;
+        private EditPayeeViewModel _editPayeeViewModel;
       //  NotificationService eventProvider = new NotificationService();
         public PresenterEditPayeeCallback()
         {
@@ -33,7 +33,7 @@ namespace NetBankingApplication.ViewModel
         }
         public PresenterEditPayeeCallback(EditPayeeViewModel EditPayeeViewModel)
         {
-            this.EditPayeeViewModel = EditPayeeViewModel;
+            this._editPayeeViewModel = EditPayeeViewModel;
         }
 
         public void OnError(BException response)
@@ -47,8 +47,8 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                EditPayeeViewModel.ResponseValue = response.Response;
-                EditPayeeViewModel.AddEditPayeeView?.CallEditNotificationNotification();
+                _editPayeeViewModel.ResponseValue = response.Response;
+                _editPayeeViewModel.AddEditPayeeView?.CallEditNotificationNotification();
                 //refresh list after updation!
                 //eventProvider.Subscribe(new PayeeUpdate());
                 //eventProvider.RaiseEvent(EditPayeeViewModel.Currentpayee.UserID);

@@ -40,7 +40,7 @@ namespace NetBankingApplication.View.UserControls
 
         public event PropertyChangedEventHandler PropertyChanged;
         String ProfilePath;
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(SettingsView), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }

@@ -15,51 +15,51 @@ namespace Library.Domain.UseCase
     }
     public class AddAccount : UseCaseBase<bool>
     {
-        private IAddAccountDataManager AddAccountDataManager;
-        private AddAccountRequest addAccountRequest;
-        IPresenterAddAccountCallback presenterAddAccountCallback;
+        private IAddAccountDataManager _addAccountDataManager;
+        private AddAccountRequest _addAccountRequest;
+        IPresenterAddAccountCallback _presenterAddAccountCallback;
         public AddAccount(AddAccountRequest request,IPresenterAddAccountCallback responseCallback)
         {
-            AddAccountDataManager = ServiceProvider.GetInstance().Services.GetService<IAddAccountDataManager>();
-            addAccountRequest = request;
-            presenterAddAccountCallback = responseCallback;
+            _addAccountDataManager = ServiceProvider.GetInstance().Services.GetService<IAddAccountDataManager>();
+            _addAccountRequest = request;
+            _presenterAddAccountCallback = responseCallback;
         }
         public override void Action()
         {
-            this.AddAccountDataManager.AddAccount(addAccountRequest, new AddUserCallback(this));
+            this._addAccountDataManager.AddAccount(_addAccountRequest, new AddUserCallback(this));
         }
         public class AddUserCallback : IUsecaseCallbackBaseCase<bool>
         {
-            private AddAccount addAccount;
+            private AddAccount _addAccount;
 
             public AddUserCallback(AddAccount addAccount)
             {
-                this.addAccount = addAccount;
+                this._addAccount = addAccount;
             }
 
             public void OnResponseError(BException response)
             {
-                addAccount.presenterAddAccountCallback?.OnError(response);
+                _addAccount._presenterAddAccountCallback?.OnError(response);
             }
 
             public void OnResponseFailure(ZResponse<bool> response)
             {
-                addAccount.presenterAddAccountCallback?.OnFailure(response);
+                _addAccount._presenterAddAccountCallback?.OnFailure(response);
             }
 
             public void OnResponseSuccess(ZResponse<bool> response)
             {
-                addAccount.presenterAddAccountCallback?.OnSuccessAsync(response);
+                _addAccount._presenterAddAccountCallback?.OnSuccessAsync(response);
             }
         }
     }
 
     public class AddAccountRequest
     {
-        public AccountBObj newAccount { get; set; }
+        public AccountBObj NewAccount { get; set; }
         public AddAccountRequest(AccountBObj NewAccount, string userId)
         {
-            newAccount = NewAccount;
+            NewAccount = NewAccount;
         }
     }
     public interface IPresenterAddAccountCallback : IResponseCallbackBaseCase<bool>

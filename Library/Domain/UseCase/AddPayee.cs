@@ -19,7 +19,6 @@ namespace Library.Domain.UseCase
     public class AddPayeeRequest : IRequest
     {
         public string UserId { get; set; }
-     
         public Payee NewPayee { get; set; }
         public CancellationTokenSource CtsSource { get; set; }
 
@@ -37,43 +36,39 @@ namespace Library.Domain.UseCase
     public interface IPresenterAddPayeeCallback : IResponseCallbackBaseCase<String> { }
     public class AddPayee:UseCaseBase<String>
     {
-        private IAddPayeeDataManager AddPayeeDataManager;
-        private AddPayeeRequest AddPayeeRequest;
-        IPresenterAddPayeeCallback AddPayeeResponseCallback;
+        private IAddPayeeDataManager _addPayeeDataManager;
+        private AddPayeeRequest _addPayeeRequest;
+        private IPresenterAddPayeeCallback _addPayeeResponseCallback;
         public AddPayee(AddPayeeRequest request, IPresenterAddPayeeCallback responseCallback)
         {
-            var serviceProviderInstance = ServiceProvider.GetInstance();
-            AddPayeeDataManager = serviceProviderInstance.Services.GetService<IAddPayeeDataManager>();
-            AddPayeeRequest = request;
-            AddPayeeResponseCallback = responseCallback;
+            _addPayeeDataManager = ServiceProvider.GetInstance().Services.GetService<IAddPayeeDataManager>();
+            _addPayeeRequest = request;
+            _addPayeeResponseCallback = responseCallback;
         }   
 
         public override void Action()
         {
             //use call back
-            this.AddPayeeDataManager.AddNewPayee(AddPayeeRequest, new AddPayeeCallback(this));
+            this._addPayeeDataManager.AddNewPayee(_addPayeeRequest, new AddPayeeCallback(this));
         }
         public class AddPayeeCallback : IUsecaseCallbackBaseCase<String>
         {
-            AddPayee addPayee;
+           private AddPayee _addPayee;
             public AddPayeeCallback(AddPayee addPayee)
             {
-                this.addPayee = addPayee;
+                this._addPayee = addPayee;
             }
-
-            public string Response { get; set; }
-
             public void OnResponseError(BException response)
             {
-                addPayee.AddPayeeResponseCallback?.OnError(response);
+                _addPayee._addPayeeResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<String> response)
             {
-                addPayee.AddPayeeResponseCallback?.OnFailure(response);
+                _addPayee._addPayeeResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<String> response)
             {
-                addPayee.AddPayeeResponseCallback?.OnSuccessAsync(response);
+                _addPayee._addPayeeResponseCallback?.OnSuccessAsync(response);
 
             }
         }

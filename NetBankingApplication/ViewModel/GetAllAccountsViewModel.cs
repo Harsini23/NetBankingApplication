@@ -19,17 +19,12 @@ namespace NetBankingApplication.ViewModel
     {
         GetAllAccounts getAllAccounts;
 
-        ISwitchUserView tranferView;
-        public override void GetAllAccounts(string userId)
+        public override void GetAllAccounts(string userId, bool fetchTransactionAccounts=false)
         {
-            SetValueForCallback();
-            getAllAccounts = new GetAllAccounts(new GetAllAccountsRequest(userId, new CancellationTokenSource()), new PresenterGetAllAccountsCallback(this));
+            getAllAccounts = new GetAllAccounts(new GetAllAccountsRequest(userId,fetchTransactionAccounts, new CancellationTokenSource()), new PresenterGetAllAccountsCallback(this));
             getAllAccounts.Execute();
         }
-        private void SetValueForCallback()
-        {
-            tranferView = TransferAmountView;
-        }
+    
     }
 
     public class PresenterGetAllAccountsCallback : IPresenterGetAllAccountsCallback
@@ -58,10 +53,10 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                var allAccounts = response.Data.allAccount;
+                var allAccounts = response.Data.AllAccount;
 
                 populateData(allAccounts);
-                populateBalanceData(response.Data.allAccountBalance);
+                populateBalanceData(response.Data.AllAccountBalance);
                 handleCallbackAsync();
                 BankingNotification.AccountUpdated += BankingNotification_AccountUpdated;
                 BankingNotification.AccountBalanceEdited += BankingNotification_AccountBalanceEdited;
@@ -170,7 +165,7 @@ namespace NetBankingApplication.ViewModel
     }
     public abstract class GetAllAccountsBaseViewModel : NotifyPropertyBase
     {
-        public abstract void GetAllAccounts(string userId);
+        public abstract void GetAllAccounts(string userId,bool fetchTransactionAccounts=false);
         public ObservableCollection<Account> AllAccounts = new ObservableCollection<Account>();
         public ObservableCollection<String> AllAccountNumbers = new ObservableCollection<string>();
         public ObservableCollection<AccountBalance> allBalances = new ObservableCollection<AccountBalance>();

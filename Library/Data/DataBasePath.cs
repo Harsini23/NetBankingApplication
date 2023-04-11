@@ -18,14 +18,14 @@ namespace Library.Data
         //get the string from local folder--> save the value in local folder if not present
         //private static DataBasePath _instance;
 
-        static string databasename ;
-        private static string databasePath;
+        static string _databasename ;
+        private static string _databasePath;
         public string GetConnection()
         {
-            databasename = "Banking.db";
+            _databasename = "Banking.db";
          
-             databasePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, databasename);
-            return databasePath;
+             _databasePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, _databasename);
+            return _databasePath;
 
         }
     }

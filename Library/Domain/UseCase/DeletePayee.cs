@@ -18,13 +18,13 @@ namespace Library.Domain.UseCase
     public class DeletePayeeRequest : IRequest
     {
         public string UserId { get; set; }
-        public Payee payeeToDelete { get; set; }
+        public Payee PayeeToDelete { get; set; }
         public CancellationTokenSource CtsSource { get; set ; }
 
         public DeletePayeeRequest(string userId, Payee payee,CancellationTokenSource cts)
         {
             UserId = userId;
-            payeeToDelete = payee;
+            PayeeToDelete = payee;
             CtsSource = cts;
         }
     }
@@ -34,42 +34,42 @@ namespace Library.Domain.UseCase
     }
     public class DeletePayee : UseCaseBase<String>
     {
-        private IDeletePayeeDataManager DeletePayeeDataManager;
-        private DeletePayeeRequest DeletePayeeRequest;
-        IPresenterDeletePayeeCallback DeletePayeeResponseCallback;
+        private IDeletePayeeDataManager _deletePayeeDataManager;
+        private DeletePayeeRequest _deletePayeeRequest;
+        IPresenterDeletePayeeCallback _deletePayeeResponseCallback;
         public DeletePayee(DeletePayeeRequest request, IPresenterDeletePayeeCallback responseCallback)
         {
-            DeletePayeeDataManager = ServiceProvider.GetInstance().Services.GetService<IDeletePayeeDataManager>();
-            DeletePayeeRequest = request;
-            DeletePayeeResponseCallback = responseCallback;
+            _deletePayeeDataManager = ServiceProvider.GetInstance().Services.GetService<IDeletePayeeDataManager>();
+            _deletePayeeRequest = request;
+            _deletePayeeResponseCallback = responseCallback;
         }
         public override void Action()
         {
             //use call back
-            this.DeletePayeeDataManager.DeletePayee(DeletePayeeRequest, new DeletePayeeCallback(this));
+            this._deletePayeeDataManager.DeletePayee(_deletePayeeRequest, new DeletePayeeCallback(this));
             // this.GetAllPayeeDataManager.ValidateUserLogin(GetAllPayeeRequest, new GetAllPayeeCallback(this));
         }
 
         public class DeletePayeeCallback : ZResponse<String>
         {
-            private DeletePayee DeletePayee;
+            private DeletePayee _deletePayee;
             public DeletePayeeCallback(DeletePayee deletePayee)
             {
-                this.DeletePayee = deletePayee;
+                this._deletePayee = deletePayee;
             }
             public string Response { get; set; }
 
             public void OnResponseError(BException response)
             {
-                DeletePayee.DeletePayeeResponseCallback?.OnError(response);
+                _deletePayee._deletePayeeResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<String> response)
             {
-                DeletePayee.DeletePayeeResponseCallback?.OnFailure(response);
+                _deletePayee._deletePayeeResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<String> response)
             {
-                DeletePayee.DeletePayeeResponseCallback?.OnSuccessAsync(response);
+                _deletePayee._deletePayeeResponseCallback?.OnSuccessAsync(response);
 
             }
         }

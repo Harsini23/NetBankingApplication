@@ -123,7 +123,6 @@
     <Compile Include="ViewModel\AddAccountViewModel.cs" />
     <Compile Include="ViewModel\AddPayeeViewModel.cs" />
     <Compile Include="ViewModel\AddUserViewModel.cs" />
-    <Compile Include="ViewModel\CheckPasswordViewModel.cs" />
     <Compile Include="ViewModel\DeletePayeeViewModel.cs" />
     <Compile Include="ViewModel\EditPayeeViewModel.cs" />
     <Compile Include="ViewModel\FDAccountDetailsViewModel.cs" />
@@ -141,7 +140,6 @@
     <Compile Include="ViewModel\OverviewViewModel.cs" />
     <Compile Include="ViewModel\TransactionHistoryViewModel.cs" />
     <Compile Include="ViewModel\TransferAmountViewModel.cs" />
-    <Compile Include="ViewModel\UpdateChangesMediator.cs" />
     <Compile Include="ViewModel\UpdateUserViewModel.cs" />
     <Compile Include="View\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>

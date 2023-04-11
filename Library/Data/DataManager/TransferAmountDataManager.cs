@@ -50,9 +50,9 @@ namespace Library.Data.DataManager
             return false;
         }
 
-        public void AddTransaction(TransferAmountRequest request, IUsecaseCallbackBaseCase<TransferAmountResponse> response)
+        public void AddTransaction(TransferAmountRequest request, IUsecaseCallbackBaseCase<TransferAmountResponse> callback)
         {
-            ZResponse<TransferAmountResponse> Response = new ZResponse<TransferAmountResponse>();
+            ZResponse<TransferAmountResponse> response = new ZResponse<TransferAmountResponse>();
             //conversion of amountTransfer to transaction
             //check for balance  before transaction
             var account = DbHandler.GetAccount(request.Transaction.FromAccount);
@@ -92,9 +92,9 @@ namespace Library.Data.DataManager
                 transferAmountResponse.transaction = currentTransaction;
                 transferAmountResponse.Data = responseTransactions;
                 var responseStatus = "Transaction Processed";
-                Response.Response = responseStatus;
-                Response.Data = transferAmountResponse;
-                response.OnResponseSuccess(Response);
+                response.Response = responseStatus;
+                response.Data = transferAmountResponse;
+                callback.OnResponseSuccess(response);
             }
             else
             {
@@ -102,9 +102,9 @@ namespace Library.Data.DataManager
                 transferAmountResponse.transaction = currentTransaction;
                 transferAmountResponse.Data = responseTransactions;
                 var responseStatus = "Transaction failed due to insuficient balance";
-                Response.Response = responseStatus;
-                Response.Data = transferAmountResponse;
-                response.OnResponseSuccess(Response);
+                response.Response = responseStatus;
+                response.Data = transferAmountResponse;
+                callback.OnResponseSuccess(response);
             }
 
         }

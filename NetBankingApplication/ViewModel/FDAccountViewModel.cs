@@ -15,8 +15,8 @@ namespace NetBankingApplication.ViewModel
 {
     public class FDAccountViewModel : FDAccountBaseViewModel
     {
-        GetFdRate FdRate;
-        OpenFD OpenFD;
+        private GetFdRate _fdRate;
+        private OpenFD _openFD;
        public FDBObj FDBObj;
         public override void CalculateFD(double principle,int year,int month,int day, CustomerType customerType,FDType fDType, string userID,string FromAccountNumber)
         {
@@ -30,32 +30,32 @@ namespace NetBankingApplication.ViewModel
                 FDType = fDType,
                 FromAccountNumber=FromAccountNumber
             };
-            FdRate = new GetFdRate(new FDRateRequest(FDBObj, new CancellationTokenSource()),new PresenterFDAccountRateCallback(this));
-            FdRate.Execute();
+            _fdRate = new GetFdRate(new FDRateRequest(FDBObj, new CancellationTokenSource()),new PresenterFDAccountRateCallback(this));
+            _fdRate.Execute();
         }
 
         public override void CreateFD(FDAccountBObj fdAccount)
         {
-            OpenFD = new OpenFD(new OpenFDRequest(fdAccount,new CancellationTokenSource()), new PresenterOpenFDCallback(this));
-            OpenFD.Execute();
+            _openFD = new OpenFD(new OpenFDRequest(fdAccount,new CancellationTokenSource()), new PresenterOpenFDCallback(this));
+            _openFD.Execute();
         }
     }
 
     public class PresenterFDAccountRateCallback : IPresenterGetFDRateCallback
     {
-        private FDAccountViewModel fDAccountViewModel;
+        private FDAccountViewModel _fDAccountViewModel;
 
         public PresenterFDAccountRateCallback(FDAccountViewModel fDAccountViewModel)
         {
-            this.fDAccountViewModel = fDAccountViewModel;
+            this._fDAccountViewModel = fDAccountViewModel;
         }
 
         public async void OnError(BException errorMessage)
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                fDAccountViewModel.NotificationMessage = errorMessage.exceptionMessage;
-                fDAccountViewModel.NotificationAlert?.CallNotification();
+                _fDAccountViewModel.NotificationMessage = errorMessage.exceptionMessage;
+                _fDAccountViewModel.NotificationAlert?.CallNotification();
             });
         }
 
@@ -66,35 +66,35 @@ namespace NetBankingApplication.ViewModel
 
         public async void OnSuccessAsync(ZResponse<GetFDRateResponse> response)
         {
-            if (fDAccountViewModel.OpenAccount)
+            if (_fDAccountViewModel.OpenAccount)
             {
-                fDAccountViewModel.CreateFD(new FDAccountBObj
+                _fDAccountViewModel.CreateFD(new FDAccountBObj
                 {
                     TenureDate=response.Data.FDDetails.MaturityDate,
                     MaturityAmount=response.Data.FDDetails.MaturityAmount,
-                    FDType= fDAccountViewModel.FDBObj.FDType,
-                    CustomerType= fDAccountViewModel.FDBObj.CustomerType,
-                    FromAccount=fDAccountViewModel.FDBObj.FromAccountNumber,
-                    Principle=fDAccountViewModel.FDBObj.PrincipalAmount,
+                    FDType= _fDAccountViewModel.FDBObj.FDType,
+                    CustomerType= _fDAccountViewModel.FDBObj.CustomerType,
+                    FromAccount= _fDAccountViewModel.FDBObj.FromAccountNumber,
+                    Principle= _fDAccountViewModel.FDBObj.PrincipalAmount,
                     Rate=response.Data.FDDetails.Rate,
                     InterestAmount=response.Data.FDDetails.InterestAmount,
-                    UserID=fDAccountViewModel.FDBObj.UserID
+                    UserID= _fDAccountViewModel.FDBObj.UserID
                 });
             }
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                fDAccountViewModel.CalculatedFd = response.Data.FDDetails;
+                _fDAccountViewModel.CalculatedFd = response.Data.FDDetails;
             });
         }
     }
 
     public class PresenterOpenFDCallback : IPresenterOpenFDCallback
     {
-        private FDAccountViewModel fDAccountViewModel;
+        private FDAccountViewModel _fDAccountViewModel;
 
         public PresenterOpenFDCallback(FDAccountViewModel fDAccountViewModel)
         {
-            this.fDAccountViewModel = fDAccountViewModel;
+            this._fDAccountViewModel = fDAccountViewModel;
         }
 
         public void OnError(BException errorMessage)
@@ -111,8 +111,8 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                fDAccountViewModel.NotificationMessage = response.Response;
-                fDAccountViewModel.NotificationAlert?.CallNotification();
+                _fDAccountViewModel.NotificationMessage = response.Response;
+                _fDAccountViewModel.NotificationAlert?.CallNotification();
             });
         }
     }

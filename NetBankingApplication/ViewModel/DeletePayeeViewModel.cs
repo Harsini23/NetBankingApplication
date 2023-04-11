@@ -16,20 +16,20 @@ namespace NetBankingApplication.ViewModel
 {
     public class DeletePayeeViewModel : DeletePayeeBaseViewModel
     {
-        DeletePayee deleteRecipient;
+        private DeletePayee _deleteRecipient;
         public static String userId;
        // public delegate void ValueChangedEventHandler(string value);
         public override void DeletePayee(Payee payee)
         {
             userId = payee.UserID;
-            deleteRecipient = new DeletePayee(new DeletePayeeRequest(payee.UserID, payee, new CancellationTokenSource()), new PresenterDeletePayeeCallback(this));
-            deleteRecipient.Execute();
+            _deleteRecipient = new DeletePayee(new DeletePayeeRequest(payee.UserID, payee, new CancellationTokenSource()), new PresenterDeletePayeeCallback(this));
+            _deleteRecipient.Execute();
         }
     }
 
     public class PresenterDeletePayeeCallback : IPresenterDeletePayeeCallback
     {
-        private DeletePayeeViewModel deletePayeeViewModel;
+        private DeletePayeeViewModel _deletePayeeViewModel;
        // public static event DeletePayeeViewModel.ValueChangedEventHandler ValueChanged;
 
      //   NotificationService eventProvider = new NotificationService();
@@ -41,7 +41,7 @@ namespace NetBankingApplication.ViewModel
         }
         public PresenterDeletePayeeCallback(DeletePayeeViewModel deletePayeeViewModel)
         {
-            this.deletePayeeViewModel = deletePayeeViewModel;
+            this._deletePayeeViewModel = deletePayeeViewModel;
         }
 
         public void OnError(BException response)
@@ -57,8 +57,8 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                deletePayeeViewModel.ResponseValue = response.Data.ToString();
-                deletePayeeViewModel.AddEditPayeeView?.CallDeleteNotificationNotification();
+                _deletePayeeViewModel.ResponseValue = response.Data.ToString();
+                _deletePayeeViewModel.AddEditPayeeView?.CallDeleteNotificationNotification();
                 //ValueChanged?.Invoke(DeletePayeeViewModel.userId);
 
                 //eventProvider.Subscribe(new PayeeUpdate());

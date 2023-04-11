@@ -17,32 +17,28 @@ namespace Library.Data.DataManager
         }
 
 
-        public void GetAllTransactions(AccountTransactionsRequest request, IUsecaseCallbackBaseCase<AccountTransactionsResponse> response)
+        public void GetAllTransactions(AccountTransactionsRequest request, IUsecaseCallbackBaseCase<AccountTransactionsResponse> callback)
         {
             List<AccountTransactionBObj> allAccountTransactions = new List<AccountTransactionBObj>();
             var Alltransactions=DbHandler.GetTransactionsForAccount(request.AccountNumber);
             Dictionary<String,String> UserMapping = new Dictionary<String,String>();
             List<String> uniqueId = Alltransactions.Select(i=>i.UserId).Distinct().ToList();
-            //foreach(var i in Alltransactions)
-            //{
-            //    userId.Add(i.UserId);
-            //}
-            //var uniqueId = userId.Select(x => x).Distinct();
+         
             foreach(var i in uniqueId)
             {
                 UserMapping.Add(i, DbHandler.GetUserName(i));
             }
             foreach(var i in Alltransactions)
             {
-                string Account;
+                string account;
                 string picPath;
                 if (i.TransactionType == Model.Enum.TransactionType.Credited)
                 {
-                    Account = i.FromAccount;
+                    account = i.FromAccount;
                 }
                 else
                 {
-                    Account = i.ToAccount;
+                    account = i.ToAccount;
                 }
                 var path= DbHandler.GetProfile(i.UserId);
                 if (path != null)
@@ -52,7 +48,7 @@ namespace Library.Data.DataManager
                 AccountTransactionBObj trasaction = new AccountTransactionBObj
                 {
                     UserName = UserMapping[i.UserId],
-                    AccountNumber = Account,
+                    AccountNumber = account,
                     TransactionType = i.TransactionType,
                     Amount=i.Amount,
                     DateOfTransaction=i.Date,
@@ -64,14 +60,14 @@ namespace Library.Data.DataManager
             }
 
             var accountDetails = DbHandler.GetAccount(request.AccountNumber);
-            ZResponse<AccountTransactionsResponse> Response = new ZResponse<AccountTransactionsResponse>();
+            ZResponse<AccountTransactionsResponse> response = new ZResponse<AccountTransactionsResponse>();
             AccountTransactionsResponse transactions = new AccountTransactionsResponse();
             transactions.account = accountDetails;
             transactions.allTransactions = allAccountTransactions;
-            Response.Data = transactions;
-            Response.Response = "Added all transactions of that account";
+            response.Data = transactions;
+            response.Response = "Added all transactions of that account";
 
-            response?.OnResponseSuccess(Response);
+            callback?.OnResponseSuccess(response);
         }
     }
 

@@ -15,15 +15,23 @@ namespace Library.Data.DataManager
         {
         }
 
-        public void DeletePayee(DeletePayeeRequest request, DeletePayee.DeletePayeeCallback response)
+        public void DeletePayee(DeletePayeeRequest request, DeletePayee.DeletePayeeCallback callback)
         {
-            DbHandler.DeletePayee(request.payeeToDelete);
-            ZResponse<String> Response = new ZResponse<String>();
-            Response.Response = "Deleted successfully";
-            Response.Data = "Payee Deleted";
-            BankingNotification.BankingNotification.NotifyPayeeDeleted(request.payeeToDelete);
-            response.OnResponseSuccess(Response);
+            try
+            {
+                DbHandler.DeletePayee(request.PayeeToDelete);
+                ZResponse<String> response = new ZResponse<String>();
+                response.Response = "Deleted successfully";
+                response.Data = "Payee Deleted";
+                BankingNotification.BankingNotification.NotifyPayeeDeleted(request.PayeeToDelete);
+                callback.OnResponseSuccess(response);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
+
     }
 
 

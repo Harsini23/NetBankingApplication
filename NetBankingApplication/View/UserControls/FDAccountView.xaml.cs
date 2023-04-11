@@ -127,7 +127,7 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _getAllAccountsViewModel.GetAllAccounts(User.UserId);
+            _getAllAccountsViewModel.GetAllAccounts(User.UserId, true);
             _today = CurrentDateTime.GetCurrentDate();
             YearComboBox.Items.Add(new ComboBoxItem { Content="--"});
             MonthComboBox.Items.Add(new ComboBoxItem { Content="--"});
@@ -271,7 +271,7 @@ namespace NetBankingApplication.View.UserControls
             }
             else
             {
-                if (AccountTypeBox.Content != null && CustomerTypeBox.Content != null && !string.IsNullOrEmpty(AmountTextBox.Text) && (_selectedMonths != 0 || _selectedYears != 0 || _selectedDays != 0) && SelectAccount.Content != "Select From Account")
+                if (AccountTypeBox.Content != null && CustomerTypeBox.Content != null && !string.IsNullOrEmpty(AmountTextBox.Text) && (_selectedMonths != 0 || _selectedYears != 0 || _selectedDays != 0))
                 {
                     _accountType = (FDType)Enum.Parse(typeof(FDType), AccountTypeBox.Content as string);
                     _customerType = (CustomerType)Enum.Parse(typeof(CustomerType), CustomerTypeBox.Content as string);

@@ -36,7 +36,7 @@ namespace NetBankingApplication.View.UserControls
 
         //List<Payee> allRecipients = new List<Payee>();
         public event Action<string> RaiseNotification;
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(ViewAndEditPayee), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }

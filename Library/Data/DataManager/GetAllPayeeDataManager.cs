@@ -17,20 +17,20 @@ namespace Library.Data.DataManager
         {
         }
 
-        void IGetAllPayeeDataManager.GetAllPayee(GetAllPayeeRequest request, IUsecaseCallbackBaseCase<GetAllPayeeResponse> response)
+        void IGetAllPayeeDataManager.GetAllPayee(GetAllPayeeRequest request, IUsecaseCallbackBaseCase<GetAllPayeeResponse> callback)
         {
             //get it frm db
-            ZResponse<GetAllPayeeResponse> Response = new ZResponse<GetAllPayeeResponse>();
-            GetAllPayeeResponse GetAllPayeeResponse = new GetAllPayeeResponse();
+            ZResponse<GetAllPayeeResponse> response = new ZResponse<GetAllPayeeResponse>();
+            GetAllPayeeResponse getAllPayeeResponse = new GetAllPayeeResponse();
 
             var userId = request.UserId;
             var allRecipients = DbHandler.GetAllPayee(userId);
-            GetAllPayeeResponse.allRecipients = allRecipients;
-            Response.Data = GetAllPayeeResponse;
+            getAllPayeeResponse.AllRecipients = allRecipients;
+            response.Data = getAllPayeeResponse;
             var responseStatus = "Successfull got all recipients";
-            Response.Response = responseStatus;
+            response.Response = responseStatus;
 
-            response.OnResponseSuccess(Response);
+            callback.OnResponseSuccess(response);
 
         }
     }

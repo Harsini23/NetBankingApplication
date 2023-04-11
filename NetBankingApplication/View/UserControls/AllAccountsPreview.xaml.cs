@@ -34,7 +34,7 @@ namespace NetBankingApplication.View.UserControls
         private LoginBaseViewModel _loginViewModel;
 
         private static Dictionary<int, AppWindow> _appWindows = new Dictionary<int, AppWindow>();
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(AllAccountsPreview), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }

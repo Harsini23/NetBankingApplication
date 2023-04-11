@@ -12,24 +12,22 @@ namespace NetBankingApplication.ViewModel
 {
     public class AddAccountViewModel : AddAccountBaseViewModel
     {
-        public AddAccount addAccount;
-        public AccountBObj accountBObj;
+        private AddAccount _addAccount;
+        private AccountBObj _accountBObj;
         public override void AddAccount(AccountBObj account)
         {
-            accountBObj = account;
-            addAccount = new AddAccount(new AddAccountRequest(account, account.UserId), new PresenterAddAccountCallback(this));
-            addAccount.Execute();
+            _accountBObj = account;
+            _addAccount = new AddAccount(new AddAccountRequest(account, account.UserId), new PresenterAddAccountCallback(this));
+            _addAccount.Execute();
         }
     }
-
-
     public class PresenterAddAccountCallback : IPresenterAddAccountCallback
     {
-        private AddAccountViewModel addAccountViewModel;
+        private AddAccountViewModel _addAccountViewModel;
         //NotificationServiceAccount accountEventProvider = new NotificationServiceAccount();
         public PresenterAddAccountCallback(AddAccountViewModel addAccountViewModel)
         {
-            this.addAccountViewModel = addAccountViewModel;
+            this._addAccountViewModel = addAccountViewModel;
         }
 
         public void OnError(BException errorMessage)
@@ -45,8 +43,8 @@ namespace NetBankingApplication.ViewModel
             //invoke notification to update the list preview
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                addAccountViewModel.Response = response.Response;
-                addAccountViewModel.addAccountView?.AccountNotification();
+                _addAccountViewModel.Response = response.Response;
+                _addAccountViewModel.addAccountView?.AccountNotification();
                // accountEventProvider.Subscribe(new AccountUpdate());
               //  accountEventProvider.RaiseEvent(addAccountViewModel.accountBObj.UserId);
             });

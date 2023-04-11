@@ -20,8 +20,7 @@ namespace NetBankingApplication.ViewModel
    
      public class AccountTransactionsViewModel : AccountTransactionsBaseViewModel
     {
-        AccountTransactions Transaction;
-        private static string Accountnumber;
+       private  AccountTransactions _transaction;
         public AccountTransactionsViewModel()
         {
             PresenterTransferAmountCallback.ValueChanged += TransferAmountViewModel_ValueChanged;
@@ -34,8 +33,8 @@ namespace NetBankingApplication.ViewModel
 
         public override void GetAllTransactions(string accountId, string userId)
         {
-            Transaction = new AccountTransactions(new AccountTransactionsRequest(accountId,userId, new CancellationTokenSource()), new PresenterAccountTransactionsCallback(this));
-            Transaction.Execute();
+            _transaction = new AccountTransactions(new AccountTransactionsRequest(accountId,userId, new CancellationTokenSource()), new PresenterAccountTransactionsCallback(this));
+            _transaction.Execute();
         }
     }
 

@@ -140,22 +140,23 @@
             
         </VisualStateManager.VisualStateGroups>
         
-        
-        <Grid x:Name="OverviewGrid">
 
+        <Grid x:Name="OverviewGrid">
+      
             <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="ColumnOne" Width="1.5*"></ColumnDefinition>
             <ColumnDefinition x:Name="ColumnTwo" Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition x:Name="RowFour" Height="0"/>
-            <RowDefinition x:Name="RowFive" Height="0"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel x:Name="WelcomeGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  Margin="40,5,10,10" Padding="10,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition x:Name="RowFour"
+                               Height="0" />
+                <RowDefinition x:Name="RowFive"
+                               Height="0" />
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="WelcomeGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  Margin="40,5,10,10" Padding="10,0,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Welcome," Foreground="#808080" FontSize="32"></TextBlock>
                 <TextBlock Margin="5,0,0,0"
                            Text="{x:Bind User.UserName,Mode=OneWay}" FontSize="32"></TextBlock>

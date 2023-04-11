@@ -15,14 +15,14 @@ namespace Library.Data.DataManager
         {
         }
 
-        public void EditPayee(EditPayeeRequest request, EditPayee.EditPayeeCallback response)
+        public void EditPayee(EditPayeeRequest request, EditPayee.EditPayeeCallback callback)
         {
             DbHandler.EditPayee(request.EditedPayee);
-            ZResponse<String> Response = new ZResponse<String>();
-            Response.Response = "Payee Edited successfully";
-            Response.Data = "Payee Edited";
+            ZResponse<String> response = new ZResponse<String>();
+            response.Response = "Payee Edited successfully";
+            response.Data = "Payee Edited";
             BankingNotification.BankingNotification.NotifyPayeeUpdated(request.EditedPayee);
-            response.OnResponseSuccess(Response);
+            callback.OnResponseSuccess(response);
         }
     }
 }

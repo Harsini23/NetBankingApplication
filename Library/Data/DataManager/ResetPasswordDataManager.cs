@@ -23,23 +23,23 @@ namespace Library.Data.DataManager
         }
         public void ResetPassword(ResetPasswordRequest request,ResetPassword.ResetPasswordCallback callback)
         {
-            ZResponse<bool> Response = new ZResponse<bool>();
+            ZResponse<bool> response = new ZResponse<bool>();
 
-            var IsAdmin = DbHandler.CheckIfAdmin(request.UserId);
-            Credentials updatedCredential = new Credentials(request.UserId, PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(request.NewPassword)), false, IsAdmin);
+            var isAdmin = DbHandler.CheckIfAdmin(request.UserId);
+            Credentials updatedCredential = new Credentials(request.UserId, PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(request.NewPassword)), false, isAdmin);
             var result= DbHandler.ResetPassword(updatedCredential);
-            Response.Data = result;
+            response.Data = result;
             if (result)
             {
                 //password reset successfully
-                Response.Response = "Password updated successfully!";
-                callback.OnResponseSuccess(Response);
+                response.Response = "Password updated successfully!";
+                callback.OnResponseSuccess(response);
             }
             else
             {
                 //error in password resetting
-                Response.Response = "Failed to reset Password";// add error in future if needed
-                callback.OnResponseFailure(Response);
+                response.Response = "Failed to reset Password";// add error in future if needed
+                callback.OnResponseFailure(response);
             }
         }
     }

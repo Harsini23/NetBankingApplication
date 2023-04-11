@@ -19,22 +19,11 @@ namespace NetBankingApplication.ViewModel
 {
     public class GetAllPayeeViewModel : GetAllPayeeBaseViewModel
     {
-        GetAllPayee recipients;
-      //  public IViewAndEditPayeeVM viewAndEditPayeeVMCallback;
-        public GetAllPayeeViewModel()
-        {
-            //PresenterDeletePayeeCallback.ValueChanged += PresenterDeletePayeeCallback_ValueChanged;
-        }
-        //private void PresenterDeletePayeeCallback_ValueChanged(string id)
-        //{
-        //    GetAllPayee(id);
-        //}
-
+       private GetAllPayee _getAllPayee;
         public override void GetAllPayee(string userId)
         {
-            //viewAndEditPayeeVMCallback =  ChangeVisibility;
-            recipients = new GetAllPayee(new GetAllPayeeRequest(userId, new CancellationTokenSource()), new PresenterGetAllPayeeCallback(this));
-            recipients.Execute();
+            _getAllPayee = new GetAllPayee(new GetAllPayeeRequest(userId, new CancellationTokenSource()), new PresenterGetAllPayeeCallback(this));
+            _getAllPayee.Execute();
         }
     }
 
@@ -42,14 +31,14 @@ namespace NetBankingApplication.ViewModel
 
     public class PresenterGetAllPayeeCallback : IPresenterGetAllPayeeCallback
     {
-        private GetAllPayeeViewModel getAllPayeeViewModel;
+        private GetAllPayeeViewModel _getAllPayeeViewModel;
         public PresenterGetAllPayeeCallback()
         {
 
         }
         public PresenterGetAllPayeeCallback(GetAllPayeeViewModel getAllPayeeViewModel)
         {
-            this.getAllPayeeViewModel = getAllPayeeViewModel;
+            this._getAllPayeeViewModel = getAllPayeeViewModel;
         }
 
         public void OnError(BException response)
@@ -65,7 +54,7 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                var allPayee = response.Data.allRecipients;
+                var allPayee = response.Data.AllRecipients;
                 var SortedPayee = allPayee.OrderBy(i => i.PayeeName);
                 BankingNotification.PayeeUpdated += BankingNotification_PayeeUpdated ;
                 BankingNotification.PayeeDeleted += BankingNotification_PayeeDeleted;
@@ -78,9 +67,9 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                getAllPayeeViewModel.AllPayeeCollection.Remove(payee);
-                getAllPayeeViewModel.PayeeNames.Remove(payee.PayeeName);
-                getAllPayeeViewModel.AllPayee.Remove(payee);
+                _getAllPayeeViewModel.AllPayeeCollection.Remove(payee);
+                _getAllPayeeViewModel.PayeeNames.Remove(payee.PayeeName);
+                _getAllPayeeViewModel.AllPayee.Remove(payee);
             });
         }
 
@@ -88,15 +77,15 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                Payee payeeToUpdate = getAllPayeeViewModel.AllPayeeCollection.FirstOrDefault(p => p.AccountNumber == payee.AccountNumber);
+                Payee payeeToUpdate = _getAllPayeeViewModel.AllPayeeCollection.FirstOrDefault(p => p.AccountNumber == payee.AccountNumber);
                 if (payeeToUpdate != null)
                 {
-                    int index= getAllPayeeViewModel.AllPayeeCollection.IndexOf(payeeToUpdate);
+                    int index= _getAllPayeeViewModel.AllPayeeCollection.IndexOf(payeeToUpdate);
                     payeeToUpdate.AccountHolderName = payee.AccountHolderName;
                     payeeToUpdate.BankName = payee.BankName;
                     payeeToUpdate.PayeeName = payee.PayeeName;
                     payeeToUpdate.IfscCode = payee.IfscCode;
-                    getAllPayeeViewModel.AllPayeeCollection[index] = payeeToUpdate;
+                    _getAllPayeeViewModel.AllPayeeCollection[index] = payeeToUpdate;
 
                 }
             });
@@ -105,26 +94,24 @@ namespace NetBankingApplication.ViewModel
 
         public async void populateData(IEnumerable<Payee> allPayee)
         {
-
-         
-                  getAllPayeeViewModel.AllPayeeCollection.Clear();
-                  getAllPayeeViewModel.PayeeNames.Clear();
-                  getAllPayeeViewModel.AllPayee.Clear();
+            _getAllPayeeViewModel.AllPayeeCollection.Clear();
+            _getAllPayeeViewModel.PayeeNames.Clear();
+            _getAllPayeeViewModel.AllPayee.Clear();
                   foreach (var i in allPayee)
                   {
-                      getAllPayeeViewModel.AllPayeeCollection.Add(i);
-                      getAllPayeeViewModel.PayeeNames.Add(i.PayeeName);
-                      getAllPayeeViewModel.AllPayee.Add(i);
+                _getAllPayeeViewModel.AllPayeeCollection.Add(i);
+                _getAllPayeeViewModel.PayeeNames.Add(i.PayeeName);
+                _getAllPayeeViewModel.AllPayee.Add(i);
                   }
 
-            if(getAllPayeeViewModel.AllPayeeCollection.Count <= 0)
+            if(_getAllPayeeViewModel.AllPayeeCollection.Count <= 0)
             {
-                getAllPayeeViewModel.TextBoxVisibility = Visibility.Visible;
+                _getAllPayeeViewModel.TextBoxVisibility = Visibility.Visible;
 
             }
             else
             {
-                getAllPayeeViewModel.TextBoxVisibility = Visibility.Collapsed;
+                _getAllPayeeViewModel.TextBoxVisibility = Visibility.Collapsed;
 
             }
            // GetAllPayeeViewModel.ChangeVisibility?.ChangeVisibility(getAllPayeeViewModel.AllPayeeCollection.Count <= 0);

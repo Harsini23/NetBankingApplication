@@ -15,36 +15,36 @@ namespace Library.Data.DataManager
 {
     public class AddUserDataManager : BankingDataManager, IAddUserDataManager
     {
-        private string password;
+        private string _password;
         public static string UserID {get;set;}
         public AddUserDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
-        public void AddNewUser(AddUserRequest request, IUsecaseCallbackBaseCase<AddUserResponse> response)
+        public void AddNewUser(AddUserRequest request, IUsecaseCallbackBaseCase<AddUserResponse> callback)
         {
-            ZResponse<AddUserResponse> Response = new ZResponse<AddUserResponse>();
+            ZResponse<AddUserResponse> response = new ZResponse<AddUserResponse>();
             AddUserResponse addUserResponse = new AddUserResponse();
 
             var credentials= CreateUserCredentials();
             User user= new User();
-            if (EmailValidation.ValidateEmail(request.newUser.EmailId))
+            if (EmailValidation.ValidateEmail(request.NewUser.EmailId))
             {
-                user = CreateUser(request.newUser.UserName, request.newUser.MobileNumber, request.newUser.EmailId, request.newUser.PAN);
+                user = CreateUser(request.NewUser.UserName, request.NewUser.MobileNumber, request.NewUser.EmailId, request.NewUser.PAN);
             }
             else
             {
-                response.OnResponseError(new BException
+                callback.OnResponseError(new BException
                 {
                     exceptionMessage = "Invalid Email, try again!"
                 });
             }
           
-            var GeneratedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 999999999).ToString()+ GenerateUniqueId.RandomNumber(100, 999).ToString();
-            var account= CreateAccount(GeneratedAccountNumber,request.newUser.AccountType,request.newUser.TotalBalance,request.newUser.BId,request.newUser.Currency);
-            var userAccount= CreateUserAccounts(GeneratedAccountNumber);
-            AmountTransaction currentTransaction = AddInitialTransaction(user.UserId, user.UserName, userAccount.AccountNumber, request.newUser.TotalBalance);
+            var generatedAccountNumber = GenerateUniqueId.RandomNumber(100000000, 999999999).ToString()+ GenerateUniqueId.RandomNumber(100, 999).ToString();
+            var account= CreateAccount(generatedAccountNumber,request.NewUser.AccountType,request.NewUser.TotalBalance,request.NewUser.BId,request.NewUser.Currency);
+            var userAccount= CreateUserAccounts(generatedAccountNumber);
+            AmountTransaction currentTransaction = AddInitialTransaction(user.UserId, user.UserName, userAccount.AccountNumber, request.NewUser.TotalBalance);
 
-            var checkForExistingAccount = CheckPreviousUsers(request.newUser.EmailId,request.newUser.MobileNumber,request.newUser.PAN);
+            var checkForExistingAccount = CheckPreviousUsers(request.NewUser.EmailId,request.NewUser.MobileNumber,request.NewUser.PAN);
             String responseStatus="";
             if (!checkForExistingAccount)
             {
@@ -55,15 +55,15 @@ namespace Library.Data.DataManager
                 DbHandler.AddTransaction(currentTransaction);
                 //Debug.WriteLine("Created and added new account and user details");
 
-                addUserResponse.credentials = new Credentials
+                addUserResponse.Credentials = new Credentials
                 {
                     UserId = credentials.UserId,
-                    Password = password,
+                    Password = _password,
                     IsAdmin = credentials.IsAdmin,
                     NewUser = credentials.NewUser,
                 };
-                addUserResponse.user = user;
-                addUserResponse.account = account;
+                addUserResponse.User = user;
+                addUserResponse.Account = account;
                  responseStatus = "Successfull added user";
             }
             else
@@ -72,18 +72,18 @@ namespace Library.Data.DataManager
                 responseStatus = "Ouch, User already exists!";
             }
 
-            Response.Data = addUserResponse;
-            Response.Response = responseStatus;
-            response.OnResponseSuccess(Response);
+            response.Data = addUserResponse;
+            response.Response = responseStatus;
+            callback.OnResponseSuccess(response);
         }
 
         private Credentials CreateUserCredentials()
         {
             UserID = GenerateUniqueId.GetUniqueId("UID");
             
-            password = GenerateUniqueId.GeneratePassword();
-            Debug.WriteLine("Password for the created account: ",password);
-            var GeneratedPassword = PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(password));
+            _password = GenerateUniqueId.GeneratePassword();
+            Debug.WriteLine("Password for the created account: ",_password);
+            var GeneratedPassword = PasswordEncryption.BytesToString(PasswordEncryption.EncryptPassword(_password));
 
             return new Credentials
             {

@@ -15,17 +15,17 @@ namespace Library.Data.DataManager
         public GetFDDetailsDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
-        public void GetFDDetails(GetFDDetailsRequest request, IUsecaseCallbackBaseCase<FDAccount> response)
+        public void GetFDDetails(GetFDDetailsRequest request, IUsecaseCallbackBaseCase<FDAccount> callback)
         {
             try
             {
-                ZResponse<FDAccount> zResponse = new ZResponse<FDAccount>();
-                zResponse.Data = DbHandler.FetchFDDetails(request.AccountNumber);
-                response.OnResponseSuccess(zResponse);
+                ZResponse<FDAccount> response = new ZResponse<FDAccount>();
+                response.Data = DbHandler.FetchFDDetails(request.AccountNumber);
+                callback.OnResponseSuccess(response);
             }
             catch(Exception ex)
             {
-                response.OnResponseError(new BException(ex));
+                callback.OnResponseError(new BException(ex));
             }
         }
     }

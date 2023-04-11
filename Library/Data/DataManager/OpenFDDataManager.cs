@@ -15,16 +15,16 @@ namespace Library.Data.DataManager
 {
     public class OpenFDDataManager : BankingDataManager, IOpenFDDataManager
     {
-        AddAccountDataManager AddAccountDataManager;
-        TransferAmountDataManager TransferAmountDataManager;
+        AddAccountDataManager addAccountDataManager;
+        TransferAmountDataManager transferAmountDataManager;
         public OpenFDDataManager(IDbHandler DbHandler, INetHandler NetHandler,AddAccountDataManager addAccountDataManager, TransferAmountDataManager transferAmountDataManager) : base(DbHandler, NetHandler)
         {
-            AddAccountDataManager = addAccountDataManager;
-            TransferAmountDataManager = transferAmountDataManager;
+            addAccountDataManager = addAccountDataManager;
+            transferAmountDataManager = transferAmountDataManager;
         }
-        public void OpenFD(OpenFDRequest request, OpenFD.OpenFDCallback response)
+        public void OpenFD(OpenFDRequest request, OpenFD.OpenFDCallback callback)
         {
-            ZResponse<bool> Response = new ZResponse<bool>();
+            ZResponse<bool> response = new ZResponse<bool>();
             //populate in FDAccount table
             var account = new AccountBObj
             {
@@ -39,25 +39,23 @@ namespace Library.Data.DataManager
             };
             if (request.FDAccountBObj.Principle <= 0)
             {
-                Response.Response ="Enter valid amount";
-                Response.Data = false;
+                response.Response ="Enter valid amount";
+                response.Data = false;
             }
-            else if (TransferAmountDataManager.ValidateCurrentAccountAndDeductBalance(account, request.FDAccountBObj.Principle)){
+            else if (transferAmountDataManager.ValidateCurrentAccountAndDeductBalance(account, request.FDAccountBObj.Principle)){
                 AddAccountRequest addAccountRequest = new AddAccountRequest(account, request.FDAccountBObj.UserID);
-                request.FDAccountBObj.AccountNumber = AddAccountDataManager?.PopulateDataForNewAccountCreation(addAccountRequest, TransactionType.FDTransation);
+                request.FDAccountBObj.AccountNumber = addAccountDataManager?.PopulateDataForNewAccountCreation(addAccountRequest, TransactionType.FDTransation);
                 DbHandler.AddFDAccount(request.FDAccountBObj);
-                Response.Response = "Sucessfully added account";
-                Response.Data = true;
+                response.Response = "Sucessfully added account";
+                response.Data = true;
             }
             else
             {
-               
-                Response.Response = "Insufficient balance";
-                Response.Data = false;
-            }
-            response.OnResponseSuccess(Response);
 
-            //populate in Account table - call that DM?  so that it creates account user account and transaction 
+                response.Response = "Insufficient balance";
+                response.Data = false;
+            }
+            callback.OnResponseSuccess(response);
             //send AddAccountRequest with accountBObj and userId
 
         }

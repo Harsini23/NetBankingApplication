@@ -29,11 +29,21 @@ namespace NetBankingApplication.View.UserControls
         private OverviewBaseViewModel _overviewViewModel;
         private GetAllAccountsBaseViewModel _getAllAccountsViewModel;
 
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null, new PropertyChangedCallback(OnUserPropertyChanged)));
         public User User
         {
             get { return (User)GetValue(UserProperty); }
             set { SetValue(UserProperty, value); }
+        }
+        private static void OnUserPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Overview overview = d as Overview;
+            if (overview != null)
+            {
+                User user = (User)e.OldValue;
+                overview.User = e.NewValue as User;
+            }
+
         }
 
         public Overview()

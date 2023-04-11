@@ -21,19 +21,11 @@ namespace NetBankingApplication.ViewModel
 
     public class TransactionHistoryViewModel : TransactionHistoryBaseViewModel
     {
-        TransactionHistoryUseCase Transaction;
-        //public override void GetTransactionData(string userId)
-        //{
-
-        //    Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest(userId, new CancellationTokenSource()), new PresenterTransactionHistoryCallback(this));
-        //    Transaction.Execute();
-
-        //} 
+       private TransactionHistoryUseCase _transaction;
         public override void GetTransactionData(string userId, bool showOnlyRecentTransactions = false)
         {
-
-            Transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest(userId, new CancellationTokenSource(), showOnlyRecentTransactions), new PresenterTransactionHistoryCallback(this));
-            Transaction.Execute();
+            _transaction = new TransactionHistoryUseCase(new TransactionHistoryRequest(userId, new CancellationTokenSource(), showOnlyRecentTransactions), new PresenterTransactionHistoryCallback(this));
+            _transaction.Execute();
 
         }
     }
@@ -41,14 +33,14 @@ namespace NetBankingApplication.ViewModel
 
     public class PresenterTransactionHistoryCallback : IPresenterTransactionHistoryCallback
     {
-        private TransactionHistoryViewModel transactionHistoryViewModel;
+        private TransactionHistoryViewModel _transactionHistoryViewModel;
         public PresenterTransactionHistoryCallback()
         {
 
         }
         public PresenterTransactionHistoryCallback(TransactionHistoryViewModel transactionHistoryViewModel)
         {
-            this.transactionHistoryViewModel = transactionHistoryViewModel;
+            this._transactionHistoryViewModel = transactionHistoryViewModel;
         }
 
         public void OnError(BException response)
@@ -80,23 +72,21 @@ namespace NetBankingApplication.ViewModel
 
             if (TransactionList.Count <= 0)
             {
-                transactionHistoryViewModel.TextBoxVisibility = Visibility.Visible;
+                _transactionHistoryViewModel.TextBoxVisibility = Visibility.Visible;
                 return;
             }
 
-            transactionHistoryViewModel.TextBoxVisibility = Visibility.Collapsed;
-
-
-            transactionHistoryViewModel.AllSortedTransactions.Clear();
-            transactionHistoryViewModel.AllSortedIndexedTransactions.Clear();
-            transactionHistoryViewModel.FinalSortedIndexedTransactions.Clear();
+            _transactionHistoryViewModel.TextBoxVisibility = Visibility.Collapsed;
+            _transactionHistoryViewModel.AllSortedTransactions.Clear();
+            _transactionHistoryViewModel.AllSortedIndexedTransactions.Clear();
+            _transactionHistoryViewModel.FinalSortedIndexedTransactions.Clear();
 
             var AllTransactions = TransactionList.OrderByDescending(i => DateTime.Parse(i.Date));
-            transactionHistoryViewModel.RecipientNameInitials.Clear();
+            _transactionHistoryViewModel.RecipientNameInitials.Clear();
             foreach (var i in AllTransactions)
             {
 
-                transactionHistoryViewModel.AllSortedTransactions.Add(i);
+                _transactionHistoryViewModel.AllSortedTransactions.Add(i);
                 var date = DateTime.Parse(i.Date);
                 DateTime time = DateTime.ParseExact(date.TimeOfDay.ToString(), "HH:mm:ss", CultureInfo.InvariantCulture);
                 var finaltime = time.ToString("hh:mm tt");
@@ -147,16 +137,16 @@ namespace NetBankingApplication.ViewModel
                     Time = finaltime,
                     TransactionDateType = transactionDateType
                 };
-                transactionHistoryViewModel.AllSortedIndexedTransactions.Add(t);
+                _transactionHistoryViewModel.AllSortedIndexedTransactions.Add(t);
                 if ( String.IsNullOrEmpty(i.Name))
                 {
-                    transactionHistoryViewModel.RecipientNameInitials.Add(i.Name.Substring(0, 1));
+                    _transactionHistoryViewModel.RecipientNameInitials.Add(i.Name.Substring(0, 1));
                 }
             }
             //group by unique transactiondatetype
 
 
-            var query = from i in transactionHistoryViewModel.AllSortedIndexedTransactions
+            var query = from i in _transactionHistoryViewModel.AllSortedIndexedTransactions
                         group i by i.TransactionDateType into g
                         select new { GroupName = g.Key, Items = g };
 
@@ -185,34 +175,6 @@ namespace NetBankingApplication.ViewModel
                         break;
 
                 }
-
-                //int n = g.GroupName.Date.Day;
-                //string ordinalSuffix = n % 100 == 11 || n % 100 == 12 || n % 100 == 13 ? "th" : n % 10 == 1 ? "st" : n % 10 == 2 ? "nd" : n % 10 == 3 ? "rd" : "th";
-                //if(g.GroupName.Date == DateTime.Now.Date)
-                //{
-                //    info.Key = "Today ";
-                //}
-                //else if(g.GroupName.Date == DateTime.Now.AddDays(-1))
-                //{
-                //    info.Key = "Yesterday";
-                //}
-                //else if(g.GroupName.Date >= DateTime.Now.AddDays(-7))
-                //{
-                //    info.Key = "Last 7 Days";
-                //}
-                //else if(g.GroupName.Month == DateTime.Now.Month)
-                //{
-                //    info.Key = "Earlier this month";
-                //}
-                //else
-                //{
-                //    info.Key = "Previous Transactions";
-                //}
-                // info.Key = g.GroupName.ToString();
-
-                //info.Key = g.GroupName.Date.ToString("dd'\u00A0'MMM'\u00A0'yyyy", CultureInfo.InvariantCulture) ;
-
-                //info.Key = info.Key.Insert(2, ordinalSuffix);
                 info.Count = g.Items.Count();
 
 
@@ -220,7 +182,7 @@ namespace NetBankingApplication.ViewModel
                 {
                     info.Add(item);
                 }
-                transactionHistoryViewModel.FinalSortedIndexedTransactions.Add(info);
+                _transactionHistoryViewModel.FinalSortedIndexedTransactions.Add(info);
             }
         }
     }

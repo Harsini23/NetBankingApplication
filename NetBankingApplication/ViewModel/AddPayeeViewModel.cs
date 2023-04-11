@@ -14,27 +14,27 @@ namespace NetBankingApplication.ViewModel
 {
     public class AddPayeeViewModel : AddPayeeBaseViewModel
     {
-        AddPayee addPayee;
+        private AddPayee _addPayee;
         public override void AddPayee(Payee newRecipent)
         {
             AddPayeeRequest newReceiver = new AddPayeeRequest();
             newReceiver.UserId = newRecipent.UserID;
             newReceiver.NewPayee= newRecipent;
-            addPayee = new AddPayee(newReceiver, new PresenterAddPayeeCallback(this));
-            addPayee.Execute();
+            _addPayee = new AddPayee(newReceiver, new PresenterAddPayeeCallback(this));
+            _addPayee.Execute();
         }
     }
 
     public class PresenterAddPayeeCallback : IPresenterAddPayeeCallback
     {
-        private AddPayeeViewModel addPayeeViewModel;
+        private AddPayeeViewModel _addPayeeViewModel;
         public PresenterAddPayeeCallback()
         {
 
         }
         public PresenterAddPayeeCallback(AddPayeeViewModel addPayeeViewModel)
         {
-            this.addPayeeViewModel = addPayeeViewModel;
+            this._addPayeeViewModel = addPayeeViewModel;
         }
 
         public void OnError(BException response)
@@ -51,8 +51,8 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                addPayeeViewModel.AddPayeeResponseValue = response.Response;
-                addPayeeViewModel.AddPayeeView?.CallNotification();
+                _addPayeeViewModel.AddPayeeResponseValue = response.Response;
+                _addPayeeViewModel.AddPayeeView?.CallNotification();
             });
           
         }

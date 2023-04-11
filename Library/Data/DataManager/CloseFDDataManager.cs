@@ -17,18 +17,18 @@ namespace Library.Data.DataManager
         public CloseFDDataManager(IDbHandler DbHandler, INetHandler NetHandler) : base(DbHandler, NetHandler)
         {
         }
-        public void CloseFD(CloseFDRequest request, IUsecaseCallbackBaseCase<bool> response)
+        public void CloseFD(CloseFDRequest request, IUsecaseCallbackBaseCase<bool> callback)
         {
             try
             {
-                double Amount = request.FDAccount.Principle;
-                double InterestAmount = 0.0;
+                double amount = request.FDAccount.Principle;
+                double interestAmount = 0.0;
                 BankingNotification.BankingNotification.NotifyAccountDeleted(DbHandler.GetAccount(request.FDAccount.AccountNumber));
 
                 DbHandler.CloseFD(request.UserId, request.FDAccount);
                 if (DateTime.Parse(CurrentDateTime.GetCurrentDate())>= DateTime.Parse(request.FDAccount.TenureDate))
                 {
-                    InterestAmount = request.FDAccount.MaturityAmount- request.FDAccount.Principle;
+                    interestAmount = request.FDAccount.MaturityAmount- request.FDAccount.Principle;
                     DbHandler.AddTransaction(new AmountTransaction
                     {
                         UserId = request.UserId,
@@ -36,7 +36,7 @@ namespace Library.Data.DataManager
                         TransactionId = GenerateUniqueId.GetUniqueId("TID"),
                         Date = CurrentDateTime.GetCurrentDate(),
                         TransactionType = TransactionType.Credited,
-                        Amount = InterestAmount,
+                        Amount = interestAmount,
                         Remark = "FD Interest",
                         FromAccount = request.FDAccount.AccountNumber,
                         ToAccount = request.FDAccount.FromAccount,
@@ -60,15 +60,15 @@ namespace Library.Data.DataManager
                 var account =DbHandler.GetAccount(request.FDAccount.FromAccount);
                 if (account != null)
                 {
-                    account.TotalBalance+=Amount;
-                    account.TotalBalance+= InterestAmount;
+                    account.TotalBalance+=amount;
+                    account.TotalBalance+= interestAmount;
                     DbHandler.UpdateBalance(account);
                 }
                 BankingNotification.BankingNotification.NotifyAccountBalanceEdited(account);
-                ZResponse<bool> Response = new ZResponse<bool>();
-                Response.Response = "FD Closed successfully";
-                Response.Data = true;
-                response.OnResponseSuccess(Response);
+                ZResponse<bool> response = new ZResponse<bool>();
+                response.Response = "FD Closed successfully";
+                response.Data = true;
+                callback?.OnResponseSuccess(response);
             }
             catch(Exception ex)
             {

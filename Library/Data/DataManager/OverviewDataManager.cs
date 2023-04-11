@@ -18,12 +18,12 @@ namespace Library.Data.DataManager
         {
         }
 
-        public void GetOverviewData(OverviewRequest request, IUsecaseCallbackBaseCase<OverviewResponse> response)
+        public void GetOverviewData(OverviewRequest request, IUsecaseCallbackBaseCase<OverviewResponse> callback)
         {
             //validate and get records
             try
             {
-                ZResponse<OverviewResponse> Response = new ZResponse<OverviewResponse>();
+                ZResponse<OverviewResponse> response = new ZResponse<OverviewResponse>();
                 OverviewResponse overViewResponse = new OverviewResponse();
 
                 var userId = request.UserId;
@@ -33,15 +33,15 @@ namespace Library.Data.DataManager
                overViewResponse.Expense= DbHandler.GetTotalExpense(new UserTransactionType { UserId = userId, TransactionType = TransactionType.Debited }).ToString("0.00");
 
                 //------------------------------
-                var IncomeTransactionList = DbHandler.GetCurrentMonthIncome(new UserTransactionType { UserId=userId,TransactionType=TransactionType.Credited});
-                var ExpenseTransactionList = DbHandler.GetCurrentMonthExpense(new UserTransactionType { UserId = userId, TransactionType = TransactionType.Debited });
+                var incomeTransactionList = DbHandler.GetCurrentMonthIncome(new UserTransactionType { UserId=userId,TransactionType=TransactionType.Credited});
+                var expenseTransactionList = DbHandler.GetCurrentMonthExpense(new UserTransactionType { UserId = userId, TransactionType = TransactionType.Debited });
                 double monthlyIncome = 0.0, monthlyExpense = 0.0;
-                foreach(var i in IncomeTransactionList)
+                foreach(var i in incomeTransactionList)
                 {
                     if(DateTime.Parse(i.Date).Month == DateTime.Now.Month)
                     monthlyIncome += i.Amount;
                 }
-                foreach (var i in ExpenseTransactionList)
+                foreach (var i in expenseTransactionList)
                 {
                     if (DateTime.Parse(i.Date).Month == DateTime.Now.Month)
                         monthlyExpense += i.Amount;
@@ -50,11 +50,11 @@ namespace Library.Data.DataManager
                 overViewResponse.CurrentMonthExpense = monthlyExpense.ToString("0.00");
                 overViewResponse.CurrentMonth = DateTime.Now.ToString("MMMM yyyy");
 
-                Response.Data = overViewResponse;
+                response.Data = overViewResponse;
                 var responseStatus = "Successfull";
-                Response.Response = responseStatus;
+                response.Response = responseStatus;
 
-                response.OnResponseSuccess(Response);
+                callback.OnResponseSuccess(response);
             }
             catch
             {

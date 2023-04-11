@@ -17,17 +17,17 @@ namespace Library.Data.DataManager
         {
         }
 
-        public void GetAllUsers(GetAllUserRequest request, IUsecaseCallbackBaseCase<GetAllUsersResponse> response)
+        public void GetAllUsers(GetAllUserRequest request, IUsecaseCallbackBaseCase<GetAllUsersResponse> callback)
         {
-            ZResponse<GetAllUsersResponse> Response = new ZResponse<GetAllUsersResponse>();
+            ZResponse<GetAllUsersResponse> response = new ZResponse<GetAllUsersResponse>();
             GetAllUsersResponse getAllUsersResponse = new GetAllUsersResponse();
             ObservableCollection<User> collectionOfUsers = new ObservableCollection<User>(DbHandler.GetAllUsers());
             getAllUsersResponse.Data = collectionOfUsers;
-            Response.Data = getAllUsersResponse;
+            response.Data = getAllUsersResponse;
             var responseStatus = "Successfull got all Users";
-            Response.Response = responseStatus;
+            response.Response = responseStatus;
 
-            response.OnResponseSuccess(Response);
+            callback.OnResponseSuccess(response);
         }
     }
 }

@@ -18,24 +18,19 @@ namespace NetBankingApplication.ViewModel
     public class TransferAmountViewModel : TransferAmountBaseViewModel
     {
         public delegate void ValueChangedEventHandler(string value, string user);
-
-        TransferAmountUseCase transfer;
-        public static String userId;
+        public String UserID;
+       private TransferAmountUseCase _transfer;
         public override void SendTransaction(AmountTransfer transaction, string userId)
         {
-            userId = userId;
-            transfer = new TransferAmountUseCase(new TransferAmountRequest(transaction, userId, new CancellationTokenSource()), new PresenterTransferAmountCallback(this));
-            transfer.Execute();
-            //ValueChanged?.Invoke(transaction.FromAccount,userId);
-            //notify account transaction changes
+            UserID = userId;
+            _transfer = new TransferAmountUseCase(new TransferAmountRequest(transaction, userId, new CancellationTokenSource()), new PresenterTransferAmountCallback(this));
+            _transfer.Execute();
         }
     }
 
     public class PresenterTransferAmountCallback : IPresenterTransferAmountCallback
     {
-        
-
-        private TransferAmountViewModel TransferAmountViewModel;
+        private TransferAmountViewModel _transferAmountViewModel;
         public static event TransferAmountViewModel.ValueChangedEventHandler ValueChanged;
 
         public PresenterTransferAmountCallback()
@@ -44,7 +39,7 @@ namespace NetBankingApplication.ViewModel
         }
         public PresenterTransferAmountCallback(TransferAmountViewModel TransferAmountViewModel)
         {
-            this.TransferAmountViewModel = TransferAmountViewModel;
+            this._transferAmountViewModel = TransferAmountViewModel;
         }
 
         public void OnError(BException response)
@@ -61,27 +56,27 @@ namespace NetBankingApplication.ViewModel
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
                 var currentTransaction = response.Data.transaction;
-                TransferAmountViewModel.ResultStatus = response.Response;
-                TransferAmountViewModel.AmountTransfered = currentTransaction.Amount;
-                TransferAmountViewModel.TransactionIdValue = currentTransaction.TransactionId;
-                TransferAmountViewModel.DateTime = currentTransaction.Date;
-                TransferAmountViewModel.FromAccountNumber = currentTransaction.FromAccount;
-                TransferAmountViewModel.ToAccountNumber = currentTransaction.ToAccount;
-                TransferAmountViewModel.ToName = currentTransaction.Name;
-                TransferAmountViewModel.Remark = currentTransaction.Remark;
+                _transferAmountViewModel.ResultStatus = response.Response;
+                _transferAmountViewModel.AmountTransfered = currentTransaction.Amount;
+                _transferAmountViewModel.TransactionIdValue = currentTransaction.TransactionId;
+                _transferAmountViewModel.DateTime = currentTransaction.Date;
+                _transferAmountViewModel.FromAccountNumber = currentTransaction.FromAccount;
+                _transferAmountViewModel.ToAccountNumber = currentTransaction.ToAccount;
+                _transferAmountViewModel.ToName = currentTransaction.Name;
+                _transferAmountViewModel.Remark = currentTransaction.Remark;
                 if (currentTransaction.Status)
                 {
-                    TransferAmountViewModel.Status = "Success";
-                    ValueChanged?.Invoke(currentTransaction.FromAccount, TransferAmountViewModel.userId);
-                    if (TransferAmountViewModel.NewPayee)
+                    _transferAmountViewModel.Status = "Success";
+                    ValueChanged?.Invoke(currentTransaction.FromAccount, _transferAmountViewModel.UserID);
+                    if (_transferAmountViewModel.NewPayee)
                     {
                         //call to display usercontrol to suggest adding the payee
-                        TransferAmountViewModel.suggestionPopUp?.addPayeeView();
+                        _transferAmountViewModel.suggestionPopUp?.addPayeeView();
                     }
                 }
                 else
                 {
-                    TransferAmountViewModel.Status = "Failed";
+                    _transferAmountViewModel.Status = "Failed";
                 }
             });
                 //TransferAmountViewModel.ResultText = response.Response.ToString();
