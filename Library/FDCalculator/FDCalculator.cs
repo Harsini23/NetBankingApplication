@@ -10,7 +10,7 @@ namespace Library.Util.FDCalculator
    
     public class StandardFDCalculator : IFDCalculator
     {
-        public FDCalculatedVobj calculate(double principle, double rate, int days)
+        public FDCalculatedVobj Calculate(double principle, double rate, int days)
         {
             var interestAmount = principle * (rate/100) * days / 365;
             return new FDCalculatedVobj
@@ -26,7 +26,7 @@ namespace Library.Util.FDCalculator
 
     public class SeniorCitizenFDCalculator : IFDCalculator
     {
-        public FDCalculatedVobj calculate(double principle, double rate, int days)
+        public FDCalculatedVobj Calculate(double principle, double rate, int days)
         {
             //varied FD logic based on type of account or type of FD maturity plan
             rate += 1.5;

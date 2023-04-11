@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Library.Model.Enum
 {
- 
-        public enum AccountType
-        {
-            None,
-            SalaryAccount,
-            SavingsAccount,
-            FDAccount,
-            JointAccount,
-            PensionAccount
-        }
+
+    public enum AccountType
+    {
+        None,
+        SalaryAccount,
+        SavingsAccount,
+        FDAccount,
+        JointAccount,
+        PensionAccount
+    }
 
     public enum BasicInitialUserAccountType
     {
@@ -31,5 +31,5 @@ namespace Library.Model.Enum
         public static readonly string JointAccount = "Joint Account";
         public static readonly string PensionAccount = "Pension Account";
     }
-    
+
 }

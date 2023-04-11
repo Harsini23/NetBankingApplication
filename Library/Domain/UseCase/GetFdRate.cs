@@ -35,45 +35,45 @@ namespace Library.Domain.UseCase
     }
     public class GetFdRate : UseCaseBase<String>
     {
-        private IGetFDRateDataManager GetRateDataManager;
-        private FDRateRequest GetFDRateRequest;
-        IPresenterGetFDRateCallback GetFDRateResponseCallback;
+        private IGetFDRateDataManager _getRateDataManager;
+        private FDRateRequest _getFDRateRequest;
+        IPresenterGetFDRateCallback _getFDRateResponseCallback;
         public GetFdRate(FDRateRequest request, IPresenterGetFDRateCallback responseCallback)
         {
-            GetRateDataManager = ServiceProvider.GetInstance().Services.GetService<IGetFDRateDataManager>();
-            GetFDRateRequest = request;
-            GetFDRateResponseCallback = responseCallback;
+            _getRateDataManager = ServiceProvider.GetInstance().Services.GetService<IGetFDRateDataManager>();
+            _getFDRateRequest = request;
+            _getFDRateResponseCallback = responseCallback;
         }
         public override void Action()
         {
-            this.GetRateDataManager.GetFDRate(GetFDRateRequest, new GetFDRateCallback(this));
+            this._getRateDataManager.GetFDRate(_getFDRateRequest, new GetFDRateCallback(this));
         }
 
          FDCalculatedVobj CalculateFD(double rate)
         {
             FDFactory FdCalculation = new FDFactory();
-            var CalculatedFD = FdCalculation.CreateFDCalculation(GetFDRateRequest.FDAccount.CustomerType);
-            return CalculatedFD.calculate(GetFDRateRequest.FDAccount.PrincipalAmount, rate, GetFDRateRequest.TenureDuration);
+            var CalculatedFD = FdCalculation.CreateFDCalculation(_getFDRateRequest.FDAccount.CustomerType);
+            return CalculatedFD.Calculate(_getFDRateRequest.FDAccount.PrincipalAmount, rate, _getFDRateRequest.TenureDuration);
         }
 
 
         public class GetFDRateCallback : ZResponse<String>
         {
-            GetFdRate GetFDRate;
+            GetFdRate _getFDRate;
             public GetFDRateCallback(GetFdRate getFdRate)
             {
-                GetFDRate = getFdRate;
+                _getFDRate = getFdRate;
             }
 
             public string Response { get; set; }
 
             public void OnResponseError(BException response)
             {
-                GetFDRate.GetFDRateResponseCallback?.OnError(response);
+                _getFDRate._getFDRateResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<GetFDRateResponse> response)
             {
-                GetFDRate.GetFDRateResponseCallback?.OnFailure(response);
+                _getFDRate._getFDRateResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<GetFDRateResponse> response)
             {
@@ -82,8 +82,8 @@ namespace Library.Domain.UseCase
                 //var CalculatedFD = FdCalculation.CreateFDCalculation(GetFDRate.GetFDRateRequest.FDAccount.CustomerType);
                 //response.Data.FDDetails = CalculatedFD.calculate(GetFDRate.GetFDRateRequest.FDAccount.Amount, response.Data.Data,GetFDRate.GetFDRateRequest.TenureDuration );
               
-                    response.Data.FDDetails = GetFDRate.CalculateFD(response.Data.Data);
-                    GetFDRate.GetFDRateResponseCallback?.OnSuccessAsync(response);
+                    response.Data.FDDetails = _getFDRate.CalculateFD(response.Data.Data);
+                _getFDRate._getFDRateResponseCallback?.OnSuccessAsync(response);
 
             }
         }

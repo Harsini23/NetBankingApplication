@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace Library.Model.Enum
 {
     public enum TransactionType
-        {
-            Credited,
-            Debited,
-            Rejected,
-            FDTransation
-        }
+    {
+        Credited,
+        Debited,
+        Rejected,
+        FDTransation
+    }
 
     public enum TransactionDateType
     {

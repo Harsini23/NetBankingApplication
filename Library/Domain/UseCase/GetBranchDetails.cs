@@ -29,8 +29,7 @@ namespace Library.Domain.UseCase
         BranchDetailsRequest _request;
         public GetBranchDetails(BranchDetailsRequest request, IPresenterGetBranchDetailsCallback responseCallback)
         {
-            var serviceProviderInstance = ServiceProvider.GetInstance();
-            _branchDetailsDataManager = serviceProviderInstance.Services.GetService<IGetBranchDetailsDataManager>();
+            _branchDetailsDataManager = ServiceProvider.GetInstance().Services.GetService<IGetBranchDetailsDataManager>();
             _request = request;
             _branchDetailsResponseCallback = responseCallback;
         }

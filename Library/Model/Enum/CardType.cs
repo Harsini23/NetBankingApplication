@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Library.Model.Enum
 {
-   
-        public enum CardType
-        {
-            Credit,
-            Debit,
-            Gold,
-            Platinum
-        }
-    
+
+    public enum CardType
+    {
+        Credit,
+        Debit,
+        Gold,
+        Platinum
+    }
+
 }

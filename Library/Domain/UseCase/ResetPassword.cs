@@ -17,21 +17,21 @@ namespace Library.Domain.UseCase
     public interface IPersenterResetPasswordCallback : IResponseCallbackBaseCase<bool> { }
     public class ResetPassword :UseCaseBase<bool>
     {
-        private IResetPasswordDataManager ResetPasswordDataManager;
-        private ResetPasswordRequest ResetPasswordRequest;
-        IPersenterResetPasswordCallback ResetPasswordResponse;
+        private IResetPasswordDataManager _resetPasswordDataManager;
+        private ResetPasswordRequest _resetPasswordRequest;
+        IPersenterResetPasswordCallback _resetPasswordResponse;
 
         public ResetPassword(ResetPasswordRequest request, IPersenterResetPasswordCallback responseCallback)
         {
             var serviceProviderInstance = ServiceProvider.GetInstance();
-            ResetPasswordDataManager = serviceProviderInstance.Services.GetService< IResetPasswordDataManager>();
-            ResetPasswordRequest = request;
-            ResetPasswordResponse = responseCallback;
+            _resetPasswordDataManager = serviceProviderInstance.Services.GetService< IResetPasswordDataManager>();
+            _resetPasswordRequest = request;
+            _resetPasswordResponse = responseCallback;
         }
         public override void Action()
         {
             //use call back
-            this.ResetPasswordDataManager.ResetPassword(ResetPasswordRequest, new ResetPasswordCallback(this));
+            this._resetPasswordDataManager.ResetPassword(_resetPasswordRequest, new ResetPasswordCallback(this));
         }
      
 
@@ -45,11 +45,11 @@ namespace Library.Domain.UseCase
 
             public void OnResponseSuccess(ZResponse<bool> response)
             {
-                _resetPassword.ResetPasswordResponse?.OnSuccessAsync(response);
+                _resetPassword._resetPasswordResponse?.OnSuccessAsync(response);
             }
             public void OnResponseFailure(ZResponse<bool> response)
             {
-                _resetPassword.ResetPasswordResponse?.OnFailure(response);
+                _resetPassword._resetPasswordResponse?.OnFailure(response);
             }
         }
        

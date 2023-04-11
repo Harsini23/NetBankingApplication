@@ -26,7 +26,7 @@ namespace Library.Data.DataManager
             List<AmountTransaction> allTransactions= DbHandler.GetAllTransactions(userId,request.ShowOnlyRecentTransactions);
            
             TransactionHistoryResponse transactionHistoryResponse = new TransactionHistoryResponse();
-            transactionHistoryResponse.allTransactions = allTransactions;
+            transactionHistoryResponse.AllTransactions = allTransactions;
             response.Data = transactionHistoryResponse;
             var responseStatus = "Successfull got all transactions";
             response.Response = responseStatus;

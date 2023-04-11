@@ -38,50 +38,50 @@ namespace Library.Domain.UseCase
     {
 
 
-        private ITransactionHistoryDataManager TransactionHistoryDataManager;
-        private TransactionHistoryRequest TransactionHistoryRequest;
-        IPresenterTransactionHistoryCallback TransactionHistoryResponseCallback;
+        private ITransactionHistoryDataManager _transactionHistoryDataManager;
+        private TransactionHistoryRequest _transactionHistoryRequest;
+        IPresenterTransactionHistoryCallback _transactionHistoryResponseCallback;
         public TransactionHistoryUseCase(TransactionHistoryRequest request, IPresenterTransactionHistoryCallback responseCallback)
         {
             var serviceProviderInstance = ServiceProvider.GetInstance();
-            TransactionHistoryDataManager = serviceProviderInstance.Services.GetService<ITransactionHistoryDataManager>();
-            TransactionHistoryRequest = request;
-            TransactionHistoryResponseCallback = responseCallback;
+            _transactionHistoryDataManager = serviceProviderInstance.Services.GetService<ITransactionHistoryDataManager>();
+            _transactionHistoryRequest = request;
+            _transactionHistoryResponseCallback = responseCallback;
         }
         public override void Action()
         {
             //use call back
-            this.TransactionHistoryDataManager.GetAllTransactions(TransactionHistoryRequest, new TransactionHistoryCallback(this));
+            this._transactionHistoryDataManager.GetAllTransactions(_transactionHistoryRequest, new TransactionHistoryCallback(this));
            // this.TransactionHistoryDataManager.ValidateUserLogin(TransactionHistoryRequest, new TransactionHistoryCallback(this));
         }
 
         public class TransactionHistoryCallback : IUsecaseCallbackBaseCase<TransactionHistoryResponse>
         {
-            private TransactionHistoryUseCase transactionHistory;
+            private TransactionHistoryUseCase _transactionHistory;
             public TransactionHistoryCallback(TransactionHistoryUseCase transactionHistory)
             {
-                this.transactionHistory = transactionHistory;
+                this._transactionHistory = transactionHistory;
             }
             public string Response { get; set; }
 
             public void OnResponseError(BException response)
             {
-                transactionHistory.TransactionHistoryResponseCallback?.OnError(response);
+                _transactionHistory._transactionHistoryResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<TransactionHistoryResponse> response)
             {
-                transactionHistory.TransactionHistoryResponseCallback?.OnFailure(response);
+                _transactionHistory._transactionHistoryResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<TransactionHistoryResponse> response)
             {
-                transactionHistory.TransactionHistoryResponseCallback?.OnSuccessAsync(response);
+                _transactionHistory._transactionHistoryResponseCallback?.OnSuccessAsync(response);
 
             }
         }
 
         public class TransactionHistoryResponse : ZResponse<AmountTransaction>
         {
-            public List<AmountTransaction> allTransactions;
+            public List<AmountTransaction> AllTransactions;
         }
     }
 }

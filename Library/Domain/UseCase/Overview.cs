@@ -33,20 +33,19 @@ namespace Library.Domain.UseCase
 
     public class Overview:UseCaseBase<OverviewResponse>
     {
-        private IOverviewDataManager overviewDataManager;
-        private OverviewRequest overviewRequest;
-        private IPresenterOverviewCallback presenterOverviewCallback;
+        private IOverviewDataManager _overviewDataManager;
+        private OverviewRequest _overviewRequest;
+        private IPresenterOverviewCallback _presenterOverviewCallback;
         public Overview(OverviewRequest request, IPresenterOverviewCallback responseCallback):base(responseCallback,request.CtsSource)
         {
-            var serviceProviderInstance = ServiceProvider.GetInstance();
-            overviewDataManager = serviceProviderInstance.Services.GetService<IOverviewDataManager>();
-            overviewRequest = request;
-            presenterOverviewCallback = responseCallback;
+            _overviewDataManager = ServiceProvider.GetInstance().Services.GetService<IOverviewDataManager>();
+            _overviewRequest = request;
+            _presenterOverviewCallback = responseCallback;
         }
         public override void Action()
         {
             //use call back
-            this.overviewDataManager.GetOverviewData(overviewRequest, new OverviewCallback(this));   
+            this._overviewDataManager.GetOverviewData(_overviewRequest, new OverviewCallback(this));   
         }
 
         public class OverviewCallback : IUsecaseCallbackBaseCase<OverviewResponse>
@@ -70,7 +69,7 @@ namespace Library.Domain.UseCase
             }
             public void OnResponseSuccess(ZResponse<OverviewResponse> response)
             {
-                overview.presenterOverviewCallback?.OnSuccessAsync(response);
+                overview._presenterOverviewCallback?.OnSuccessAsync(response);
             }
         }
 

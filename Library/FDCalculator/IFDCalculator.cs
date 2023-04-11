@@ -9,6 +9,6 @@ namespace Library.Util.FDCalculator
 {
     public interface IFDCalculator
     {
-        FDCalculatedVobj calculate(double principle, double rate, int days);
+        FDCalculatedVobj Calculate(double principle, double rate, int days);
     }
 }

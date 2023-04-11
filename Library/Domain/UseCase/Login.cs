@@ -33,20 +33,20 @@ namespace Library.Domain
     }
     public class Login : UseCaseBase<LoginResponse>
     {
-        private ILoginDataManager LoginDataManager;
-        private UserLoginRequest LoginRequest;
-        IPresenterLoginCallback LoginResponseCallback;
+        private ILoginDataManager _loginDataManager;
+        private UserLoginRequest _loginRequest;
+        IPresenterLoginCallback _loginResponseCallback;
         public Login(UserLoginRequest request, IPresenterLoginCallback responseCallback) : base(responseCallback,request.CtsSource)
         {
             var serviceProviderInstance= ServiceProvider.GetInstance();
-            LoginDataManager = serviceProviderInstance.Services.GetService<ILoginDataManager>();
-            LoginRequest = request;
-            LoginResponseCallback = responseCallback;
+            _loginDataManager = serviceProviderInstance.Services.GetService<ILoginDataManager>();
+            _loginRequest = request;
+            _loginResponseCallback = responseCallback;
         }
         public override void Action()
         {
             //use call back
-            this.LoginDataManager.ValidateUserLogin(LoginRequest, new UserLoginCallback(this));
+            this._loginDataManager.ValidateUserLogin(_loginRequest, new UserLoginCallback(this));
         }
         public override bool GetIfAvailableInCache()
         {
@@ -54,26 +54,26 @@ namespace Library.Domain
         }
         public class UserLoginCallback : IUsecaseCallbackBaseCase<LoginResponse>
         {
-            private Login login;
+            private Login _login;
             public UserLoginCallback(Login login)
             {
-                this.login = login;
+                this._login = login;
             }
 
             public string Response { get; set; }
 
             public void OnResponseError(BException response)
             {
-                login.LoginResponseCallback?.OnError( response);
+                _login._loginResponseCallback?.OnError( response);
 
             }
             public void OnResponseFailure(ZResponse<LoginResponse> response)
             {
-               login.LoginResponseCallback?.OnFailure(response);
+                _login._loginResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<LoginResponse> response)
             {
-                login.LoginResponseCallback?.OnSuccessAsync(response);
+                _login._loginResponseCallback?.OnSuccessAsync(response);
             }
         }
 

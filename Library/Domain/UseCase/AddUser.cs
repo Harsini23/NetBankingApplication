@@ -42,24 +42,24 @@ namespace Library.Domain.UseCase
 
         public class AddUserCallback: IUsecaseCallbackBaseCase<AddUserResponse>
         {
-            AddUser addUser;
+            AddUser _addUser;
             public AddUserCallback(AddUser addUser)
             {
-                this.addUser = addUser;
+                this._addUser = addUser;
             }
 
 
             public void OnResponseError(BException response)
             {
-                addUser._presenterAddUserCallback?.OnError(response);
+                _addUser._presenterAddUserCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<AddUserResponse> response)
             {
-                addUser._presenterAddUserCallback?.OnFailure(response);
+                _addUser._presenterAddUserCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<AddUserResponse> response)
             {
-                addUser._presenterAddUserCallback?.OnSuccessAsync(response);
+                _addUser._presenterAddUserCallback?.OnSuccessAsync(response);
 
             }
 

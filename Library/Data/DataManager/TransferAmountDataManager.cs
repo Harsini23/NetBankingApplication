@@ -89,7 +89,7 @@ namespace Library.Data.DataManager
             if (status)
             {
                 transferAmountResponse.Status = "Successfully added transactions";
-                transferAmountResponse.transaction = currentTransaction;
+                transferAmountResponse.Transaction = currentTransaction;
                 transferAmountResponse.Data = responseTransactions;
                 var responseStatus = "Transaction Processed";
                 response.Response = responseStatus;
@@ -99,7 +99,7 @@ namespace Library.Data.DataManager
             else
             {
                 transferAmountResponse.Status = "Transaction failed, added transactions";
-                transferAmountResponse.transaction = currentTransaction;
+                transferAmountResponse.Transaction = currentTransaction;
                 transferAmountResponse.Data = responseTransactions;
                 var responseStatus = "Transaction failed due to insuficient balance";
                 response.Response = responseStatus;

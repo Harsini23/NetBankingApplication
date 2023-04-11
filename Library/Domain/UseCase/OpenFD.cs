@@ -31,42 +31,42 @@ namespace Library.Domain.UseCase
     }
     public class OpenFD : UseCaseBase<String>
     {
-        private IOpenFDDataManager OpenFDDataManager;
-        private OpenFDRequest OpenFDRequest;
-        IPresenterOpenFDCallback OpenFDResponseCallback;
+        private IOpenFDDataManager _openFDDataManager;
+        private OpenFDRequest _openFDRequest;
+        IPresenterOpenFDCallback _openFDResponseCallback;
         public OpenFD(OpenFDRequest request, IPresenterOpenFDCallback responseCallback)
         {
-            OpenFDDataManager = ServiceProvider.GetInstance().Services.GetService<IOpenFDDataManager>();
-            OpenFDRequest = request;
-            OpenFDResponseCallback = responseCallback;
+            _openFDDataManager = ServiceProvider.GetInstance().Services.GetService<IOpenFDDataManager>();
+            _openFDRequest = request;
+            _openFDResponseCallback = responseCallback;
         }
         public override void Action()
         {
-            this.OpenFDDataManager.OpenFD(OpenFDRequest, new OpenFDCallback(this));
+            this._openFDDataManager.OpenFD(_openFDRequest, new OpenFDCallback(this));
         }
 
         public class OpenFDCallback : ZResponse<String>
         {
-            OpenFD OpenFD;
+            OpenFD _openFD;
             public OpenFDCallback(OpenFD openFD)
             {
-                OpenFD = openFD;
+                _openFD = openFD;
             }
 
             public string Response { get; set; }
 
             public void OnResponseError(BException response)
             {
-                OpenFD.OpenFDResponseCallback?.OnError(response);
+                _openFD._openFDResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<bool> response)
             {
-                OpenFD.OpenFDResponseCallback?.OnFailure(response);
+                _openFD._openFDResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<bool> response)
             {
                 //  response.Data.FDDetails = GetFDRate.CalculateFD(response.Data.Data);
-                OpenFD.OpenFDResponseCallback?.OnSuccessAsync(response);
+                _openFD._openFDResponseCallback?.OnSuccessAsync(response);
 
             }
         }

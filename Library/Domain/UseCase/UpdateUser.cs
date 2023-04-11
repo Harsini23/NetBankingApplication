@@ -15,40 +15,40 @@ namespace Library.Domain.UseCase
     }
     public class UpdateUser:UseCaseBase<String>
     {
-        IUpdateUserDataManager updateUserDataManager;
-        IPresenterUpdateUserCallback presenterUpdateUserCallback;
-        UpdateUserRequest updateUserRequest;
+        IUpdateUserDataManager _updateUserDataManager;
+        IPresenterUpdateUserCallback _presenterUpdateUserCallback;
+        UpdateUserRequest _updateUserRequest;
         public UpdateUser(UpdateUserRequest request, IPresenterUpdateUserCallback responseCallback)
         {
-            updateUserDataManager = ServiceProvider.GetInstance().Services.GetService<IUpdateUserDataManager>();
-            presenterUpdateUserCallback = responseCallback;
-            updateUserRequest = request;
+            _updateUserDataManager = ServiceProvider.GetInstance().Services.GetService<IUpdateUserDataManager>();
+            _presenterUpdateUserCallback = responseCallback;
+            _updateUserRequest = request;
         }
         public override void Action()
         {
-            this.updateUserDataManager.UpdateUser(updateUserRequest, new UpdateUserCallback(this));
+            this._updateUserDataManager.UpdateUser(_updateUserRequest, new UpdateUserCallback(this));
         }
 
         public class UpdateUserCallback : IUsecaseCallbackBaseCase<User>
         {
-            UpdateUser UpdateUser;
+            UpdateUser _updateUser;
             public UpdateUserCallback(UpdateUser updateUser)
             {
-                UpdateUser = updateUser;
+                _updateUser = updateUser;
             }
             public void OnResponseError(BException response)
             {
-               UpdateUser.presenterUpdateUserCallback?.OnError(response);
+                _updateUser._presenterUpdateUserCallback?.OnError(response);
             }
 
             public void OnResponseFailure(ZResponse<User> response)
             {
-                UpdateUser.presenterUpdateUserCallback?.OnFailure(response);
+                _updateUser._presenterUpdateUserCallback?.OnFailure(response);
             }
 
             public void OnResponseSuccess(ZResponse<User> response)
             {
-                UpdateUser.presenterUpdateUserCallback?.OnSuccessAsync(response);
+                _updateUser._presenterUpdateUserCallback?.OnSuccessAsync(response);
             }
         }
     }

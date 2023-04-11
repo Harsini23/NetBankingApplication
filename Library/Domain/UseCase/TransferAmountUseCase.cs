@@ -37,46 +37,46 @@ namespace Library.Domain.UseCase
     {
 
 
-        private ITransferAmountDataManager TransferAmountDataManager;
-        private TransferAmountRequest TransferAmountRequest;
-        IPresenterTransferAmountCallback TransferAmountResponseCallback;
+        private ITransferAmountDataManager _transferAmountDataManager;
+        private TransferAmountRequest _transferAmountRequest;
+        IPresenterTransferAmountCallback _transferAmountResponseCallback;
         public TransferAmountUseCase(TransferAmountRequest request, IPresenterTransferAmountCallback responseCallback)
         {
             var serviceProviderInstance = ServiceProvider.GetInstance();
-            TransferAmountDataManager = serviceProviderInstance.Services.GetService<ITransferAmountDataManager>();
-            TransferAmountRequest = request;
-            TransferAmountResponseCallback = responseCallback;
+            _transferAmountDataManager = serviceProviderInstance.Services.GetService<ITransferAmountDataManager>();
+            _transferAmountRequest = request;
+            _transferAmountResponseCallback = responseCallback;
         }
         public override void Action()
         {
-            this.TransferAmountDataManager.AddTransaction(TransferAmountRequest, new TransferAmountCallback(this));
+            this._transferAmountDataManager.AddTransaction(_transferAmountRequest, new TransferAmountCallback(this));
         }
         public class TransferAmountCallback : IUsecaseCallbackBaseCase<TransferAmountResponse>
         {
-            private TransferAmountUseCase transferAmountUseCase;
+            private TransferAmountUseCase _transferAmountUseCase;
             public TransferAmountCallback(TransferAmountUseCase transferAmountUseCase)
             {
-                this.transferAmountUseCase = transferAmountUseCase;
+                this._transferAmountUseCase = transferAmountUseCase;
             }
             public string Response { get; set; }
 
             public void OnResponseError(BException response)
             {
-                transferAmountUseCase.TransferAmountResponseCallback?.OnError(response);
+                _transferAmountUseCase._transferAmountResponseCallback?.OnError(response);
             }
             public void OnResponseFailure(ZResponse<TransferAmountResponse> response)
             {
-                transferAmountUseCase.TransferAmountResponseCallback?.OnFailure(response);
+                _transferAmountUseCase._transferAmountResponseCallback?.OnFailure(response);
             }
             public void OnResponseSuccess(ZResponse<TransferAmountResponse> response)
             {
-                transferAmountUseCase.TransferAmountResponseCallback?.OnSuccessAsync(response);
+                _transferAmountUseCase._transferAmountResponseCallback?.OnSuccessAsync(response);
             }
         }
 
         public class TransferAmountResponse : ZResponse<AmountTransaction>
         {
-            public AmountTransaction transaction;
+            public AmountTransaction Transaction;
             public string Status { get; set; }
         }
     }
