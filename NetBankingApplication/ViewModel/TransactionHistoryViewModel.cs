@@ -56,7 +56,7 @@ namespace NetBankingApplication.ViewModel
         {
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                populateData(response.Data.allTransactions);
+                populateData(response.Data.AllTransactions);
             });
 
         }

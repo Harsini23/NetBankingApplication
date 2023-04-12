@@ -55,7 +55,7 @@ namespace NetBankingApplication.ViewModel
 
             await SwitchToMainUIThread.SwitchToMainThread(() =>
             {
-                var currentTransaction = response.Data.transaction;
+                var currentTransaction = response.Data.Transaction;
                 _transferAmountViewModel.ResultStatus = response.Response;
                 _transferAmountViewModel.AmountTransfered = currentTransaction.Amount;
                 _transferAmountViewModel.TransactionIdValue = currentTransaction.TransactionId;
