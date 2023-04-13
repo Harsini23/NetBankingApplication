@@ -19,12 +19,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using Library.Model;
 using Library;
-using Microsoft.UI;           // Needed for WindowId.
+using Microsoft.UI;          
 using Windows.UI.ViewManagement;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Windows.UI.WindowManagement;
-//using Microsoft.UI.Windowing; // Needed for AppWindow.
-//using WinRT.Interop;          // Needed for XAML/HWND interop
+
 
 namespace NetBankingApplication
 {
@@ -40,13 +39,9 @@ namespace NetBankingApplication
             _loginViewModel.MainPageNavigationCallback = this;
             _loginViewModel.CreateAdminAccount();
 
-
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
-            //ApplicationView.GetForCurrentView().Title = "TEST";
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-           // Windows.UI.Color color = ColorHelper.ToColor(Application.Current.Resources["SupportingColour"].ToString());
-
-            //var brush = this.Resources["SupportingColour"];
+         
             Windows.UI.Color colorFromBrush;
             if (this.Resources["SupportingColour"] is SolidColorBrush)
                 colorFromBrush = (this.Resources["SupportingColour"] as SolidColorBrush).Color;
@@ -54,45 +49,29 @@ namespace NetBankingApplication
             titleBar.BackgroundColor = colorFromBrush;
             titleBar.ButtonBackgroundColor = colorFromBrush;
 
-            //IntPtr hWnd = WindowNative.GetWindowHandle(this);
-            //WindowId wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
-            //var m_AppWindow= AppWindow.GetFromWindowId(wndId);
-
-            //m_AppWindow.Title = "App title";
-            //m_AppWindow.TitleBar.BackgroundColor = color;
+     
         }
       
-        public void NavigateToDashBoard()
+        public void NavigateToDashBoard(User user)
         {
-            LoadContentFrame.Navigate(typeof(DashBoard));
+            LoadContentFrame.Navigate(typeof(DashBoard),user);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            LoginPage.SetUserUpdate += LoginPage_SetUserUpdate1; ;
             LoadContentFrame.Navigate(typeof(LoginPage));
-            //User user = new User
-            //{
-            //    UserId = "UID6df59172",
-            //    UserName = "Rachel Green",
-            //    MobileNumber = 9872634150,
-            //    EmailId = "rachelgreeen@gmail.com",
-            //    IsBlocked = false,
-            //    PAN = "18DF34D34S"
-            //};
-            //LoadContentFrame.Navigate(typeof(DashBoard), user);
-
-
-            //User user = new User
-            //{
-            //    UserId = "UID6c1e8228",
-            //    UserName = "Monica",
-            //    MobileNumber = 9872523511,
-            //    EmailId = "monica@gmail.com",
-            //    IsBlocked = false,
-            //    PAN = "2V342WS424"
-            //};
-            //LoadContentFrame.Navigate(typeof(DashBoard), user);
         }
+
+        private void LoginPage_SetUserUpdate1(User obj)
+        {
+            //pass it to dashboard
+            var dashboardPage = new DashBoard();
+            dashboardPage.User = obj;
+            LoadContentFrame.Navigate(dashboardPage.GetType(), dashboardPage);
+            //LoadContentFrame.Navigate(typeof(DashBoard), obj);
+        }
+
 
 
         public void NavigateToLoginPage()
@@ -105,6 +84,7 @@ namespace NetBankingApplication
         {
             LoadContentFrame.Navigate(typeof(AdminPage));
         }
+
     }
 
 }

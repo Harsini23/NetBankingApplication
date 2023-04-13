@@ -57,9 +57,9 @@ namespace Library.Domain.UseCase
     public class AddAccountRequest
     {
         public AccountBObj NewAccount { get; set; }
-        public AddAccountRequest(AccountBObj NewAccount, string userId)
+        public AddAccountRequest(AccountBObj newAccount, string userId)
         {
-            NewAccount = NewAccount;
+            NewAccount = newAccount;
         }
     }
     public interface IPresenterAddAccountCallback : IResponseCallbackBaseCase<bool>

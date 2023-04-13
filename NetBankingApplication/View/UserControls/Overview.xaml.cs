@@ -29,28 +29,20 @@ namespace NetBankingApplication.View.UserControls
         private OverviewBaseViewModel _overviewViewModel;
         private GetAllAccountsBaseViewModel _getAllAccountsViewModel;
 
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null, new PropertyChangedCallback(OnUserPropertyChanged)));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }
             set { SetValue(UserProperty, value); }
         }
-        private static void OnUserPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            Overview overview = d as Overview;
-            if (overview != null)
-            {
-                User user = (User)e.OldValue;
-                overview.User = e.NewValue as User;
-            }
-
-        }
+        
 
         public Overview()
         {
             this.InitializeComponent();
             _overviewViewModel = PresenterService.GetInstance().Services.GetService<OverviewBaseViewModel>();
             _getAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
+
         }
         
         protected void OnPropertyChangedAsync(string propertyName)
@@ -87,8 +79,10 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _overviewViewModel.getData(User.UserId);
-            _getAllAccountsViewModel.GetAllAccounts(User.UserId);
+          
+                _overviewViewModel.getData(User.UserId);
+                _getAllAccountsViewModel.GetAllAccounts(User.UserId);
+          
         }
     }
 }

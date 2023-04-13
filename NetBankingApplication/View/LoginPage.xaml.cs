@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Library.Model;
+using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.View.UserControls;
 using NetBankingApplication.ViewModel;
 using System;
@@ -30,7 +31,11 @@ namespace NetBankingApplication.View
     {
         private LoginBaseViewModel _loginViewModel;
         private DispatcherTimer _timer = new DispatcherTimer();
-
+        public static event Action<User> SetUserUpdate;
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+        }
         public LoginPage()
         {
             this.InitializeComponent();
@@ -144,6 +149,9 @@ namespace NetBankingApplication.View
             CopyFlyout.Hide();
         }
 
-
+        public void SetUser(User user)
+        {
+            SetUserUpdate?.Invoke(user);
+        }
     }
 }

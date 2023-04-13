@@ -79,7 +79,7 @@ namespace NetBankingApplication.ViewModel
         public IChangePasswordNotification settingsNotification { get; set; }
         public IClosePopUp ClosePopUp { get; set; }
         public abstract void ValidateUserInput(string userId, string password);
-        public abstract void ResetPassword(string newPassword);
+        public abstract void ResetPassword(string newPassword, string userId);
         public abstract void CallUseCase();
         public abstract void Logout();
 
@@ -89,11 +89,12 @@ namespace NetBankingApplication.ViewModel
     public interface ILoginViewModel
     {
         void SwitchToResetPasswordContainer();
+        void SetUser(User user);
         //set iloginview instance to service provider
     }
     public interface IMainPageNavigation
     {
-        void NavigateToDashBoard();
+        void NavigateToDashBoard(User user);
         void NavigateToAdminDashBoard();
         void NavigateToLoginPage();
         //future logout change frame

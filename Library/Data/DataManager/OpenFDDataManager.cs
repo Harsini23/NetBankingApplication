@@ -15,12 +15,12 @@ namespace Library.Data.DataManager
 {
     public class OpenFDDataManager : BankingDataManager, IOpenFDDataManager
     {
-        AddAccountDataManager addAccountDataManager;
-        TransferAmountDataManager transferAmountDataManager;
+        AddAccountDataManager AddAccountDataManager;
+        TransferAmountDataManager TransferAmountDataManager;
         public OpenFDDataManager(IDbHandler DbHandler, INetHandler NetHandler,AddAccountDataManager addAccountDataManager, TransferAmountDataManager transferAmountDataManager) : base(DbHandler, NetHandler)
         {
-            addAccountDataManager = addAccountDataManager;
-            transferAmountDataManager = transferAmountDataManager;
+            AddAccountDataManager = addAccountDataManager;
+            TransferAmountDataManager = transferAmountDataManager;
         }
         public void OpenFD(OpenFDRequest request, OpenFD.OpenFDCallback callback)
         {
@@ -42,9 +42,9 @@ namespace Library.Data.DataManager
                 response.Response ="Enter valid amount";
                 response.Data = false;
             }
-            else if (transferAmountDataManager.ValidateCurrentAccountAndDeductBalance(account, request.FDAccountBObj.Principle)){
+            else if (TransferAmountDataManager.ValidateCurrentAccountAndDeductBalance(account, request.FDAccountBObj.Principle)){
                 AddAccountRequest addAccountRequest = new AddAccountRequest(account, request.FDAccountBObj.UserID);
-                request.FDAccountBObj.AccountNumber = addAccountDataManager?.PopulateDataForNewAccountCreation(addAccountRequest, TransactionType.FDTransation);
+                request.FDAccountBObj.AccountNumber = AddAccountDataManager?.PopulateDataForNewAccountCreation(addAccountRequest, TransactionType.FDTransation);
                 DbHandler.AddFDAccount(request.FDAccountBObj);
                 response.Response = "Sucessfully added account";
                 response.Data = true;

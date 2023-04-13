@@ -40,7 +40,7 @@ namespace NetBankingApplication.View
             services.AddTransient<EditPayeeBaseViewModel, EditPayeeViewModel>();
             services.AddTransient<UpdateUserBaseViewModel, UpdateUserViewModel>();
             services.AddTransient<PasswordVerificationBaseViewModel, PasswordVerificationViewModel>();
-            services.AddSingleton<LoginBaseViewModel, LoginViewModel>();
+            services.AddTransient<LoginBaseViewModel, LoginViewModel>();
             services.AddTransient<OverviewBaseViewModel, OverviewViewModel>();
             services.AddTransient<TransactionHistoryBaseViewModel, TransactionHistoryViewModel>();
             services.AddTransient<AddPayeeBaseViewModel,AddPayeeViewModel>();

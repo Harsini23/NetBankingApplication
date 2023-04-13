@@ -43,6 +43,7 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            if(User != null)    
                 _transactionViewModel.GetTransactionData(User.UserId, ShowOnlyRecentTransactions);
         }
 

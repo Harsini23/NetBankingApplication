@@ -33,11 +33,16 @@ namespace NetBankingApplication.View
     {
 
         private LoginBaseViewModel _loginViewModel;
-       // User Currentuser;
-
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(DashBoard), new PropertyMetadata(null));
+        public User User
+        {
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
+        }
         public DashBoard()
         {
             this.InitializeComponent();
+            Bindings.Update();
             UISettings uiSettings = new UISettings();
             uiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged; 
 
@@ -65,11 +70,15 @@ namespace NetBankingApplication.View
         }
 
 
-        //protected override void OnNavigatedTo(NavigationEventArgs e)
-        //{
-        //    base.OnNavigatedTo(e);
-        //    Currentuser = (User)e.Parameter;
-        //}
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter is DashBoard dashboard && dashboard.User != null)
+            {
+                User = dashboard.User;
+                // Do something with the user object
+            }
+        }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             DashBoardNavigation.SelectedItem = Overview;
@@ -78,53 +87,67 @@ namespace NetBankingApplication.View
 
         private void DashBoardNavigation_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
+        //    DashBoard dashboard = new DashBoard();
+        //    dashboard.User = this.User;// Set a non-null User property
+
+            // Set the DataContext of the NavigationContentControl to mainViewModel 
+            NavigationContentControl.DataContext = this;
 
             if (args.SelectedItem == Overview)
             {
+                //set currentUser as depedency property
 
-                Overview overview = new Overview();
-                overview.User = _loginViewModel.CurrentUser;
-                CurrentSelectedModule = overview;
+                //Overview overview = new Overview();
+                //overview.User = CurrentUser;
+                //CurrentSelectedModule = overview;
+                NavigationContentControl.Content = ((DataTemplate)this.Resources["UserControlTemplate1"]).LoadContent();
                 HeaderTitle = "Overview";
                 DashBoardNavigation.AlwaysShowHeader = false;
             }
             else if (args.SelectedItem == BankAccount)
             {
-                BankAccount bankAccount = new BankAccount();
-                bankAccount.User = _loginViewModel.CurrentUser;
-                CurrentSelectedModule = bankAccount;
+                //BankAccount bankAccount = new BankAccount();
+                //bankAccount.User = CurrentUser;
+                //CurrentSelectedModule = bankAccount;
+                NavigationContentControl.Content = ((DataTemplate)this.Resources["UserControlTemplate2"]).LoadContent();
+
                 HeaderTitle = "Account Details";
                 DashBoardNavigation.AlwaysShowHeader = true;
             }
             else if (args.SelectedItem == PaymentsAndTransfer)
             {
-                PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer();
-                paymentsAndTransfer.User = _loginViewModel.CurrentUser;
-                CurrentSelectedModule = paymentsAndTransfer;
+                //PaymentsAndTransfer paymentsAndTransfer = new PaymentsAndTransfer();
+                //paymentsAndTransfer.User = CurrentUser;
+                //CurrentSelectedModule = paymentsAndTransfer;
+                NavigationContentControl.Content = ((DataTemplate)this.Resources["UserControlTemplate3"]).LoadContent();
+
                 HeaderTitle = "Payment and Transfer";
                 DashBoardNavigation.AlwaysShowHeader = true;
             }
             else if (args.SelectedItem == Settings)
             {
-                SettingsView settings = new SettingsView();
-                settings.User = _loginViewModel.CurrentUser;
-                CurrentSelectedModule = settings;
+                //SettingsView settings = new SettingsView();
+                //settings.User = CurrentUser;
+                //CurrentSelectedModule = settings;
+                NavigationContentControl.Content = ((DataTemplate)this.Resources["UserControlTemplate4"]).LoadContent();
                 HeaderTitle = "Settings";
                 DashBoardNavigation.AlwaysShowHeader = true;
             }
             else if (args.SelectedItem == FixedDeposit)
             {
-                FDNavigationOverview FDAccount = new FDNavigationOverview();
-                FDAccount.User = _loginViewModel.CurrentUser;
-                CurrentSelectedModule = FDAccount;
+                //FDNavigationOverview FDAccount = new FDNavigationOverview();
+                //FDAccount.User = CurrentUser;
+                //CurrentSelectedModule = FDAccount;
+                NavigationContentControl.Content = ((DataTemplate)this.Resources["UserControlTemplate5"]).LoadContent();
                 HeaderTitle = "Fixed Deposit";
                 DashBoardNavigation.AlwaysShowHeader = true;
             }
             else
             {
-                Overview overview = new Overview();
-                overview.User = _loginViewModel.CurrentUser;
-                CurrentSelectedModule = overview;
+                //Overview overview = new Overview();
+                //overview.User = CurrentUser;
+                //CurrentSelectedModule = overview;
+                NavigationContentControl.Content = ((DataTemplate)this.Resources["UserControlTemplate1"]).LoadContent();
                 HeaderTitle = "Overview";
                 DashBoardNavigation.AlwaysShowHeader = false;
             }
@@ -143,6 +166,17 @@ namespace NetBankingApplication.View
                 NotifyPropertyChanged();
             }
         }
+        private User _currentUser;
+        public User CurrentUser
+        {
+            get { return _currentUser; }
+            set
+            {
+                _currentUser = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private String _headerTitle="OverView";
         public String HeaderTitle
         {

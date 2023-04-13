@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Library.Model;
+using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,12 @@ namespace NetBankingApplication.View.UserControls
         private LoginBaseViewModel _loginViewModel;
         private string _newPassword;
         public bool Redirect { get; set; }
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(BankAccount), new PropertyMetadata(null));
+        public User User
+        {
+            get { return (User)GetValue(UserProperty); }
+            set { SetValue(UserProperty, value); }
+        }
         public ResetPassword()
         {
             this.InitializeComponent();
@@ -31,7 +38,7 @@ namespace NetBankingApplication.View.UserControls
             //setting login view value for callback
             //LoginViewModel.LoginViewModelCallback = this;
             _loginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
-            //LoginViewModel.ClosePopUp = new SettingsView();
+           // _loginViewModel.ClosePopUp = new SettingsView();
             _loginViewModel.ResetPasswordResponseValue = String.Empty;
         }
 
@@ -107,7 +114,7 @@ namespace NetBankingApplication.View.UserControls
           if(RePasswordReset.Password== PasswordReset.Password)
             {
                 _loginViewModel.Redirect = Redirect;
-                _loginViewModel.ResetPassword(RePasswordReset.Password);
+                _loginViewModel.ResetPassword(RePasswordReset.Password,User.UserId);
                 PasswordReset.Password = "";
                 RePasswordReset.Password = "";
                 ErrorTextBlock.Visibility = Visibility.Collapsed;
