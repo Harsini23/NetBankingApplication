@@ -129,6 +129,7 @@
     <Compile Include="ViewModel\FDAccountViewModel.cs" />
     <Compile Include="ViewModel\GetAllUsersViewModel.cs" />
     <Compile Include="ViewModel\PasswordVerificationViewModel.cs" />
+    <Compile Include="ViewModel\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModel\SwitchToMainUIThread.cs" />
     <Compile Include="ViewModel\GetAllAccountsViewModel.cs" />
     <Compile Include="ViewModel\GetAllPayeeViewModel.cs" />

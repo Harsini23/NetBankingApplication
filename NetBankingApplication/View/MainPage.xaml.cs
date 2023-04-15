@@ -27,7 +27,7 @@ using Windows.UI.WindowManagement;
 
 namespace NetBankingApplication
 {
-    public sealed partial class MainPage : Page, IMainPageNavigation
+    public sealed partial class MainPage : Page
     {
         private LoginBaseViewModel _loginViewModel;
         private AppWindow _appWindow;
@@ -36,7 +36,7 @@ namespace NetBankingApplication
          
             this.InitializeComponent();
             _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
-            _loginViewModel.MainPageNavigationCallback = this;
+            //_loginViewModel.MainPageNavigationCallback = this;
             _loginViewModel.CreateAdminAccount();
 
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
@@ -52,38 +52,50 @@ namespace NetBankingApplication
      
         }
       
-        public void NavigateToDashBoard(User user)
-        {
-            LoadContentFrame.Navigate(typeof(DashBoard),user);
-        }
+        //public void NavigateToDashBoard(User user)
+        //{
+        //    LoadContentFrame.Navigate(typeof(DashBoard),user);
+        //}
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            LoginPage.SetUserUpdate += LoginPage_SetUserUpdate1; ;
+            LoginPage.SetUserUpdate += LoginPage_SetUserUpdate;
+            LoginPage.AdminNavigation += LoginPage_AdminNavigation;
             LoadContentFrame.Navigate(typeof(LoginPage));
         }
 
-        private void LoginPage_SetUserUpdate1(User obj)
+        private void LoginPage_AdminNavigation(Admin obj)
+        {
+            AdminPage.RaiseLogoutNotification +=RaiseLogoutNotification;
+            LoadContentFrame.Navigate(typeof(AdminPage));
+        }
+
+        private void RaiseLogoutNotification()
+        {
+            LoadContentFrame.Navigate(typeof(LoginPage));
+        }
+
+        private void LoginPage_SetUserUpdate(User user)
         {
             //pass it to dashboard
             var dashboardPage = new DashBoard();
-            dashboardPage.User = obj;
+            dashboardPage.User = user;
+            DashBoard.RaiseLogoutNotification += RaiseLogoutNotification;
             LoadContentFrame.Navigate(dashboardPage.GetType(), dashboardPage);
             //LoadContentFrame.Navigate(typeof(DashBoard), obj);
         }
 
-
-
         public void NavigateToLoginPage()
         {
             LoadContentFrame.Navigate(typeof(LoginPage));
+            //unload user?
         }
 
         //load admin authorized panel
-        public void NavigateToAdminDashBoard()
-        {
-            LoadContentFrame.Navigate(typeof(AdminPage));
-        }
+        //public void NavigateToAdminDashBoard()
+        //{
+        //    LoadContentFrame.Navigate(typeof(AdminPage));
+        //}
 
     }
 

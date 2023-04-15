@@ -8,6 +8,7 @@
       xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
       mc:Ignorable="d"
       Loaded="Page_Loaded"
+      Unloaded="Page_Unloaded"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
 
@@ -1155,10 +1156,10 @@
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch"
                             CornerRadius="30">
-              
+
             </ContentControl>
         </NavigationView>
-      
+
         <!--<componentmodules:Overview x:Name="OverviewControl" User="{x:Bind User,Mode=OneWay}" />
         <componentmodules:BankAccount x:Name="BankAccountControl"
                                       User="{x:Bind User,Mode=OneWay}" />

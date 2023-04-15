@@ -47,6 +47,7 @@ namespace NetBankingApplication.View
             services.AddTransient<GetAllPayeeBaseViewModel,GetAllPayeeViewModel>();
             services.AddTransient<GetAllAccountsBaseViewModel,GetAllAccountsViewModel>();
             services.AddTransient<FDAccountDetailsBaseViewModel, FDAccountDetailsViewModel>();
+            services.AddTransient<ResetPasswordBaseViewModel, ResetpasswordViewModel>();
             services.AddSingleton<UserUpdate>();
 
 

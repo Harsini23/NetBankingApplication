@@ -33,6 +33,7 @@ namespace NetBankingApplication.View
     {
        
         private LoginBaseViewModel _loginViewModel;
+        public static event Action RaiseLogoutNotification;
 
         public AdminPage()
         {
@@ -40,6 +41,12 @@ namespace NetBankingApplication.View
             _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             SwitchThemeUIValues();
         }
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            RaiseLogoutNotification -= RaiseLogoutNotification;
+        }
+
         private void SwitchThemeUIValues()
         {
             if (ThemeSwitch.CurrentTheme == ElementTheme.Light)
@@ -122,7 +129,9 @@ namespace NetBankingApplication.View
         private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
         {
             //logout logic
-            _loginViewModel.Logout();
+            //_loginViewModel.Logout();
+            RaiseLogoutNotification?.Invoke();
+
         }
 
         private String _oppositeTheme;

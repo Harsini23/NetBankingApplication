@@ -34,12 +34,12 @@ namespace NetBankingApplication.ViewModel
             login = new Login(new UserLoginRequest(userId, password, new CancellationTokenSource()), new PresenterLoginCallback(this));
             login.Execute();
         }
-        public void CallResetUseCase()
-        {
-            resetPassword = new ResetPassword(new ResetPasswordRequest(userId, resetNewPassword, new CancellationTokenSource()), new PresenterLoginCallback(this));
-            resetPassword.Execute();
-            //call to display admin or user dashboard
-        }
+        //public void CallResetUseCase()
+        //{
+        //    resetPassword = new ResetPassword(new ResetPasswordRequest(userId, resetNewPassword, new CancellationTokenSource()), new PresenterLoginCallback(this));
+        //    resetPassword.Execute();
+        //    //call to display admin or user dashboard
+        //}
 
     
         public override void ValidateUserInput(string userId, string password)
@@ -56,13 +56,13 @@ namespace NetBankingApplication.ViewModel
             defaultAdmin.Execute();
         }
 
-        public override void ResetPassword(string newPassword,string userId)
-        {
-            this.resetNewPassword = newPassword;
-            this.userId = userId;
-            CallResetUseCase();
+        //public override void ResetPassword(string newPassword,string userId)
+        //{
+        //    this.resetNewPassword = newPassword;
+        //    this.userId = userId;
+        //    CallResetUseCase();
 
-        }
+        //}
 
         public override async void Logout()
         {
@@ -73,16 +73,16 @@ namespace NetBankingApplication.ViewModel
 
         private async Task LoggingOut()
         {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-                       Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-                       {
-                           this.MainPageNavigationCallback.NavigateToLoginPage();
-                       });
+            //await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+            //           Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            //           {
+            //               this.MainPageNavigationCallback.NavigateToLoginPage();
+            //           });
         }
     }
 
 
-    public class PresenterLoginCallback : IPresenterLoginCallback, IPersenterResetPasswordCallback
+    public class PresenterLoginCallback : IPresenterLoginCallback
     {
         private LoginViewModel loginViewModel;
         // private ILoginViewModel loginViewCallback;
@@ -98,47 +98,47 @@ namespace NetBankingApplication.ViewModel
 
         }
 
-        public async void OnFailure(ZResponse<bool> response)
-        {
-            await SwitchToMainUIThread.SwitchToMainThread(() =>
-            {
-                loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
-            });
-        }
+        //public async void OnFailure(ZResponse<bool> response)
+        //{
+        //    await SwitchToMainUIThread.SwitchToMainThread(() =>
+        //    {
+        //        loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
+        //    });
+        //}
 
-        public async void OnSuccessAsync(ZResponse<bool> response)
-        {
-            await SwitchToMainUIThread.SwitchToMainThread(() =>
-            {
-                loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
-                var redirectToLogin = loginViewModel.Redirect;
-                    //
-                if (redirectToLogin)
-                {
-                    if (LoginViewModel.IsAdmin)
-                    {
-                        handleAdminAccess();
-                        loginViewModel.LoginResponseValue = "";
-                    }
-                    else
-                    {
-                        LoadDashBoard(loginViewModel.CurrentUser);
-                        loginViewModel.LoginResponseValue = "";
+        //public async void OnSuccessAsync(ZResponse<bool> response)
+        //{
+        //    await SwitchToMainUIThread.SwitchToMainThread(() =>
+        //    {
+        //        loginViewModel.ResetPasswordResponseValue = response.Response.ToString();
+        //        var redirectToLogin = loginViewModel.Redirect;
+        //            //
+        //        if (redirectToLogin)
+        //        {
+        //            if (LoginViewModel.IsAdmin)
+        //            {
+        //                handleAdminAccess();
+        //                loginViewModel.LoginResponseValue = "";
+        //            }
+        //            else
+        //            {
+        //                LoadDashBoard(loginViewModel.CurrentUser);
+        //                loginViewModel.LoginResponseValue = "";
 
-                    }
-                }
-                else
-                {
-                    loginViewModel.LoginResponseValue = response.Response.ToString();
-                    HandleClosePopUp();
-                        //changes here
-                    loginViewModel.settingsNotification?.ChangePasswordNotification();
-                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            loginViewModel.LoginResponseValue = response.Response.ToString();
+        //            HandleClosePopUp();
+        //                //changes here
+        //            loginViewModel.settingsNotification?.ChangePasswordNotification();
+        //        }
 
 
-            });
+        //    });
 
-        }
+        //}
 
         private void HandleClosePopUp()
         {
@@ -158,9 +158,9 @@ namespace NetBankingApplication.ViewModel
         {
             loginViewModel.LoginViewModelCallback?.SwitchToResetPasswordContainer();
         }
-        private void handleAdminAccess()
+        private void handleAdminAccess(Admin admin)
         {
-            loginViewModel.MainPageNavigationCallback?.NavigateToAdminDashBoard();
+            loginViewModel.LoginViewModelCallback?.NavigateToAdmin(admin);
         }
 
         //Presenter call back methods -----------------------------------------------------------------------------------------------------------
@@ -202,7 +202,7 @@ namespace NetBankingApplication.ViewModel
                     }
                     else
                     {
-                        handleAdminAccess();
+                        handleAdminAccess(new Admin());
                     }
                 }
                 else

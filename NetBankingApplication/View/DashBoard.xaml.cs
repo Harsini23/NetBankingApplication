@@ -33,6 +33,8 @@ namespace NetBankingApplication.View
     {
 
         private LoginBaseViewModel _loginViewModel;
+        public static event Action RaiseLogoutNotification;
+
         public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(DashBoard), new PropertyMetadata(null));
         public User User
         {
@@ -221,8 +223,7 @@ namespace NetBankingApplication.View
 
         private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            //logout logic
-            _loginViewModel.Logout();
+            RaiseLogoutNotification?.Invoke();
         }
 
         private async void ThemeChange_Tapped(object sender, TappedRoutedEventArgs e)
@@ -238,6 +239,11 @@ namespace NetBankingApplication.View
                 ThemeSwitch.CurrentTheme = ElementTheme.Dark;
             }
             SwitchThemeUIValues();
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
