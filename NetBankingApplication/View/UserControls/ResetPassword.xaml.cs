@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Library.Model;
+using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -19,20 +20,31 @@ using Windows.UI.Xaml.Navigation;
 
 namespace NetBankingApplication.View.UserControls
 {
-    public sealed partial class ResetPassword : UserControl
+  
+    public sealed partial class ResetPassword : UserControl, IResetRedirection
     {
-        private LoginBaseViewModel _loginViewModel;
+        //private LoginBaseViewModel _loginViewModel;
+        private ResetPasswordBaseViewModel _resetPasswordViewModel;
         private string _newPassword;
+        public event Action RedirectionAfterResetPassword;
         public bool Redirect { get; set; }
+        public static readonly DependencyProperty UserIdProperty = DependencyProperty.Register(nameof(UserId), typeof(string), typeof(ResetPassword), new PropertyMetadata(null));
+        public string UserId
+        {
+            get { return (string)GetValue(UserIdProperty); }
+            set { SetValue(UserIdProperty, value); }
+        }
         public ResetPassword()
         {
             this.InitializeComponent();
-            _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+            _resetPasswordViewModel = PresenterService.GetInstance().Services.GetService<ResetPasswordBaseViewModel>();
+            _resetPasswordViewModel.ResetRedirection = this;
+            //_loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             //setting login view value for callback
             //LoginViewModel.LoginViewModelCallback = this;
-            _loginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
-            //LoginViewModel.ClosePopUp = new SettingsView();
-            _loginViewModel.ResetPasswordResponseValue = String.Empty;
+            //_loginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
+            // _loginViewModel.ClosePopUp = new SettingsView();
+            //_loginViewModel.ResetPasswordResponseValue = String.Empty;
         }
 
         //private void RevealModeCheckbox_ChangedReset(object sender, RoutedEventArgs e)
@@ -106,8 +118,9 @@ namespace NetBankingApplication.View.UserControls
         {
           if(RePasswordReset.Password== PasswordReset.Password)
             {
-                _loginViewModel.Redirect = Redirect;
-                _loginViewModel.ResetPassword(RePasswordReset.Password);
+                // _loginViewModel.Redirect = Redirect;
+                // _loginViewModel.ResetPassword(RePasswordReset.Password,User.UserId);
+                _resetPasswordViewModel.ResetPassword(RePasswordReset.Password, UserId, Redirect);
                 PasswordReset.Password = "";
                 RePasswordReset.Password = "";
                 ErrorTextBlock.Visibility = Visibility.Collapsed;
@@ -127,6 +140,9 @@ namespace NetBankingApplication.View.UserControls
             ErrorTextBlock.Visibility = Visibility.Collapsed;
         }
 
-        
+        public void NavigateAfterReset(string response)
+        {
+            RedirectionAfterResetPassword?.Invoke();
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace NetBankingApplication.View.UserControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(Overview), new PropertyMetadata(null));
+        public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(FDAccountView), new PropertyMetadata(null));
         public User User
         {
             get { return (User)GetValue(UserProperty); }

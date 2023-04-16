@@ -25,6 +25,7 @@ namespace NetBankingApplication.View.UserControls
         public TransactionDetailView()
         {
             this.InitializeComponent();
+            this.DataContext = new AccountTransactionBObj();
             this.DataContextChanged += TransactionDetailView_DataContextChanged;
         }
 

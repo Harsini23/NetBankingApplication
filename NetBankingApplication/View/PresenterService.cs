@@ -40,13 +40,14 @@ namespace NetBankingApplication.View
             services.AddTransient<EditPayeeBaseViewModel, EditPayeeViewModel>();
             services.AddTransient<UpdateUserBaseViewModel, UpdateUserViewModel>();
             services.AddTransient<PasswordVerificationBaseViewModel, PasswordVerificationViewModel>();
-            services.AddSingleton<LoginBaseViewModel, LoginViewModel>();
+            services.AddTransient<LoginBaseViewModel, LoginViewModel>();
             services.AddTransient<OverviewBaseViewModel, OverviewViewModel>();
             services.AddTransient<TransactionHistoryBaseViewModel, TransactionHistoryViewModel>();
             services.AddTransient<AddPayeeBaseViewModel,AddPayeeViewModel>();
             services.AddTransient<GetAllPayeeBaseViewModel,GetAllPayeeViewModel>();
             services.AddTransient<GetAllAccountsBaseViewModel,GetAllAccountsViewModel>();
             services.AddTransient<FDAccountDetailsBaseViewModel, FDAccountDetailsViewModel>();
+            services.AddTransient<ResetPasswordBaseViewModel, ResetpasswordViewModel>();
             services.AddSingleton<UserUpdate>();
 
 

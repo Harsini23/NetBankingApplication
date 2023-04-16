@@ -37,6 +37,8 @@ namespace NetBankingApplication.View.UserControls
         private LoginBaseViewModel _loginViewModel;
         private UpdateUserBaseViewModel _updateViewModel;
         private PasswordVerificationBaseViewModel _passwordVerificationViewModel;
+        ResetPassword myUserControl;
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         String ProfilePath;
@@ -74,6 +76,8 @@ namespace NetBankingApplication.View.UserControls
             _passwordVerificationViewModel = PresenterService.GetInstance().Services.GetService<PasswordVerificationBaseViewModel>();
             _passwordVerificationViewModel.settingsView = this;
             _passwordVerificationViewModel.TextBoxVisibility = Visibility.Collapsed;
+            myUserControl = (ResetPassword)this.FindName("ResetPasswordComponent");
+
 
         }
 
@@ -208,12 +212,19 @@ namespace NetBankingApplication.View.UserControls
 
         public void TriggerResetPasswordPopup()
         {
+
+            myUserControl.RedirectionAfterResetPassword += ResetpasswordUsercontrol_RedirectionAfterResetPassword;
+
             ResetPasswordGrid.IsOpen = true;
             double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetPasswordGrid.ActualWidth / 2 + 20;
             double verticalOffset = Window.Current.Bounds.Height / 2 - ResetPasswordGrid.ActualHeight / 2;
             ResetPasswordGrid.HorizontalOffset = horizontalOffset;
             ResetPasswordGrid.VerticalOffset = verticalOffset;
 
+        }
+        private void ResetpasswordUsercontrol_RedirectionAfterResetPassword()
+        {
+            NavigateAfterReset("Succesfully changed password");
         }
 
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
@@ -263,7 +274,7 @@ namespace NetBankingApplication.View.UserControls
         private void ResetPasswordGrid_Closed(object sender, object e)
         {
             //clear resetpassword UI data
-            ResetPassword myUserControl = (ResetPassword)this.FindName("ResetPasswordComponent");
+            //ResetPassword myUserControl = (ResetPassword)this.FindName("ResetPasswordComponent");
             myUserControl.ResetUI();
         }
 
@@ -393,6 +404,13 @@ namespace NetBankingApplication.View.UserControls
         private void MenuItem1_Click(object sender, RoutedEventArgs e)
         {
             SetProfile();
+        }
+
+        public void NavigateAfterReset(string response)
+        {
+            ResetPasswordGrid.IsOpen = false;
+            InAppNotification.Show(response, 3000);
+            NotificationMessage = response;
         }
 
         //private void Initial_PointerEntered(object sender, PointerRoutedEventArgs e)

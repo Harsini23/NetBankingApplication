@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Library.Model;
+using Microsoft.Extensions.DependencyInjection;
 using NetBankingApplication.View.UserControls;
 using NetBankingApplication.ViewModel;
 using System;
@@ -30,7 +31,12 @@ namespace NetBankingApplication.View
     {
         private LoginBaseViewModel _loginViewModel;
         private DispatcherTimer _timer = new DispatcherTimer();
-
+        public static event Action<User> SetUserUpdate;
+        public static event Action<Admin> AdminNavigation;
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+        }
         public LoginPage()
         {
             this.InitializeComponent();
@@ -39,6 +45,7 @@ namespace NetBankingApplication.View
 
             _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
             //setting login view value for callback
+            //_loginViewModel.MainPageNavigationCallback = this;
             _loginViewModel.LoginViewModelCallback = this;
             _loginViewModel.CloseAllWindowsCallback = new AllAccountsPreview();
 
@@ -110,14 +117,23 @@ namespace NetBankingApplication.View
         public void SwitchToResetPasswordContainer()
         {
             // This will realize the deferred element.
-            this.FindName("ResetGrid"); 
+            //this.FindName("ResetGrid");
+            ResetpasswordUsercontrol.UserId = _loginViewModel.CurrentUser.UserId;
+            ResetpasswordUsercontrol.RedirectionAfterResetPassword += ResetpasswordUsercontrol_RedirectionAfterResetPassword;
+
+
             LoginContainer.Visibility = Visibility.Collapsed;
             LoginContainerShadow.Visibility = Visibility.Collapsed;
             ResetGrid.IsOpen = true;
-            double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetGrid.ActualWidth / 2-200;
-            double verticalOffset = Window.Current.Bounds.Height / 2 - ResetGrid.ActualHeight / 2 -250;
-            ResetGrid.HorizontalOffset = horizontalOffset;
-           ResetGrid.VerticalOffset = verticalOffset;
+            //double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetGrid.ActualWidth / 2-200;
+            //double verticalOffset = Window.Current.Bounds.Height / 2 - ResetGrid.ActualHeight / 2 -250;
+            // ResetGrid.HorizontalOffset = horizontalOffset;
+            //ResetGrid.VerticalOffset = verticalOffset;
+        }
+
+        private void ResetpasswordUsercontrol_RedirectionAfterResetPassword()
+        {
+            SetUser(_loginViewModel.CurrentUser);
         }
 
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
@@ -143,7 +159,19 @@ namespace NetBankingApplication.View
             _timer.Stop();
             CopyFlyout.Hide();
         }
+        public void NavigateToAdmin(Admin admin)
+        {
+            AdminNavigation?.Invoke(admin);
+        }
+        public void SetUser(User user)
+        {
+            SetUserUpdate?.Invoke(user);
+        }
 
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ResetpasswordUsercontrol.RedirectionAfterResetPassword -= ResetpasswordUsercontrol_RedirectionAfterResetPassword;
 
+        }
     }
 }

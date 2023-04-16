@@ -338,7 +338,8 @@
                    Closed="ResetPasswordGrid_Closed"
                    Name="ResetPasswordGrid">
                 <local:ResetPassword Name="ResetPasswordComponent"
-                                     Redirect="False"></local:ResetPassword>
+                                         Redirect="False"
+                                         UserId="{x:Bind User.UserId,Mode=OneWay}"></local:ResetPassword>
             </Popup>
             <!--<ContentDialog x:Name="AcknowledgementDialogue"
        Background="{ThemeResource SupportingColour}" CornerRadius="10"
