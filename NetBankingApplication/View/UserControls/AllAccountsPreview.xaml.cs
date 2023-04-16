@@ -32,7 +32,6 @@ namespace NetBankingApplication.View.UserControls
     {
         private GetAllAccountsBaseViewModel _getAllAccountsViewModel;
         private LoginBaseViewModel _loginViewModel;
-
         private static Dictionary<int, AppWindow> _appWindows = new Dictionary<int, AppWindow>();
         public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(AllAccountsPreview), new PropertyMetadata(null));
         public User User
@@ -48,11 +47,16 @@ namespace NetBankingApplication.View.UserControls
         public AllAccountsPreview()
         {
             this.InitializeComponent();
+            DashBoard.RaiseCloseWindowNotification += DashBoard_RaiseCloseWindowNotification;
             _getAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
             _getAllAccountsViewModel.NotificationAlert = this;
             Bindings.Update();
         }
-      
+
+        private void DashBoard_RaiseCloseWindowNotification()
+        {
+            closeAllWindows();
+        }
 
         public static readonly DependencyProperty UserIdProperty =
             DependencyProperty.Register("UserId", typeof(string), typeof(TransactionHistory), new PropertyMetadata(null));

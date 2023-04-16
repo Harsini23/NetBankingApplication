@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using NetBankingApplication.View.UserControls;
 using Windows.UI.ViewManagement;
+using Library.BankingNotification;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -34,7 +35,7 @@ namespace NetBankingApplication.View
 
         private LoginBaseViewModel _loginViewModel;
         public static event Action RaiseLogoutNotification;
-
+        public static event Action RaiseCloseWindowNotification;
         public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(DashBoard), new PropertyMetadata(null));
         public User User
         {
@@ -45,11 +46,20 @@ namespace NetBankingApplication.View
         {
             this.InitializeComponent();
             Bindings.Update();
+            BankingNotification.UserUpdated += BankingNotification_UserUpdated;
             UISettings uiSettings = new UISettings();
-            uiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged; 
-
+            uiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged;
+            
             SwitchThemeUIValues();
             _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+        }
+
+        private async void BankingNotification_UserUpdated(User user)
+        {
+            await SwitchToMainUIThread.SwitchToMainThread(() =>
+            {
+                User = user;
+            });
         }
 
         private void SwitchThemeUIValues()
@@ -223,6 +233,7 @@ namespace NetBankingApplication.View
 
         private void Logout_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            RaiseCloseWindowNotification?.Invoke();
             RaiseLogoutNotification?.Invoke();
         }
 

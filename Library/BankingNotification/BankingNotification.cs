@@ -37,5 +37,11 @@ namespace Library.BankingNotification
             AccountBalanceEdited?.Invoke(account);
         }
 
+        public static event Action<User> UserUpdated;
+        internal static void NotifyUserUpdated(User user)
+        {
+            UserUpdated?.Invoke(user);
+        }
+
     }
 }

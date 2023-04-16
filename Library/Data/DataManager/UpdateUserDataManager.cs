@@ -26,6 +26,7 @@ namespace Library.Data.DataManager
                 {
                     response.Response = "Sucessfully updated user";
                     response.Data = request.UpdatedUser;
+                    BankingNotification.BankingNotification.NotifyUserUpdated(request.UpdatedUser);
                     callback?.OnResponseSuccess(response);
                 }
             }

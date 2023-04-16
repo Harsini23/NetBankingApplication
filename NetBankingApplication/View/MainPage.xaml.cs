@@ -31,6 +31,7 @@ namespace NetBankingApplication
     {
         private LoginBaseViewModel _loginViewModel;
         private AppWindow _appWindow;
+      
         public MainPage()
         {
          
@@ -72,6 +73,7 @@ namespace NetBankingApplication
 
         private void RaiseLogoutNotification()
         {
+           
             LoadContentFrame.Navigate(typeof(LoginPage));
         }
 
