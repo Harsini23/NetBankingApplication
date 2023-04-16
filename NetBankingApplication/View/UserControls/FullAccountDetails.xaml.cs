@@ -133,6 +133,8 @@ namespace NetBankingApplication.View.UserControls
         {
             _appWindow.CloseAsync();
         }
+
+       
     }
 
 

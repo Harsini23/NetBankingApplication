@@ -185,9 +185,11 @@ namespace NetBankingApplication.View.UserControls
 
         private void CalculateFD_Click(object sender, RoutedEventArgs e)
         {
+           
             BasicValidation();
             if (AccountTypeBox.Content!=null && CustomerTypeBox.Content != null && !string.IsNullOrEmpty(AmountTextBox.Text) && (_selectedMonths != 0 || _selectedYears != 0 || _selectedDays != 0))
             {
+                CalculationGrid.Visibility = Visibility.Visible;
                 _accountType = (FDType)Enum.Parse(typeof(FDType), AccountTypeBox.Content as string);
                 _customerType = (CustomerType)Enum.Parse(typeof(CustomerType), CustomerTypeBox.Content as string);
                
@@ -263,6 +265,7 @@ namespace NetBankingApplication.View.UserControls
 
         private void OpenFDAccount_Click(object sender, RoutedEventArgs e)
         {
+            
             BasicValidation();
             if ((string)SelectAccount.Content == (string)"Select From Account" && MultipleAccounts.Visibility != Visibility.Collapsed)
             {
@@ -293,6 +296,47 @@ namespace NetBankingApplication.View.UserControls
         public void CallNotification()
         {
             InAppNotification.Show(3000);
+        }
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var windowHeight = e.NewSize.Height;
+            var windowWidth = e.NewSize.Width;
+            //Grid.SetRow(BalanceBlock, 1);
+            //Grid.SetColumn(BalanceBlock, 0);
+            //Grid.SetColumnSpan(BalanceBlock, 2);
+            //Grid.SetColumnSpan(AccountDetailsBlock, 2);
+
+            if ((windowWidth < 600 || windowHeight <= 440))
+            {
+                CalculationGrid.Visibility = Visibility.Collapsed;
+                Grid.SetRow(FDAccountGrid, 0);
+                Grid.SetRow(CalculationGrid, 1);
+                Grid.SetRowSpan(FDAccountGrid, 1);
+                Grid.SetRowSpan(CalculationGrid, 1);
+                Grid.SetColumn(FDAccountGrid, 0);
+                Grid.SetColumn(CalculationGrid, 0);
+                Grid.SetColumnSpan(FDAccountGrid, 2);
+                Grid.SetColumnSpan(CalculationGrid, 2);
+                CalculationGrid.HorizontalAlignment = HorizontalAlignment.Center;
+                Grid.SetRowSpan(ErrorMessage, 2);
+                Grid.SetColumnSpan(ErrorMessage, 2);
+            }
+            else
+            {
+                CalculationGrid.Visibility = Visibility.Visible;
+                Grid.SetRow(FDAccountGrid, 0);
+                Grid.SetRow(CalculationGrid, 0);
+                Grid.SetRowSpan(FDAccountGrid, 2);
+                Grid.SetRowSpan(CalculationGrid, 2);
+                Grid.SetColumn(FDAccountGrid, 0);
+                Grid.SetColumn(CalculationGrid, 1);
+                Grid.SetColumnSpan(FDAccountGrid, 1);
+                Grid.SetColumnSpan(CalculationGrid, 1);
+                CalculationGrid.HorizontalAlignment = HorizontalAlignment.Left;
+                Grid.SetRowSpan(ErrorMessage, 2);
+                Grid.SetColumnSpan(ErrorMessage, 1);
+            }
         }
     }
 }

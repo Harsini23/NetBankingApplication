@@ -81,7 +81,7 @@ namespace NetBankingApplication.ViewModel
         public abstract void ValidateUserInput(string userId, string password);
        // public abstract void ResetPassword(string newPassword, string userId);
         public abstract void CallUseCase();
-        public abstract void Logout();
+      //  public abstract void Logout();
 
         public abstract void CreateAdminAccount();
     }

@@ -24,7 +24,7 @@ namespace NetBankingApplication.ViewModel
 
         Login login;
         DefaultAdmin defaultAdmin;
-        ResetPassword resetPassword;
+        //ResetPassword resetPassword;
         public string userId, password, resetNewPassword;
         // public static User user;
         public static bool IsAdmin;
@@ -64,21 +64,21 @@ namespace NetBankingApplication.ViewModel
 
         //}
 
-        public override async void Logout()
-        {
-            LoggingOut();
-            //call allAccountsPreview view to close all new windows
-            this.CloseAllWindowsCallback?.closeAllWindows();
-        }
+        //public override async void Logout()
+        //{
+        //    //LoggingOut();
+        //    //call allAccountsPreview view to close all new windows
+        //    this.CloseAllWindowsCallback?.closeAllWindows();
+        //}
 
-        private async Task LoggingOut()
-        {
-            //await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
-            //           Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            //           {
-            //               this.MainPageNavigationCallback.NavigateToLoginPage();
-            //           });
-        }
+        //private async Task LoggingOut()
+        //{
+        //    //await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(
+        //    //           Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+        //    //           {
+        //    //               this.MainPageNavigationCallback.NavigateToLoginPage();
+        //    //           });
+        //}
     }
 
 
@@ -202,7 +202,7 @@ namespace NetBankingApplication.ViewModel
                     }
                     else
                     {
-                        handleAdminAccess(new Admin());
+                        handleAdminAccess(response.Data.currentAdmin);
                     }
                 }
                 else

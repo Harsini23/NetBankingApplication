@@ -58,6 +58,7 @@ namespace Library.Data.DataManager
                     if (IsAdmin)
                     {
                         responseStatus = "Sucessfully Loged in, Welcome Admin!";
+                        loginResponse.currentAdmin=DbHandler.GetAdmin(userId);
                         loginResponse.IsAdmin = true;
                     }
                     if (DbHandler.CheckIfNewUser(userId))

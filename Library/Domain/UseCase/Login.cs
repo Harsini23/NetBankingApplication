@@ -80,6 +80,7 @@ namespace Library.Domain
         public class LoginResponse : ZResponse<User>
         {
             public User currentUser;
+            public Admin currentAdmin;
             public bool NewUser;
             public bool IsAdmin;
 

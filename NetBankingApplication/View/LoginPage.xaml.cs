@@ -125,10 +125,10 @@ namespace NetBankingApplication.View
             LoginContainer.Visibility = Visibility.Collapsed;
             LoginContainerShadow.Visibility = Visibility.Collapsed;
             ResetGrid.IsOpen = true;
-            //double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetGrid.ActualWidth / 2-200;
-            //double verticalOffset = Window.Current.Bounds.Height / 2 - ResetGrid.ActualHeight / 2 -250;
-            // ResetGrid.HorizontalOffset = horizontalOffset;
-            //ResetGrid.VerticalOffset = verticalOffset;
+            double horizontalOffset = Window.Current.Bounds.Width / 2 - ResetGrid.ActualWidth / 2 + 450;
+            double verticalOffset = Window.Current.Bounds.Height / 2 - ResetGrid.ActualHeight / 2 + 180;
+            ResetGrid.HorizontalOffset = horizontalOffset;
+            ResetGrid.VerticalOffset = verticalOffset;
         }
 
         private void ResetpasswordUsercontrol_RedirectionAfterResetPassword()

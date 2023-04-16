@@ -368,6 +368,11 @@ namespace Library.Data.DataBaseService
                 _adapter.Delete(Account);
             }
         }
+
+        public Admin GetAdmin(string userId)
+        {
+            return _adapter.Get(new Admin()).Where(admin => admin.EmployeeId == userId).FirstOrDefault();
+        }
         #endregion
     }
 }

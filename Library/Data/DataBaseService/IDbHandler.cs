@@ -57,6 +57,7 @@ namespace Library.Data.DataBaseService
     public interface IAdminDbHandler
     {
         bool CheckIfAdminExists(string userId);
+        Admin GetAdmin(string userId);
     }
 
     public interface ITransactiondbHandler
