@@ -43,5 +43,11 @@ namespace Library.BankingNotification
             UserUpdated?.Invoke(user);
         }
 
+        public static event Action<string,string> ValueChangedEventHandler ;
+
+        internal static void ValueChanged(String acc,string userId)
+        {
+            ValueChangedEventHandler?.Invoke(acc,userId);
+        }
     }
 }

@@ -188,7 +188,8 @@
                                 TextTrimming="CharacterEllipsis"
                                 Margin="10,0,10,0"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Left">
+                                HorizontalAlignment="Left"
+                                x:Phase="0">
                           <ToolTipService.ToolTip>
                                         <ToolTip Content="{x:Bind Name}"
                                                  CornerRadius="5"
@@ -208,6 +209,7 @@
                         <TextBlock x:Name="Amount"
                                    TextTrimming="CharacterEllipsis"
                                    Text="{x:Bind Amount,Mode=OneWay}"
+                                   x:Phase="10"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center">
                               <ToolTipService.ToolTip>
@@ -222,6 +224,7 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Text="{x:Bind Remark,Mode=OneWay}"
+                                x:Phase="20"
                                 TextTrimming="CharacterEllipsis">
                           <ToolTipService.ToolTip>
                                         <ToolTip Content="{x:Bind  Remark,Mode=OneWay}"
@@ -235,6 +238,7 @@
                                TextWrapping="NoWrap"
                                Text="{x:Bind TransactionType,Mode=OneWay}"
                                Padding="5,0,0,0"
+                               x:Phase="5"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                HorizontalTextAlignment="Left"></TextBlock>
@@ -242,6 +246,7 @@
                     <TextBlock Grid.Column="4"
                                Text="{x:Bind Time,Mode=OneWay}"
                                TextWrapping="Wrap"
+                               x:Phase="5"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Padding="5,0,0,0"
@@ -481,10 +486,16 @@
                   ItemsSource="{Binding Source={StaticResource TransactionSource}}"
                   IsItemClickEnabled="True"
                   SelectionMode="Single"
+                  x:DeferLoadStrategy="Lazy"
                   x:Name="AllTransactionListView"
                   ItemTemplate="{StaticResource WideTemplate}"
                   ItemContainerStyle="{StaticResource TransactionItemContainer}"
                   HeaderTemplate="{StaticResource WideHeader}">
+            <ItemsControl>
+                <ItemsControl.ItemContainerTransitions>
+                    <TransitionCollection></TransitionCollection>
+                </ItemsControl.ItemContainerTransitions>
+            </ItemsControl>
             <!--ItemTemplateSelect="{StaticResiurce AlternatingTemplateSelector}-->
             <ListView.GroupStyle>
                 <GroupStyle>

@@ -38,6 +38,7 @@ namespace NetBankingApplication.View.UserControls
         {
             _transactionViewModel = PresenterService.GetInstance().Services.GetService<TransactionHistoryBaseViewModel>();
             this.InitializeComponent();
+            this.FindName("AllTransactionListView");
             _isNarrowLayout = false;
         }
 

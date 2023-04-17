@@ -60,10 +60,19 @@
                 <!--Style="{ThemeResource BasicSearchBoxStyle}" TextBoxStyle="{ThemeResource FormTextBox}"-->
             </Grid>
 
-
-
-            <ListView Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollMode="Disabled" ItemsSource="{x:Bind _getAllPayeeViewModel.AllPayeeCollection,Mode=OneWay}" IsItemClickEnabled="True" x:Name="AllTransactionListView" SelectionMode="None">
-
+            <ListView Grid.Row="1"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.HorizontalScrollMode="Disabled"
+                      ItemsSource="{x:Bind _getAllPayeeViewModel.AllPayeeCollection,Mode=OneWay}"
+                      IsItemClickEnabled="True"
+                      x:Name="AllTransactionListView"
+                      SelectionMode="None"
+                      x:DeferLoadStrategy="Lazy">
+                <ItemsControl>
+                    <ItemsControl.ItemContainerTransitions>
+                        <TransitionCollection></TransitionCollection>
+                    </ItemsControl.ItemContainerTransitions>
+                </ItemsControl>
                 <ListView.ItemTemplate>
                     <DataTemplate  x:DataType="data:Payee">
 
@@ -91,12 +100,13 @@
                                              TextTrimming="CharacterEllipsis"
                                              FontWeight="Bold"
                                              Margin="10"
+                                             x:Phase="0"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Left"
                                              x:Name="PayeeNameTextbox">
                                     <ToolTipService.ToolTip >
                                         <ToolTip Content="{x:Bind PayeeName}"
-                                                 CornerRadius="5"
+                                                 CornerRadius="5" 
                                                  Background="{ThemeResource AppForegroundBg}" ></ToolTip>
                                     </ToolTipService.ToolTip>
                                              <!--ToolTipService.ToolTip="{Binding ElementName=PayeeNameTextbox, 
@@ -112,7 +122,11 @@
                             <TextBlock Margin="10"
                                        Grid.Column="1"
                                        TextTrimming="CharacterEllipsis"
-                                       FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{x:Bind AccountNumber}">
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       x:Phase="24"
+                                       Text="{x:Bind AccountNumber}">
                                  <ToolTipService.ToolTip>
                                         <ToolTip Content="{x:Bind AccountNumber}"
                                                  CornerRadius="5"
@@ -128,6 +142,7 @@
 
                             <TextBlock  Grid.Column="2"
                                         Text="{x:Bind BankName}"
+                                        x:Phase="4"
                                         TextTrimming="CharacterEllipsis"
                                         Margin="10"
                                         FontWeight="Bold"
@@ -140,7 +155,7 @@
                             <TextBlock  Grid.Column="2" Margin="0,0,0,5" Grid.Row="1" Text="Bank name" FontWeight="ExtraLight" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                             <StackPanel Grid.RowSpan="2" Orientation="Horizontal" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
                                 <Button Style="{StaticResource AccentButtonStyleCustom}"
-                                       
+                             
                                         MinHeight="35"
                                         MinWidth="35"
                                         Content="&#xE104;"
@@ -149,6 +164,7 @@
                                         Click="EditPayee_Click"></Button>
                                 <Button CornerRadius="5"
                                         Foreground="White"
+                                       
                                         Margin="10,0,0,0"
                                         Background="Red" MinHeight="35" MinWidth="35" Content="&#xE107;" FontFamily="Segoe MDL2 Assets"  Name="DeletePayee" Click="DeletePayee_Click">
                                     <Button.Resources>

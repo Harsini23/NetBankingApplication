@@ -3016,6 +3016,8 @@
         
         <ResourceDictionary x:Name="Default">
 
+      
+            
             <Style TargetType="TextBlock" x:Key="TransactionGroupHeadder"></Style>
 
             <Style TargetType="Grid" x:Key="TransactionHeadder">

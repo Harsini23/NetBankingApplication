@@ -1135,7 +1135,8 @@
                                          Content="{x:Bind OppositeTheme,Mode=OneWay}">
                         <NavigationViewItem.Icon>
                             <FontIcon x:Name="IconImg"
-                                      Glyph="{x:Bind OppositeThemeIcon}"></FontIcon>
+                                      FontFamily="Segoe MDL2 Assets"
+                                      Glyph="{x:Bind OppositeThemeIcon,Mode=OneWay}"></FontIcon>
                         </NavigationViewItem.Icon>
                     </NavigationViewItem>
 

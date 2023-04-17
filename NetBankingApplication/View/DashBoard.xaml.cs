@@ -67,12 +67,13 @@ namespace NetBankingApplication.View
             if (ThemeSwitch.CurrentTheme == ElementTheme.Light)
             {
                 OppositeTheme = "Dark mode";
-                OppositeThemeIcon = "";
+                OppositeThemeIcon = "";
             }
             else if (ThemeSwitch.CurrentTheme == ElementTheme.Dark)
             {
                 OppositeTheme = "Light mode";
-                OppositeThemeIcon = "";
+                OppositeThemeIcon = "";
+             
             }
         }
         private void UiSettings_ColorValuesChanged(UISettings sender, object args)

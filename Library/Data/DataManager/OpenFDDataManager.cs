@@ -48,6 +48,8 @@ namespace Library.Data.DataManager
                 DbHandler.AddFDAccount(request.FDAccountBObj);
                 response.Response = "Sucessfully added account";
                 response.Data = true;
+                BankingNotification.BankingNotification.ValueChanged(request.FDAccountBObj.FromAccount, request.FDAccountBObj.UserID);
+
             }
             else
             {

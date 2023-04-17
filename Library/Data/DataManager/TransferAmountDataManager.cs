@@ -94,6 +94,7 @@ namespace Library.Data.DataManager
                 var responseStatus = "Transaction Processed";
                 response.Response = responseStatus;
                 response.Data = transferAmountResponse;
+                BankingNotification.BankingNotification.ValueChanged(currentTransaction.FromAccount, request.UserId);
                 callback.OnResponseSuccess(response);
             }
             else

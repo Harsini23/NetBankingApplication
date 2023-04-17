@@ -27,7 +27,7 @@
                 <StackPanel>
                     <NavigationViewItem  Tapped="ThemeChange_Tapped"  Name="ThemeChange" Content="{x:Bind OppositeTheme,Mode=OneWay}">
                         <NavigationViewItem.Icon>
-                            <FontIcon x:Name="IconImg" Glyph="{x:Bind OppositeThemeIcon}"></FontIcon>
+                            <FontIcon x:Name="IconImg" Glyph="{x:Bind OppositeThemeIcon,Mode=OneWay}"></FontIcon>
                         </NavigationViewItem.Icon>
                     </NavigationViewItem>
 

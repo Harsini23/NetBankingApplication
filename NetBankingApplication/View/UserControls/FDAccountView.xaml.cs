@@ -338,5 +338,22 @@ namespace NetBankingApplication.View.UserControls
                 Grid.SetColumnSpan(ErrorMessage, 1);
             }
         }
+
+        private void YearComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem selectedItem = (ComboBoxItem)YearComboBox.SelectedItem;
+
+            // If the selected value is 10, disable the other ComboBox controls
+            if (selectedItem != null && selectedItem.Content.ToString() == "10")
+            {
+                MonthComboBox.IsEnabled = false;
+                DayComboBox.IsEnabled = false;
+            }
+            else
+            {
+                MonthComboBox.IsEnabled = true;
+                DayComboBox.IsEnabled = true;
+            }
+        }
     }
 }

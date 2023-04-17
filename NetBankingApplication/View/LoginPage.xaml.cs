@@ -117,7 +117,7 @@ namespace NetBankingApplication.View
         public void SwitchToResetPasswordContainer()
         {
             // This will realize the deferred element.
-            //this.FindName("ResetGrid");
+            this.FindName("ResetGrid");
             ResetpasswordUsercontrol.UserId = _loginViewModel.CurrentUser.UserId;
             ResetpasswordUsercontrol.RedirectionAfterResetPassword += ResetpasswordUsercontrol_RedirectionAfterResetPassword;
 
@@ -170,6 +170,7 @@ namespace NetBankingApplication.View
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
+    if(ResetpasswordUsercontrol!=null)
             ResetpasswordUsercontrol.RedirectionAfterResetPassword -= ResetpasswordUsercontrol_RedirectionAfterResetPassword;
 
         }

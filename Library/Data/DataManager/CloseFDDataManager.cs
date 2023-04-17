@@ -68,6 +68,8 @@ namespace Library.Data.DataManager
                 ZResponse<bool> response = new ZResponse<bool>();
                 response.Response = "FD Closed successfully";
                 response.Data = true;
+                BankingNotification.BankingNotification.ValueChanged(request.FDAccount.FromAccount, request.UserId);
+
                 callback?.OnResponseSuccess(response);
             }
             catch(Exception ex)

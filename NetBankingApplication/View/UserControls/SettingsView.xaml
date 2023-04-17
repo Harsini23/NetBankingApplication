@@ -105,8 +105,8 @@
             </ControlTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer>
-        <Grid>
+    <ScrollViewer Background="{StaticResource AppBackground}">
+        <Grid Background="{StaticResource AppBackground}">
 
             <Grid Padding="30,0,30,30"
               Background="{ThemeResource AppBackground}"

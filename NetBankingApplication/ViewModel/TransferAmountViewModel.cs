@@ -1,4 +1,5 @@
 ﻿using Library;
+using Library.BankingNotification;
 using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
@@ -31,7 +32,7 @@ namespace NetBankingApplication.ViewModel
     public class PresenterTransferAmountCallback : IPresenterTransferAmountCallback
     {
         private TransferAmountViewModel _transferAmountViewModel;
-        public static event TransferAmountViewModel.ValueChangedEventHandler ValueChanged;
+        //public static event TransferAmountViewModel.ValueChangedEventHandler ValueChanged;
 
         public PresenterTransferAmountCallback()
         {
@@ -67,7 +68,8 @@ namespace NetBankingApplication.ViewModel
                 if (currentTransaction.Status)
                 {
                     _transferAmountViewModel.Status = "Success";
-                    ValueChanged?.Invoke(currentTransaction.FromAccount, _transferAmountViewModel.UserID);
+                    //ValueChanged?.Invoke(currentTransaction.FromAccount, _transferAmountViewModel.UserID);
+                  
                     if (_transferAmountViewModel.NewPayee)
                     {
                         //call to display usercontrol to suggest adding the payee

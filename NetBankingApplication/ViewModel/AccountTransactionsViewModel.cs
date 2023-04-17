@@ -1,4 +1,5 @@
 ﻿using Library;
+using Library.BankingNotification;
 using Library.Data.DataManager;
 using Library.Domain;
 using Library.Domain.UseCase;
@@ -23,13 +24,19 @@ namespace NetBankingApplication.ViewModel
        private  AccountTransactions _transaction;
         public AccountTransactionsViewModel()
         {
-            PresenterTransferAmountCallback.ValueChanged += TransferAmountViewModel_ValueChanged;
+            //PresenterTransferAmountCallback.ValueChanged += TransferAmountViewModel_ValueChanged;
+            BankingNotification.ValueChangedEventHandler += BankingNotification_ValueChangedEventHandler;
         }
 
-        private void TransferAmountViewModel_ValueChanged(string value,string user)
+        private void BankingNotification_ValueChangedEventHandler(string value, string user)
         {
-            GetAllTransactions(value,user);
+            GetAllTransactions(value, user);
         }
+
+        //private void TransferAmountViewModel_ValueChanged(string value,string user)
+        //{
+        //    GetAllTransactions(value,user);
+        //}
 
         public override void GetAllTransactions(string accountId, string userId)
         {
@@ -90,7 +97,7 @@ namespace NetBankingApplication.ViewModel
                     expense += i.Amount;
                     expenseCount++;
                 }
-                else
+                else if (i.TransactionType == Library.Model.Enum.TransactionType.Credited)
                 {
                     income += i.Amount;
                     incomeCount++;

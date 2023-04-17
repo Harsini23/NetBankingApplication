@@ -54,7 +54,9 @@ namespace NetBankingApplication.View.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-           // GetAllPayeeBaseViewModel.ChangeVisibility = this;
+            // GetAllPayeeBaseViewModel.ChangeVisibility = this;
+            this.FindName("AllTransactionListView");
+
             PayeeCollection.Clear();
             _getAllPayeeViewModel.GetAllPayee(User.UserId);
             PayeeCollection = _getAllPayeeViewModel.AllPayeeCollection;
