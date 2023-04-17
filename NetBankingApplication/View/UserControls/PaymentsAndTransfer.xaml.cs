@@ -27,6 +27,9 @@ namespace NetBankingApplication.View.UserControls
         private string _payeeName;
         private string _accountNumber;
         public static readonly DependencyProperty UserProperty = DependencyProperty.Register(nameof(User), typeof(User), typeof(PaymentsAndTransfer), new PropertyMetadata(null));
+        TransferAmount transferAmount;
+        TransactionHistory transactionHistory;
+
         public User User
         {
             get { return (User)GetValue(UserProperty); }
@@ -35,6 +38,8 @@ namespace NetBankingApplication.View.UserControls
         public PaymentsAndTransfer()
         {
             this.InitializeComponent();
+            transferAmount = new TransferAmount();
+            transactionHistory = new TransactionHistory();
         }
 
 
@@ -72,7 +77,14 @@ namespace NetBankingApplication.View.UserControls
 
             if (args.SelectedItem == Transfer)
             {
-                var transferAmount = new TransferAmount();
+                if (transferAmount == null)
+                {
+                    transferAmount = new TransferAmount();
+                }
+                if (transferAmount.FindName("TransferAmountOverallGrid") == null)
+                {
+                    transferAmount.FindName("TransferAmountOverallGrid");
+                }
                 transferAmount.User = User;
                 CurrentSelectedItem = transferAmount;
                 transferAmount.RaiseNotification += TransferAmount_RaiseNotification;
@@ -81,19 +93,24 @@ namespace NetBankingApplication.View.UserControls
             }
             else if (args.SelectedItem == ViewTransactions)
             {
-                TransactionHistory transactionHistory = new TransactionHistory();
+                if (transactionHistory == null)
+                {
+                    transactionHistory = new TransactionHistory();
+                }
+                   
+                transactionHistory.FindName("TransactionHistoryOverallGrid");
                 transactionHistory.User = User;
                 CurrentSelectedItem = transactionHistory;
             }
             else if (args.SelectedItem == AddPayee)
             {
-                AddPayeeView addPayeeView= new AddPayeeView();
+                AddPayeeView addPayeeView = new AddPayeeView();
                 addPayeeView.User = User;
                 if (_newPayeeSuggestionAccepted)
                 {
                     _newPayeeSuggestionAccepted = false;
                     addPayeeView.PassedPayeeName = _payeeName;
-                    addPayeeView.PassedAccountNumber=_accountNumber;
+                    addPayeeView.PassedAccountNumber = _accountNumber;
                 }
                 CurrentSelectedItem = addPayeeView;
                 addPayeeView.RaiseNotification += TransferAmount_RaiseNotification;

@@ -2434,6 +2434,8 @@
                         Value="{ThemeResource CheckBoxBorderBrushUnchecked}" />
                 <Setter Property="Padding"
                         Value="8,5,0,0" />
+                <Setter Property="BorderThickness"
+                        Value="0.4" />
                 <Setter Property="CornerRadius"
                         Value="10" />
                 <Setter Property="HorizontalAlignment"
@@ -2462,7 +2464,7 @@
                             <Grid x:Name="RootGrid"
                                   Background="{TemplateBinding Background}"
                                   BorderBrush="{TemplateBinding BorderBrush}"
-                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  BorderThickness="0.4"
                                   CornerRadius="10">
 
                                 <VisualStateManager.VisualStateGroups>
@@ -2967,7 +2969,7 @@
                                     <Rectangle x:Name="NormalRectangle"
                                                Fill="{ThemeResource CheckBoxCheckBackgroundFillUnchecked}"
                                                Stroke="{ThemeResource CheckBoxCheckBackgroundStrokeUnchecked}"
-                                               StrokeThickness="{ThemeResource CheckBoxBorderThemeThickness}"
+                                               StrokeThickness="0.7"
                                                UseLayoutRounding="False"
                                                Height="20"
                                                Width="20"

@@ -159,7 +159,7 @@
                                     Grid.RowSpan="2" CornerRadius="20"
                                     Grid.Column="0"
                                     FontFamily="Segoe MDL2 Assets"
-                                    Content="&#xE104;"
+                                    Content="{x:Bind ProfileUpdateIcon,Mode=OneWay}"
                                     Name="EditIcon" 
                                     Click="EditIcon_Click">
                                 <!--<Button.Flyout>
@@ -266,7 +266,10 @@
                                 VerticalAlignment="Center"
                                 Click="Cancel_Click"
                                 MinWidth="70"
-                                Style="{StaticResource AccentButtonStyleCustom}"
+                               BorderThickness="0.3"
+                                    BorderBrush="{ThemeResource OppositeColour}"
+                                    Background="{ThemeResource AppForegroundBg}"
+                                CornerRadius="5"
                                 Padding="10,5,10,5"></Button>
                     </StackPanel>
 

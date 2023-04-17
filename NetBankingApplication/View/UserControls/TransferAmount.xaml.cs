@@ -69,7 +69,7 @@ namespace NetBankingApplication.View.UserControls
             _getAllAccountsViewModel = PresenterService.GetInstance().Services.GetService<GetAllAccountsBaseViewModel>();
             _getAllAccountsViewModel.ZerobalanceView = this;
             _getAllAccountsViewModel.TransferAmountView = this;
-            MakeTransaction.IsEnabled = true;
+//            MakeTransaction.IsEnabled = true;
 
         }
         MenuFlyout selectPayeeList;
@@ -162,7 +162,7 @@ namespace NetBankingApplication.View.UserControls
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             //load list of payee with all details as payee object
-            
+            MakeTransaction.IsEnabled = true;
             allRecipientNames.Clear();
             allRecipientNames = _getAllPayeeViewModel.PayeeNames;
             allRecipients.Clear();

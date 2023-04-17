@@ -23,7 +23,7 @@
     </UserControl.Resources>
 
     <ScrollViewer >
-        <Grid>
+        <Grid x:Load="False" x:Name="TransferAmountOverallGrid">
             <Grid x:Name="TransferAmountDetails"  HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"   Width="360">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -44,7 +44,13 @@
                         <TextBlock FontSize="16" Text="Select Recipient" ></TextBlock>
                         <TextBlock FontSize="16"   FontFamily="Segoe MDL2 Assets" Text="&#xEA21;" Foreground="red"  Padding="5,5,0,0"></TextBlock>
                     </StackPanel>
-                    <DropDownButton Name="SelectPayee" Content="Select payee" HorizontalAlignment="Left" HorizontalContentAlignment="Left" MinWidth="350"   Style="{ThemeResource DropdownStyle}" >
+                    <DropDownButton Name="SelectPayee"
+                                    Content="Select payee"
+                                    HorizontalAlignment="Left"
+                                    HorizontalContentAlignment="Left"
+                                    MinWidth="350"
+                                    Background="{ThemeResource AppForegroundBg}"
+                                    Style="{ThemeResource DropdownStyle}" >
                         <DropDownButton.Flyout >
                             <MenuFlyout  Opening="MenuFlyout_Opened" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
                                 <MenuFlyoutItem CornerRadius="10"></MenuFlyoutItem>
@@ -75,8 +81,8 @@
                         <TextBlock Text="Select Your Account" FontSize="16" ></TextBlock>
                         <TextBlock FontSize="16"   FontFamily="Segoe MDL2 Assets" Text="&#xEA21;" Foreground="red"  Padding="5,5,0,0"></TextBlock>
                     </StackPanel>
-                  
-                    <DropDownButton HorizontalAlignment="Left" Name="SelectAccount"   Style="{ThemeResource DropdownStyle}" Content="Select From Account" HorizontalContentAlignment="Left" MinWidth="350" MinHeight="30" >
+
+                    <DropDownButton Background="{ThemeResource AppForegroundBg      }" HorizontalAlignment="Left" Name="SelectAccount"   Style="{ThemeResource DropdownStyle}" Content="Select From Account" HorizontalContentAlignment="Left" MinWidth="350" MinHeight="30" >
                         <DropDownButton.Flyout >
                             <MenuFlyout x:Name="AccountDropdown"   Opening="AccountDropdown_Opening" Placement="Bottom" MenuFlyoutPresenterStyle="{ThemeResource DropDownMenuFlyoutStyle}">
                                 <!--<StackPanel MinWidth="330" CornerRadius="5"  Background="White" x:Name="AccountBalance"></StackPanel>-->

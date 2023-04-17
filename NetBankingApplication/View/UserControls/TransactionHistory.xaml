@@ -472,7 +472,7 @@
     </UserControl.Resources>
 
     <Grid ScrollViewer.HorizontalScrollMode="Enabled"
-          HorizontalAlignment="Stretch">
+          HorizontalAlignment="Stretch" x:Name="TransactionHistoryOverallGrid" x:Load="False">
 
         <TextBlock Visibility="{x:Bind _transactionViewModel.TextBoxVisibility,Mode=OneWay}"
                    Name="EmptyDataDisplay"
@@ -486,7 +486,6 @@
                   ItemsSource="{Binding Source={StaticResource TransactionSource}}"
                   IsItemClickEnabled="True"
                   SelectionMode="Single"
-                  x:DeferLoadStrategy="Lazy"
                   x:Name="AllTransactionListView"
                   ItemTemplate="{StaticResource WideTemplate}"
                   ItemContainerStyle="{StaticResource TransactionItemContainer}"

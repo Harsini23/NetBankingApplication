@@ -19,7 +19,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="BankAccountOuterGrid" >
+    <Grid x:Name="BankAccountOuterGrid"  >
         <NavigationView x:Name="BankAccountNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top" Style="{StaticResource NavigationViewTitleHeaderContentControlTextStyle}"
     SelectionFollowsFocus="Enabled" IsBackButtonVisible="Collapsed" SelectionChanged="BankAccountNavigation_SelectionChanged"  CornerRadius="20">
             <NavigationView.MenuItems>

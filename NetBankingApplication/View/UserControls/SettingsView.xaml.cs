@@ -30,12 +30,13 @@ namespace NetBankingApplication.View.UserControls
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SettingsView : Page, IClosePopUp, ISettingsView, INotifyPropertyChanged, IUserUpdateNotification, IChangePasswordNotification
+    public sealed partial class SettingsView : Page, ISettingsView, INotifyPropertyChanged, IUserUpdateNotification
     {
        // private User currentuser;
        // private char UserInitial;
         private LoginBaseViewModel _loginViewModel;
         private UpdateUserBaseViewModel _updateViewModel;
+   
         private PasswordVerificationBaseViewModel _passwordVerificationViewModel;
         ResetPassword myUserControl;
 
@@ -46,9 +47,41 @@ namespace NetBankingApplication.View.UserControls
         public User User
         {
             get { return (User)GetValue(UserProperty); }
-            set { SetValue(UserProperty, value); }
+            set { SetValue(UserProperty, value); 
+                if (User.ProfilePath != null)
+                {
+                    IsProfileEnabled = true;
+                }
+            }
         }
-      
+        private bool _isProfileEnabled;
+        public bool IsProfileEnabled
+        {
+            get { return _isProfileEnabled; }
+            set
+            {
+                _isProfileEnabled=value;
+                NotifyPropertyChanged();
+                if (value == true) {
+                    ProfileUpdateIcon = "";
+
+                }
+                else
+                {
+                    ProfileUpdateIcon = "";
+                }
+            }
+        }
+        private string _profileUpdateIcon;
+        public string ProfileUpdateIcon
+        {
+            get { return _profileUpdateIcon; }
+            set
+            {
+                _profileUpdateIcon = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         private string _notificationMessage;
         public string NotificationMessage
@@ -68,9 +101,9 @@ namespace NetBankingApplication.View.UserControls
         public SettingsView()
         {
             this.InitializeComponent();
-            _loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
-            _loginViewModel.ClosePopUp = this;
-            _loginViewModel.settingsNotification = this;
+            //_loginViewModel = PresenterService.GetInstance().Services.GetService<LoginBaseViewModel>();
+            //_loginViewModel.ClosePopUp = this;
+            //_loginViewModel.settingsNotification = this;
             _updateViewModel = PresenterService.GetInstance().Services.GetService<UpdateUserBaseViewModel>();
             _updateViewModel.settingsView = this;
             _passwordVerificationViewModel = PresenterService.GetInstance().Services.GetService<PasswordVerificationBaseViewModel>();
@@ -118,21 +151,21 @@ namespace NetBankingApplication.View.UserControls
 
         }
 
-        public void closePopup()
-        {
-            ResetPasswordGrid.IsOpen = false;
-            InAppNotification.Show(_loginViewModel.ResetPasswordResponseValue, 3000);
-            NotificationMessage = _loginViewModel.ResetPasswordResponseValue;
-            //AcknowledgementDialogue.ShowAsync();
-            //DispatcherTimer timer = new DispatcherTimer();
-            //timer.Interval = TimeSpan.FromSeconds(1);
-            //timer.Tick += (s, args) =>
-            //{
-            //    AcknowledgementDialogue.Hide();
-            //    timer.Stop();
-            //};
-            //timer.Start();
-        }
+        //public void closePopup()
+        //{
+        //    ResetPasswordGrid.IsOpen = false;
+        //    InAppNotification.Show(_loginViewModel.ResetPasswordResponseValue, 3000);
+        //    NotificationMessage = _loginViewModel.ResetPasswordResponseValue;
+        //    //AcknowledgementDialogue.ShowAsync();
+        //    //DispatcherTimer timer = new DispatcherTimer();
+        //    //timer.Interval = TimeSpan.FromSeconds(1);
+        //    //timer.Tick += (s, args) =>
+        //    //{
+        //    //    AcknowledgementDialogue.Hide();
+        //    //    timer.Stop();
+        //    //};
+        //    //timer.Start();
+        //}
         private void TextBox_OnBeforeTextChanging(TextBox sender,
                                        TextBoxBeforeTextChangingEventArgs args)
         {
@@ -265,11 +298,11 @@ namespace NetBankingApplication.View.UserControls
             InAppNotification.Dismiss();
         }
 
-        public void ChangePasswordNotification()
-        {
-            InAppNotification.Show(_loginViewModel.ResetPasswordResponseValue, 3000);
-            NotificationMessage = _loginViewModel.ResetPasswordResponseValue;
-        }
+        //public void ChangePasswordNotification()
+        //{
+        //    InAppNotification.Show(_loginViewModel.ResetPasswordResponseValue, 3000);
+        //    NotificationMessage = _loginViewModel.ResetPasswordResponseValue;
+        //}
 
         private void ResetPasswordGrid_Closed(object sender, object e)
         {
@@ -297,6 +330,7 @@ namespace NetBankingApplication.View.UserControls
             //If a file was selected, save it in the app folder
             if (file != null)
             {
+                IsProfileEnabled = true;
                 StorageFolder appFolder = ApplicationData.Current.LocalFolder;
                 StorageFile newFile = await file.CopyAsync(appFolder, file.Name, NameCollisionOption.ReplaceExisting);
 
@@ -332,6 +366,14 @@ namespace NetBankingApplication.View.UserControls
         {
             _updateViewModel.CurrentUser = User;
             _updateViewModel.CurrentUserInitial = User.UserName.Substring(0, 1)[0];
+            if (_updateViewModel.CurrentUser.ProfilePath != null)
+            {
+                IsProfileEnabled = true;
+            }
+            else
+            {
+                IsProfileEnabled = false;
+            }
         }
 
         private void EditProfile_Click(object sender, RoutedEventArgs e)
@@ -374,10 +416,13 @@ namespace NetBankingApplication.View.UserControls
 
                 // Attach the menu flyout to the button
                 menuFlyout.ShowAt(EditIcon);
+                IsProfileEnabled = true;
             }
             else
             {
                 SetProfile();
+                IsProfileEnabled = false;
+                //    IsProfileEnabled = true;
             }
            // SetProfile();
         }
@@ -395,7 +440,7 @@ namespace NetBankingApplication.View.UserControls
                 PAN = _updateViewModel.CurrentUser.PAN,
                 ProfilePath = null
             };
-
+            IsProfileEnabled = false;
             //  UpdateCurrentPage();
             ProfilePath = null;
             _updateViewModel.UpdateUser(updatedUserValue);
@@ -404,6 +449,7 @@ namespace NetBankingApplication.View.UserControls
         private void MenuItem1_Click(object sender, RoutedEventArgs e)
         {
             SetProfile();
+            IsProfileEnabled = true;
         }
 
         public void NavigateAfterReset(string response)

@@ -88,6 +88,13 @@ namespace NetBankingApplication.ViewModel
                     _getAllPayeeViewModel.AllPayeeCollection[index] = payeeToUpdate;
 
                 }
+                var sortedPayee = new ObservableCollection<Payee>(_getAllPayeeViewModel.AllPayeeCollection.OrderBy(i => i.PayeeName).ToList());
+                _getAllPayeeViewModel.AllPayeeCollection.Clear();
+                foreach(var i in sortedPayee)
+                {
+                    _getAllPayeeViewModel.AllPayeeCollection.Add(i);
+                }
+
             });
               
         }
