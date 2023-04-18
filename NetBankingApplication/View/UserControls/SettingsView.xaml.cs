@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Capture;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
@@ -32,11 +33,11 @@ namespace NetBankingApplication.View.UserControls
     /// </summary>
     public sealed partial class SettingsView : Page, ISettingsView, INotifyPropertyChanged, IUserUpdateNotification
     {
-       // private User currentuser;
-       // private char UserInitial;
+        // private User currentuser;
+        // private char UserInitial;
         private LoginBaseViewModel _loginViewModel;
         private UpdateUserBaseViewModel _updateViewModel;
-   
+
         private PasswordVerificationBaseViewModel _passwordVerificationViewModel;
         ResetPassword myUserControl;
 
@@ -47,7 +48,9 @@ namespace NetBankingApplication.View.UserControls
         public User User
         {
             get { return (User)GetValue(UserProperty); }
-            set { SetValue(UserProperty, value); 
+            set
+            {
+                SetValue(UserProperty, value);
                 if (User.ProfilePath != null)
                 {
                     IsProfileEnabled = true;
@@ -60,9 +63,10 @@ namespace NetBankingApplication.View.UserControls
             get { return _isProfileEnabled; }
             set
             {
-                _isProfileEnabled=value;
+                _isProfileEnabled = value;
                 NotifyPropertyChanged();
-                if (value == true) {
+                if (value == true)
+                {
                     ProfileUpdateIcon = "";
 
                 }
@@ -136,18 +140,18 @@ namespace NetBankingApplication.View.UserControls
             //ResetPasswordGrid.HorizontalOffset = horizontalOffset;
             //ResetPasswordGrid.VerticalOffset = verticalOffset;
             var password = ResetPasswordPasswordBox.Password;
-           
+
             if (string.IsNullOrEmpty(password))
             {
                 _passwordVerificationViewModel.TextBoxVisibility = Visibility.Visible;
-                _passwordVerificationViewModel.ResponseValue="Kindly enter old Password";
+                _passwordVerificationViewModel.ResponseValue = "Kindly enter old Password";
             }
             else
             {
                 //send and check if old password matches
-                _passwordVerificationViewModel.CheckPassword(_updateViewModel.CurrentUser.UserId,password);
+                _passwordVerificationViewModel.CheckPassword(_updateViewModel.CurrentUser.UserId, password);
             }
-         
+
 
         }
 
@@ -191,7 +195,7 @@ namespace NetBankingApplication.View.UserControls
                 UserProfileError.Visibility = Visibility.Visible;
                 UserProfileError.Text = "Check your emaild id;)";
             }
-            else if (EmailId.Text.Trim() == _updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == _updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == _updateViewModel.CurrentUser.MobileNumber && ProfilePath==null)
+            else if (EmailId.Text.Trim() == _updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == _updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == _updateViewModel.CurrentUser.MobileNumber && ProfilePath == null)
             {
                 UserProfileError.Visibility = Visibility.Visible;
                 UserProfileError.Text = "No changes to be saved;)";
@@ -218,7 +222,7 @@ namespace NetBankingApplication.View.UserControls
                     ProfilePath = ProfilePathUri
                 };
 
-              //  UpdateCurrentPage();
+                //  UpdateCurrentPage();
                 ProfilePath = null;
                 _updateViewModel.UpdateUser(updatedUserValue);
                 UserProfileError.Visibility = Visibility.Collapsed;
@@ -263,7 +267,7 @@ namespace NetBankingApplication.View.UserControls
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
             UserProfileError.Visibility = Visibility.Collapsed;
-            if(EmailId.Text.Trim() == _updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == _updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == _updateViewModel.CurrentUser.MobileNumber)
+            if (EmailId.Text.Trim() == _updateViewModel.CurrentUser.EmailId && Name.Text.Trim() == _updateViewModel.CurrentUser.UserName && long.Parse(Phonenumber.Text.Trim()) == _updateViewModel.CurrentUser.MobileNumber)
             {
                 SaveUserProfile.IsEnabled = false;
             }
@@ -285,7 +289,7 @@ namespace NetBankingApplication.View.UserControls
             ResetPasswordPasswordBox.Password = String.Empty;
         }
 
-       
+
 
         public void UpdateUserNotification()
         {
@@ -313,8 +317,46 @@ namespace NetBankingApplication.View.UserControls
 
         private async void Initial_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            CameraCaptureUI captureUI = new CameraCaptureUI();
+            captureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Jpeg;
+            captureUI.PhotoSettings.CroppedSizeInPixels = new Size(200, 200);
 
-            SetProfile();
+            StorageFile photo = await captureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
+
+            if (photo != null)
+            {
+                // User cancelled photo capture
+                //return;
+                StorageFolder destinationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("ProfilePhotoFolder", CreationCollisionOption.OpenIfExists);
+
+                StorageFile newFile = await photo.CopyAsync(destinationFolder, "ProfilePhoto.jpg", NameCollisionOption.ReplaceExisting);
+                await photo.DeleteAsync();
+
+
+                var temp = new BitmapImage(new Uri(newFile.Path));
+                ProfilePath = temp.UriSource.LocalPath.ToString();
+                Initial.ProfilePicture = temp;
+
+                //update db
+                var updatedUserValue = new User
+                {
+                    UserId = _updateViewModel.CurrentUser.UserId,
+                    EmailId = _updateViewModel.CurrentUser.EmailId,
+                    UserName = _updateViewModel.CurrentUser.UserName,
+                    MobileNumber = _updateViewModel.CurrentUser.MobileNumber,
+                    IsBlocked = _updateViewModel.CurrentUser.IsBlocked,
+                    PAN = _updateViewModel.CurrentUser.PAN,
+                    ProfilePath = ProfilePath
+                };
+
+                //  UpdateCurrentPage();
+
+                _updateViewModel.UpdateUser(updatedUserValue);
+                ProfilePath = null;
+
+            }
+            return;
+            // SetProfile();
         }
         private async void SetProfile()
         {
@@ -353,7 +395,7 @@ namespace NetBankingApplication.View.UserControls
                 };
 
                 //  UpdateCurrentPage();
-            
+
                 _updateViewModel.UpdateUser(updatedUserValue);
                 ProfilePath = null;
 
@@ -399,11 +441,11 @@ namespace NetBankingApplication.View.UserControls
                 var menuFlyout = new MenuFlyout()
                 {
                     Placement = FlyoutPlacementMode.Bottom,
-                    LightDismissOverlayMode=LightDismissOverlayMode.Auto,
+                    LightDismissOverlayMode = LightDismissOverlayMode.Auto,
                     MenuFlyoutPresenterStyle = (Style)this.Resources["MenuDropDownContentStyle"],
-                    
+
                 };
-                 
+
                 // Create the menu flyout items
                 var menuItem1 = new MenuFlyoutItem { Text = "Set new" };
                 var menuItem2 = new MenuFlyoutItem { Text = "Remove" };
@@ -424,7 +466,7 @@ namespace NetBankingApplication.View.UserControls
                 IsProfileEnabled = false;
                 //    IsProfileEnabled = true;
             }
-           // SetProfile();
+            // SetProfile();
         }
 
         private void MenuItem2_Click(object sender, RoutedEventArgs e)
@@ -457,6 +499,32 @@ namespace NetBankingApplication.View.UserControls
             ResetPasswordGrid.IsOpen = false;
             InAppNotification.Show(response, 3000);
             NotificationMessage = response;
+        }
+
+        private void Initial_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            PersonPictureGrid.Opacity = 1;
+            if (_updateViewModel.CurrentUser.ProfilePath is string imagePath)
+            {
+                BitmapImage bitmapImage = new BitmapImage();
+                //bitmapImage.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+                if (imagePath != null || string.IsNullOrWhiteSpace(imagePath))
+                {
+                    bitmapImage = new BitmapImage(new Uri(imagePath));
+                }
+                Initial.ProfilePicture = bitmapImage;
+            }
+            else
+            {
+                Initial.ProfilePicture = null;
+            }
+        }
+
+        private void Initial_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            PersonPictureGrid.Opacity = 0.3;
+            Initial.ProfilePicture = new BitmapImage(new Uri("ms-appx:///Assets/cam.jfif"));
+
         }
 
         //private void Initial_PointerEntered(object sender, PointerRoutedEventArgs e)

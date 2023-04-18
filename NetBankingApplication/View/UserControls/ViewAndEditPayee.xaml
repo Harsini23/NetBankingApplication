@@ -67,7 +67,7 @@
                       IsItemClickEnabled="True"
                       x:Name="AllTransactionListView"
                       SelectionMode="None"
-                      x:DeferLoadStrategy="Lazy">
+                      >
                 <ItemsControl>
                     <ItemsControl.ItemContainerTransitions>
                         <TransitionCollection></TransitionCollection>
@@ -88,19 +88,19 @@
                                 <RowDefinition Height="1*"></RowDefinition>
                                 <RowDefinition Height="1*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Grid.ChildrenTransitions>
+                            <!--<Grid.ChildrenTransitions>
                                 <TransitionCollection>
                                     <EntranceThemeTransition/>
                                     <AddDeleteThemeTransition/>
                                 </TransitionCollection>
-                            </Grid.ChildrenTransitions>
+                            </Grid.ChildrenTransitions>-->
 
                             <StackPanel Margin="20,0,0,0" Grid.RowSpan="2">
                                 <TextBlock   Text="{x:Bind PayeeName}"
                                              TextTrimming="CharacterEllipsis"
                                              FontWeight="Bold"
                                              Margin="10"
-                                             x:Phase="0"
+                                           
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Left"
                                              x:Name="PayeeNameTextbox">
@@ -125,7 +125,7 @@
                                        FontWeight="Bold"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
-                                       x:Phase="24"
+                                  
                                        Text="{x:Bind AccountNumber}">
                                  <ToolTipService.ToolTip>
                                         <ToolTip Content="{x:Bind AccountNumber}"
@@ -142,7 +142,6 @@
 
                             <TextBlock  Grid.Column="2"
                                         Text="{x:Bind BankName}"
-                                        x:Phase="4"
                                         TextTrimming="CharacterEllipsis"
                                         Margin="10"
                                         FontWeight="Bold"

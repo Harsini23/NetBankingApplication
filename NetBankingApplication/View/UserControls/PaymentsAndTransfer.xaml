@@ -11,6 +11,7 @@
     d:DesignWidth="400">
     <UserControl.Resources>
         <ResourceDictionary>
+           
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/StyleDictionary"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
@@ -28,6 +29,7 @@
                                 Content="&#xE106;"  Style="{ThemeResource ButtonStyling}" Click="Button_Click"></Button>
                 </Grid>
             </ControlTemplate>
+          
         </ResourceDictionary>
     </UserControl.Resources>
     <!--<VisualStateManager.VisualStateGroups>
@@ -52,7 +54,7 @@
     </VisualStateManager.VisualStateGroups>-->
     
     <Grid x:Name="PaymentandTransferNavigation" >
-            <NavigationView  x:Name="PaymentsAndTransferNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top"
+            <NavigationView Transitions="{x:Null}"  x:Name="PaymentsAndTransferNavigation"  IsSettingsVisible="False" PaneDisplayMode="Top"
     SelectionFollowsFocus="Enabled" IsBackButtonVisible="Collapsed" SelectionChanged="PaymentsAndTransferNavigation_SelectionChanged"  Style="{StaticResource NavigationViewTitleHeaderContentControlTextStyle}">
         
             <NavigationView.MenuItems >
@@ -61,8 +63,19 @@
                 <NavigationViewItem  Content="Add Payee" x:Name="AddPayee" />
                 <NavigationViewItem  Content="Edit Payee" x:Name="ViewAndEditPayee"/>
             </NavigationView.MenuItems>
-
-           <ContentControl Margin="10" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" x:Name="PaymentAndTransactionContentControl" Content="{x:Bind CurrentSelectedItem,Mode=OneWay}" CornerRadius="70" />
+            <ContentControl Margin="10"
+                            VerticalContentAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            x:Name="PaymentAndTransactionContentControl"
+                            Content="{x:Bind CurrentSelectedItem,Mode=OneWay}"
+                            CornerRadius="70" Transitions="{x:Null}">
+                <!--<ContentControl.ContentTransitions >
+                    <TransitionCollection>
+                    </TransitionCollection>
+                </ContentControl.ContentTransitions>-->
+            </ContentControl>
         </NavigationView>
         <controls:InAppNotification  Content="{x:Bind NotificationMessage,Mode=OneWay}" Margin="5,5,0,30" Template="{StaticResource InAppNotificationTemplate1}" Width="400" HorizontalContentAlignment="Left" HorizontalAlignment="Right" Height="70"  x:Name="InAppNotification" Background="{ThemeResource NotificationColour}" BorderBrush="Black" BorderThickness="0.5" CornerRadius="10"  ShowDismissButton="True"  >
         </controls:InAppNotification>

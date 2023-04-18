@@ -123,6 +123,7 @@ namespace NetBankingApplication.View.UserControls
         {
             var selectedItem = sender as MenuFlyoutItem;
             AccountTypeBox.Content = selectedItem.Text;
+            CallCalculate();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -181,6 +182,7 @@ namespace NetBankingApplication.View.UserControls
             _fromAccount = selectedItem.Text;
             SelectAccount.Content = selectedItem.Text;
             _getAllAccountsViewModel.CurrentAccountBalance = selectedItem.Name;
+            CallCalculate();
         }
 
         private void CalculateFD_Click(object sender, RoutedEventArgs e)
@@ -224,6 +226,7 @@ namespace NetBankingApplication.View.UserControls
         {
             var selectedItem = sender as MenuFlyoutItem;
             CustomerTypeBox.Content = selectedItem.Text;
+            CallCalculate();
         }
         private void ClearUI()
         {
@@ -354,6 +357,35 @@ namespace NetBankingApplication.View.UserControls
                 MonthComboBox.IsEnabled = true;
                 DayComboBox.IsEnabled = true;
             }
+            CallCalculate();
+        }
+        public void CallCalculate()
+        {
+            BasicValidation();
+            if (AccountTypeBox.Content != null && CustomerTypeBox.Content != null && !string.IsNullOrEmpty(AmountTextBox.Text) && (_selectedMonths != 0 || _selectedYears != 0 || _selectedDays != 0))
+            {
+                _accountType = (FDType)Enum.Parse(typeof(FDType), AccountTypeBox.Content as string);
+                _customerType = (CustomerType)Enum.Parse(typeof(CustomerType), CustomerTypeBox.Content as string);
+                if ((double.Parse(AmountTextBox.Text) > 0.0))
+                {
+                    _fDAccountViewModel.OpenAccount = false;
+                    _fDAccountViewModel.CalculateFD(double.Parse(AmountTextBox.Text), _selectedYears, _selectedMonths, _selectedDays, _customerType, _accountType, User.UserId);
+                }
+            }
+        }
+        private void AmountTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            CallCalculate();
+        }
+
+        private void MonthComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CallCalculate();
+        }
+
+        private void DayComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CallCalculate();
         }
     }
 }

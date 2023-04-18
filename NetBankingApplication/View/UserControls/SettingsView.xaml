@@ -142,16 +142,22 @@
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <PersonPicture HorizontalAlignment="Left"
-                                       MaxWidth="90"
-                                       Margin="0,10,10,0"
-                                       MaxHeight="80"
-                                       Grid.RowSpan="2"
-                                       Name="Initial"
-                                       ProfilePicture="{x:Bind _updateViewModel.CurrentUser.ProfilePath,Mode=OneWay,Converter={StaticResource StringToBitmap}}"
-                                       Initials="{x:Bind _updateViewModel.CurrentUserInitial,Mode=OneWay}"
-                                       Grid.Column="0"
-                                       Tapped="Initial_Tapped"></PersonPicture>
+                            <Grid x:Name="PersonPictureGrid"
+                                  Grid.RowSpan="2">
+                                <PersonPicture HorizontalAlignment="Left"
+                                               MaxWidth="90"
+                                               Margin="0,10,10,0"
+                                               MaxHeight="80"
+                                               PointerExited="Initial_PointerExited"
+                                               PointerEntered="Initial_PointerEntered"
+                                               Name="Initial"
+                                               ProfilePicture="{x:Bind _updateViewModel.CurrentUser.ProfilePath,Mode=OneWay,Converter={StaticResource StringToBitmap}}"
+                                               Initials="{x:Bind _updateViewModel.CurrentUserInitial,Mode=OneWay}"
+                                               Grid.Column="0"
+                                               Tapped="Initial_Tapped">
+                                </PersonPicture>
+                            </Grid>
+                 
                             <Button Width="30"
                                     Height="30"
                                     Margin="60,50,10,0"

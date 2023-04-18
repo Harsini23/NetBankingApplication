@@ -285,6 +285,7 @@
                          VerticalAlignment="Center"
                          Width="260"
                          InputScope="CurrencyAmount"
+                         LostFocus="AmountTextBox_LostFocus"
                          x:Name="AmountTextBox">
                     <TextBox.Header>
                         <TextBlock>
@@ -333,14 +334,14 @@
                                   MinWidth="85"
                                   SelectedIndex="-1"
                                   CornerRadius="5"
-                                  BorderThickness="0.4"></ComboBox>
+                                  BorderThickness="0.4" SelectionChanged="MonthComboBox_SelectionChanged"></ComboBox>
                         <ComboBox x:Name="DayComboBox"
                                   PlaceholderText="Day"
                                   Margin="5"
                                   MinWidth="78"
                                   CornerRadius="5"
                                   BorderThickness="0.4"
-                                  SelectedIndex="-1"></ComboBox>
+                                  SelectedIndex="-1" SelectionChanged="DayComboBox_SelectionChanged"></ComboBox>
                     </StackPanel>
 
                 </Grid>
